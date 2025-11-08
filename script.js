@@ -1,547 +1,892 @@
-// Schema Markup Generator - Lightweight JavaScript
+/* Core Web Vitals Optimized CSS - Lightweight Design */
 
-// Schema field definitions for each type
-const schemaFields = {
-    Organization: [
-        { name: 'name', label: 'Organization Name *', type: 'text', required: true },
-        { name: 'url', label: 'Website URL *', type: 'url', required: true },
-        { name: 'logo', label: 'Logo URL', type: 'url', required: false },
-        { name: 'description', label: 'Description', type: 'textarea', required: false },
-        { name: 'telephone', label: 'Phone Number', type: 'tel', required: false },
-        { name: 'email', label: 'Email', type: 'email', required: false },
-        { name: 'address', label: 'Street Address', type: 'text', required: false },
-        { name: 'city', label: 'City', type: 'text', required: false },
-        { name: 'state', label: 'State/Region', type: 'text', required: false },
-        { name: 'postalCode', label: 'Postal Code', type: 'text', required: false },
-        { name: 'country', label: 'Country', type: 'text', required: false }
-    ],
-    LocalBusiness: [
-        { name: 'name', label: 'Business Name *', type: 'text', required: true },
-        { name: 'image', label: 'Business Image URL', type: 'url', required: false },
-        { name: 'telephone', label: 'Phone Number *', type: 'tel', required: true },
-        { name: 'address', label: 'Street Address *', type: 'text', required: true },
-        { name: 'city', label: 'City *', type: 'text', required: true },
-        { name: 'state', label: 'State/Region *', type: 'text', required: true },
-        { name: 'postalCode', label: 'Postal Code *', type: 'text', required: true },
-        { name: 'country', label: 'Country *', type: 'text', required: true },
-        { name: 'priceRange', label: 'Price Range (e.g. $$)', type: 'text', required: false },
-        { name: 'openingHours', label: 'Opening Hours (e.g. Mo-Fr 09:00-17:00)', type: 'text', required: false }
-    ],
-    Product: [
-        { name: 'name', label: 'Product Name *', type: 'text', required: true },
-        { name: 'image', label: 'Product Image URL *', type: 'url', required: true },
-        { name: 'description', label: 'Product Description *', type: 'textarea', required: true },
-        { name: 'brand', label: 'Brand Name', type: 'text', required: false },
-        { name: 'sku', label: 'SKU', type: 'text', required: false },
-        { name: 'price', label: 'Price *', type: 'number', required: true },
-        { name: 'priceCurrency', label: 'Currency Code (e.g. USD) *', type: 'text', required: true },
-        { name: 'availability', label: 'Availability (InStock/OutOfStock)', type: 'text', required: false },
-        { name: 'ratingValue', label: 'Rating Value (1-5)', type: 'number', required: false },
-        { name: 'reviewCount', label: 'Number of Reviews', type: 'number', required: false }
-    ],
-    Article: [
-        { name: 'headline', label: 'Article Headline *', type: 'text', required: true },
-        { name: 'image', label: 'Article Image URL *', type: 'url', required: true },
-        { name: 'author', label: 'Author Name *', type: 'text', required: true },
-        { name: 'publisher', label: 'Publisher Name *', type: 'text', required: true },
-        { name: 'publisherLogo', label: 'Publisher Logo URL *', type: 'url', required: true },
-        { name: 'datePublished', label: 'Published Date (YYYY-MM-DD) *', type: 'date', required: true },
-        { name: 'dateModified', label: 'Modified Date (YYYY-MM-DD)', type: 'date', required: false },
-        { name: 'description', label: 'Article Description', type: 'textarea', required: false }
-    ],
-    FAQPage: [
-        { name: 'question1', label: 'Question 1 *', type: 'text', required: true },
-        { name: 'answer1', label: 'Answer 1 *', type: 'textarea', required: true },
-        { name: 'question2', label: 'Question 2', type: 'text', required: false },
-        { name: 'answer2', label: 'Answer 2', type: 'textarea', required: false },
-        { name: 'question3', label: 'Question 3', type: 'text', required: false },
-        { name: 'answer3', label: 'Answer 3', type: 'textarea', required: false }
-    ],
-    HowTo: [
-        { name: 'name', label: 'How-To Title *', type: 'text', required: true },
-        { name: 'description', label: 'Description *', type: 'textarea', required: true },
-        { name: 'image', label: 'Image URL', type: 'url', required: false },
-        { name: 'totalTime', label: 'Total Time (e.g. PT1H30M)', type: 'text', required: false },
-        { name: 'step1', label: 'Step 1 *', type: 'textarea', required: true },
-        { name: 'step2', label: 'Step 2', type: 'textarea', required: false },
-        { name: 'step3', label: 'Step 3', type: 'textarea', required: false }
-    ],
-    Recipe: [
-        { name: 'name', label: 'Recipe Name *', type: 'text', required: true },
-        { name: 'image', label: 'Recipe Image URL *', type: 'url', required: true },
-        { name: 'author', label: 'Author Name *', type: 'text', required: true },
-        { name: 'description', label: 'Description', type: 'textarea', required: false },
-        { name: 'prepTime', label: 'Prep Time (e.g. PT30M)', type: 'text', required: false },
-        { name: 'cookTime', label: 'Cook Time (e.g. PT1H)', type: 'text', required: false },
-        { name: 'totalTime', label: 'Total Time (e.g. PT1H30M)', type: 'text', required: false },
-        { name: 'recipeYield', label: 'Servings (e.g. 4 servings)', type: 'text', required: false },
-        { name: 'calories', label: 'Calories', type: 'text', required: false }
-    ],
-    Event: [
-        { name: 'name', label: 'Event Name *', type: 'text', required: true },
-        { name: 'startDate', label: 'Start Date & Time (YYYY-MM-DDTHH:MM) *', type: 'datetime-local', required: true },
-        { name: 'endDate', label: 'End Date & Time (YYYY-MM-DDTHH:MM)', type: 'datetime-local', required: false },
-        { name: 'location', label: 'Location Name *', type: 'text', required: true },
-        { name: 'address', label: 'Street Address', type: 'text', required: false },
-        { name: 'city', label: 'City', type: 'text', required: false },
-        { name: 'description', label: 'Event Description', type: 'textarea', required: false },
-        { name: 'image', label: 'Event Image URL', type: 'url', required: false },
-        { name: 'price', label: 'Ticket Price', type: 'number', required: false },
-        { name: 'priceCurrency', label: 'Currency (e.g. USD)', type: 'text', required: false }
-    ],
-    Person: [
-        { name: 'name', label: 'Full Name *', type: 'text', required: true },
-        { name: 'jobTitle', label: 'Job Title', type: 'text', required: false },
-        { name: 'image', label: 'Photo URL', type: 'url', required: false },
-        { name: 'url', label: 'Website URL', type: 'url', required: false },
-        { name: 'telephone', label: 'Phone Number', type: 'tel', required: false },
-        { name: 'email', label: 'Email', type: 'email', required: false },
-        { name: 'address', label: 'Street Address', type: 'text', required: false },
-        { name: 'city', label: 'City', type: 'text', required: false },
-        { name: 'description', label: 'Bio/Description', type: 'textarea', required: false }
-    ],
-    Review: [
-        { name: 'itemReviewed', label: 'Item Reviewed (Name) *', type: 'text', required: true },
-        { name: 'author', label: 'Reviewer Name *', type: 'text', required: true },
-        { name: 'reviewRating', label: 'Rating (1-5) *', type: 'number', required: true },
-        { name: 'reviewBody', label: 'Review Text *', type: 'textarea', required: true },
-        { name: 'datePublished', label: 'Review Date (YYYY-MM-DD)', type: 'date', required: false }
-    ],
-    VideoObject: [
-        { name: 'name', label: 'Video Title *', type: 'text', required: true },
-        { name: 'description', label: 'Video Description *', type: 'textarea', required: true },
-        { name: 'thumbnailUrl', label: 'Thumbnail URL *', type: 'url', required: true },
-        { name: 'uploadDate', label: 'Upload Date (YYYY-MM-DD) *', type: 'date', required: true },
-        { name: 'duration', label: 'Duration (e.g. PT1M33S)', type: 'text', required: false },
-        { name: 'contentUrl', label: 'Video URL', type: 'url', required: false }
-    ],
-    BreadcrumbList: [
-        { name: 'item1Name', label: 'Level 1 Name (e.g. Home) *', type: 'text', required: true },
-        { name: 'item1Url', label: 'Level 1 URL *', type: 'url', required: true },
-        { name: 'item2Name', label: 'Level 2 Name', type: 'text', required: false },
-        { name: 'item2Url', label: 'Level 2 URL', type: 'url', required: false },
-        { name: 'item3Name', label: 'Level 3 Name', type: 'text', required: false },
-        { name: 'item3Url', label: 'Level 3 URL', type: 'url', required: false }
-    ]
-};
+/* CSS Reset & Base */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
 
-// Schema generators
-const schemaGenerators = {
-    Organization: (data) => ({
-        "@context": "https://schema.org",
-        "@type": "Organization",
-        "name": data.name,
-        "url": data.url,
-        ...(data.logo && { "logo": data.logo }),
-        ...(data.description && { "description": data.description }),
-        ...(data.telephone && { "telephone": data.telephone }),
-        ...(data.email && { "email": data.email }),
-        ...((data.address || data.city) && {
-            "address": {
-                "@type": "PostalAddress",
-                ...(data.address && { "streetAddress": data.address }),
-                ...(data.city && { "addressLocality": data.city }),
-                ...(data.state && { "addressRegion": data.state }),
-                ...(data.postalCode && { "postalCode": data.postalCode }),
-                ...(data.country && { "addressCountry": data.country })
-            }
-        })
-    }),
+:root {
+    --primary: #4A90E2;
+    --primary-dark: #357ABD;
+    --secondary: #50C878;
+    --text-dark: #2C3E50;
+    --text-gray: #5A6C7D;
+    --bg-light: #F8F9FA;
+    --bg-white: #FFFFFF;
+    --border-color: #E1E8ED;
+    --shadow-sm: 0 1px 3px rgba(0,0,0,0.06);
+    --shadow-md: 0 4px 6px rgba(0,0,0,0.07);
+    --shadow-lg: 0 10px 15px rgba(0,0,0,0.08);
+}
 
-    LocalBusiness: (data) => ({
-        "@context": "https://schema.org",
-        "@type": "LocalBusiness",
-        "name": data.name,
-        ...(data.image && { "image": data.image }),
-        "telephone": data.telephone,
-        "address": {
-            "@type": "PostalAddress",
-            "streetAddress": data.address,
-            "addressLocality": data.city,
-            "addressRegion": data.state,
-            "postalCode": data.postalCode,
-            "addressCountry": data.country
-        },
-        ...(data.priceRange && { "priceRange": data.priceRange }),
-        ...(data.openingHours && { "openingHours": data.openingHours })
-    }),
+html {
+    scroll-behavior: smooth;
+}
 
-    Product: (data) => ({
-        "@context": "https://schema.org",
-        "@type": "Product",
-        "name": data.name,
-        "image": data.image,
-        "description": data.description,
-        ...(data.brand && { "brand": { "@type": "Brand", "name": data.brand } }),
-        ...(data.sku && { "sku": data.sku }),
-        "offers": {
-            "@type": "Offer",
-            "price": data.price,
-            "priceCurrency": data.priceCurrency,
-            ...(data.availability && { "availability": `https://schema.org/${data.availability}` }),
-            "url": window.location.href
-        },
-        ...((data.ratingValue && data.reviewCount) && {
-            "aggregateRating": {
-                "@type": "AggregateRating",
-                "ratingValue": data.ratingValue,
-                "reviewCount": data.reviewCount
-            }
-        })
-    }),
+body {
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+    font-size: 16px;
+    line-height: 1.6;
+    color: var(--text-dark);
+    background: var(--bg-light);
+}
 
-    Article: (data) => ({
-        "@context": "https://schema.org",
-        "@type": "Article",
-        "headline": data.headline,
-        "image": data.image,
-        "author": {
-            "@type": "Person",
-            "name": data.author
-        },
-        "publisher": {
-            "@type": "Organization",
-            "name": data.publisher,
-            "logo": {
-                "@type": "ImageObject",
-                "url": data.publisherLogo
-            }
-        },
-        "datePublished": data.datePublished,
-        ...(data.dateModified && { "dateModified": data.dateModified }),
-        ...(data.description && { "description": data.description })
-    }),
+.container {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 0 20px;
+}
 
-    FAQPage: (data) => {
-        const mainEntity = [];
-        for (let i = 1; i <= 3; i++) {
-            if (data[`question${i}`] && data[`answer${i}`]) {
-                mainEntity.push({
-                    "@type": "Question",
-                    "name": data[`question${i}`],
-                    "acceptedAnswer": {
-                        "@type": "Answer",
-                        "text": data[`answer${i}`]
-                    }
-                });
-            }
-        }
-        return {
-            "@context": "https://schema.org",
-            "@type": "FAQPage",
-            "mainEntity": mainEntity
-        };
-    },
+/* Header */
+.header {
+    background: var(--bg-white);
+    border-bottom: 1px solid var(--border-color);
+    position: sticky;
+    top: 0;
+    z-index: 100;
+    box-shadow: var(--shadow-sm);
+}
 
-    HowTo: (data) => {
-        const steps = [];
-        for (let i = 1; i <= 3; i++) {
-            if (data[`step${i}`]) {
-                steps.push({
-                    "@type": "HowToStep",
-                    "text": data[`step${i}`]
-                });
-            }
-        }
-        return {
-            "@context": "https://schema.org",
-            "@type": "HowTo",
-            "name": data.name,
-            "description": data.description,
-            ...(data.image && { "image": data.image }),
-            ...(data.totalTime && { "totalTime": data.totalTime }),
-            "step": steps
-        };
-    },
+.header-content {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 1rem 0;
+}
 
-    Recipe: (data) => ({
-        "@context": "https://schema.org",
-        "@type": "Recipe",
-        "name": data.name,
-        "image": data.image,
-        "author": {
-            "@type": "Person",
-            "name": data.author
-        },
-        ...(data.description && { "description": data.description }),
-        ...(data.prepTime && { "prepTime": data.prepTime }),
-        ...(data.cookTime && { "cookTime": data.cookTime }),
-        ...(data.totalTime && { "totalTime": data.totalTime }),
-        ...(data.recipeYield && { "recipeYield": data.recipeYield }),
-        ...(data.calories && {
-            "nutrition": {
-                "@type": "NutritionInformation",
-                "calories": data.calories
-            }
-        })
-    }),
+.logo {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    font-size: 1.25rem;
+    font-weight: 700;
+    color: var(--primary);
+}
 
-    Event: (data) => ({
-        "@context": "https://schema.org",
-        "@type": "Event",
-        "name": data.name,
-        "startDate": data.startDate,
-        ...(data.endDate && { "endDate": data.endDate }),
-        "location": {
-            "@type": "Place",
-            "name": data.location,
-            ...((data.address || data.city) && {
-                "address": {
-                    "@type": "PostalAddress",
-                    ...(data.address && { "streetAddress": data.address }),
-                    ...(data.city && { "addressLocality": data.city })
-                }
-            })
-        },
-        ...(data.description && { "description": data.description }),
-        ...(data.image && { "image": data.image }),
-        ...((data.price && data.priceCurrency) && {
-            "offers": {
-                "@type": "Offer",
-                "price": data.price,
-                "priceCurrency": data.priceCurrency
-            }
-        })
-    }),
+.logo-icon {
+    font-size: 1.75rem;
+}
 
-    Person: (data) => ({
-        "@context": "https://schema.org",
-        "@type": "Person",
-        "name": data.name,
-        ...(data.jobTitle && { "jobTitle": data.jobTitle }),
-        ...(data.image && { "image": data.image }),
-        ...(data.url && { "url": data.url }),
-        ...(data.telephone && { "telephone": data.telephone }),
-        ...(data.email && { "email": data.email }),
-        ...((data.address || data.city) && {
-            "address": {
-                "@type": "PostalAddress",
-                ...(data.address && { "streetAddress": data.address }),
-                ...(data.city && { "addressLocality": data.city })
-            }
-        }),
-        ...(data.description && { "description": data.description })
-    }),
+.nav {
+    display: flex;
+    gap: 1.5rem;
+}
 
-    Review: (data) => ({
-        "@context": "https://schema.org",
-        "@type": "Review",
-        "itemReviewed": {
-            "@type": "Thing",
-            "name": data.itemReviewed
-        },
-        "author": {
-            "@type": "Person",
-            "name": data.author
-        },
-        "reviewRating": {
-            "@type": "Rating",
-            "ratingValue": data.reviewRating,
-            "bestRating": "5"
-        },
-        "reviewBody": data.reviewBody,
-        ...(data.datePublished && { "datePublished": data.datePublished })
-    }),
+.nav a {
+    color: var(--text-gray);
+    text-decoration: none;
+    font-weight: 500;
+    transition: color 0.2s;
+}
 
-    VideoObject: (data) => ({
-        "@context": "https://schema.org",
-        "@type": "VideoObject",
-        "name": data.name,
-        "description": data.description,
-        "thumbnailUrl": data.thumbnailUrl,
-        "uploadDate": data.uploadDate,
-        ...(data.duration && { "duration": data.duration }),
-        ...(data.contentUrl && { "contentUrl": data.contentUrl })
-    }),
+.nav a:hover {
+    color: var(--primary);
+}
 
-    BreadcrumbList: (data) => {
-        const itemListElement = [];
-        for (let i = 1; i <= 3; i++) {
-            if (data[`item${i}Name`] && data[`item${i}Url`]) {
-                itemListElement.push({
-                    "@type": "ListItem",
-                    "position": i,
-                    "name": data[`item${i}Name`],
-                    "item": data[`item${i}Url`]
-                });
-            }
-        }
-        return {
-            "@context": "https://schema.org",
-            "@type": "BreadcrumbList",
-            "itemListElement": itemListElement
-        };
+/* Hero Section */
+.hero {
+    background: linear-gradient(135deg, #E3F2FD 0%, #F8F9FA 100%);
+    padding: 3rem 0;
+}
+
+.hero-content {
+    text-align: center;
+    margin-bottom: 2rem;
+}
+
+.hero h1 {
+    font-size: 2.5rem;
+    font-weight: 700;
+    color: var(--text-dark);
+    margin-bottom: 1rem;
+    line-height: 1.2;
+}
+
+.hero-description {
+    font-size: 1.125rem;
+    color: var(--text-gray);
+    max-width: 900px;
+    margin: 0 auto 2rem;
+}
+
+.hero-stats {
+    display: flex;
+    justify-content: center;
+    gap: 3rem;
+    flex-wrap: wrap;
+}
+
+.stat {
+    text-align: center;
+}
+
+.stat-number {
+    display: block;
+    font-size: 2rem;
+    font-weight: 700;
+    color: var(--primary);
+}
+
+.stat-label {
+    display: block;
+    font-size: 0.875rem;
+    color: var(--text-gray);
+}
+
+/* Generator Tool */
+.generator-tool {
+    background: var(--bg-white);
+    border-radius: 12px;
+    box-shadow: var(--shadow-lg);
+    overflow: hidden;
+    margin-top: 2rem;
+}
+
+.tool-header {
+    background: linear-gradient(135deg, var(--primary) 0%, var(--primary-dark) 100%);
+    color: white;
+    padding: 1.5rem;
+    text-align: center;
+}
+
+.tool-header h2 {
+    font-size: 1.75rem;
+    margin-bottom: 0.5rem;
+}
+
+.tool-header p {
+    opacity: 0.95;
+}
+
+.tool-body {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 2rem;
+    padding: 2rem;
+}
+
+.form-group {
+    margin-bottom: 1.25rem;
+}
+
+.form-group label {
+    display: block;
+    font-weight: 600;
+    color: var(--text-dark);
+    margin-bottom: 0.5rem;
+}
+
+.form-control {
+    width: 100%;
+    padding: 0.75rem;
+    border: 2px solid var(--border-color);
+    border-radius: 6px;
+    font-size: 1rem;
+    transition: border-color 0.2s;
+}
+
+.form-control:focus {
+    outline: none;
+    border-color: var(--primary);
+}
+
+.dynamic-fields {
+    max-height: 400px;
+    overflow-y: auto;
+    padding-right: 0.5rem;
+}
+
+.tool-actions {
+    display: flex;
+    gap: 1rem;
+    margin-top: 1.5rem;
+}
+
+.btn {
+    padding: 0.75rem 1.5rem;
+    border: none;
+    border-radius: 6px;
+    font-size: 1rem;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.2s;
+}
+
+.btn-primary {
+    background: var(--primary);
+    color: white;
+}
+
+.btn-primary:hover {
+    background: var(--primary-dark);
+    transform: translateY(-1px);
+}
+
+.btn-secondary {
+    background: var(--bg-light);
+    color: var(--text-gray);
+}
+
+.btn-secondary:hover {
+    background: var(--border-color);
+}
+
+.btn-success {
+    background: var(--secondary);
+    color: white;
+}
+
+.btn-success:hover {
+    background: #45B369;
+    transform: translateY(-1px);
+}
+
+.btn-large {
+    padding: 1rem 2.5rem;
+    font-size: 1.125rem;
+}
+
+.tool-right {
+    display: flex;
+    flex-direction: column;
+}
+
+.preview-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 1rem;
+}
+
+.preview-header h3 {
+    font-size: 1.25rem;
+    color: var(--text-dark);
+}
+
+.validation-status {
+    font-size: 0.875rem;
+    font-weight: 600;
+    padding: 0.25rem 0.75rem;
+    border-radius: 4px;
+}
+
+.validation-status.valid {
+    background: #D4EDDA;
+    color: #155724;
+}
+
+.validation-status.invalid {
+    background: #F8D7DA;
+    color: #721C24;
+}
+
+.schema-output {
+    flex: 1;
+    background: #282C34;
+    color: #ABB2BF;
+    padding: 1.5rem;
+    border-radius: 6px;
+    font-family: 'Courier New', monospace;
+    font-size: 0.875rem;
+    overflow: auto;
+    max-height: 450px;
+    line-height: 1.5;
+}
+
+.output-actions {
+    display: flex;
+    gap: 1rem;
+    margin-top: 1rem;
+}
+
+/* Content Sections */
+section {
+    padding: 4rem 0;
+}
+
+.section-header {
+    text-align: center;
+    margin-bottom: 3rem;
+}
+
+.section-header h2 {
+    font-size: 2rem;
+    font-weight: 700;
+    color: var(--text-dark);
+    margin-bottom: 1rem;
+}
+
+.section-header p {
+    font-size: 1.125rem;
+    color: var(--text-gray);
+    max-width: 800px;
+    margin: 0 auto;
+}
+
+/* Intro Section */
+.intro-section {
+    background: var(--bg-white);
+}
+
+.intro-content p {
+    font-size: 1.0625rem;
+    line-height: 1.8;
+    color: var(--text-gray);
+    margin-bottom: 1.5rem;
+}
+
+.intro-content h2 {
+    font-size: 2rem;
+    color: var(--text-dark);
+    margin-bottom: 1.5rem;
+}
+
+/* Grid Layouts */
+.grid-3 {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 2rem;
+}
+
+.card {
+    background: var(--bg-white);
+    border: 1px solid var(--border-color);
+    border-radius: 10px;
+    padding: 2rem;
+    transition: all 0.3s;
+}
+
+.card:hover {
+    box-shadow: var(--shadow-md);
+    transform: translateY(-4px);
+    border-color: var(--primary);
+}
+
+.card-icon {
+    font-size: 3rem;
+    margin-bottom: 1rem;
+}
+
+.card h3 {
+    font-size: 1.375rem;
+    color: var(--text-dark);
+    margin-bottom: 1rem;
+}
+
+.card p {
+    color: var(--text-gray);
+    line-height: 1.7;
+    margin-bottom: 1.25rem;
+}
+
+.card-link {
+    color: var(--primary);
+    text-decoration: none;
+    font-weight: 600;
+    transition: color 0.2s;
+}
+
+.card-link:hover {
+    color: var(--primary-dark);
+}
+
+/* Industries Section */
+.industries {
+    background: var(--bg-white);
+}
+
+/* Guide Section */
+.guide-steps {
+    max-width: 900px;
+    margin: 0 auto;
+}
+
+.step {
+    display: flex;
+    gap: 2rem;
+    margin-bottom: 3rem;
+}
+
+.step-number {
+    flex-shrink: 0;
+    width: 60px;
+    height: 60px;
+    background: var(--primary);
+    color: white;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 1.5rem;
+    font-weight: 700;
+}
+
+.step-content h3 {
+    font-size: 1.5rem;
+    color: var(--text-dark);
+    margin-bottom: 1rem;
+}
+
+.step-content p {
+    color: var(--text-gray);
+    line-height: 1.8;
+}
+
+.guide-tips {
+    background: var(--bg-light);
+    border-radius: 10px;
+    padding: 2rem;
+    margin-top: 3rem;
+}
+
+.guide-tips h3 {
+    font-size: 1.5rem;
+    color: var(--text-dark);
+    margin-bottom: 1.5rem;
+}
+
+.tips-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 1.5rem;
+}
+
+.tip-card {
+    background: var(--bg-white);
+    border-radius: 8px;
+    padding: 1.5rem;
+}
+
+.tip-card h4 {
+    font-size: 1.125rem;
+    color: var(--text-dark);
+    margin-bottom: 0.75rem;
+}
+
+.tip-card p {
+    color: var(--text-gray);
+    line-height: 1.6;
+    font-size: 0.9375rem;
+}
+
+/* Why 2025 Section */
+.why-2025 {
+    background: var(--bg-white);
+}
+
+.why-content {
+    max-width: 900px;
+    margin: 0 auto;
+}
+
+.why-block {
+    margin-bottom: 2.5rem;
+}
+
+.why-block h3 {
+    font-size: 1.5rem;
+    color: var(--text-dark);
+    margin-bottom: 1rem;
+}
+
+.why-block p {
+    color: var(--text-gray);
+    line-height: 1.8;
+}
+
+.stats-showcase {
+    background: linear-gradient(135deg, #E3F2FD 0%, #F8F9FA 100%);
+    border-radius: 12px;
+    padding: 3rem;
+    margin-top: 3rem;
+}
+
+.stats-showcase h3 {
+    text-align: center;
+    font-size: 1.75rem;
+    color: var(--text-dark);
+    margin-bottom: 2rem;
+}
+
+.stats-grid {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 2rem;
+}
+
+.stat-card {
+    background: var(--bg-white);
+    border-radius: 10px;
+    padding: 2rem;
+    text-align: center;
+    box-shadow: var(--shadow-sm);
+}
+
+.stat-big {
+    display: block;
+    font-size: 2.5rem;
+    font-weight: 700;
+    color: var(--primary);
+    margin-bottom: 0.5rem;
+}
+
+.stat-card p {
+    color: var(--text-gray);
+    font-size: 0.9375rem;
+    line-height: 1.5;
+}
+
+/* Benefits Section */
+.benefits-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 2rem;
+}
+
+.benefit-card {
+    background: var(--bg-white);
+    border: 1px solid var(--border-color);
+    border-radius: 10px;
+    padding: 2rem;
+    transition: all 0.3s;
+}
+
+.benefit-card:hover {
+    box-shadow: var(--shadow-md);
+    border-color: var(--primary);
+}
+
+.benefit-icon {
+    font-size: 2.5rem;
+    margin-bottom: 1rem;
+}
+
+.benefit-card h3 {
+    font-size: 1.375rem;
+    color: var(--text-dark);
+    margin-bottom: 1rem;
+}
+
+.benefit-card p {
+    color: var(--text-gray);
+    line-height: 1.7;
+}
+
+/* FAQ Section */
+.faq {
+    background: var(--bg-white);
+}
+
+.faq-list {
+    max-width: 900px;
+    margin: 0 auto;
+}
+
+.faq-item {
+    background: var(--bg-light);
+    border-radius: 8px;
+    margin-bottom: 1rem;
+    overflow: hidden;
+}
+
+.faq-question {
+    width: 100%;
+    background: none;
+    border: none;
+    padding: 1.5rem;
+    text-align: left;
+    font-size: 1.125rem;
+    font-weight: 600;
+    color: var(--text-dark);
+    cursor: pointer;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    transition: background 0.2s;
+}
+
+.faq-question:hover {
+    background: rgba(74, 144, 226, 0.05);
+}
+
+.faq-icon {
+    font-size: 1.5rem;
+    font-weight: 300;
+    color: var(--primary);
+    transition: transform 0.3s;
+}
+
+.faq-item.active .faq-icon {
+    transform: rotate(45deg);
+}
+
+.faq-answer {
+    max-height: 0;
+    overflow: hidden;
+    transition: max-height 0.3s ease-out;
+}
+
+.faq-item.active .faq-answer {
+    max-height: 1000px;
+    transition: max-height 0.5s ease-in;
+}
+
+.faq-answer p {
+    padding: 0 1.5rem 1.5rem;
+    color: var(--text-gray);
+    line-height: 1.8;
+}
+
+/* Final CTA */
+.final-cta {
+    background: linear-gradient(135deg, var(--primary) 0%, var(--primary-dark) 100%);
+    color: white;
+    text-align: center;
+    padding: 4rem 0;
+}
+
+.cta-content h2 {
+    font-size: 2.25rem;
+    margin-bottom: 1rem;
+}
+
+.cta-content p {
+    font-size: 1.25rem;
+    margin-bottom: 2rem;
+    opacity: 0.95;
+}
+
+.cta-content .btn {
+    background: white;
+    color: var(--primary);
+}
+
+.cta-content .btn:hover {
+    background: var(--bg-light);
+    transform: translateY(-2px);
+}
+
+/* Footer */
+.footer {
+    background: var(--text-dark);
+    color: white;
+    padding: 3rem 0 1.5rem;
+}
+
+.footer-content {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 2rem;
+    margin-bottom: 2rem;
+}
+
+.footer-col h4 {
+    font-size: 1.125rem;
+    margin-bottom: 1rem;
+}
+
+.footer-col ul {
+    list-style: none;
+}
+
+.footer-col li {
+    margin-bottom: 0.5rem;
+}
+
+.footer-col a {
+    color: rgba(255,255,255,0.8);
+    text-decoration: none;
+    transition: color 0.2s;
+}
+
+.footer-col a:hover {
+    color: white;
+}
+
+.footer-col p {
+    color: rgba(255,255,255,0.7);
+    line-height: 1.6;
+}
+
+.footer-bottom {
+    border-top: 1px solid rgba(255,255,255,0.1);
+    padding-top: 1.5rem;
+    text-align: center;
+    color: rgba(255,255,255,0.6);
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+    .nav {
+        display: none;
     }
-};
-
-// DOM elements
-const schemaTypeSelect = document.getElementById('schemaType');
-const dynamicFields = document.getElementById('dynamicFields');
-const generateBtn = document.getElementById('generateBtn');
-const clearBtn = document.getElementById('clearBtn');
-const schemaOutput = document.getElementById('schemaOutput');
-const copyBtn = document.getElementById('copyBtn');
-const downloadBtn = document.getElementById('downloadBtn');
-const validationStatus = document.getElementById('validationStatus');
-
-// Current schema data
-let currentSchema = null;
-
-// Render dynamic fields based on selected schema type
-function renderFields() {
-    const schemaType = schemaTypeSelect.value;
-    const fields = schemaFields[schemaType];
     
-    dynamicFields.innerHTML = '';
-    
-    fields.forEach(field => {
-        const formGroup = document.createElement('div');
-        formGroup.className = 'form-group';
-        
-        const label = document.createElement('label');
-        label.textContent = field.label;
-        label.htmlFor = field.name;
-        
-        let input;
-        if (field.type === 'textarea') {
-            input = document.createElement('textarea');
-            input.rows = 3;
-        } else {
-            input = document.createElement('input');
-            input.type = field.type;
-        }
-        
-        input.id = field.name;
-        input.name = field.name;
-        input.className = 'form-control';
-        input.required = field.required;
-        
-        formGroup.appendChild(label);
-        formGroup.appendChild(input);
-        dynamicFields.appendChild(formGroup);
-    });
-}
-
-// Generate schema from form data
-function generateSchema() {
-    const schemaType = schemaTypeSelect.value;
-    const fields = schemaFields[schemaType];
-    const data = {};
-    
-    // Collect form data
-    let hasRequiredFields = true;
-    fields.forEach(field => {
-        const input = document.getElementById(field.name);
-        const value = input.value.trim();
-        
-        if (field.required && !value) {
-            hasRequiredFields = false;
-            input.style.borderColor = '#F44336';
-        } else {
-            input.style.borderColor = '';
-            if (value) {
-                data[field.name] = value;
-            }
-        }
-    });
-    
-    if (!hasRequiredFields) {
-        alert('Please fill in all required fields (marked with *)');
-        return;
+    .hero h1 {
+        font-size: 1.75rem;
     }
     
-    // Generate schema
-    const generator = schemaGenerators[schemaType];
-    currentSchema = generator(data);
-    
-    // Display schema
-    schemaOutput.textContent = JSON.stringify(currentSchema, null, 2);
-    
-    // Update validation status
-    validationStatus.textContent = '✓ Valid Schema';
-    validationStatus.className = 'validation-status valid';
-}
-
-// Clear form
-function clearForm() {
-    dynamicFields.querySelectorAll('input, textarea').forEach(input => {
-        input.value = '';
-        input.style.borderColor = '';
-    });
-    schemaOutput.textContent = '// Your generated schema will appear here...';
-    validationStatus.textContent = '';
-    validationStatus.className = 'validation-status';
-    currentSchema = null;
-}
-
-// Copy to clipboard
-function copyToClipboard() {
-    if (!currentSchema) {
-        alert('Please generate schema first');
-        return;
+    .hero-description {
+        font-size: 1rem;
     }
     
-    const schemaText = JSON.stringify(currentSchema, null, 2);
-    navigator.clipboard.writeText(schemaText).then(() => {
-        const originalText = copyBtn.textContent;
-        copyBtn.textContent = '✓ Copied!';
-        setTimeout(() => {
-            copyBtn.textContent = originalText;
-        }, 2000);
-    }).catch(err => {
-        alert('Failed to copy to clipboard');
-    });
-}
-
-// Download JSON
-function downloadJSON() {
-    if (!currentSchema) {
-        alert('Please generate schema first');
-        return;
+    .hero-stats {
+        gap: 1.5rem;
     }
     
-    const schemaText = JSON.stringify(currentSchema, null, 2);
-    const blob = new Blob([schemaText], { type: 'application/json' });
-    const url = URL.createObjectURL(blob);
-    const a = document.createElement('a');
-    a.href = url;
-    a.download = `${schemaTypeSelect.value.toLowerCase()}-schema.json`;
-    document.body.appendChild(a);
-    a.click();
-    document.body.removeChild(a);
-    URL.revokeObjectURL(url);
+    .tool-body {
+        grid-template-columns: 1fr;
+    }
+    
+    .grid-3 {
+        grid-template-columns: 1fr;
+    }
+    
+    .step {
+        flex-direction: column;
+    }
+    
+    .tips-grid {
+        grid-template-columns: 1fr;
+    }
+    
+    .stats-grid {
+        grid-template-columns: repeat(2, 1fr);
+    }
+    
+    .benefits-grid {
+        grid-template-columns: 1fr;
+    }
+    
+    .footer-content {
+        grid-template-columns: 1fr;
+    }
+    
+    .tool-actions,
+    .output-actions {
+        flex-direction: column;
+    }
 }
 
-// FAQ Accordion
-function initFAQ() {
-    const faqQuestions = document.querySelectorAll('.faq-question');
-    faqQuestions.forEach(question => {
-        question.addEventListener('click', () => {
-            const faqItem = question.parentElement;
-            const isActive = faqItem.classList.contains('active');
-            
-            // Close all FAQs
-            document.querySelectorAll('.faq-item').forEach(item => {
-                item.classList.remove('active');
-            });
-            
-            // Toggle current FAQ
-            if (!isActive) {
-                faqItem.classList.add('active');
-            }
-        });
-    });
+@media (min-width: 769px) and (max-width: 1024px) {
+    .grid-3 {
+        grid-template-columns: repeat(2, 1fr);
+    }
+    
+    .stats-grid {
+        grid-template-columns: repeat(2, 1fr);
+    }
+    
+    .footer-content {
+        grid-template-columns: repeat(2, 1fr);
+    }
 }
 
-// Event listeners
-schemaTypeSelect.addEventListener('change', renderFields);
-generateBtn.addEventListener('click', generateSchema);
-clearBtn.addEventListener('click', clearForm);
-copyBtn.addEventListener('click', copyToClipboard);
-downloadBtn.addEventListener('click', downloadJSON);
+/* Repeatable Fields Styling */
+.repeatable-container {
+    background: var(--bg-light);
+    border-radius: 10px;
+    padding: 1.5rem;
+    margin-top: 1.5rem;
+}
 
-// Initialize
-document.addEventListener('DOMContentLoaded', () => {
-    renderFields();
-    initFAQ();
-});
+.repeatable-header {
+    margin-bottom: 1.5rem;
+}
+
+.repeatable-header h4 {
+    font-size: 1.25rem;
+    color: var(--text-dark);
+    margin: 0;
+}
+
+.repeatable-items {
+    display: flex;
+    flex-direction: column;
+    gap: 1.25rem;
+}
+
+.repeatable-item {
+    background: var(--bg-white);
+    border: 2px solid var(--border-color);
+    border-radius: 8px;
+    padding: 1.25rem;
+    transition: border-color 0.2s;
+}
+
+.repeatable-item:hover {
+    border-color: var(--primary);
+}
+
+.repeatable-item-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 1rem;
+    padding-bottom: 0.75rem;
+    border-bottom: 1px solid var(--border-color);
+}
+
+.repeatable-item-header span {
+    font-weight: 600;
+    color: var(--primary);
+    font-size: 1.0625rem;
+}
+
+.btn-remove {
+    background: #FFF3F3;
+    color: #D32F2F;
+    border: 1px solid #FFCDD2;
+    padding: 0.5rem 1rem;
+    border-radius: 6px;
+    font-size: 0.875rem;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.2s;
+}
+
+.btn-remove:hover {
+    background: #FFEBEE;
+    border-color: #EF9A9A;
+    transform: translateY(-1px);
+}
+
+.repeatable-item-fields {
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+}
+
+.btn-add-more {
+    width: 100%;
+    margin-top: 1rem;
+    background: linear-gradient(135deg, #E8F5E9 0%, #F1F8E9 100%);
+    color: var(--secondary);
+    border: 2px dashed var(--secondary);
+    padding: 0.875rem 1.5rem;
+    border-radius: 8px;
+    font-size: 1rem;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.2s;
+}
+
+.btn-add-more:hover {
+    background: linear-gradient(135deg, #C8E6C9 0%, #DCEDC8 100%);
+    border-style: solid;
+    transform: translateY(-2px);
+    box-shadow: var(--shadow-sm);
+}
+
+@media (max-width: 768px) {
+    .repeatable-item-header {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 0.75rem;
+    }
+    
+    .btn-remove {
+        width: 100%;
+    }
+}
