@@ -673,90 +673,66 @@ const schemaGenerators = {
 // Generate schema
 function generateSchema() {
     const schemaType = schemaTypeSelect.value;
-    
+    if (!schemaType) {
+        alert("Please select a schema type first.");
+        return;
+    }
+
     if (!validateForm(schemaType)) {
-        alert('Please fill in all required fields (marked with *)');
+        validationStatus.textContent = "❌ Please fill all required fields.";
+        validationStatus.style.color = "#F44336";
         return;
     }
-    
-    const data = collectFormData(schemaType);
-    const generator = schemaGenerators[schemaType];
-    currentSchema = generator(data);
-    
-    // Display schema
-    schemaOutput.textContent = JSON.stringify(currentSchema, null, 2);
-    
-    // Update validation status
-    validationStatus.textContent = '✓ Valid Schema';
-    validationStatus.className = 'validation-status valid';
+
+    const formData = collectFormData(schemaType);
+    const schemaGenerator = schemaGenerators[schemaType];
+
+    if (!schemaGenerator) {
+        alert("Schema generator not found for selected type.");
+        return;
+    }
+
+    const schemaJSON = schemaGenerator(formData);
+    const formattedJSON = JSON.stringify(schemaJSON, null, 2);
+
+    // ✅ Wrap inside <script type="application/ld+json">
+    const jsonLdOutput = `<script type="application/ld+json">\n${formattedJSON}\n</script>`;
+
+    schemaOutput.value = jsonLdOutput;
+
+    validationStatus.textContent = "✅ Schema generated successfully!";
+    validationStatus.style.color = "#4CAF50";
 }
 
-// Clear form
+// Clear form and output
 function clearForm() {
-    renderFields();
-    schemaOutput.textContent = '// Your generated schema will appear here...';
+    dynamicFields.innerHTML = '';
+    schemaOutput.value = '';
     validationStatus.textContent = '';
-    validationStatus.className = 'validation-status';
-    currentSchema = null;
+    schemaTypeSelect.selectedIndex = 0;
 }
 
-// Copy to clipboard
+// Copy schema to clipboard
 function copyToClipboard() {
-    if (!currentSchema) {
-        alert('Please generate schema first');
-        return;
-    }
-    
-    const schemaText = JSON.stringify(currentSchema, null, 2);
-    navigator.clipboard.writeText(schemaText).then(() => {
-        const originalText = copyBtn.textContent;
-        copyBtn.textContent = '✓ Copied!';
-        setTimeout(() => {
-            copyBtn.textContent = originalText;
-        }, 2000);
-    }).catch(err => {
-        alert('Failed to copy to clipboard');
-    });
+    schemaOutput.select();
+    document.execCommand("copy");
+    validationStatus.textContent = "📋 Copied to clipboard!";
+    validationStatus.style.color = "#2196F3";
 }
 
-// Download JSON
+// Download JSON-LD file
 function downloadJSON() {
-    if (!currentSchema) {
-        alert('Please generate schema first');
+    const content = schemaOutput.value.trim();
+    if (!content) {
+        alert("Please generate the schema first.");
         return;
     }
-    
-    const schemaText = JSON.stringify(currentSchema, null, 2);
-    const blob = new Blob([schemaText], { type: 'application/json' });
-    const url = URL.createObjectURL(blob);
-    const a = document.createElement('a');
-    a.href = url;
-    a.download = `${schemaTypeSelect.value.toLowerCase()}-schema.json`;
-    document.body.appendChild(a);
-    a.click();
-    document.body.removeChild(a);
-    URL.revokeObjectURL(url);
-}
 
-// FAQ Accordion
-function initFAQ() {
-    const faqQuestions = document.querySelectorAll('.faq-question');
-    faqQuestions.forEach(question => {
-        question.addEventListener('click', () => {
-            const faqItem = question.parentElement;
-            const isActive = faqItem.classList.contains('active');
-            
-            // Close all FAQs
-            document.querySelectorAll('.faq-item').forEach(item => {
-                item.classList.remove('active');
-            });
-            
-            // Toggle current FAQ
-            if (!isActive) {
-                faqItem.classList.add('active');
-            }
-        });
-    });
+    const blob = new Blob([content], { type: "application/ld+json" });
+    const link = document.createElement("a");
+    link.href = URL.createObjectURL(blob);
+    link.download = "schema.jsonld";
+    link.click();
 }
 
 // Event listeners
@@ -769,5 +745,4 @@ downloadBtn.addEventListener('click', downloadJSON);
 // Initialize
 document.addEventListener('DOMContentLoaded', () => {
     renderFields();
-    initFAQ();
 });
