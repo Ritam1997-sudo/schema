@@ -1055,218 +1055,221 @@ section {
     </footer>
 
     <script>
-        // Event Schema Generator JavaScript
+// Event Schema Generator JavaScript
 
-// DOM elements
-const generateBtn = document.getElementById('generateBtn');
-const clearBtn = document.getElementById('clearBtn');
-const schemaOutput = document.getElementById('schemaOutput');
-const copyBtn = document.getElementById('copyBtn');
-const downloadBtn = document.getElementById('downloadBtn');
-const validationStatus = document.getElementById('validationStatus');
+document.addEventListener('DOMContentLoaded', function() {
+    // DOM elements
+    const generateBtn = document.getElementById('generateBtn');
+    const clearBtn = document.getElementById('clearBtn');
+    const schemaOutput = document.getElementById('schemaOutput');
+    const copyBtn = document.getElementById('copyBtn');
+    const downloadBtn = document.getElementById('downloadBtn');
+    const validationStatus = document.getElementById('validationStatus');
 
-// Current schema
-let currentSchema = null;
+    // Current schema
+    let currentSchema = null;
 
-// Validate field
-function validateField(fieldId, fieldName) {
-    const field = document.getElementById(fieldId);
-    const errorMsg = document.getElementById(`error-${fieldId}`);
-    const value = field.value.trim();
-    
-    if (field.required && !value) {
-        field.style.borderColor = '#F44336';
-        if (errorMsg) errorMsg.textContent = `${fieldName} is required`;
-        return false;
-    } else {
-        field.style.borderColor = '';
-        if (errorMsg) errorMsg.textContent = '';
-        return true;
+    // Validate field
+    function validateField(fieldId, fieldName) {
+        const field = document.getElementById(fieldId);
+        const errorMsg = document.getElementById('error-' + fieldId);
+        
+        if (!field) return true;
+        
+        const value = field.value.trim();
+        
+        if (field.required && !value) {
+            field.style.borderColor = '#F44336';
+            if (errorMsg) errorMsg.textContent = fieldName + ' is required';
+            return false;
+        } else {
+            field.style.borderColor = '';
+            if (errorMsg) errorMsg.textContent = '';
+            return true;
+        }
     }
-}
 
-// Generate Event Schema
-function generateSchema() {
-    // Get form values
-    const name = document.getElementById('eventName').value.trim();
-    const startDate = document.getElementById('eventStartDate').value.trim();
-    const endDate = document.getElementById('eventEndDate').value.trim();
-    const location = document.getElementById('eventLocation').value.trim();
-    const address = document.getElementById('eventAddress').value.trim();
-    const city = document.getElementById('eventCity').value.trim();
-    const state = document.getElementById('eventState').value.trim();
-    const country = document.getElementById('eventCountry').value.trim();
-    const description = document.getElementById('eventDescription').value.trim();
-    const image = document.getElementById('eventImage').value.trim();
-    const price = document.getElementById('eventPrice').value.trim();
-    const currency = document.getElementById('eventCurrency').value.trim().toUpperCase();
-    const eventUrl = document.getElementById('eventUrl').value.trim();
-    const status = document.getElementById('eventStatus').value;
-    const attendanceMode = document.getElementById('eventAttendanceMode').value;
-    
-    // Validate required fields
-    let isValid = true;
-    isValid = validateField('eventName', 'Event Name') && isValid;
-    isValid = validateField('eventStartDate', 'Start Date & Time') && isValid;
-    isValid = validateField('eventLocation', 'Location Name') && isValid;
-    
-    if (!isValid) {
-        alert('Please fill in all required fields');
-        return;
-    }
-    
-    // Build schema object
-    const schema = {
-        "@context": "https://schema.org",
-        "@type": "Event",
-        "name": name,
-        "startDate": startDate
-    };
-    
-    // Add end date if provided
-    if (endDate) {
-        schema.endDate = endDate;
-    }
-    
-    // Add location
-    schema.location = {
-        "@type": "Place",
-        "name": location
-    };
-    
-    // Add address if any address field is filled
-    if (address || city || state || country) {
-        schema.location.address = {
-            "@type": "PostalAddress"
+    // Generate Event Schema
+    function generateSchema() {
+        // Get form values
+        const name = document.getElementById('eventName').value.trim();
+        const startDate = document.getElementById('eventStartDate').value.trim();
+        const endDate = document.getElementById('eventEndDate').value.trim();
+        const location = document.getElementById('eventLocation').value.trim();
+        const address = document.getElementById('eventAddress').value.trim();
+        const city = document.getElementById('eventCity').value.trim();
+        const state = document.getElementById('eventState').value.trim();
+        const country = document.getElementById('eventCountry').value.trim();
+        const description = document.getElementById('eventDescription').value.trim();
+        const image = document.getElementById('eventImage').value.trim();
+        const price = document.getElementById('eventPrice').value.trim();
+        const currency = document.getElementById('eventCurrency').value.trim().toUpperCase();
+        const eventUrl = document.getElementById('eventUrl').value.trim();
+        const status = document.getElementById('eventStatus').value;
+        const attendanceMode = document.getElementById('eventAttendanceMode').value;
+        
+        // Validate required fields
+        let isValid = true;
+        isValid = validateField('eventName', 'Event Name') && isValid;
+        isValid = validateField('eventStartDate', 'Start Date & Time') && isValid;
+        isValid = validateField('eventLocation', 'Location Name') && isValid;
+        
+        if (!isValid) {
+            alert('Please fill in all required fields (Event Name, Start Date, Location)');
+            return;
+        }
+        
+        // Build schema object
+        const schema = {
+            "@context": "https://schema.org",
+            "@type": "Event",
+            "name": name,
+            "startDate": startDate
         };
-        if (address) schema.location.address.streetAddress = address;
-        if (city) schema.location.address.addressLocality = city;
-        if (state) schema.location.address.addressRegion = state;
-        if (country) schema.location.address.addressCountry = country;
-    }
-    
-    // Add optional fields
-    if (description) schema.description = description;
-    if (image) schema.image = image;
-    if (status) schema.eventStatus = `https://schema.org/${status}`;
-    if (attendanceMode) schema.eventAttendanceMode = `https://schema.org/${attendanceMode}`;
-    
-    // Add offers if price provided
-    if (price && currency) {
-        schema.offers = {
-            "@type": "Offer",
-            "price": price,
-            "priceCurrency": currency,
-            "availability": "https://schema.org/InStock"
+        
+        // Add end date if provided
+        if (endDate) {
+            schema.endDate = endDate;
+        }
+        
+        // Add location
+        schema.location = {
+            "@type": "Place",
+            "name": location
         };
-        if (eventUrl) schema.offers.url = eventUrl;
+        
+        // Add address if any address field is filled
+        if (address || city || state || country) {
+            schema.location.address = {
+                "@type": "PostalAddress"
+            };
+            if (address) schema.location.address.streetAddress = address;
+            if (city) schema.location.address.addressLocality = city;
+            if (state) schema.location.address.addressRegion = state;
+            if (country) schema.location.address.addressCountry = country;
+        }
+        
+        // Add optional fields
+        if (description) schema.description = description;
+        if (image) schema.image = image;
+        if (status) schema.eventStatus = "https://schema.org/" + status;
+        if (attendanceMode) schema.eventAttendanceMode = "https://schema.org/" + attendanceMode;
+        
+        // Add offers if price provided
+        if (price && currency) {
+            schema.offers = {
+                "@type": "Offer",
+                "price": price,
+                "priceCurrency": currency,
+                "availability": "https://schema.org/InStock"
+            };
+            if (eventUrl) schema.offers.url = eventUrl;
+        }
+        
+        currentSchema = schema;
+        
+        // Create full output with script tags
+        const scriptOpen = '<script type="application/ld+json">';
+        const scriptClose = '<' + '/script>';
+        const fullOutput = scriptOpen + '\n' + JSON.stringify(schema, null, 2) + '\n' + scriptClose;
+        
+        // Display schema with script tags
+        schemaOutput.textContent = fullOutput;
+        
+        // Update validation status
+        validationStatus.textContent = '✓ Valid Schema';
+        validationStatus.className = 'validation-status valid';
     }
-    
-    currentSchema = schema;
-    
-    // Create full output with script tags
-    const fullOutput = `<script type="application/ld+json">
-${JSON.stringify(schema, null, 2)}
-</script>`;
-    
-    // Display schema with script tags
-    schemaOutput.textContent = fullOutput;
-    
-    // Update validation status
-    validationStatus.textContent = '✓ Valid Schema';
-    validationStatus.className = 'validation-status valid';
-}
 
-// Clear form
-function clearForm() {
-    document.querySelectorAll('.form-control').forEach(input => {
-        input.value = '';
-        input.style.borderColor = '';
-    });
-    
-    document.querySelectorAll('.error-message').forEach(msg => {
-        msg.textContent = '';
-    });
-    
-    schemaOutput.textContent = '// Your event schema will appear here...';
-    validationStatus.textContent = '';
-    validationStatus.className = 'validation-status';
-    currentSchema = null;
-}
-
-// Copy to clipboard
-function copyToClipboard() {
-    if (!currentSchema) {
-        alert('Please generate schema first');
-        return;
-    }
-    
-    const fullOutput = `<script type="application/ld+json">
-${JSON.stringify(currentSchema, null, 2)}
-</script>`;
-    
-    navigator.clipboard.writeText(fullOutput).then(() => {
-        const originalText = copyBtn.textContent;
-        copyBtn.textContent = '✓ Copied!';
-        setTimeout(() => {
-            copyBtn.textContent = originalText;
-        }, 2000);
-    }).catch(err => {
-        alert('Failed to copy to clipboard');
-    });
-}
-
-// Download JSON
-function downloadJSON() {
-    if (!currentSchema) {
-        alert('Please generate schema first');
-        return;
-    }
-    
-    const fullOutput = `<script type="application/ld+json">
-${JSON.stringify(currentSchema, null, 2)}
-</script>`;
-    
-    const blob = new Blob([fullOutput], { type: 'text/html' });
-    const url = URL.createObjectURL(blob);
-    const a = document.createElement('a');
-    a.href = url;
-    a.download = 'event-schema.html';
-    document.body.appendChild(a);
-    a.click();
-    document.body.removeChild(a);
-    URL.revokeObjectURL(url);
-}
-
-// FAQ Accordion
-function initFAQ() {
-    const faqQuestions = document.querySelectorAll('.faq-question');
-    faqQuestions.forEach(question => {
-        question.addEventListener('click', () => {
-            const faqItem = question.parentElement;
-            const isActive = faqItem.classList.contains('active');
-            
-            // Close all FAQs
-            document.querySelectorAll('.faq-item').forEach(item => {
-                item.classList.remove('active');
-            });
-            
-            // Toggle current FAQ
-            if (!isActive) {
-                faqItem.classList.add('active');
-            }
+    // Clear form
+    function clearForm() {
+        document.querySelectorAll('.form-control').forEach(function(input) {
+            input.value = '';
+            input.style.borderColor = '';
         });
-    });
-}
+        
+        document.querySelectorAll('.error-message').forEach(function(msg) {
+            msg.textContent = '';
+        });
+        
+        schemaOutput.textContent = '// Your event schema will appear here...';
+        validationStatus.textContent = '';
+        validationStatus.className = 'validation-status';
+        currentSchema = null;
+    }
 
-// Event listeners
-generateBtn.addEventListener('click', generateSchema);
-clearBtn.addEventListener('click', clearForm);
-copyBtn.addEventListener('click', copyToClipboard);
-downloadBtn.addEventListener('click', downloadJSON);
+    // Copy to clipboard
+    function copyToClipboard() {
+        if (!currentSchema) {
+            alert('Please generate schema first');
+            return;
+        }
+        
+        const scriptOpen = '<script type="application/ld+json">';
+        const scriptClose = '<' + '/script>';
+        const fullOutput = scriptOpen + '\n' + JSON.stringify(currentSchema, null, 2) + '\n' + scriptClose;
+        
+        navigator.clipboard.writeText(fullOutput).then(function() {
+            const originalText = copyBtn.textContent;
+            copyBtn.textContent = '✓ Copied!';
+            setTimeout(function() {
+                copyBtn.textContent = originalText;
+            }, 2000);
+        }).catch(function(err) {
+            alert('Failed to copy to clipboard');
+        });
+    }
 
-// Initialize
-document.addEventListener('DOMContentLoaded', () => {
+    // Download JSON
+    function downloadJSON() {
+        if (!currentSchema) {
+            alert('Please generate schema first');
+            return;
+        }
+        
+        const scriptOpen = '<script type="application/ld+json">';
+        const scriptClose = '<' + '/script>';
+        const fullOutput = scriptOpen + '\n' + JSON.stringify(currentSchema, null, 2) + '\n' + scriptClose;
+        
+        const blob = new Blob([fullOutput], { type: 'text/html' });
+        const url = URL.createObjectURL(blob);
+        const a = document.createElement('a');
+        a.href = url;
+        a.download = 'event-schema.html';
+        document.body.appendChild(a);
+        a.click();
+        document.body.removeChild(a);
+        URL.revokeObjectURL(url);
+    }
+
+    // FAQ Accordion
+    function initFAQ() {
+        const faqQuestions = document.querySelectorAll('.faq-question');
+        faqQuestions.forEach(function(question) {
+            question.addEventListener('click', function() {
+                const faqItem = question.parentElement;
+                const isActive = faqItem.classList.contains('active');
+                
+                // Close all FAQs
+                document.querySelectorAll('.faq-item').forEach(function(item) {
+                    item.classList.remove('active');
+                });
+                
+                // Toggle current FAQ
+                if (!isActive) {
+                    faqItem.classList.add('active');
+                }
+            });
+        });
+    }
+
+    // Event listeners
+    if (generateBtn) generateBtn.addEventListener('click', generateSchema);
+    if (clearBtn) clearBtn.addEventListener('click', clearForm);
+    if (copyBtn) copyBtn.addEventListener('click', copyToClipboard);
+    if (downloadBtn) downloadBtn.addEventListener('click', downloadJSON);
+
+    // Initialize
     initFAQ();
 });
     </script>
