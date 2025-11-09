@@ -1,0 +1,1182 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Free Video Schema Markup Generator. Create valid JSON-LD Video structured data for YouTube videos, website embeds, and multimedia content. Enhance video rich results, carousels, and SEO visibility in Google search.">
+    <meta name="keywords" content="video schema, video schema markup, video structured data, youtube schema, video seo, schema markup generation">
+    <meta name="robots" content="index, follow, max-snippet:-1, max-image-preview:large, max-video-preview:-1">
+    <meta name="googlebot" content="index, follow, max-snippet:-1, max-image-preview:large, max-video-preview:-1">
+    <meta name="bingbot" content="index, follow">
+    <title>Video Schema Markup Generator - Free Tool for Video SEO & Rich Results | FixMyKB</title>
+    <meta name="theme-color" content="#4A90E2">
+    <link rel="canonical" href="https://fixmykb.com/types/Video-Schema">
+  
+    <!-- Open Graph Tags -->
+    <meta property="og:title" content="Video Schema Markup Generator - Free Tool for Video SEO">
+    <meta property="og:description" content="Generate valid JSON-LD Video schema markup instantly. Optimize YouTube videos, embedded content, and multimedia for Google video rich results, carousels, and enhanced search visibility.">
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="https://fixmykb.com/types/Video-Schema">
+    <meta property="og:site_name" content="FixMyKB">
+    <meta property="og:locale" content="en_US">
+  
+    <!-- Twitter Card Tags -->
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:title" content="Video Schema Markup Generator - Free SEO Tool">
+    <meta name="twitter:description" content="Free tool to generate Video schema markup for YouTube, website videos, and multimedia content. Boost video SEO and rich results.">
+  
+    <style>
+        /* Core Web Vitals Optimized CSS */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+:root {
+    --primary: #4A90E2;
+    --primary-dark: #357ABD;
+    --secondary: #50C878;
+    --text-dark: #2C3E50;
+    --text-gray: #5A6C7D;
+    --bg-light: #F8F9FA;
+    --bg-white: #FFFFFF;
+    --border-color: #E1E8ED;
+    --error-color: #F44336;
+    --shadow-sm: 0 1px 3px rgba(0,0,0,0.06);
+    --shadow-md: 0 4px 6px rgba(0,0,0,0.07);
+    --shadow-lg: 0 10px 15px rgba(0,0,0,0.08);
+}
+html {
+    scroll-behavior: smooth;
+}
+body {
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+    font-size: 16px;
+    line-height: 1.6;
+    color: var(--text-dark);
+    background: var(--bg-light);
+}
+.container {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 0 20px;
+}
+*:focus-visible {
+    outline: 3px solid var(--primary);
+    outline-offset: 2px;
+}
+/* Header */
+.header {
+    background: var(--bg-white);
+    border-bottom: 1px solid var(--border-color);
+    position: sticky;
+    top: 0;
+    z-index: 100;
+    box-shadow: var(--shadow-sm);
+}
+.header-content {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 1rem 0;
+}
+.logo {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    font-size: 1.25rem;
+    font-weight: 700;
+    color: var(--primary);
+}
+.logo-icon {
+    font-size: 1.75rem;
+}
+.nav {
+    display: flex;
+    gap: 1.5rem;
+}
+.nav a {
+    color: var(--text-gray);
+    text-decoration: none;
+    font-weight: 500;
+    transition: color 0.2s;
+    padding: 0.5rem;
+}
+.nav a:hover {
+    color: var(--primary);
+}
+/* Hero Section */
+.hero {
+    background: linear-gradient(135deg, #E3F2FD 0%, #F8F9FA 100%);
+    padding: 3rem 0;
+}
+.hero-content {
+    text-align: center;
+    margin-bottom: 2rem;
+}
+.hero h1 {
+    font-size: 2.5rem;
+    font-weight: 700;
+    color: var(--text-dark);
+    margin-bottom: 1rem;
+    line-height: 1.2;
+}
+.hero-description {
+    font-size: 1.125rem;
+    color: var(--text-gray);
+    max-width: 900px;
+    margin: 0 auto 2rem;
+}
+/* Generator Tool */
+.generator-tool {
+    background: var(--bg-white);
+    border-radius: 12px;
+    box-shadow: var(--shadow-lg);
+    overflow: hidden;
+    margin-top: 2rem;
+}
+.tool-header {
+    background: linear-gradient(135deg, var(--primary) 0%, var(--primary-dark) 100%);
+    color: white;
+    padding: 1.5rem;
+    text-align: center;
+}
+.tool-header h2 {
+    font-size: 1.75rem;
+    margin-bottom: 0.5rem;
+}
+.tool-header p {
+    opacity: 0.95;
+}
+.tool-body {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 2rem;
+    padding: 2rem;
+}
+.form-group {
+    margin-bottom: 1.25rem;
+}
+.form-group label {
+    display: block;
+    font-weight: 600;
+    color: var(--text-dark);
+    margin-bottom: 0.5rem;
+}
+.form-control {
+    width: 100%;
+    padding: 0.75rem;
+    border: 2px solid var(--border-color);
+    border-radius: 6px;
+    font-size: 1rem;
+    transition: border-color 0.2s;
+    font-family: inherit;
+}
+.form-control:focus {
+    outline: none;
+    border-color: var(--primary);
+}
+.error-message {
+    display: block;
+    color: var(--error-color);
+    font-size: 0.875rem;
+    margin-top: 0.25rem;
+    min-height: 1.25rem;
+}
+.dynamic-fields {
+    max-height: 500px;
+    overflow-y: auto;
+    padding-right: 0.5rem;
+}
+.tool-actions {
+    display: flex;
+    gap: 1rem;
+    margin-top: 1.5rem;
+}
+.btn {
+    padding: 0.75rem 1.5rem;
+    border: none;
+    border-radius: 6px;
+    font-size: 1rem;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.2s;
+    min-height: 44px;
+}
+.btn-primary {
+    background: var(--primary);
+    color: white;
+}
+.btn-primary:hover {
+    background: var(--primary-dark);
+    transform: translateY(-1px);
+}
+.btn-secondary {
+    background: var(--bg-light);
+    color: var(--text-gray);
+}
+.btn-secondary:hover {
+    background: var(--border-color);
+}
+.btn-success {
+    background: var(--secondary);
+    color: white;
+}
+.btn-success:hover {
+    background: #45B369;
+    transform: translateY(-1px);
+}
+.tool-right {
+    display: flex;
+    flex-direction: column;
+}
+.preview-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 1rem;
+}
+.validation-status {
+    font-size: 0.875rem;
+    font-weight: 600;
+    padding: 0.25rem 0.75rem;
+    border-radius: 4px;
+}
+.validation-status.valid {
+    background: #D4EDDA;
+    color: #155724;
+}
+.schema-output {
+    flex: 1;
+    background: #282C34;
+    color: #ABB2BF;
+    padding: 1.5rem;
+    border-radius: 6px;
+    font-family: 'Courier New', monospace;
+    font-size: 0.875rem;
+    overflow: auto;
+    max-height: 500px;
+    line-height: 1.5;
+}
+.output-actions {
+    display: flex;
+    gap: 1rem;
+    margin-top: 1rem;
+}
+/* Content Sections */
+section {
+    padding: 4rem 0;
+}
+.section-header {
+    text-align: center;
+    margin-bottom: 3rem;
+}
+.section-header h2 {
+    font-size: 2rem;
+    font-weight: 700;
+    color: var(--text-dark);
+    margin-bottom: 1rem;
+}
+.section-header p {
+    font-size: 1.125rem;
+    color: var(--text-gray);
+    max-width: 800px;
+    margin: 0 auto;
+}
+.intro-section {
+    background: var(--bg-white);
+}
+.intro-content p {
+    font-size: 1.0625rem;
+    line-height: 1.8;
+    color: var(--text-gray);
+    margin-bottom: 1.5rem;
+}
+.intro-content h2 {
+    font-size: 2rem;
+    color: var(--text-dark);
+    margin-bottom: 1.5rem;
+}
+.intro-content a {
+    color: var(--primary);
+    text-decoration: none;
+    font-weight: 600;
+}
+.intro-content a:hover {
+    text-decoration: underline;
+}
+/* Benefits Grid */
+.benefits-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 2rem;
+}
+.benefit-card {
+    background: var(--bg-white);
+    border: 1px solid var(--border-color);
+    border-radius: 10px;
+    padding: 2rem;
+    transition: all 0.3s;
+}
+.benefit-card:hover {
+    box-shadow: var(--shadow-md);
+    border-color: var(--primary);
+}
+.benefit-icon {
+    font-size: 2.5rem;
+    margin-bottom: 1rem;
+}
+.benefit-card h3 {
+    font-size: 1.375rem;
+    color: var(--text-dark);
+    margin-bottom: 1rem;
+}
+.benefit-card p {
+    color: var(--text-gray);
+    line-height: 1.7;
+}
+/* Guide Steps */
+.guide-steps {
+    max-width: 900px;
+    margin: 0 auto;
+}
+.step {
+    display: flex;
+    gap: 2rem;
+    margin-bottom: 3rem;
+}
+.step-number {
+    flex-shrink: 0;
+    width: 60px;
+    height: 60px;
+    background: var(--primary);
+    color: white;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 1.5rem;
+    font-weight: 700;
+}
+.step-content h3 {
+    font-size: 1.5rem;
+    color: var(--text-dark);
+    margin-bottom: 1rem;
+}
+.step-content p {
+    color: var(--text-gray);
+    line-height: 1.8;
+}
+/* Best Practices */
+.why-content {
+    max-width: 900px;
+    margin: 0 auto;
+}
+.why-block {
+    margin-bottom: 2.5rem;
+}
+.why-block h3 {
+    font-size: 1.5rem;
+    color: var(--text-dark);
+    margin-bottom: 1rem;
+}
+.why-block p {
+    color: var(--text-gray);
+    line-height: 1.8;
+}
+/* FAQ Section */
+.faq {
+    background: var(--bg-white);
+}
+.faq-list {
+    max-width: 900px;
+    margin: 0 auto;
+}
+.faq-item {
+    background: var(--bg-light);
+    border-radius: 8px;
+    margin-bottom: 1rem;
+    overflow: hidden;
+}
+.faq-question {
+    width: 100%;
+    background: none;
+    border: none;
+    padding: 1.5rem;
+    text-align: left;
+    font-size: 1.125rem;
+    font-weight: 600;
+    color: var(--text-dark);
+    cursor: pointer;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    transition: background 0.2s;
+}
+.faq-question:hover {
+    background: rgba(74, 144, 226, 0.05);
+}
+.faq-icon {
+    font-size: 1.5rem;
+    color: var(--primary);
+    transition: transform 0.3s;
+}
+.faq-item.active .faq-icon {
+    transform: rotate(45deg);
+}
+.faq-answer {
+    max-height: 0;
+    overflow: hidden;
+    transition: max-height 0.3s ease-out;
+}
+.faq-item.active .faq-answer {
+    max-height: 1000px;
+    transition: max-height 0.5s ease-in;
+}
+.faq-answer p {
+    padding: 0 1.5rem 1.5rem;
+    color: var(--text-gray);
+    line-height: 1.8;
+}
+/* CTA Section */
+.final-cta {
+    background: linear-gradient(135deg, var(--primary) 0%, var(--primary-dark) 100%);
+    color: white;
+    text-align: center;
+    padding: 4rem 0;
+}
+.cta-content h2 {
+    font-size: 2.25rem;
+    margin-bottom: 1rem;
+}
+.cta-content p {
+    font-size: 1.25rem;
+    margin-bottom: 2rem;
+    opacity: 0.95;
+}
+.cta-content .btn {
+    background: white;
+    color: var(--primary);
+}
+.cta-content .btn:hover {
+    background: var(--bg-light);
+}
+/* Footer */
+.footer {
+    background: var(--text-dark);
+    color: white;
+    padding: 3rem 0 1.5rem;
+}
+.footer-content {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 2rem;
+    margin-bottom: 2rem;
+}
+.footer-col h4 {
+    font-size: 1.125rem;
+    margin-bottom: 1rem;
+}
+.footer-col ul {
+    list-style: none;
+}
+.footer-col li {
+    margin-bottom: 0.5rem;
+}
+.footer-col a {
+    color: rgba(255,255,255,0.8);
+    text-decoration: none;
+    transition: color 0.2s;
+}
+.footer-col a:hover {
+    color: white;
+}
+.footer-col p {
+    color: rgba(255,255,255,0.7);
+    line-height: 1.6;
+}
+.footer-bottom {
+    border-top: 1px solid rgba(255,255,255,0.1);
+    padding-top: 1.5rem;
+    text-align: center;
+    color: rgba(255,255,255,0.6);
+}
+/* Responsive Design */
+@media (max-width: 768px) {
+    .nav {
+        display: none;
+    }
+  
+    .hero h1 {
+        font-size: 1.75rem;
+    }
+  
+    .tool-body {
+        grid-template-columns: 1fr;
+    }
+  
+    .benefits-grid {
+        grid-template-columns: 1fr;
+    }
+  
+    .step {
+        flex-direction: column;
+    }
+  
+    .footer-content {
+        grid-template-columns: 1fr;
+    }
+  
+    .tool-actions,
+    .output-actions {
+        flex-direction: column;
+    }
+}
+    </style>
+</head>
+<body>
+    <!-- Header -->
+    <header class="header">
+        <div class="container">
+            <div class="header-content">
+                <div class="logo">
+                    <a href="https://fixmykb.com" style="display: flex; align-items: center; gap: 0.5rem; text-decoration: none; color: inherit;">
+                        <span class="logo-icon">🎥</span>
+                        <span class="logo-text">FixMyKB</span>
+                    </a>
+                </div>
+                <nav class="nav">
+                    <a href="https://fixmykb.com">Home</a>
+                    <a href="https://fixmykb.com#types">Schema Types</a>
+                    <a href="https://fixmykb.com#guide">Guide</a>
+                    <a href="https://fixmykb.com/types/Video-Schema">Video Schema</a>
+                </nav>
+            </div>
+        </div>
+    </header>
+    <!-- Hero Section -->
+    <section class="hero">
+        <div class="container">
+            <div class="hero-content">
+                <h1>Video Schema Markup Generator for Rich Results & SEO Optimization</h1>
+                <p class="hero-description">Generate professional Video Schema markup instantly with our free <a href="https://fixmykb.com" style="color: var(--primary); font-weight: 600;">schema markup generation</a> tool. Optimize YouTube videos, embedded content, and multimedia for Google video rich results, carousels, enhanced thumbnails, and improved search visibility. Perfect for content creators, marketers, educators, and businesses driving video traffic.</p>
+            </div>
+            <!-- Video Schema Generator -->
+            <div class="generator-tool">
+                <div class="tool-header">
+                    <h2>🎥 Generate Video Schema</h2>
+                    <p>Fill in your video details below</p>
+                </div>
+              
+                <div class="tool-body">
+                    <div class="tool-left">
+                        <div class="dynamic-fields">
+                            <div class="form-group">
+                                <label for="videoName">Video Title *</label>
+                                <input type="text" id="videoName" class="form-control" placeholder="e.g., How to Optimize Video SEO" required>
+                                <span class="error-message" id="error-videoName"></span>
+                            </div>
+                            <div class="form-group">
+                                <label for="videoDescription">Video Description *</label>
+                                <textarea id="videoDescription" class="form-control" rows="4" placeholder="Detailed description of the video content..." required></textarea>
+                                <span class="error-message" id="error-videoDescription"></span>
+                            </div>
+                            <div class="form-group">
+                                <label for="videoThumbnail">Thumbnail Image URL *</label>
+                                <input type="url" id="videoThumbnail" class="form-control" placeholder="https://example.com/thumbnail.jpg" required>
+                                <span class="error-message" id="error-videoThumbnail"></span>
+                            </div>
+                            <div class="form-group">
+                                <label for="videoUrl">Video URL (Content URL or Embed URL) *</label>
+                                <input type="url" id="videoUrl" class="form-control" placeholder="https://example.com/video.mp4 or https://youtube.com/embed/VIDEO_ID" required>
+                                <span class="error-message" id="error-videoUrl"></span>
+                            </div>
+                            <div class="form-group">
+                                <label for="videoUploadDate">Upload Date *</label>
+                                <input type="date" id="videoUploadDate" class="form-control" required>
+                                <span class="error-message" id="error-videoUploadDate"></span>
+                            </div>
+                            <div class="form-group">
+                                <label for="videoDuration">Duration (ISO 8601 format, e.g., PT1M30S)</label>
+                                <input type="text" id="videoDuration" class="form-control" placeholder="PT1M30S for 1 minute 30 seconds">
+                            </div>
+                            <div class="form-group">
+                                <label for="videoWidth">Video Width (pixels)</label>
+                                <input type="number" id="videoWidth" class="form-control" placeholder="1920">
+                            </div>
+                            <div class="form-group">
+                                <label for="videoHeight">Video Height (pixels)</label>
+                                <input type="number" id="videoHeight" class="form-control" placeholder="1080">
+                            </div>
+                            <div class="form-group">
+                                <label for="videoAuthor">Author Name</label>
+                                <input type="text" id="videoAuthor" class="form-control" placeholder="e.g., John Doe">
+                            </div>
+                            <div class="form-group">
+                                <label for="videoPublisher">Publisher Name</label>
+                                <input type="text" id="videoPublisher" class="form-control" placeholder="e.g., Example Media">
+                            </div>
+                            <div class="form-group">
+                                <label for="videoViews">Number of Views</label>
+                                <input type="number" id="videoViews" class="form-control" placeholder="15000">
+                            </div>
+                            <div class="form-group">
+                                <label for="videoLikes">Number of Likes</label>
+                                <input type="number" id="videoLikes" class="form-control" placeholder="1200">
+                            </div>
+                            <div class="form-group">
+                                <label for="videoLanguage">Language</label>
+                                <input type="text" id="videoLanguage" class="form-control" placeholder="en">
+                            </div>
+                        </div>
+                        <div class="tool-actions">
+                            <button id="generateBtn" class="btn btn-primary">✨ Generate Schema</button>
+                            <button id="clearBtn" class="btn btn-secondary">🔄 Clear Form</button>
+                        </div>
+                    </div>
+                    <div class="tool-right">
+                        <div class="preview-header">
+                            <h3>📋 JSON-LD Preview</h3>
+                            <span id="validationStatus" class="validation-status"></span>
+                        </div>
+                        <pre id="schemaOutput" class="schema-output">// Your video schema will appear here...</pre>
+                        <div class="output-actions">
+                            <button id="copyBtn" class="btn btn-success">📄 Copy to Clipboard</button>
+                            <button id="downloadBtn" class="btn btn-success">💾 Download JSON</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    <!-- What is Video Schema Section -->
+    <section class="intro-section">
+        <div class="container">
+            <div class="intro-content">
+                <h2>What is Video Schema Markup?</h2>
+                <p>Video schema markup is structured data that helps search engines understand and display video content in enhanced formats within search results. When you implement Video schema through our <a href="https://fixmykb.com">schema markup generation</a> tool, you're providing explicit details about your video including title, description, thumbnail, duration, upload date, author, publisher, and engagement metrics. This structured data is essential for triggering Google video rich results, video carousels, featured video snippets, and improved video SEO performance.</p>
+              
+                <p>The VideoObject schema type is part of the Schema.org vocabulary and has become crucial for content creators optimizing for video search. For YouTube creators, website owners embedding videos, marketers promoting multimedia content, educators sharing tutorials, and businesses driving video traffic, implementing Video schema is key to controlling how your videos appear in search. Proper <a href="https://fixmykb.com">schema markup generation</a> can trigger video thumbnails with play buttons, rich result cards, and carousel placements that drive significantly higher click-through rates compared to standard search listings.</p>
+                <p>Beyond rich results, Video schema powers video sitemaps, enhances AMP video pages, connects videos to related content through author and publisher relationships, and helps search engines index video transcripts and metadata. The schema supports technical details like resolution, aspect ratio, and encoding, as well as performance metrics like views and likes. Our free <a href="https://fixmykb.com/types/Video-Schema">Video Schema generator</a> makes it simple to create comprehensive structured data that maximizes your video's discoverability and establishes it as authoritative multimedia content in Google's video search ecosystem.</p>
+            </div>
+        </div>
+    </section>
+    <!-- Benefits Section -->
+    <section class="benefits">
+        <div class="container">
+            <div class="section-header">
+                <h2>Why Use Video Schema Markup for Your Content?</h2>
+                <p>Discover how Video schema boosts visibility, engagement, and SEO performance</p>
+            </div>
+            <div class="benefits-grid">
+                <div class="benefit-card">
+                    <div class="benefit-icon">🎯</div>
+                    <h3>Trigger Video Rich Results & Carousels</h3>
+                    <p>Video schema is essential for triggering Google video rich results that appear prominently in search with playable thumbnails, duration badges, and channel information. These enhanced listings drive 2-3x higher click-through rates by making your video stand out. Video carousels showcase multiple videos horizontally, increasing exposure for series or playlists. With proper <a href="https://fixmykb.com" style="color: var(--primary);">schema markup generation</a>, you control the visual presentation and metadata that appears in these high-value placements.</p>
+                </div>
+                <div class="benefit-card">
+                    <div class="benefit-icon">📈</div>
+                    <h3>Improve Video SEO & Discoverability</h3>
+                    <p>Video schema provides search engines with explicit context about your video's topic, quality, and relevance, improving rankings in video search tabs and universal search. Including detailed descriptions, keywords, and technical specs helps Google match your video to user queries more accurately. Enhanced metadata like upload date and duration signals freshness and completeness, boosting your video's position in competitive video SERPs. This visibility is particularly valuable for YouTube creators and website publishers using our <a href="https://fixmykb.com/types/Video-Schema" style="color: var(--primary);">Video schema tool</a>.</p>
+                </div>
+                <div class="benefit-card">
+                    <div class="benefit-icon">🔗</div>
+                    <h3>Connect Videos to Authors & Publishers</h3>
+                    <p>Video schema helps search engines understand relationships between videos, creators, and organizations. By linking to Person or Organization schema, you build authorship authority and consolidate your video portfolio across platforms. This entity recognition improves how your channel or brand appears in video knowledge panels and related searches. When you implement Video schema consistently using the same publisher identifier, Google can connect your videos across YouTube, websites, and embeds, building comprehensive multimedia profiles through complete <a href="https://fixmykb.com" style="color: var(--primary);">schema markup generation</a>.</p>
+                </div>
+                <div class="benefit-card">
+                    <div class="benefit-icon">📊</div>
+                    <h3>Track Engagement & Performance Metrics</h3>
+                    <p>Include interactionStatistic properties for views, likes, and comments to provide search engines with social proof and popularity signals. These metrics influence video rankings and can appear in rich results, building credibility with users. Engagement data helps Google prioritize high-performing videos in carousels and featured positions. Video schema with verified metrics demonstrates quality and relevance, especially important for marketers analyzing ROI on video content.</p>
+                </div>
+                <div class="benefit-card">
+                    <div class="benefit-icon">🌐</div>
+                    <h3>Support Multiple Platforms & Embeds</h3>
+                    <p>Video schema works across YouTube, Vimeo, self-hosted videos, and embedded players. Use contentUrl for direct video files or embedUrl for iframe embeds, ensuring compatibility with any hosting platform. This flexibility allows consistent markup whether videos live on your site or third-party services. Search engines use these standardized properties to index and display your videos uniformly, regardless of source. Proper platform integration through our <a href="https://fixmykb.com" style="color: var(--primary);">schema markup generation</a> tool consolidates your video presence.</p>
+                </div>
+                <div class="benefit-card">
+                    <div class="benefit-icon">⚡</div>
+                    <h3>Enable Video Sitemaps & AMP Optimization</h3>
+                    <p>Video schema powers video sitemaps that help Google discover and crawl your video content more efficiently. For AMP pages, Video schema enhances fast-loading video experiences in mobile search. Including technical details like width, height, and duration ensures proper rendering in various devices and formats. Sitemap integration and AMP support improve indexing speed and mobile visibility, crucial for time-sensitive video content using <a href="https://fixmykb.com/types/Video-Schema" style="color: var(--primary);">Video schema</a>.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+    <!-- Implementation Guide -->
+    <section class="guide">
+        <div class="container">
+            <div class="section-header">
+                <h2>How to Implement Video Schema on Your Website or YouTube</h2>
+                <p>Step-by-step guide to add Video schema and optimize for rich results</p>
+            </div>
+            <div class="guide-steps">
+                <div class="step">
+                    <div class="step-number">1</div>
+                    <div class="step-content">
+                        <h3>Generate Your Video Schema Markup</h3>
+                        <p>Use our <a href="https://fixmykb.com/types/Video-Schema" style="color: var(--primary);">Video Schema generator</a> above to create comprehensive schema markup for your video. Fill in all required fields including title, description, thumbnail, video URL, and upload date, then add optional details like duration, dimensions, author, and engagement metrics. Include relevant keywords in the description for better topical matching. The more complete and accurate your Video schema, the better your chances of triggering rich results and carousels through proper <a href="https://fixmykb.com" style="color: var(--primary);">schema markup generation</a>.</p>
+                    </div>
+                </div>
+                <div class="step">
+                    <div class="step-number">2</div>
+                    <div class="step-content">
+                        <h3>Add Schema to Your Video Page</h3>
+                        <p>Video schema should be added to the dedicated page where the video is embedded or hosted on your website. Copy the generated JSON-LD code with the script tag wrapper and paste it in the &lt;head&gt; section of your video page. This page should contain the actual video player or embed. For YouTube videos, add the schema to your website's embed page, not the YouTube page itself. The video URL in your schema should point to the playable source or embed code.</p>
+                    </div>
+                </div>
+                <div class="step">
+                    <div class="step-number">3</div>
+                    <div class="step-content">
+                        <h3>Submit Video Sitemap to Google</h3>
+                        <p>Create a video sitemap.xml file that references all your Video schema-marked pages. Include video-specific details like title, thumbnail, duration, and content location. Submit this sitemap through Google Search Console to accelerate video indexing. Video sitemaps are crucial for large libraries or frequent uploads, ensuring Google discovers your content quickly. Consistency between your sitemap and on-page Video schema builds trust with search engines through our <a href="https://fixmykb.com" style="color: var(--primary);">schema markup generation</a> platform.</p>
+                    </div>
+                </div>
+                <div class="step">
+                    <div class="step-number">4</div>
+                    <div class="step-content">
+                        <h3>Connect Video Schema to Author & Publisher</h3>
+                        <p>Link your Video schema to Person or Organization schema for the author and publisher. Use the same @id or url identifiers from your existing markup to create explicit relationships. This connection enables channel branding in rich results and consolidates your video portfolio. For team-produced content, reference the appropriate creator. If you publish across multiple sites, ensure consistent publisher identifiers using <a href="https://fixmykb.com/types/Video-Schema" style="color: var(--primary);">Video schema</a> properly.</p>
+                    </div>
+                </div>
+                <div class="step">
+                    <div class="step-number">5</div>
+                    <div class="step-content">
+                        <h3>Test and Monitor Your Video Schema</h3>
+                        <p>After implementing Video schema, validate it using Google's Rich Results Test and Schema Markup Validator, specifically selecting the Video rich result. Check for errors in thumbnail quality, URL accessibility, and required properties. Monitor Google Search Console for video indexing issues and search performance reports. Track impressions in video carousels and rich results. Update schema as videos gain views or new content is added for optimal <a href="https://fixmykb.com" style="color: var(--primary);">schema markup generation</a>.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    <!-- Best Practices -->
+    <section class="why-2025" style="background: var(--bg-white);">
+        <div class="container">
+            <div class="section-header">
+                <h2>Video Schema Best Practices for Maximum Visibility</h2>
+                <p>Expert recommendations for implementing Video schema that drives traffic</p>
+            </div>
+            <div class="why-content">
+                <div class="why-block">
+                    <h3>✅ Use High-Quality Thumbnails & Descriptions</h3>
+                    <p>Always include a compelling, high-resolution thumbnail (minimum 480x360 pixels, ideally 1280x720) that accurately represents your video content. This image appears in rich results and carousels, so visual appeal is critical for click-through rates. Write detailed descriptions (150-300 words) with natural keywords, timestamps, and calls-to-action. Include relevant topics and long-tail phrases that match user search intent. High-quality assets significantly impact engagement using proper <a href="https://fixmykb.com" style="color: var(--primary);">schema markup generation</a>.</p>
+                </div>
+                <div class="why-block">
+                    <h3>✅ Specify Accurate Duration & Technical Specs</h3>
+                    <p>Use ISO 8601 format for duration (e.g., PT5M20S) to signal video length precisely. Include width and height for optimal rendering in search previews. These technical details help Google validate video quality and prevent mismatches in rich results. For vertical videos or non-standard formats, specify aspect ratios accurately. Duration and specs influence eligibility for featured positions and carousel inclusion through our <a href="https://fixmykb.com/types/Video-Schema" style="color: var(--primary);">Video Schema generator</a>.</p>
+                </div>
+                <div class="why-block">
+                    <h3>✅ Include Real Engagement Metrics</h3>
+                    <p>Add interactionStatistic for actual views, likes, and ratings from your platform (YouTube Analytics, etc.). These social proof signals boost credibility and rankings. Update metrics periodically as videos perform better. Avoid inflating numbers - Google may verify against public data. Authentic engagement data is increasingly important for video SEO and rich result approval using <a href="https://fixmykb.com" style="color: var(--primary);">schema markup generation</a>.</p>
+                </div>
+                <div class="why-block">
+                    <h3>✅ Optimize for Mobile & AMP Pages</h3>
+                    <p>Ensure video URLs are mobile-friendly and load quickly on AMP pages. Use embedUrl for responsive players that adapt to device sizes. Test schema on mobile to confirm rich results render correctly. AMP-optimized videos appear faster in mobile search, capturing time-sensitive traffic. Mobile compatibility is crucial for video carousels and instant answers.</p>
+                </div>
+                <div class="why-block">
+                    <h3>✅ Link to Transcripts & Closed Captions</h3>
+                    <p>Reference transcript URLs or include caption text in schema extensions for better accessibility and SEO. Search engines can index spoken content, improving topical relevance. Transcripts help with voice search and featured snippets. Accessibility features signal quality to Google and enhance user experience through complete <a href="https://fixmykb.com" style="color: var(--primary);">schema markup generation</a>.</p>
+                </div>
+                <div class="why-block">
+                    <h3>✅ Consistent Branding Across Videos</h3>
+                    <p>Use the same publisher Organization schema across all videos for channel recognition in results. Include logo, name, and contact points consistently. This branding builds trust and helps Google associate videos with your entity. For series, use isPartOf properties to create playlists. Consistent markup strengthens your video authority using our <a href="https://fixmykb.com/types/Video-Schema" style="color: var(--primary);">Video schema tool</a>.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+    <!-- FAQ Section -->
+    <section class="faq">
+        <div class="container">
+            <div class="section-header">
+                <h2>Frequently Asked Questions About Video Schema</h2>
+                <p>Common questions about implementing Video schema for SEO optimization</p>
+            </div>
+            <div class="faq-list">
+                <div class="faq-item">
+                    <button class="faq-question">
+                        <span>How long does it take for Video schema to trigger rich results?</span>
+                        <span class="faq-icon">+</span>
+                    </button>
+                    <div class="faq-answer">
+                        <p>Video rich results can appear within days to weeks after implementation and indexing, depending on content quality and competition. Submit video sitemaps to accelerate discovery. Not all videos qualify - Google prioritizes high-engagement, relevant content. Monitor Search Console for indexing status and focus on optimizing descriptions and thumbnails for faster approval through proper <a href="https://fixmykb.com" style="color: var(--primary);">schema markup generation</a>.</p>
+                    </div>
+                </div>
+                <div class="faq-item">
+                    <button class="faq-question">
+                        <span>Can I use Video schema for YouTube videos on my website?</span>
+                        <span class="faq-icon">+</span>
+                    </button>
+                    <div class="faq-answer">
+                        <p>Yes! Embed YouTube videos on your site and add Video schema to the embed page. Use embedUrl for the iframe code and reference YouTube's thumbnail and duration. This markup enhances your site's video SEO while driving traffic to YouTube. YouTube itself doesn't support custom schema, so website implementation is key for rich results. Use our <a href="https://fixmykb.com/types/Video-Schema" style="color: var(--primary);">Video Schema generator</a> to get started.</p>
+                    </div>
+                </div>
+                <div class="faq-item">
+                    <button class="faq-question">
+                        <span>Where should I add Video schema on my site?</span>
+                        <span class="faq-icon">+</span>
+                    </button>
+                    <div class="faq-answer">
+                        <p>Add Video schema to the individual page where the video is embedded or played. Each video should have its own dedicated page with unique schema. For playlists, use CollectionPage with multiple VideoObjects. Don't add schema to category pages without embeds - focus on playable instances using <a href="https://fixmykb.com" style="color: var(--primary);">schema markup generation</a>.</p>
+                    </div>
+                </div>
+                <div class="faq-item">
+                    <button class="faq-question">
+                        <span>Do I need Video schema for self-hosted videos only?</span>
+                        <span class="faq-icon">+</span>
+                    </button>
+                    <div class="faq-answer">
+                        <p>No, Video schema works for any playable video - self-hosted MP4s, YouTube embeds, Vimeo, etc. Use contentUrl for direct files or embedUrl for iframes. Self-hosted videos benefit from faster control, but embeds are fine for rich results. Ensure URLs are publicly accessible and HTTPS-secured regardless of hosting.</p>
+                    </div>
+                </div>
+                <div class="faq-item">
+                    <button class="faq-question">
+                        <span>How do I connect Video schema to my channel or author?</span>
+                        <span class="faq-icon">+</span>
+                    </button>
+                    <div class="faq-answer">
+                        <p>Reference existing Person or Organization schema using @id or url in the author/publisher properties. This creates entity links for channel branding in results. Consistent identifiers across videos build your multimedia authority. For guest creators, reference their canonical schema through our <a href="https://fixmykb.com" style="color: var(--primary);">schema markup generation</a> tool.</p>
+                    </div>
+                </div>
+                <div class="faq-item">
+                    <button class="faq-question">
+                        <span>What's the difference between Video schema and video sitemap?</span>
+                        <span class="faq-icon">+</span>
+                    </button>
+                    <div class="faq-answer">
+                        <p>Video schema is on-page structured data describing individual videos, while video sitemaps are XML files listing multiple videos for crawling. Use both: schema for rich results, sitemaps for discovery. Sitemaps reference schema-marked pages, creating a complete optimization system with <a href="https://fixmykb.com/types/Video-Schema" style="color: var(--primary);">Video schema</a>.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    <!-- CTA Section -->
+    <section class="final-cta">
+        <div class="container">
+            <div class="cta-content">
+                <h2>Ready to Optimize Your Videos for Google Rich Results?</h2>
+                <p>Generate professional Video schema markup now and boost your SEO visibility.</p>
+                <a href="#" onclick="window.scrollTo({top: 0, behavior: 'smooth'}); return false;" class="btn btn-large">Generate Video Schema ⚡</a>
+            </div>
+        </div>
+    </section>
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-col">
+                    <h4>Schema Types</h4>
+                    <ul>
+                        <li><a href="https://fixmykb.com/types/Organization-Schema">Organization Schema</a></li>
+                        <li><a href="https://fixmykb.com/types/Local-Business-Schema">Local Business Schema</a></li>
+                        <li><a href="https://fixmykb.com/types/Product-Schema">Product Schema</a></li>
+                        <li><a href="https://fixmykb.com/types/Video-Schema">Video Schema</a></li>
+                    </ul>
+                </div>
+                <div class="footer-col">
+                    <h4>Tools & Resources</h4>
+                    <ul>
+                        <li><a href="https://fixmykb.com">Schema Generator</a></li>
+                        <li><a href="https://fixmykb.com#guide">Implementation Guide</a></li>
+                        <li><a href="https://fixmykb.com#faq">FAQ</a></li>
+                        <li><a href="https://schema.org/VideoObject" target="_blank" rel="noopener">Schema.org Docs</a></li>
+                    </ul>
+                </div>
+                <div class="footer-col">
+                    <h4>Testing Tools</h4>
+                    <ul>
+                        <li><a href="https://search.google.com/test/rich-results" target="_blank" rel="noopener">Rich Results Test</a></li>
+                        <li><a href="https://validator.schema.org" target="_blank" rel="noopener">Schema Validator</a></li>
+                        <li><a href="https://fixmykb.com/types/Video-Schema">Video Schema Generator</a></li>
+                    </ul>
+                </div>
+                <div class="footer-col">
+                    <h4>About FixMyKB</h4>
+                    <p>Free <a href="https://fixmykb.com" style="color: rgba(255,255,255,0.8);">schema markup generation</a> tool for professionals, content creators, and businesses. Create valid structured data in seconds.</p>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p>&copy; 2025 FixMyKB. All rights reserved. | <a href="https://fixmykb.com" style="color: rgba(255,255,255,0.8);">Home</a> | <a href="https://fixmykb.com/types/Video-Schema" style="color: rgba(255,255,255,0.8);">Video Schema</a></p>
+            </div>
+        </div>
+    </footer>
+    <script>
+// Video Schema Generator JavaScript
+document.addEventListener('DOMContentLoaded', function() {
+    // DOM elements
+    const generateBtn = document.getElementById('generateBtn');
+    const clearBtn = document.getElementById('clearBtn');
+    const schemaOutput = document.getElementById('schemaOutput');
+    const copyBtn = document.getElementById('copyBtn');
+    const downloadBtn = document.getElementById('downloadBtn');
+    const validationStatus = document.getElementById('validationStatus');
+    // Current schema
+    let currentSchema = null;
+    // Validate field
+    function validateField(fieldId, fieldName) {
+        const field = document.getElementById(fieldId);
+        const errorMsg = document.getElementById('error-' + fieldId);
+      
+        if (!field) return true;
+      
+        const value = field.value.trim();
+      
+        if (field.required && !value) {
+            field.style.borderColor = '#F44336';
+            if (errorMsg) errorMsg.textContent = fieldName + ' is required';
+            return false;
+        } else {
+            field.style.borderColor = '';
+            if (errorMsg) errorMsg.textContent = '';
+            return true;
+        }
+    }
+    // Generate Video Schema
+    function generateSchema() {
+        // Get form values
+        const name = document.getElementById('videoName').value.trim();
+        const description = document.getElementById('videoDescription').value.trim();
+        const thumbnail = document.getElementById('videoThumbnail').value.trim();
+        const url = document.getElementById('videoUrl').value.trim();
+        const uploadDate = document.getElementById('videoUploadDate').value.trim();
+        const duration = document.getElementById('videoDuration').value.trim();
+        const width = document.getElementById('videoWidth').value.trim();
+        const height = document.getElementById('videoHeight').value.trim();
+        const author = document.getElementById('videoAuthor').value.trim();
+        const publisher = document.getElementById('videoPublisher').value.trim();
+        const views = document.getElementById('videoViews').value.trim();
+        const likes = document.getElementById('videoLikes').value.trim();
+        const language = document.getElementById('videoLanguage').value.trim();
+      
+        // Validate required fields
+        let isValid = true;
+        isValid = validateField('videoName', 'Video Title') && isValid;
+        isValid = validateField('videoDescription', 'Video Description') && isValid;
+        isValid = validateField('videoThumbnail', 'Thumbnail Image URL') && isValid;
+        isValid = validateField('videoUrl', 'Video URL') && isValid;
+        isValid = validateField('videoUploadDate', 'Upload Date') && isValid;
+      
+        if (!isValid) {
+            alert('Please fill in all required fields (Video Title, Description, Thumbnail, URL, and Upload Date)');
+            return;
+        }
+      
+        // Build schema object
+        const schema = {
+            "@context": "https://schema.org",
+            "@type": "VideoObject",
+            "name": name,
+            "description": description,
+            "thumbnailUrl": thumbnail,
+            "contentUrl": url,
+            "uploadDate": uploadDate + "T00:00:00Z" // Append time for ISO format
+        };
+      
+        // Add optional fields
+        if (duration) schema.duration = duration;
+        if (width) schema.width = parseInt(width);
+        if (height) schema.height = parseInt(height);
+        if (author) schema.author = { "@type": "Person", "name": author };
+        if (publisher) schema.publisher = { "@type": "Organization", "name": publisher };
+        if (views) {
+            schema.interactionStatistic = [{
+                "@type": "InteractionCounter",
+                "interactionType": "http://schema.org/WatchAction",
+                "userInteractionCount": parseInt(views)
+            }];
+        }
+        if (likes) {
+            if (!schema.interactionStatistic) schema.interactionStatistic = [];
+            schema.interactionStatistic.push({
+                "@type": "InteractionCounter",
+                "interactionType": "http://schema.org/LikeAction",
+                "userInteractionCount": parseInt(likes)
+            });
+        }
+        if (language) schema.inLanguage = language;
+      
+        currentSchema = schema;
+      
+        // Create full output with script tags
+        const scriptOpen = '<script type="application/ld+json">';
+        const scriptClose = '<' + '/script>';
+        const fullOutput = scriptOpen + '\n' + JSON.stringify(schema, null, 2) + '\n' + scriptClose;
+      
+        // Display schema with script tags
+        schemaOutput.textContent = fullOutput;
+      
+        // Update validation status
+        validationStatus.textContent = '✓ Valid Schema';
+        validationStatus.className = 'validation-status valid';
+    }
+    // Clear form
+    function clearForm() {
+        document.querySelectorAll('.form-control').forEach(function(input) {
+            input.value = '';
+            input.style.borderColor = '';
+        });
+      
+        document.querySelectorAll('.error-message').forEach(function(msg) {
+            msg.textContent = '';
+        });
+      
+        schemaOutput.textContent = '// Your video schema will appear here...';
+        validationStatus.textContent = '';
+        validationStatus.className = 'validation-status';
+        currentSchema = null;
+    }
+    // Copy to clipboard
+    function copyToClipboard() {
+        if (!currentSchema) {
+            alert('Please generate schema first');
+            return;
+        }
+      
+        const scriptOpen = '<script type="application/ld+json">';
+        const scriptClose = '<' + '/script>';
+        const fullOutput = scriptOpen + '\n' + JSON.stringify(currentSchema, null, 2) + '\n' + scriptClose;
+      
+        navigator.clipboard.writeText(fullOutput).then(function() {
+            const originalText = copyBtn.textContent;
+            copyBtn.textContent = '✓ Copied!';
+            setTimeout(function() {
+                copyBtn.textContent = originalText;
+            }, 2000);
+        }).catch(function(err) {
+            alert('Failed to copy to clipboard');
+        });
+    }
+    // Download JSON
+    function downloadJSON() {
+        if (!currentSchema) {
+            alert('Please generate schema first');
+            return;
+        }
+      
+        const scriptOpen = '<script type="application/ld+json">';
+        const scriptClose = '<' + '/script>';
+        const fullOutput = scriptOpen + '\n' + JSON.stringify(currentSchema, null, 2) + '\n' + scriptClose;
+      
+        const blob = new Blob([fullOutput], { type: 'text/html' });
+        const url = URL.createObjectURL(blob);
+        const a = document.createElement('a');
+        a.href = url;
+        a.download = 'video-schema.html';
+        document.body.appendChild(a);
+        a.click();
+        document.body.removeChild(a);
+        URL.revokeObjectURL(url);
+    }
+    // FAQ Accordion
+    function initFAQ() {
+        const faqQuestions = document.querySelectorAll('.faq-question');
+        faqQuestions.forEach(function(question) {
+            question.addEventListener('click', function() {
+                const faqItem = question.parentElement;
+                const isActive = faqItem.classList.contains('active');
+              
+                // Close all FAQs
+                document.querySelectorAll('.faq-item').forEach(function(item) {
+                    item.classList.remove('active');
+                });
+              
+                // Toggle current FAQ
+                if (!isActive) {
+                    faqItem.classList.add('active');
+                }
+            });
+        });
+    }
+    // Event listeners
+    if (generateBtn) generateBtn.addEventListener('click', generateSchema);
+    if (clearBtn) clearBtn.addEventListener('click', clearForm);
+    if (copyBtn) copyBtn.addEventListener('click', copyToClipboard);
+    if (downloadBtn) downloadBtn.addEventListener('click', downloadJSON);
+    // Initialize
+    initFAQ();
+});
+    </script>
+    <!-- Page Schema Markup -->
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "WebPage",
+      "name": "Video Schema Markup Generator for Rich Results & SEO Optimization",
+      "description": "Free tool to generate Video schema markup for YouTube, embeds, and multimedia content. Optimize for Google video rich results, carousels, and enhanced SEO.",
+      "url": "https://fixmykb.com/types/Video-Schema",
+      "breadcrumb": {
+        "@type": "BreadcrumbList",
+        "itemListElement": [{
+          "@type": "ListItem",
+          "position": 1,
+          "name": "Home",
+          "item": "https://fixmykb.com"
+        },{
+          "@type": "ListItem",
+          "position": 2,
+          "name": "Schema Types",
+          "item": "https://fixmykb.com/types/"
+        },{
+          "@type": "ListItem",
+          "position": 3,
+          "name": "Video Schema",
+          "item": "https://fixmykb.com/types/Video-Schema"
+        }]
+      },
+      "mainEntity": {
+        "@type": "SoftwareApplication",
+        "name": "Video Schema Generator",
+        "applicationCategory": "BusinessApplication",
+        "offers": {
+          "@type": "Offer",
+          "price": "0",
+          "priceCurrency": "USD"
+        }
+      }
+    }
+    </script>
+    <!-- Organization Schema -->
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "Organization",
+      "name": "FixMyKB",
+      "url": "https://fixmykb.com",
+      "logo": "https://fixmykb.com/logo.png",
+      "description": "Free schema markup generation tools for SEO professionals and businesses",
+      "sameAs": [
+        "https://fixmykb.com/types/Video-Schema",
+        "https://fixmykb.com/types/Product-Schema"
+      ]
+    }
+    </script>
+    <!-- FAQ Schema -->
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "FAQPage",
+      "mainEntity": [{
+        "@type": "Question",
+        "name": "How long does it take for Video schema to trigger rich results?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "Video rich results can appear within days to weeks after implementation and indexing, depending on content quality and competition. Submit video sitemaps to accelerate discovery."
+        }
+      },{
+        "@type": "Question",
+        "name": "Can I use Video schema for YouTube videos on my website?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "Yes! Embed YouTube videos on your site and add Video schema to the embed page. Use embedUrl for the iframe code and reference YouTube's thumbnail and duration."
+        }
+      },{
+        "@type": "Question",
+        "name": "Where should I add Video schema on my site?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "Add Video schema to the individual page where the video is embedded or played. Each video should have its own dedicated page with unique schema."
+        }
+      }]
+    }
+    </script>
+</body>
+</html>
+```
