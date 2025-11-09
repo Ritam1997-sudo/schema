@@ -1,0 +1,1224 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Free Person Schema Markup Generator. Create valid JSON-LD Person structured data for authors, speakers, executives, and professionals. Enhance people profiles in search results with detailed bios and contact info.">
+    <meta name="keywords" content="person schema, person schema markup, person structured data, person SEO, schema markup generation">
+    <meta name="robots" content="index, follow, max-snippet:-1, max-image-preview:large, max-video-preview:-1">
+    <meta name="googlebot" content="index, follow">
+    <meta name="bingbot" content="index, follow">
+    <title>Person Schema Markup Generator - Free Tool for People SEO | FixMyKB</title>
+    <meta name="theme-color" content="#4A90E2">
+    <link rel="canonical" href="https://fixmykb.com/types/Person-Schema">
+   
+    <!-- Open Graph Tags -->
+    <meta property="og:title" content="Person Schema Markup Generator - Free Tool for People SEO">
+    <meta property="og:description" content="Generate valid JSON-LD Person schema markup instantly. Display professional details, bios, and affiliations in search results for authors, speakers, and executives.">
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="https://fixmykb.com/types/Person-Schema">
+    <meta property="og:site_name" content="FixMyKB">
+   
+    <!-- Twitter Card Tags -->
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:title" content="Person Schema Markup Generator">
+    <meta name="twitter:description" content="Free tool to generate Person schema markup for professionals, authors, and speakers">
+   
+    <style>
+        /* Core Web Vitals Optimized CSS - Lightweight Design */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+:root {
+    --primary: #4A90E2;
+    --primary-dark: #357ABD;
+    --secondary: #50C878;
+    --text-dark: #2C3E50;
+    --text-gray: #5A6C7D;
+    --bg-light: #F8F9FA;
+    --bg-white: #FFFFFF;
+    --border-color: #E1E8ED;
+    --error-color: #F44336;
+    --shadow-sm: 0 1px 3px rgba(0,0,0,0.06);
+    --shadow-md: 0 4px 6px rgba(0,0,0,0.07);
+    --shadow-lg: 0 10px 15px rgba(0,0,0,0.08);
+}
+html {
+    scroll-behavior: smooth;
+}
+body {
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+    font-size: 16px;
+    line-height: 1.6;
+    color: var(--text-dark);
+    background: var(--bg-light);
+}
+.container {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 0 20px;
+}
+*:focus-visible {
+    outline: 3px solid var(--primary);
+    outline-offset: 2px;
+}
+/* Header */
+.header {
+    background: var(--bg-white);
+    border-bottom: 1px solid var(--border-color);
+    position: sticky;
+    top: 0;
+    z-index: 100;
+    box-shadow: var(--shadow-sm);
+}
+.header-content {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 1rem 0;
+}
+.logo {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    font-size: 1.25rem;
+    font-weight: 700;
+    color: var(--primary);
+}
+.logo-icon {
+    font-size: 1.75rem;
+}
+.nav {
+    display: flex;
+    gap: 1.5rem;
+}
+.nav a {
+    color: var(--text-gray);
+    text-decoration: none;
+    font-weight: 500;
+    transition: color 0.2s;
+    padding: 0.5rem;
+}
+.nav a:hover {
+    color: var(--primary);
+}
+/* Hero Section */
+.hero {
+    background: linear-gradient(135deg, #E3F2FD 0%, #F8F9FA 100%);
+    padding: 3rem 0;
+}
+.hero-content {
+    text-align: center;
+    margin-bottom: 2rem;
+}
+.hero h1 {
+    font-size: 2.5rem;
+    font-weight: 700;
+    color: var(--text-dark);
+    margin-bottom: 1rem;
+    line-height: 1.2;
+}
+.hero-description {
+    font-size: 1.125rem;
+    color: var(--text-gray);
+    max-width: 900px;
+    margin: 0 auto 2rem;
+}
+/* Generator Tool */
+.generator-tool {
+    background: var(--bg-white);
+    border-radius: 12px;
+    box-shadow: var(--shadow-lg);
+    overflow: hidden;
+    margin-top: 2rem;
+}
+.tool-header {
+    background: linear-gradient(135deg, var(--primary) 0%, var(--primary-dark) 100%);
+    color: white;
+    padding: 1.5rem;
+    text-align: center;
+}
+.tool-header h2 {
+    font-size: 1.75rem;
+    margin-bottom: 0.5rem;
+}
+.tool-header p {
+    opacity: 0.95;
+}
+.tool-body {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 2rem;
+    padding: 2rem;
+}
+.form-group {
+    margin-bottom: 1.25rem;
+}
+.form-group label {
+    display: block;
+    font-weight: 600;
+    color: var(--text-dark);
+    margin-bottom: 0.5rem;
+}
+.form-control {
+    width: 100%;
+    padding: 0.75rem;
+    border: 2px solid var(--border-color);
+    border-radius: 6px;
+    font-size: 1rem;
+    transition: border-color 0.2s;
+    font-family: inherit;
+}
+.form-control:focus {
+    outline: none;
+    border-color: var(--primary);
+}
+.error-message {
+    display: block;
+    color: var(--error-color);
+    font-size: 0.875rem;
+    margin-top: 0.25rem;
+    min-height: 1.25rem;
+}
+.dynamic-fields {
+    max-height: 500px;
+    overflow-y: auto;
+    padding-right: 0.5rem;
+}
+.tool-actions {
+    display: flex;
+    gap: 1rem;
+    margin-top: 1.5rem;
+}
+.btn {
+    padding: 0.75rem 1.5rem;
+    border: none;
+    border-radius: 6px;
+    font-size: 1rem;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.2s;
+    min-height: 44px;
+}
+.btn-primary {
+    background: var(--primary);
+    color: white;
+}
+.btn-primary:hover {
+    background: var(--primary-dark);
+    transform: translateY(-1px);
+}
+.btn-secondary {
+    background: var(--bg-light);
+    color: var(--text-gray);
+}
+.btn-secondary:hover {
+    background: var(--border-color);
+}
+.btn-success {
+    background: var(--secondary);
+    color: white;
+}
+.btn-success:hover {
+    background: #45B369;
+    transform: translateY(-1px);
+}
+.tool-right {
+    display: flex;
+    flex-direction: column;
+}
+.preview-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 1rem;
+}
+.validation-status {
+    font-size: 0.875rem;
+    font-weight: 600;
+    padding: 0.25rem 0.75rem;
+    border-radius: 4px;
+}
+.validation-status.valid {
+    background: #D4EDDA;
+    color: #155724;
+}
+.schema-output {
+    flex: 1;
+    background: #282C34;
+    color: #ABB2BF;
+    padding: 1.5rem;
+    border-radius: 6px;
+    font-family: 'Courier New', monospace;
+    font-size: 0.875rem;
+    overflow: auto;
+    max-height: 500px;
+    line-height: 1.5;
+}
+.output-actions {
+    display: flex;
+    gap: 1rem;
+    margin-top: 1rem;
+}
+/* Content Sections */
+section {
+    padding: 4rem 0;
+}
+.section-header {
+    text-align: center;
+    margin-bottom: 3rem;
+}
+.section-header h2 {
+    font-size: 2rem;
+    font-weight: 700;
+    color: var(--text-dark);
+    margin-bottom: 1rem;
+}
+.section-header p {
+    font-size: 1.125rem;
+    color: var(--text-gray);
+    max-width: 800px;
+    margin: 0 auto;
+}
+.intro-section {
+    background: var(--bg-white);
+}
+.intro-content p {
+    font-size: 1.0625rem;
+    line-height: 1.8;
+    color: var(--text-gray);
+    margin-bottom: 1.5rem;
+}
+.intro-content h2 {
+    font-size: 2rem;
+    color: var(--text-dark);
+    margin-bottom: 1.5rem;
+}
+.intro-content a {
+    color: var(--primary);
+    text-decoration: none;
+    font-weight: 600;
+}
+.intro-content a:hover {
+    text-decoration: underline;
+}
+/* Benefits Grid */
+.benefits-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 2rem;
+}
+.benefit-card {
+    background: var(--bg-white);
+    border: 1px solid var(--border-color);
+    border-radius: 10px;
+    padding: 2rem;
+    transition: all 0.3s;
+}
+.benefit-card:hover {
+    box-shadow: var(--shadow-md);
+    border-color: var(--primary);
+}
+.benefit-icon {
+    font-size: 2.5rem;
+    margin-bottom: 1rem;
+}
+.benefit-card h3 {
+    font-size: 1.375rem;
+    color: var(--text-dark);
+    margin-bottom: 1rem;
+}
+.benefit-card p {
+    color: var(--text-gray);
+    line-height: 1.7;
+}
+/* Guide Steps */
+.guide-steps {
+    max-width: 900px;
+    margin: 0 auto;
+}
+.step {
+    display: flex;
+    gap: 2rem;
+    margin-bottom: 3rem;
+}
+.step-number {
+    flex-shrink: 0;
+    width: 60px;
+    height: 60px;
+    background: var(--primary);
+    color: white;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 1.5rem;
+    font-weight: 700;
+}
+.step-content h3 {
+    font-size: 1.5rem;
+    color: var(--text-dark);
+    margin-bottom: 1rem;
+}
+.step-content p {
+    color: var(--text-gray);
+    line-height: 1.8;
+}
+/* Best Practices */
+.why-content {
+    max-width: 900px;
+    margin: 0 auto;
+}
+.why-block {
+    margin-bottom: 2.5rem;
+}
+.why-block h3 {
+    font-size: 1.5rem;
+    color: var(--text-dark);
+    margin-bottom: 1rem;
+}
+.why-block p {
+    color: var(--text-gray);
+    line-height: 1.8;
+}
+/* FAQ Section */
+.faq {
+    background: var(--bg-white);
+}
+.faq-list {
+    max-width: 900px;
+    margin: 0 auto;
+}
+.faq-item {
+    background: var(--bg-light);
+    border-radius: 8px;
+    margin-bottom: 1rem;
+    overflow: hidden;
+}
+.faq-question {
+    width: 100%;
+    background: none;
+    border: none;
+    padding: 1.5rem;
+    text-align: left;
+    font-size: 1.125rem;
+    font-weight: 600;
+    color: var(--text-dark);
+    cursor: pointer;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    transition: background 0.2s;
+}
+.faq-question:hover {
+    background: rgba(74, 144, 226, 0.05);
+}
+.faq-icon {
+    font-size: 1.5rem;
+    color: var(--primary);
+    transition: transform 0.3s;
+}
+.faq-item.active .faq-icon {
+    transform: rotate(45deg);
+}
+.faq-answer {
+    max-height: 0;
+    overflow: hidden;
+    transition: max-height 0.3s ease-out;
+}
+.faq-item.active .faq-answer {
+    max-height: 1000px;
+    transition: max-height 0.5s ease-in;
+}
+.faq-answer p {
+    padding: 0 1.5rem 1.5rem;
+    color: var(--text-gray);
+    line-height: 1.8;
+}
+/* CTA Section */
+.final-cta {
+    background: linear-gradient(135deg, var(--primary) 0%, var(--primary-dark) 100%);
+    color: white;
+    text-align: center;
+    padding: 4rem 0;
+}
+.cta-content h2 {
+    font-size: 2.25rem;
+    margin-bottom: 1rem;
+}
+.cta-content p {
+    font-size: 1.25rem;
+    margin-bottom: 2rem;
+    opacity: 0.95;
+}
+.cta-content .btn {
+    background: white;
+    color: var(--primary);
+}
+.cta-content .btn:hover {
+    background: var(--bg-light);
+}
+/* Footer */
+.footer {
+    background: var(--text-dark);
+    color: white;
+    padding: 3rem 0 1.5rem;
+}
+.footer-content {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 2rem;
+    margin-bottom: 2rem;
+}
+.footer-col h4 {
+    font-size: 1.125rem;
+    margin-bottom: 1rem;
+}
+.footer-col ul {
+    list-style: none;
+}
+.footer-col li {
+    margin-bottom: 0.5rem;
+}
+.footer-col a {
+    color: rgba(255,255,255,0.8);
+    text-decoration: none;
+    transition: color 0.2s;
+}
+.footer-col a:hover {
+    color: white;
+}
+.footer-col p {
+    color: rgba(255,255,255,0.7);
+    line-height: 1.6;
+}
+.footer-bottom {
+    border-top: 1px solid rgba(255,255,255,0.1);
+    padding-top: 1.5rem;
+    text-align: center;
+    color: rgba(255,255,255,0.6);
+}
+/* Responsive Design */
+@media (max-width: 768px) {
+    .nav {
+        display: none;
+    }
+   
+    .hero h1 {
+        font-size: 1.75rem;
+    }
+   
+    .tool-body {
+        grid-template-columns: 1fr;
+    }
+   
+    .benefits-grid {
+        grid-template-columns: 1fr;
+    }
+   
+    .step {
+        flex-direction: column;
+    }
+   
+    .footer-content {
+        grid-template-columns: 1fr;
+    }
+   
+    .tool-actions,
+    .output-actions {
+        flex-direction: column;
+    }
+}
+    </style>
+</head>
+<body>
+    <!-- Header -->
+    <header class="header">
+        <div class="container">
+            <div class="header-content">
+                <div class="logo">
+                    <a href="https://fixmykb.com" style="display: flex; align-items: center; gap: 0.5rem; text-decoration: none; color: inherit;">
+                        <span class="logo-icon">🎭</span>
+                        <span class="logo-text">FixMyKB</span>
+                    </a>
+                </div>
+                <nav class="nav">
+                    <a href="https://fixmykb.com">Home</a>
+                    <a href="https://fixmykb.com#types">Schema Types</a>
+                    <a href="https://fixmykb.com#guide">Guide</a>
+                    <a href="https://fixmykb.com/types/Person-Schema">Person Schema</a>
+                </nav>
+            </div>
+        </div>
+    </header>
+    <!-- Hero Section -->
+    <section class="hero">
+        <div class="container">
+            <div class="hero-content">
+                <h1>Person Schema Markup Generator for Enhanced Professional Visibility</h1>
+                <p class="hero-description">Generate comprehensive Person Schema markup instantly with our free <a href="https://fixmykb.com" style="color: var(--primary); font-weight: 600;">schema markup generation</a> tool. Highlight authors, speakers, executives, and professionals in search results with detailed bios, affiliations, expertise, and contact information. Ideal for personal branding, author pages, speaker profiles, and team member bios.</p>
+            </div>
+            <!-- Person Schema Generator -->
+            <div class="generator-tool">
+                <div class="tool-header">
+                    <h2>🎭 Generate Person Schema</h2>
+                    <p>Fill in professional details below</p>
+                </div>
+               
+                <div class="tool-body">
+                    <div class="tool-left">
+                        <div class="form-group">
+                            <label for="personName">Full Name *</label>
+                            <input type="text" id="personName" class="form-control" placeholder="e.g., Jane Doe" required>
+                            <span class="error-message" id="error-personName"></span>
+                        </div>
+                        <div class="form-group">
+                            <label for="personJobTitle">Job Title</label>
+                            <input type="text" id="personJobTitle" class="form-control" placeholder="e.g., Senior Software Engineer">
+                        </div>
+                        <div class="form-group">
+                            <label for="personWorksFor">Works For (Organization)</label>
+                            <input type="text" id="personWorksFor" class="form-control" placeholder="e.g., Tech Corp">
+                        </div>
+                        <div class="form-group">
+                            <label for="personImage">Photo URL</label>
+                            <input type="url" id="personImage" class="form-control" placeholder="https://example.com/photo.jpg">
+                        </div>
+                        <div class="form-group">
+                            <label for="personUrl">Personal/Professional Website URL</label>
+                            <input type="url" id="personUrl" class="form-control" placeholder="https://example.com">
+                        </div>
+                        <div class="form-group">
+                            <label for="personTelephone">Phone Number</label>
+                            <input type="tel" id="personTelephone" class="form-control" placeholder="+1-555-123-4567">
+                        </div>
+                        <div class="form-group">
+                            <label for="personEmail">Email Address</label>
+                            <input type="email" id="personEmail" class="form-control" placeholder="jane@example.com">
+                        </div>
+                        <div class="form-group">
+                            <label for="personAddress">Street Address</label>
+                            <input type="text" id="personAddress" class="form-control" placeholder="123 Main Street">
+                        </div>
+                        <div class="form-group">
+                            <label for="personCity">City</label>
+                            <input type="text" id="personCity" class="form-control" placeholder="New York">
+                        </div>
+                        <div class="form-group">
+                            <label for="personBirthDate">Birth Date (YYYY-MM-DD)</label>
+                            <input type="date" id="personBirthDate" class="form-control">
+                        </div>
+                        <div class="form-group">
+                            <label for="personGender">Gender</label>
+                            <select id="personGender" class="form-control">
+                                <option value="">Select Gender</option>
+                                <option value="Male">Male</option>
+                                <option value="Female">Female</option>
+                                <option value="Other">Other</option>
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <label for="personNationality">Nationality</label>
+                            <input type="text" id="personNationality" class="form-control" placeholder="e.g., American">
+                        </div>
+                        <div class="form-group">
+                            <label for="personKnowsAbout">Areas of Expertise (comma-separated)</label>
+                            <input type="text" id="personKnowsAbout" class="form-control" placeholder="e.g., SEO, Digital Marketing, Content Strategy">
+                        </div>
+                        <div class="form-group">
+                            <label for="personAlumniOf">Alumni Of (Institution)</label>
+                            <input type="text" id="personAlumniOf" class="form-control" placeholder="e.g., Harvard University">
+                        </div>
+                        <div class="form-group">
+                            <label for="personAward">Awards (comma-separated)</label>
+                            <input type="text" id="personAward" class="form-control" placeholder="e.g., SEO Excellence Award 2024, Content Creator of the Year">
+                        </div>
+                        <div class="form-group">
+                            <label for="personDescription">Bio/Description</label>
+                            <textarea id="personDescription" class="form-control" rows="3" placeholder="Professional biography and achievements..."></textarea>
+                        </div>
+                        <div class="tool-actions">
+                            <button id="generateBtn" class="btn btn-primary">✨ Generate Schema</button>
+                            <button id="clearBtn" class="btn btn-secondary">🔄 Clear Form</button>
+                        </div>
+                    </div>
+                    <div class="tool-right">
+                        <div class="preview-header">
+                            <h3>📋 JSON-LD Preview</h3>
+                            <span id="validationStatus" class="validation-status"></span>
+                        </div>
+                        <pre id="schemaOutput" class="schema-output">// Your person schema will appear here...</pre>
+                        <div class="output-actions">
+                            <button id="copyBtn" class="btn btn-success">📄 Copy to Clipboard</button>
+                            <button id="downloadBtn" class="btn btn-success">💾 Download JSON</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    <!-- What is Person Schema Section -->
+    <section class="intro-section">
+        <div class="container">
+            <div class="intro-content">
+                <h2>What is Person Schema Markup?</h2>
+                <p>Person schema markup is a structured data format that helps search engines understand and display information about individuals in search results. Using our <a href="https://fixmykb.com">schema markup generation</a> tool, you can create detailed profiles for authors, speakers, executives, professionals, and team members, including job titles, affiliations, expertise areas, contact information, and biographical details. This markup enables rich results like knowledge panels, author carousels, and enhanced people search features that highlight personal achievements and professional credentials directly in SERPs.</p>
+               
+                <p>As part of the Schema.org vocabulary, Person schema has become essential for personal branding and professional visibility in an era where people increasingly search for experts by name, role, or topic. For authors, journalists, speakers, consultants, and business leaders, implementing Person schema through comprehensive <a href="https://fixmykb.com">schema markup generation</a> ensures their profiles appear in Google's "People also ask" sections, featured snippets for expert quotes, and specialized knowledge graphs. This targeted visibility connects professionals directly with opportunities, collaborations, and audiences searching for their specific expertise.</p>
+                <p>Our free <a href="https://fixmykb.com/types/Person-Schema">Person Schema generator</a> supports advanced features like affiliation with organizations, educational background, awards, and areas of knowledge, making it perfect for enhancing author bylines, speaker bios, about pages, and team directories. Whether building personal authority or showcasing key personnel, Person schema drives meaningful engagement by positioning individuals as trusted sources in their fields across all major search engines and platforms.</p>
+            </div>
+        </div>
+    </section>
+    <!-- Benefits Section -->
+    <section class="benefits">
+        <div class="container">
+            <div class="section-header">
+                <h2>Why Use Person Schema Markup for Professional Profiles?</h2>
+                <p>Unlock enhanced visibility and authority for individuals in search results</p>
+            </div>
+            <div class="benefits-grid">
+                <div class="benefit-card">
+                    <div class="benefit-icon">👤</div>
+                    <h3>Knowledge Panel Eligibility</h3>
+                    <p>Person schema is a key requirement for appearing in Google's Knowledge Panels for individuals. These prominent panels display biographical details, photos, affiliations, and links directly in search results for name-based queries. Professionals with complete Person schema see dramatically higher visibility when people search for them by name or role. Our <a href="https://fixmykb.com" style="color: var(--primary);">schema markup generation</a> tool ensures all necessary properties are included for maximum panel eligibility and rich display features.</p>
+                </div>
+                <div class="benefit-card">
+                    <div class="benefit-icon">🏆</div>
+                    <h3>Showcase Awards and Achievements</h3>
+                    <p>Highlight professional awards, certifications, and accomplishments directly in search results using the award property. Search engines can display these achievements in rich snippets, enhancing credibility and authority. For executives, authors, and speakers, visible accolades build instant trust with potential clients, collaborators, and audiences discovering them through topical searches. This achievement visibility is crucial for personal branding and establishing thought leadership in competitive fields.</p>
+                </div>
+                <div class="benefit-card">
+                    <div class="benefit-icon">🏢</div>
+                    <h3>Professional Affiliations and Roles</h3>
+                    <p>Clearly define job titles, organizational affiliations, and professional roles with worksFor and jobTitle properties. This structured information helps search engines connect individuals to companies, teams, and projects, improving relevance in B2B searches and executive profiles. Enhanced affiliation data also supports co-authorship recognition and team member visibility on corporate sites, driving internal linking and authority signals through detailed <a href="https://fixmykb.com/types/Person-Schema" style="color: var(--primary);">Person schema implementation</a>.</p>
+                </div>
+                <div class="benefit-card">
+                    <div class="benefit-icon">📚</div>
+                    <h3>Expertise and Knowledge Areas</h3>
+                    <p>Specify areas of expertise with the knowsAbout property to appear in topic-specific expert searches and "People also ask" features. Search engines use this data to match professionals to relevant queries like "SEO experts" or "digital marketing speakers," positioning individuals as go-to authorities. For consultants, trainers, and content creators, expertise markup significantly increases qualified leads and speaking opportunities from intent-driven searches using our <a href="https://fixmykb.com" style="color: var(--primary);">schema markup generation</a> capabilities.</p>
+                </div>
+                <div class="benefit-card">
+                    <div class="benefit-icon">🎓</div>
+                    <h3>Educational Background and Alumni Status</h3>
+                    <p>Include alumniOf and educational affiliations to enhance credibility in academic and professional searches. Universities, professional associations, and alumni networks benefit from structured alumni data that appears in institutional searches and credential verifications. For speakers and authors, educational markup adds depth to bios, helping establish domain expertise and trustworthiness in specialized fields through complete <a href="https://fixmykb.com" style="color: var(--primary);">schema markup generation</a>.</p>
+                </div>
+                <div class="benefit-card">
+                    <div class="benefit-icon">🔗</div>
+                    <h3>Enhanced Author and Speaker Attribution</h3>
+                    <p>Person schema enables accurate authorship attribution for articles, videos, and events, improving E-A-T signals for content sites. Search engines display author photos, bios, and links in bylines and knowledge panels, driving traffic to personal sites and increasing professional exposure. This attribution is essential for journalists, bloggers, and conference speakers building audiences through content and events with our <a href="https://fixmykb.com/types/Person-Schema" style="color: var(--primary);">Person Schema tool</a>.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+    <!-- Implementation Guide -->
+    <section class="guide">
+        <div class="container">
+            <div class="section-header">
+                <h2>How to Implement Person Schema on Your Website</h2>
+                <p>Step-by-step guide to add Person schema and boost professional discoverability</p>
+            </div>
+            <div class="guide-steps">
+                <div class="step">
+                    <div class="step-number">1</div>
+                    <div class="step-content">
+                        <h3>Generate Person Schema for Each Profile</h3>
+                        <p>Use our advanced <a href="https://fixmykb.com/types/Person-Schema" style="color: var(--primary);">Person Schema generator</a> to create markup for author pages, speaker bios, executive profiles, and team members. Include core details like name, job title, and photo, plus advanced properties such as expertise areas, awards, and affiliations. Comprehensive data ensures richer search displays and better eligibility for knowledge panels and expert features.</p>
+                    </div>
+                </div>
+                <div class="step">
+                    <div class="step-number">2</div>
+                    <div class="step-content">
+                        <h3>Integrate Schema into Profile Pages</h3>
+                        <p>Add the generated JSON-LD code to individual profile pages using the &lt;script type="application/ld+json"&gt; wrapper provided. Place it in the &lt;head&gt; or &lt;body&gt; of author bios, about pages, and team directories. For content sites, link Person schema to articles via the author property. Automate implementation through CMS plugins or templates for consistent <a href="https://fixmykb.com" style="color: var(--primary);">schema markup generation</a> across multiple profiles.</p>
+                    </div>
+                </div>
+                <div class="step">
+                    <div class="step-number">3</div>
+                    <div class="step-content">
+                        <h3>Include High-Quality Professional Photos</h3>
+                        <p>Use professional headshots (minimum 600x600 pixels) for the image property to appear in knowledge panels and author carousels. Ensure photos are recent, high-resolution, and hosted on HTTPS domains. Quality imagery significantly improves click-through rates from search results and enhances personal branding. Avoid generic stock photos – authentic professional images build trust and recognition in expert searches.</p>
+                    </div>
+                </div>
+                <div class="step">
+                    <div class="step-number">4</div>
+                    <div class="step-content">
+                        <h3>Test and Validate Schema Implementation</h3>
+                        <p>Validate your Person schema using Google's Rich Results Test and Schema.org validator. Check for errors in property formats, required fields, and nested structures like affiliations. Monitor implementation in Google Search Console under "Enhancements" for people-related features. Regular validation ensures ongoing eligibility for knowledge panels and rich results as profiles evolve through our <a href="https://fixmykb.com/types/Person-Schema" style="color: var(--primary);">Person schema tool</a>.</p>
+                    </div>
+                </div>
+                <div class="step">
+                    <div class="step-number">5</div>
+                    <div class="step-content">
+                        <h3>Update Profiles for Career Changes</h3>
+                        <p>Maintain accuracy by updating Person schema when job titles, affiliations, or expertise areas change. Search engines prioritize current information for knowledge panels and expert matching. For authors and speakers, refresh bios with new publications, awards, or speaking engagements. Consistent updates preserve authority signals and prevent outdated information from appearing in search features via reliable <a href="https://fixmykb.com" style="color: var(--primary);">schema markup generation</a>.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    <!-- Best Practices -->
+    <section class="why-2025" style="background: var(--bg-white);">
+        <div class="container">
+            <div class="section-header">
+                <h2>Person Schema Best Practices for Maximum Professional Impact</h2>
+                <p>Expert recommendations for implementing Person schema that builds authority</p>
+            </div>
+            <div class="why-content">
+                <div class="why-block">
+                    <h3>✅ Use Unique Schema for Each Individual</h3>
+                    <p>Create separate Person schema for every profile on your site – no generic templates. Each schema should include unique identifiers like name, photo, and contact details specific to that person. This one-to-one mapping prevents duplication issues and ensures accurate attribution in search results. For team pages, implement schema on individual member profiles rather than aggregated lists to maximize personal visibility through <a href="https://fixmykb.com" style="color: var(--primary);">schema markup generation</a>.</p>
+                </div>
+                <div class="why-block">
+                    <h3>✅ Link to Verified Professional Profiles</h3>
+                    <p>Include sameAs properties linking to verified social and professional profiles (LinkedIn, Twitter, GitHub) for enhanced credibility. Search engines cross-reference these links to validate identity and expertise, improving knowledge panel accuracy. Prioritize high-authority platforms and ensure links point to active, professional accounts representing the individual's work and contributions.</p>
+                </div>
+                <div class="why-block">
+                    <h3>✅ Detail Expertise with Specific Topics</h3>
+                    <p>Use knowsAbout with precise, searchable topics rather than broad categories. Instead of "marketing," specify "SEO technical optimization" or "content marketing strategy." This granularity helps match individuals to niche queries and establishes deeper domain authority. Update expertise lists as professionals expand into new areas, keeping schema current and relevant via our <a href="https://fixmykb.com/types/Person-Schema" style="color: var(--primary);">Person Schema generator</a>.</p>
+                </div>
+                <div class="why-block">
+                    <h3>✅ Structure Awards with Dates and Issuers</h3>
+                    <p>For the award property, include specific details like award name, date received, and issuing organization. This structured achievement data appears in knowledge panels and enhances E-A-T signals. Multiple awards should be listed as an array, with recent accomplishments prioritized. Accurate award markup significantly boosts professional credibility in competitive search landscapes.</p>
+                </div>
+                <div class="why-block">
+                    <h3>✅ Connect to Content via Author Properties</h3>
+                    <p>Link Person schema to authored content using the author property in Article or BlogPosting schema. This connection enables author bios, photos, and links to appear in search results for content pieces. Consistent attribution across your site builds cumulative authority for both the individual and publishing platform through integrated <a href="https://fixmykb.com" style="color: var(--primary);">schema markup generation</a>.</p>
+                </div>
+                <div class="why-block">
+                    <h3>✅ Include International Contact Details</h3>
+                    <p>For global professionals, provide complete international address formatting with country codes and locale-specific details. Use telephone with international prefixes and email with professional domains. This comprehensive contact data supports multilingual searches and international knowledge panels, expanding reach beyond local markets with our <a href="https://fixmykb.com/types/Person-Schema" style="color: var(--primary);">Person schema tool</a>.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+    <!-- FAQ Section -->
+    <section class="faq">
+        <div class="container">
+            <div class="section-header">
+                <h2>Frequently Asked Questions About Person Schema</h2>
+                <p>Common questions about implementing Person schema for professional visibility</p>
+            </div>
+            <div class="faq-list">
+                <div class="faq-item">
+                    <button class="faq-question">
+                        <span>How does Person schema affect knowledge panels?</span>
+                        <span class="faq-icon">+</span>
+                    </button>
+                    <div class="faq-answer">
+                        <p>Person schema provides the structured data Google needs to create and populate knowledge panels for individuals. Complete schema with photos, bios, affiliations, and expertise increases eligibility and accuracy of these panels, which appear prominently for name-based searches. Panels drive significant traffic and establish instant credibility – our <a href="https://fixmykb.com" style="color: var(--primary);">schema markup generation</a> tool optimizes all required properties for maximum panel potential.</p>
+                    </div>
+                </div>
+                <div class="faq-item">
+                    <button class="faq-question">
+                        <span>Can I use Person schema for team members on corporate sites?</span>
+                        <span class="faq-icon">+</span>
+                    </button>
+                    <div class="faq-answer">
+                        <p>Yes, Person schema is ideal for executive teams, department heads, and key personnel on corporate websites. Implement schema on individual bio pages with job titles, organizational affiliations, and expertise areas. This enhances B2B search visibility and supports featured appearances in company knowledge graphs. Team member schema also improves content attribution when executives author blog posts or case studies.</p>
+                    </div>
+                </div>
+                <div class="faq-item">
+                    <button class="faq-question">
+                        <span>What if a person's information changes frequently?</span>
+                        <span class="faq-icon">+</span>
+                    </button>
+                    <div class="faq-answer">
+                        <p>Update Person schema immediately when job titles, affiliations, or contact details change. Search engines recrawl updated pages and refresh knowledge panels accordingly. For high-profile individuals with frequent updates, use sitemaps and Search Console indexing requests to accelerate changes. Consistent maintenance ensures current information appears in search features – regenerate schema using our <a href="https://fixmykb.com/types/Person-Schema" style="color: var(--primary);">Person Schema tool</a> as needed.</p>
+                    </div>
+                </div>
+                <div class="faq-item">
+                    <button class="faq-question">
+                        <span>Should I include sensitive personal information in Person schema?</span>
+                        <span class="faq-icon">+</span>
+                    </button>
+                    <div class="faq-answer">
+                        <p>Only include publicly available professional information in Person schema. Avoid sensitive details like exact birth dates, home addresses, or personal phone numbers. Focus on job titles, professional websites, work email, and expertise areas. Privacy compliance is essential – schema should enhance professional visibility without compromising personal security or GDPR compliance.</p>
+                    </div>
+                </div>
+                <div class="faq-item">
+                    <button class="faq-question">
+                        <span>How do I connect Person schema to authored content?</span>
+                        <span class="faq-icon">+</span>
+                    </button>
+                    <div class="faq-answer">
+                        <p>In your Article or BlogPosting schema, use the author property pointing to the Person schema URL or inline object. This creates the connection search engines need for proper attribution. Author photos, names, and bios then appear in search results for content pieces, driving traffic to personal profiles. Consistent implementation across content builds strong E-A-T signals through <a href="https://fixmykb.com" style="color: var(--primary);">schema markup generation</a>.</p>
+                    </div>
+                </div>
+                <div class="faq-item">
+                    <button class="faq-question">
+                        <span>Does Person schema help with speaker or author discoverability?</span>
+                        <span class="faq-icon">+</span>
+                    </button>
+                    <div class="faq-answer">
+                        <p>Absolutely – Person schema enhances discoverability for speakers, authors, and thought leaders in topical searches. Expertise areas (knowsAbout) match professionals to relevant queries, while awards and affiliations add credibility. Speakers appear in event searches, authors in book/content results, and consultants in service queries. Use our <a href="https://fixmykb.com/types/Person-Schema" style="color: var(--primary);">Person Schema generator</a> to optimize profiles for maximum opportunity generation.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    <!-- CTA Section -->
+    <section class="final-cta">
+        <div class="container">
+            <div class="cta-content">
+                <h2>Ready to Boost Professional Visibility?</h2>
+                <p>Generate comprehensive Person schema markup now and establish authority in search results.</p>
+                <a href="#" onclick="window.scrollTo({top: 0, behavior: 'smooth'}); return false;" class="btn btn-large">Generate Person Schema ⚡</a>
+            </div>
+        </div>
+    </section>
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-col">
+                    <h4>Schema Types</h4>
+                    <ul>
+                        <li><a href="https://fixmykb.com/types/Organization-Schema">Organization Schema</a></li>
+                        <li><a href="https://fixmykb.com/types/Local-Business-Schema">Local Business Schema</a></li>
+                        <li><a href="https://fixmykb.com/types/Product-Schema">Product Schema</a></li>
+                        <li><a href="https://fixmykb.com/types/Person-Schema">Person Schema</a></li>
+                    </ul>
+                </div>
+                <div class="footer-col">
+                    <h4>Tools & Resources</h4>
+                    <ul>
+                        <li><a href="https://fixmykb.com">Schema Generator</a></li>
+                        <li><a href="https://fixmykb.com#guide">Implementation Guide</a></li>
+                        <li><a href="https://fixmykb.com#faq">FAQ</a></li>
+                        <li><a href="https://schema.org/Person" target="_blank" rel="noopener">Schema.org Docs</a></li>
+                    </ul>
+                </div>
+                <div class="footer-col">
+                    <h4>Testing Tools</h4>
+                    <ul>
+                        <li><a href="https://search.google.com/test/rich-results" target="_blank" rel="noopener">Rich Results Test</a></li>
+                        <li><a href="https://validator.schema.org" target="_blank" rel="noopener">Schema Validator</a></li>
+                        <li><a href="https://fixmykb.com/types/Person-Schema">Person Schema Generator</a></li>
+                    </ul>
+                </div>
+                <div class="footer-col">
+                    <h4>About FixMyKB</h4>
+                    <p>Free <a href="https://fixmykb.com" style="color: rgba(255,255,255,0.8);">schema markup generation</a> tool for professionals, authors, and websites. Create valid structured data in seconds.</p>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p>&copy; 2025 FixMyKB. All rights reserved. | <a href="https://fixmykb.com" style="color: rgba(255,255,255,0.8);">Home</a> | <a href="https://fixmykb.com/types/Person-Schema" style="color: rgba(255,255,255,0.8);">Person Schema</a></p>
+            </div>
+        </div>
+    </footer>
+  <script>
+// Person Schema Generator JavaScript (Updated with Clipboard Fallback)
+document.addEventListener('DOMContentLoaded', function() {
+    // DOM elements
+    const generateBtn = document.getElementById('generateBtn');
+    const clearBtn = document.getElementById('clearBtn');
+    const schemaOutput = document.getElementById('schemaOutput');
+    const copyBtn = document.getElementById('copyBtn');
+    const downloadBtn = document.getElementById('downloadBtn');
+    const validationStatus = document.getElementById('validationStatus');
+    // Current schema
+    let currentSchema = null;
+    // Validate field
+    function validateField(fieldId, fieldName) {
+        const field = document.getElementById(fieldId);
+        const errorMsg = document.getElementById('error-' + fieldId);
+       
+        if (!field) return true;
+       
+        const value = field.value.trim();
+       
+        if (field.required && !value) {
+            field.style.borderColor = '#F44336';
+            if (errorMsg) errorMsg.textContent = fieldName + ' is required';
+            return false;
+        } else {
+            field.style.borderColor = '';
+            if (errorMsg) errorMsg.textContent = '';
+            return true;
+        }
+    }
+    // Generate Person Schema (unchanged)
+    function generateSchema() {
+        // Get form values
+        const name = document.getElementById('personName').value.trim();
+        const jobTitle = document.getElementById('personJobTitle').value.trim();
+        const worksFor = document.getElementById('personWorksFor').value.trim();
+        const image = document.getElementById('personImage').value.trim();
+        const url = document.getElementById('personUrl').value.trim();
+        const telephone = document.getElementById('personTelephone').value.trim();
+        const email = document.getElementById('personEmail').value.trim();
+        const address = document.getElementById('personAddress').value.trim();
+        const city = document.getElementById('personCity').value.trim();
+        const birthDate = document.getElementById('personBirthDate').value.trim();
+        const gender = document.getElementById('personGender').value;
+        const nationality = document.getElementById('personNationality').value.trim();
+        const knowsAbout = document.getElementById('personKnowsAbout').value.trim();
+        const alumniOf = document.getElementById('personAlumniOf').value.trim();
+        const award = document.getElementById('personAward').value.trim();
+        const description = document.getElementById('personDescription').value.trim();
+       
+        // Validate required fields
+        let isValid = true;
+        isValid = validateField('personName', 'Full Name') && isValid;
+       
+        if (!isValid) {
+            alert('Please fill in all required fields (Full Name)');
+            return;
+        }
+       
+        // Build schema object
+        const schema = {
+            "@context": "https://schema.org",
+            "@type": "Person",
+            "name": name
+        };
+       
+        // Add optional fields
+        if (jobTitle) schema.jobTitle = jobTitle;
+        if (worksFor) schema.worksFor = { "@type": "Organization", "name": worksFor };
+        if (image) schema.image = image;
+        if (url) schema.url = url;
+        if (telephone) schema.telephone = telephone;
+        if (email) schema.email = email;
+        if (description) schema.description = description;
+        if (birthDate) schema.birthDate = birthDate;
+        if (gender) schema.gender = gender;
+        if (nationality) schema.nationality = nationality;
+        if (knowsAbout) schema.knowsAbout = knowsAbout.split(',').map(item => item.trim());
+        if (alumniOf) schema.alumniOf = { "@type": "CollegeOrUniversity", "name": alumniOf };
+        if (award) schema.award = award.split(',').map(item => ({ "@type": "Text", "name": item.trim() }));
+       
+        // Add address if any address field is filled
+        if (address || city) {
+            schema.address = {
+                "@type": "PostalAddress"
+            };
+            if (address) schema.address.streetAddress = address;
+            if (city) schema.address.addressLocality = city;
+        }
+       
+        currentSchema = schema;
+       
+        // Create full output with script tags
+        const scriptOpen = '<script type="application/ld+json">';
+        const scriptClose = '<' + '/script>';
+        const fullOutput = scriptOpen + '\n' + JSON.stringify(schema, null, 2) + '\n' + scriptClose;
+       
+        // Display schema with script tags
+        schemaOutput.textContent = fullOutput;
+       
+        // Update validation status
+        validationStatus.textContent = '✓ Valid Schema';
+        validationStatus.className = 'validation-status valid';
+    }
+    // Clear form (unchanged)
+    function clearForm() {
+        document.querySelectorAll('.form-control').forEach(function(input) {
+            input.value = '';
+            input.style.borderColor = '';
+        });
+       
+        document.querySelectorAll('.error-message').forEach(function(msg) {
+            msg.textContent = '';
+        });
+       
+        schemaOutput.textContent = '// Your person schema will appear here...';
+        validationStatus.textContent = '';
+        validationStatus.className = 'validation-status';
+        currentSchema = null;
+    }
+    // Updated Copy to clipboard with fallback
+    function copyToClipboard() {
+        if (!currentSchema) {
+            alert('Please generate schema first');
+            return;
+        }
+       
+        const scriptOpen = '<script type="application/ld+json">';
+        const scriptClose = '</script>';  // Fixed: Removed the '<' + '/script>' hack to avoid escaping issues
+        const fullOutput = scriptOpen + '\n' + JSON.stringify(currentSchema, null, 2) + '\n' + scriptClose;
+       
+        // Modern Clipboard API (HTTPS only)
+        if (navigator.clipboard && window.isSecureContext) {
+            navigator.clipboard.writeText(fullOutput).then(function() {
+                const originalText = copyBtn.textContent;
+                copyBtn.textContent = '✓ Copied!';
+                setTimeout(function() {
+                    copyBtn.textContent = originalText;
+                }, 2000);
+            }).catch(function(err) {
+                console.error('Clipboard API failed:', err);
+                fallbackCopy(fullOutput);  // Fallback if API fails
+            });
+        } else {
+            // Fallback for HTTP or unsupported browsers
+            fallbackCopy(fullOutput);
+        }
+    }
+    
+    // Fallback copy function using execCommand
+    function fallbackCopy(text) {
+        const textArea = document.createElement('textarea');
+        textArea.value = text;
+        textArea.style.position = 'fixed';  // Avoid scrolling to bottom
+        textArea.style.left = '-999999px';
+        textArea.style.top = '-999999px';
+        document.body.appendChild(textArea);
+        textArea.focus();
+        textArea.select();
+        
+        try {
+            const successful = document.execCommand('copy');
+            if (successful) {
+                const originalText = copyBtn.textContent;
+                copyBtn.textContent = '✓ Copied!';
+                setTimeout(function() {
+                    copyBtn.textContent = originalText;
+                }, 2000);
+            } else {
+                alert('Copy failed - please select and copy the output manually');
+            }
+        } catch (err) {
+            console.error('Fallback copy failed:', err);
+            alert('Copy failed - please select and copy the output manually');
+        }
+        
+        document.body.removeChild(textArea);
+    }
+    // Download JSON (unchanged, but fixed scriptClose)
+    function downloadJSON() {
+        if (!currentSchema) {
+            alert('Please generate schema first');
+            return;
+        }
+       
+        const scriptOpen = '<script type="application/ld+json">';
+        const scriptClose = '</script>';
+        const fullOutput = scriptOpen + '\n' + JSON.stringify(currentSchema, null, 2) + '\n' + scriptClose;
+       
+        const blob = new Blob([fullOutput], { type: 'text/html' });
+        const url = URL.createObjectURL(blob);
+        const a = document.createElement('a');
+        a.href = url;
+        a.download = 'person-schema.html';
+        document.body.appendChild(a);
+        a.click();
+        document.body.removeChild(a);
+        URL.revokeObjectURL(url);
+    }
+    // FAQ Accordion (unchanged)
+    function initFAQ() {
+        const faqQuestions = document.querySelectorAll('.faq-question');
+        faqQuestions.forEach(function(question) {
+            question.addEventListener('click', function() {
+                const faqItem = question.parentElement;
+                const isActive = faqItem.classList.contains('active');
+               
+                // Close all FAQs
+                document.querySelectorAll('.faq-item').forEach(function(item) {
+                    item.classList.remove('active');
+                });
+               
+                // Toggle current FAQ
+                if (!isActive) {
+                    faqItem.classList.add('active');
+                }
+            });
+        });
+    }
+    // Event listeners
+    if (generateBtn) generateBtn.addEventListener('click', generateSchema);
+    if (clearBtn) clearBtn.addEventListener('click', clearForm);
+    if (copyBtn) copyBtn.addEventListener('click', copyToClipboard);
+    if (downloadBtn) downloadBtn.addEventListener('click', downloadJSON);
+    // Initialize
+    initFAQ();
+});
+</script>
+    <!-- Page Schema Markup -->
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "WebPage",
+      "name": "Person Schema Markup Generator for Enhanced Professional Visibility",
+      "description": "Free tool to generate Person schema markup for authors, speakers, executives, and professionals. Enhance people profiles in search results.",
+      "url": "https://fixmykb.com/types/Person-Schema",
+      "breadcrumb": {
+        "@type": "BreadcrumbList",
+        "itemListElement": [{
+          "@type": "ListItem",
+          "position": 1,
+          "name": "Home",
+          "item": "https://fixmykb.com"
+        },{
+          "@type": "ListItem",
+          "position": 2,
+          "name": "Schema Types",
+          "item": "https://fixmykb.com/types/"
+        },{
+          "@type": "ListItem",
+          "position": 3,
+          "name": "Person Schema",
+          "item": "https://fixmykb.com/types/Person-Schema"
+        }]
+      },
+      "mainEntity": {
+        "@type": "SoftwareApplication",
+        "name": "Person Schema Generator",
+        "applicationCategory": "BusinessApplication",
+        "offers": {
+          "@type": "Offer",
+          "price": "0",
+          "priceCurrency": "USD"
+        }
+      }
+    }
+    </script>
+    <!-- Organization Schema -->
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "Organization",
+      "name": "FixMyKB",
+      "url": "https://fixmykb.com",
+      "logo": "https://fixmykb.com/logo.png",
+      "description": "Free schema markup generation tools for SEO professionals and businesses",
+      "sameAs": [
+        "https://fixmykb.com/types/Person-Schema",
+        "https://fixmykb.com/types/Product-Schema"
+      ]
+    }
+    </script>
+    <!-- FAQ Schema -->
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "FAQPage",
+      "mainEntity": [{
+        "@type": "Question",
+        "name": "How does Person schema affect knowledge panels?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "Person schema provides the structured data Google needs to create and populate knowledge panels for individuals. Complete schema increases eligibility and accuracy of these panels."
+        }
+      },{
+        "@type": "Question",
+        "name": "Can I use Person schema for team members on corporate sites?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "Yes, Person schema is ideal for executive teams and key personnel on corporate websites. Implement schema on individual bio pages with job titles and affiliations."
+        }
+      },{
+        "@type": "Question",
+        "name": "What if a person's information changes frequently?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "Update Person schema immediately when details change. Search engines recrawl updated pages and refresh knowledge panels accordingly."
+        }
+      }]
+    }
+    </script>
+</body>
+</html>
