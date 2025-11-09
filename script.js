@@ -1,6 +1,5 @@
 // Schema Markup Generator - Enhanced with Dynamic Fields
 // Allows unlimited addition of repeatable fields (FAQs, steps, breadcrumbs, etc.)
-
 // Schema field definitions - now with repeatable field support
 const schemaFields = {
     Organization: [
@@ -151,10 +150,8 @@ const schemaFields = {
         }
     }
 };
-
 // Track repeatable field counters
 let repeatableCounters = {};
-
 // DOM elements
 const schemaTypeSelect = document.getElementById('schemaType');
 const dynamicFields = document.getElementById('dynamicFields');
@@ -164,21 +161,19 @@ const schemaOutput = document.getElementById('schemaOutput');
 const copyBtn = document.getElementById('copyBtn');
 const downloadBtn = document.getElementById('downloadBtn');
 const validationStatus = document.getElementById('validationStatus');
-
 // Current schema data
 let currentSchema = null;
-
 // Create field element
 function createFieldElement(field, uniqueId = null) {
     const formGroup = document.createElement('div');
     formGroup.className = 'form-group';
     if (uniqueId) formGroup.dataset.uniqueId = uniqueId;
-    
+   
     const label = document.createElement('label');
     label.textContent = field.label;
     const inputId = uniqueId || field.name;
     label.htmlFor = inputId;
-    
+   
     let input;
     if (field.type === 'textarea') {
         input = document.createElement('textarea');
@@ -187,44 +182,43 @@ function createFieldElement(field, uniqueId = null) {
         input = document.createElement('input');
         input.type = field.type;
     }
-    
+   
     input.id = inputId;
     input.name = field.name;
     input.className = 'form-control';
     input.required = field.required;
-    
+   
     formGroup.appendChild(label);
     formGroup.appendChild(input);
-    
+   
     return formGroup;
 }
-
 // Create repeatable group container
 function createRepeatableGroup(groupConfig, schemaType) {
     const container = document.createElement('div');
     container.className = 'repeatable-container';
     container.dataset.groupName = groupConfig.name;
-    
+   
     const header = document.createElement('div');
     header.className = 'repeatable-header';
     header.innerHTML = `<h4>📋 ${groupConfig.label}s</h4>`;
     container.appendChild(header);
-    
+   
     const itemsContainer = document.createElement('div');
     itemsContainer.className = 'repeatable-items';
     container.appendChild(itemsContainer);
-    
+   
     // Initialize counter
     if (!repeatableCounters[schemaType]) {
         repeatableCounters[schemaType] = {};
     }
     repeatableCounters[schemaType][groupConfig.name] = 0;
-    
+   
     // Add initial items (minItems)
     for (let i = 0; i < groupConfig.minItems; i++) {
         addRepeatableItem(itemsContainer, groupConfig, schemaType);
     }
-    
+   
     // Add button
     const addButton = document.createElement('button');
     addButton.type = 'button';
@@ -232,18 +226,17 @@ function createRepeatableGroup(groupConfig, schemaType) {
     addButton.innerHTML = `➕ Add Another ${groupConfig.label}`;
     addButton.onclick = () => addRepeatableItem(itemsContainer, groupConfig, schemaType);
     container.appendChild(addButton);
-    
+   
     return container;
 }
-
 // Add repeatable item
 function addRepeatableItem(container, groupConfig, schemaType) {
     const counter = repeatableCounters[schemaType][groupConfig.name]++;
-    
+   
     const item = document.createElement('div');
     item.className = 'repeatable-item';
     item.dataset.itemIndex = counter;
-    
+   
     const itemHeader = document.createElement('div');
     itemHeader.className = 'repeatable-item-header';
     itemHeader.innerHTML = `
@@ -251,42 +244,41 @@ function addRepeatableItem(container, groupConfig, schemaType) {
         <button type="button" class="btn-remove" onclick="removeRepeatableItem(this)">🗑️ Remove</button>
     `;
     item.appendChild(itemHeader);
-    
+   
     const fieldsContainer = document.createElement('div');
     fieldsContainer.className = 'repeatable-item-fields';
-    
+   
     groupConfig.fields.forEach(field => {
         const uniqueId = `${groupConfig.name}_${counter}_${field.name}`;
         const fieldElement = createFieldElement(field, uniqueId);
         fieldsContainer.appendChild(fieldElement);
     });
-    
+   
     item.appendChild(fieldsContainer);
     container.appendChild(item);
-    
+   
     // Update item numbers
     updateItemNumbers(container, groupConfig.label);
 }
-
 // Remove repeatable item
 window.removeRepeatableItem = function(button) {
     const item = button.closest('.repeatable-item');
     const container = item.parentElement;
-    const groupLabel = item.closest('.repeatable-container').querySelector('.repeatable-header h4').textContent.replace('📋 ', '').replace('s', '');
-    
+    const repeatableContainer = item.closest('.repeatable-container');
+    const groupLabel = repeatableContainer.querySelector('.repeatable-header h4').textContent.replace('📋 ', '').replace('s', '');
+   
     // Check minimum items
     const itemCount = container.querySelectorAll('.repeatable-item').length;
-    const minItems = parseInt(container.parentElement.dataset.minItems) || 1;
-    
+    const minItems = parseInt(repeatableContainer.dataset.minItems) || 1;
+   
     if (itemCount <= minItems) {
         alert(`You must have at least ${minItems} ${groupLabel}${minItems > 1 ? 's' : ''}`);
         return;
     }
-    
+   
     item.remove();
     updateItemNumbers(container, groupLabel);
 };
-
 // Update item numbers
 function updateItemNumbers(container, label) {
     const items = container.querySelectorAll('.repeatable-item');
@@ -296,22 +288,21 @@ function updateItemNumbers(container, label) {
         item.dataset.itemIndex = index;
     });
 }
-
 // Render fields based on schema type
 function renderFields() {
     const schemaType = schemaTypeSelect.value;
     const config = schemaFields[schemaType];
-    
+   
     dynamicFields.innerHTML = '';
     repeatableCounters = {};
-    
+   
     // Handle array-based schema (simple fields only)
     if (Array.isArray(config)) {
         config.forEach(field => {
             const fieldElement = createFieldElement(field);
             dynamicFields.appendChild(fieldElement);
         });
-    } 
+    }
     // Handle object-based schema (with repeatable groups)
     else {
         // Render static fields first
@@ -321,7 +312,7 @@ function renderFields() {
                 dynamicFields.appendChild(fieldElement);
             });
         }
-        
+       
         // Render repeatable group
         if (config.repeatableGroup) {
             const groupContainer = createRepeatableGroup(config.repeatableGroup, schemaType);
@@ -330,17 +321,16 @@ function renderFields() {
         }
     }
 }
-
 // Collect form data
 function collectFormData(schemaType) {
     const config = schemaFields[schemaType];
     const data = {};
-    
+   
     if (Array.isArray(config)) {
         // Simple fields
         config.forEach(field => {
             const input = document.getElementById(field.name);
-            const value = input.value.trim();
+            const value = input ? input.value.trim() : '';
             if (value) {
                 data[field.name] = value;
             }
@@ -350,28 +340,28 @@ function collectFormData(schemaType) {
         if (config.staticFields) {
             config.staticFields.forEach(field => {
                 const input = document.getElementById(field.name);
-                const value = input.value.trim();
+                const value = input ? input.value.trim() : '';
                 if (value) {
                     data[field.name] = value;
                 }
             });
         }
-        
+       
         // Repeatable group
         if (config.repeatableGroup) {
             const groupName = config.repeatableGroup.name;
-            const items = document.querySelectorAll(`[data-group-name="${groupName}"] .repeatable-item`);
+            const repeatableContainer = document.querySelector(`[data-group-name="${groupName}"]`);
+            const itemsContainer = repeatableContainer ? repeatableContainer.querySelector('.repeatable-items') : null;
+            const items = itemsContainer ? itemsContainer.querySelectorAll('.repeatable-item') : [];
             data[groupName + 's'] = [];
-            
-            items.forEach((item, index) => {
+           
+            items.forEach((item) => {
                 const itemData = {};
                 config.repeatableGroup.fields.forEach(field => {
-                    const input = item.querySelector(`#${groupName}_${index}_${field.name}`);
-                    if (input) {
-                        const value = input.value.trim();
-                        if (value) {
-                            itemData[field.name] = value;
-                        }
+                    const input = item.querySelector(`[name="${field.name}"]`);
+                    const value = input ? input.value.trim() : '';
+                    if (value) {
+                        itemData[field.name] = value;
                     }
                 });
                 if (Object.keys(itemData).length > 0) {
@@ -380,25 +370,24 @@ function collectFormData(schemaType) {
             });
         }
     }
-    
+   
     return data;
 }
-
 // Validate required fields
 function validateForm(schemaType) {
     const config = schemaFields[schemaType];
     let isValid = true;
-    
+   
     // Clear previous validation
     document.querySelectorAll('.form-control').forEach(input => {
         input.style.borderColor = '';
     });
-    
+   
     if (Array.isArray(config)) {
         config.forEach(field => {
             if (field.required) {
                 const input = document.getElementById(field.name);
-                if (!input.value.trim()) {
+                if (input && !input.value.trim()) {
                     input.style.borderColor = '#F44336';
                     isValid = false;
                 }
@@ -410,23 +399,25 @@ function validateForm(schemaType) {
             config.staticFields.forEach(field => {
                 if (field.required) {
                     const input = document.getElementById(field.name);
-                    if (!input.value.trim()) {
+                    if (input && !input.value.trim()) {
                         input.style.borderColor = '#F44336';
                         isValid = false;
                     }
                 }
             });
         }
-        
+       
         // Validate repeatable items
         if (config.repeatableGroup) {
             const groupName = config.repeatableGroup.name;
-            const items = document.querySelectorAll(`[data-group-name="${groupName}"] .repeatable-item`);
-            
-            items.forEach((item, index) => {
+            const repeatableContainer = document.querySelector(`[data-group-name="${groupName}"]`);
+            const itemsContainer = repeatableContainer ? repeatableContainer.querySelector('.repeatable-items') : null;
+            const items = itemsContainer ? itemsContainer.querySelectorAll('.repeatable-item') : [];
+           
+            items.forEach((item) => {
                 config.repeatableGroup.fields.forEach(field => {
                     if (field.required) {
-                        const input = item.querySelector(`#${groupName}_${index}_${field.name}`);
+                        const input = item.querySelector(`[name="${field.name}"]`);
                         if (input && !input.value.trim()) {
                             input.style.borderColor = '#F44336';
                             isValid = false;
@@ -436,10 +427,9 @@ function validateForm(schemaType) {
             });
         }
     }
-    
+   
     return isValid;
 }
-
 // Schema generators
 const schemaGenerators = {
     Organization: (data) => ({
@@ -462,7 +452,6 @@ const schemaGenerators = {
             }
         })
     }),
-
     LocalBusiness: (data) => ({
         "@context": "https://schema.org",
         "@type": "LocalBusiness",
@@ -480,7 +469,6 @@ const schemaGenerators = {
         ...(data.priceRange && { "priceRange": data.priceRange }),
         ...(data.openingHours && { "openingHours": data.openingHours })
     }),
-
     Product: (data) => ({
         "@context": "https://schema.org",
         "@type": "Product",
@@ -504,7 +492,6 @@ const schemaGenerators = {
             }
         })
     }),
-
     Article: (data) => ({
         "@context": "https://schema.org",
         "@type": "Article",
@@ -526,7 +513,6 @@ const schemaGenerators = {
         ...(data.dateModified && { "dateModified": data.dateModified }),
         ...(data.description && { "description": data.description })
     }),
-
     FAQPage: (data) => ({
         "@context": "https://schema.org",
         "@type": "FAQPage",
@@ -539,7 +525,6 @@ const schemaGenerators = {
             }
         }))
     }),
-
     HowTo: (data) => ({
         "@context": "https://schema.org",
         "@type": "HowTo",
@@ -554,7 +539,6 @@ const schemaGenerators = {
             ...(step.image && { "image": step.image })
         }))
     }),
-
     Recipe: (data) => ({
         "@context": "https://schema.org",
         "@type": "Recipe",
@@ -579,7 +563,6 @@ const schemaGenerators = {
             }
         })
     }),
-
     Event: (data) => ({
         "@context": "https://schema.org",
         "@type": "Event",
@@ -607,7 +590,6 @@ const schemaGenerators = {
             }
         })
     }),
-
     Person: (data) => ({
         "@context": "https://schema.org",
         "@type": "Person",
@@ -626,7 +608,6 @@ const schemaGenerators = {
         }),
         ...(data.description && { "description": data.description })
     }),
-
     Review: (data) => ({
         "@context": "https://schema.org",
         "@type": "Review",
@@ -646,7 +627,6 @@ const schemaGenerators = {
         "reviewBody": data.reviewBody,
         ...(data.datePublished && { "datePublished": data.datePublished })
     }),
-
     VideoObject: (data) => ({
         "@context": "https://schema.org",
         "@type": "VideoObject",
@@ -657,7 +637,6 @@ const schemaGenerators = {
         ...(data.duration && { "duration": data.duration }),
         ...(data.contentUrl && { "contentUrl": data.contentUrl })
     }),
-
     BreadcrumbList: (data) => ({
         "@context": "https://schema.org",
         "@type": "BreadcrumbList",
@@ -669,80 +648,106 @@ const schemaGenerators = {
         }))
     })
 };
-
 // Generate schema
 function generateSchema() {
     const schemaType = schemaTypeSelect.value;
-    if (!schemaType) {
-        alert("Please select a schema type first.");
-        return;
-    }
-
+   
     if (!validateForm(schemaType)) {
-        validationStatus.textContent = "❌ Please fill all required fields.";
-        validationStatus.style.color = "#F44336";
+        alert('Please fill in all required fields (marked with *)');
         return;
     }
-
-    const formData = collectFormData(schemaType);
-    const schemaGenerator = schemaGenerators[schemaType];
-
-    if (!schemaGenerator) {
-        alert("Schema generator not found for selected type.");
-        return;
-    }
-
-    const schemaJSON = schemaGenerator(formData);
-    const formattedJSON = JSON.stringify(schemaJSON, null, 2);
-
-    // ✅ Wrap inside <script type="application/ld+json">
-    const jsonLdOutput = `<script type="application/ld+json">\n${formattedJSON}\n</script>`;
-
-    schemaOutput.value = jsonLdOutput;
-
-    validationStatus.textContent = "✅ Schema generated successfully!";
-    validationStatus.style.color = "#4CAF50";
+   
+    const data = collectFormData(schemaType);
+    const generator = schemaGenerators[schemaType];
+    currentSchema = generator(data);
+   
+    // Display schema wrapped in JSON-LD script tag
+    const jsonStr = JSON.stringify(currentSchema, null, 2);
+    const scriptTag = `<script type="application/ld+json">\n${jsonStr}\n</script>`;
+    const escapedScriptTag = scriptTag
+        .replace(/&/g, '&amp;')
+        .replace(/</g, '&lt;')
+        .replace(/>/g, '&gt;');
+    schemaOutput.innerHTML = `<pre style="white-space: pre-wrap; background: #f8f9fa; padding: 15px; border: 1px solid #dee2e6; border-radius: 5px; overflow: auto; font-family: monospace; font-size: 14px;">${escapedScriptTag}</pre>`;
+   
+    // Update validation status
+    validationStatus.textContent = '✓ Valid Schema';
+    validationStatus.className = 'validation-status valid';
 }
-
-// Clear form and output
+// Clear form
 function clearForm() {
-    dynamicFields.innerHTML = '';
-    schemaOutput.value = '';
+    renderFields();
+    schemaOutput.innerHTML = `<pre style="white-space: pre-wrap; background: #f8f9fa; padding: 15px; border: 1px solid #dee2e6; border-radius: 5px; overflow: auto; font-family: monospace; font-size: 14px;">// Your generated schema will appear here...</pre>`;
     validationStatus.textContent = '';
-    schemaTypeSelect.selectedIndex = 0;
+    validationStatus.className = 'validation-status';
+    currentSchema = null;
 }
-
-// Copy schema to clipboard
+// Copy to clipboard
 function copyToClipboard() {
-    schemaOutput.select();
-    document.execCommand("copy");
-    validationStatus.textContent = "📋 Copied to clipboard!";
-    validationStatus.style.color = "#2196F3";
-}
-
-// Download JSON-LD file
-function downloadJSON() {
-    const content = schemaOutput.value.trim();
-    if (!content) {
-        alert("Please generate the schema first.");
+    if (!currentSchema) {
+        alert('Please generate schema first');
         return;
     }
-
-    const blob = new Blob([content], { type: "application/ld+json" });
-    const link = document.createElement("a");
-    link.href = URL.createObjectURL(blob);
-    link.download = "schema.jsonld";
-    link.click();
+   
+    const jsonStr = JSON.stringify(currentSchema, null, 2);
+    const schemaText = `<script type="application/ld+json">\n${jsonStr}\n</script>`;
+    navigator.clipboard.writeText(schemaText).then(() => {
+        const originalText = copyBtn.textContent;
+        copyBtn.textContent = '✓ Copied!';
+        setTimeout(() => {
+            copyBtn.textContent = originalText;
+        }, 2000);
+    }).catch(err => {
+        alert('Failed to copy to clipboard');
+    });
 }
-
+// Download JSON-LD script tag as HTML snippet
+function downloadJSON() {
+    if (!currentSchema) {
+        alert('Please generate schema first');
+        return;
+    }
+   
+    const jsonStr = JSON.stringify(currentSchema, null, 2);
+    const schemaText = `<script type="application/ld+json">\n${jsonStr}\n</script>`;
+    const blob = new Blob([schemaText], { type: 'text/html' });
+    const url = URL.createObjectURL(blob);
+    const a = document.createElement('a');
+    a.href = url;
+    a.download = `${schemaTypeSelect.value.toLowerCase()}-schema.html`;
+    document.body.appendChild(a);
+    a.click();
+    document.body.removeChild(a);
+    URL.revokeObjectURL(url);
+}
+// FAQ Accordion
+function initFAQ() {
+    const faqQuestions = document.querySelectorAll('.faq-question');
+    faqQuestions.forEach(question => {
+        question.addEventListener('click', () => {
+            const faqItem = question.parentElement;
+            const isActive = faqItem.classList.contains('active');
+           
+            // Close all FAQs
+            document.querySelectorAll('.faq-item').forEach(item => {
+                item.classList.remove('active');
+            });
+           
+            // Toggle current FAQ
+            if (!isActive) {
+                faqItem.classList.add('active');
+            }
+        });
+    });
+}
 // Event listeners
 schemaTypeSelect.addEventListener('change', renderFields);
 generateBtn.addEventListener('click', generateSchema);
 clearBtn.addEventListener('click', clearForm);
 copyBtn.addEventListener('click', copyToClipboard);
 downloadBtn.addEventListener('click', downloadJSON);
-
 // Initialize
 document.addEventListener('DOMContentLoaded', () => {
     renderFields();
+    initFAQ();
 });
