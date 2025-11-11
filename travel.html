@@ -1,0 +1,1877 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Free Travel & Tourism Schema Markup Generator. Create comprehensive JSON-LD structured data for your travel business including services, packages, pricing, reviews, and destinations. All-in-one advanced tool.">
+    <meta name="keywords" content="travel schema, tourism schema, travel agency schema, tour operator schema, travel business markup">
+    <title>Travel & Tourism Schema Generator - Complete Business Markup Tool</title>
+    <meta name="theme-color" content="#4A90E2">
+    <link rel="canonical" href="https://fixmykb.com/industries/travel-tourism-schema">
+    <style>
+        /* Core Web Vitals Optimized CSS - Lightweight Design */
+
+/* CSS Reset & Base */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+:root {
+    --primary: #4A90E2;
+    --primary-dark: #357ABD;
+    --secondary: #50C878;
+    --text-dark: #2C3E50;
+    --text-gray: #5A6C7D;
+    --bg-light: #F8F9FA;
+    --bg-white: #FFFFFF;
+    --border-color: #E1E8ED;
+    --shadow-sm: 0 1px 3px rgba(0,0,0,0.06);
+    --shadow-md: 0 4px 6px rgba(0,0,0,0.07);
+    --shadow-lg: 0 10px 15px rgba(0,0,0,0.08);
+}
+
+html {
+    scroll-behavior: smooth;
+}
+
+body {
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+    font-size: 16px;
+    line-height: 1.6;
+    color: var(--text-dark);
+    background: var(--bg-light);
+}
+
+.container {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 0 20px;
+}
+
+/* Header */
+.header {
+    background: var(--bg-white);
+    border-bottom: 1px solid var(--border-color);
+    position: sticky;
+    top: 0;
+    z-index: 100;
+    box-shadow: var(--shadow-sm);
+}
+
+.header-content {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 1rem 0;
+}
+
+.logo {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    font-size: 1.25rem;
+    font-weight: 700;
+    color: var(--primary);
+}
+
+.logo-icon {
+    font-size: 1.75rem;
+}
+
+.nav {
+    display: flex;
+    gap: 1.5rem;
+}
+
+.nav a {
+    color: var(--text-gray);
+    text-decoration: none;
+    font-weight: 500;
+    transition: color 0.2s;
+}
+
+.nav a:hover {
+    color: var(--primary);
+}
+
+/* Hero Section */
+.hero {
+    background: linear-gradient(135deg, #E3F2FD 0%, #F8F9FA 100%);
+    padding: 3rem 0;
+}
+
+.hero-content {
+    text-align: center;
+    margin-bottom: 2rem;
+}
+
+.hero h1 {
+    font-size: 2.5rem;
+    font-weight: 700;
+    color: var(--text-dark);
+    margin-bottom: 1rem;
+    line-height: 1.2;
+}
+
+.hero-description {
+    font-size: 1.125rem;
+    color: var(--text-gray);
+    max-width: 900px;
+    margin: 0 auto 2rem;
+}
+
+.hero-stats {
+    display: flex;
+    justify-content: center;
+    gap: 3rem;
+    flex-wrap: wrap;
+}
+
+.stat {
+    text-align: center;
+}
+
+.stat-number {
+    display: block;
+    font-size: 2rem;
+    font-weight: 700;
+    color: var(--primary);
+}
+
+.stat-label {
+    display: block;
+    font-size: 0.875rem;
+    color: var(--text-gray);
+}
+
+/* Generator Tool */
+.generator-tool {
+    background: var(--bg-white);
+    border-radius: 12px;
+    box-shadow: var(--shadow-lg);
+    overflow: hidden;
+    margin-top: 2rem;
+}
+
+.tool-header {
+    background: linear-gradient(135deg, var(--primary) 0%, var(--primary-dark) 100%);
+    color: white;
+    padding: 1.5rem;
+    text-align: center;
+}
+
+.tool-header h2 {
+    font-size: 1.75rem;
+    margin-bottom: 0.5rem;
+}
+
+.tool-header p {
+    opacity: 0.95;
+}
+
+.tool-body {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 2rem;
+    padding: 2rem;
+}
+
+.form-group {
+    margin-bottom: 1.25rem;
+}
+
+.form-group label {
+    display: block;
+    font-weight: 600;
+    color: var(--text-dark);
+    margin-bottom: 0.5rem;
+}
+
+.form-control {
+    width: 100%;
+    padding: 0.75rem;
+    border: 2px solid var(--border-color);
+    border-radius: 6px;
+    font-size: 1rem;
+    transition: border-color 0.2s;
+}
+
+.form-control:focus {
+    outline: none;
+    border-color: var(--primary);
+}
+
+.dynamic-fields {
+    max-height: 600px;
+    overflow-y: auto;
+    padding-right: 0.5rem;
+}
+
+.tool-actions {
+    display: flex;
+    gap: 1rem;
+    margin-top: 1.5rem;
+}
+
+.btn {
+    padding: 0.75rem 1.5rem;
+    border: none;
+    border-radius: 6px;
+    font-size: 1rem;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.2s;
+}
+
+.btn-primary {
+    background: var(--primary);
+    color: white;
+}
+
+.btn-primary:hover {
+    background: var(--primary-dark);
+    transform: translateY(-1px);
+}
+
+.btn-secondary {
+    background: var(--bg-light);
+    color: var(--text-gray);
+}
+
+.btn-secondary:hover {
+    background: var(--border-color);
+}
+
+.btn-success {
+    background: var(--secondary);
+    color: white;
+}
+
+.btn-success:hover {
+    background: #45B369;
+    transform: translateY(-1px);
+}
+
+.btn-large {
+    padding: 1rem 2.5rem;
+    font-size: 1.125rem;
+}
+
+.tool-right {
+    display: flex;
+    flex-direction: column;
+}
+
+.preview-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 1rem;
+}
+
+.preview-header h3 {
+    font-size: 1.25rem;
+    color: var(--text-dark);
+}
+
+.validation-status {
+    font-size: 0.875rem;
+    font-weight: 600;
+    padding: 0.25rem 0.75rem;
+    border-radius: 4px;
+}
+
+.validation-status.valid {
+    background: #D4EDDA;
+    color: #155724;
+}
+
+.validation-status.invalid {
+    background: #F8D7DA;
+    color: #721C24;
+}
+
+.schema-output {
+    flex: 1;
+    background: #282C34;
+    color: #ABB2BF;
+    padding: 1.5rem;
+    border-radius: 6px;
+    font-family: 'Courier New', monospace;
+    font-size: 0.875rem;
+    overflow: auto;
+    max-height: 600px;
+    line-height: 1.5;
+}
+
+.output-actions {
+    display: flex;
+    gap: 1rem;
+    margin-top: 1rem;
+}
+
+/* Content Sections */
+section {
+    padding: 4rem 0;
+}
+
+.section-header {
+    text-align: center;
+    margin-bottom: 3rem;
+}
+
+.section-header h2 {
+    font-size: 2rem;
+    font-weight: 700;
+    color: var(--text-dark);
+    margin-bottom: 1rem;
+}
+
+.section-header p {
+    font-size: 1.125rem;
+    color: var(--text-gray);
+    max-width: 800px;
+    margin: 0 auto;
+}
+
+/* Intro Section */
+.intro-section {
+    background: var(--bg-white);
+}
+
+.intro-content p {
+    font-size: 1.0625rem;
+    line-height: 1.8;
+    color: var(--text-gray);
+    margin-bottom: 1.5rem;
+}
+
+.intro-content h2 {
+    font-size: 2rem;
+    color: var(--text-dark);
+    margin-bottom: 1.5rem;
+}
+
+/* Grid Layouts */
+.grid-3 {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 2rem;
+}
+
+.card {
+    background: var(--bg-white);
+    border: 1px solid var(--border-color);
+    border-radius: 10px;
+    padding: 2rem;
+    transition: all 0.3s;
+}
+
+.card:hover {
+    box-shadow: var(--shadow-md);
+    transform: translateY(-4px);
+    border-color: var(--primary);
+}
+
+.card-icon {
+    font-size: 3rem;
+    margin-bottom: 1rem;
+}
+
+.card h3 {
+    font-size: 1.375rem;
+    color: var(--text-dark);
+    margin-bottom: 1rem;
+}
+
+.card p {
+    color: var(--text-gray);
+    line-height: 1.7;
+    margin-bottom: 1.25rem;
+}
+
+.card-link {
+    color: var(--primary);
+    text-decoration: none;
+    font-weight: 600;
+    transition: color 0.2s;
+}
+
+.card-link:hover {
+    color: var(--primary-dark);
+}
+
+/* Industries Section */
+.industries {
+    background: var(--bg-white);
+}
+
+/* Guide Section */
+.guide-steps {
+    max-width: 900px;
+    margin: 0 auto;
+}
+
+.step {
+    display: flex;
+    gap: 2rem;
+    margin-bottom: 3rem;
+}
+
+.step-number {
+    flex-shrink: 0;
+    width: 60px;
+    height: 60px;
+    background: var(--primary);
+    color: white;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 1.5rem;
+    font-weight: 700;
+}
+
+.step-content h3 {
+    font-size: 1.5rem;
+    color: var(--text-dark);
+    margin-bottom: 1rem;
+}
+
+.step-content p {
+    color: var(--text-gray);
+    line-height: 1.8;
+}
+
+.guide-tips {
+    background: var(--bg-light);
+    border-radius: 10px;
+    padding: 2rem;
+    margin-top: 3rem;
+}
+
+.guide-tips h3 {
+    font-size: 1.5rem;
+    color: var(--text-dark);
+    margin-bottom: 1.5rem;
+}
+
+.tips-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 1.5rem;
+}
+
+.tip-card {
+    background: var(--bg-white);
+    border-radius: 8px;
+    padding: 1.5rem;
+}
+
+.tip-card h4 {
+    font-size: 1.125rem;
+    color: var(--text-dark);
+    margin-bottom: 0.75rem;
+}
+
+.tip-card p {
+    color: var(--text-gray);
+    line-height: 1.6;
+    font-size: 0.9375rem;
+}
+
+/* Why 2025 Section */
+.why-2025 {
+    background: var(--bg-white);
+}
+
+.why-content {
+    max-width: 900px;
+    margin: 0 auto;
+}
+
+.why-block {
+    margin-bottom: 2.5rem;
+}
+
+.why-block h3 {
+    font-size: 1.5rem;
+    color: var(--text-dark);
+    margin-bottom: 1rem;
+}
+
+.why-block p {
+    color: var(--text-gray);
+    line-height: 1.8;
+}
+
+.stats-showcase {
+    background: linear-gradient(135deg, #E3F2FD 0%, #F8F9FA 100%);
+    border-radius: 12px;
+    padding: 3rem;
+    margin-top: 3rem;
+}
+
+.stats-showcase h3 {
+    text-align: center;
+    font-size: 1.75rem;
+    color: var(--text-dark);
+    margin-bottom: 2rem;
+}
+
+.stats-grid {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 2rem;
+}
+
+.stat-card {
+    background: var(--bg-white);
+    border-radius: 10px;
+    padding: 2rem;
+    text-align: center;
+    box-shadow: var(--shadow-sm);
+}
+
+.stat-big {
+    display: block;
+    font-size: 2.5rem;
+    font-weight: 700;
+    color: var(--primary);
+    margin-bottom: 0.5rem;
+}
+
+.stat-card p {
+    color: var(--text-gray);
+    font-size: 0.9375rem;
+    line-height: 1.5;
+}
+
+/* Benefits Section */
+.benefits-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 2rem;
+}
+
+.benefit-card {
+    background: var(--bg-white);
+    border: 1px solid var(--border-color);
+    border-radius: 10px;
+    padding: 2rem;
+    transition: all 0.3s;
+}
+
+.benefit-card:hover {
+    box-shadow: var(--shadow-md);
+    border-color: var(--primary);
+}
+
+.benefit-icon {
+    font-size: 2.5rem;
+    margin-bottom: 1rem;
+}
+
+.benefit-card h3 {
+    font-size: 1.375rem;
+    color: var(--text-dark);
+    margin-bottom: 1rem;
+}
+
+.benefit-card p {
+    color: var(--text-gray);
+    line-height: 1.7;
+}
+
+/* FAQ Section */
+.faq {
+    background: var(--bg-white);
+}
+
+.faq-list {
+    max-width: 900px;
+    margin: 0 auto;
+}
+
+.faq-item {
+    background: var(--bg-light);
+    border-radius: 8px;
+    margin-bottom: 1rem;
+    overflow: hidden;
+}
+
+.faq-question {
+    width: 100%;
+    background: none;
+    border: none;
+    padding: 1.5rem;
+    text-align: left;
+    font-size: 1.125rem;
+    font-weight: 600;
+    color: var(--text-dark);
+    cursor: pointer;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    transition: background 0.2s;
+}
+
+.faq-question:hover {
+    background: rgba(74, 144, 226, 0.05);
+}
+
+.faq-icon {
+    font-size: 1.5rem;
+    font-weight: 300;
+    color: var(--primary);
+    transition: transform 0.3s;
+}
+
+.faq-item.active .faq-icon {
+    transform: rotate(45deg);
+}
+
+.faq-answer {
+    max-height: 0;
+    overflow: hidden;
+    transition: max-height 0.3s ease-out;
+}
+
+.faq-item.active .faq-answer {
+    max-height: 1000px;
+    transition: max-height 0.5s ease-in;
+}
+
+.faq-answer p {
+    padding: 0 1.5rem 1.5rem;
+    color: var(--text-gray);
+    line-height: 1.8;
+}
+
+/* Final CTA */
+.final-cta {
+    background: linear-gradient(135deg, var(--primary) 0%, var(--primary-dark) 100%);
+    color: white;
+    text-align: center;
+    padding: 4rem 0;
+}
+
+.cta-content h2 {
+    font-size: 2.25rem;
+    margin-bottom: 1rem;
+}
+
+.cta-content p {
+    font-size: 1.25rem;
+    margin-bottom: 2rem;
+    opacity: 0.95;
+}
+
+.cta-content .btn {
+    background: white;
+    color: var(--primary);
+}
+
+.cta-content .btn:hover {
+    background: var(--bg-light);
+    transform: translateY(-2px);
+}
+
+/* Footer */
+.footer {
+    background: var(--text-dark);
+    color: white;
+    padding: 3rem 0 1.5rem;
+}
+
+.footer-content {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 2rem;
+    margin-bottom: 2rem;
+}
+
+.footer-col h4 {
+    font-size: 1.125rem;
+    margin-bottom: 1rem;
+}
+
+.footer-col ul {
+    list-style: none;
+}
+
+.footer-col li {
+    margin-bottom: 0.5rem;
+}
+
+.footer-col a {
+    color: rgba(255,255,255,0.8);
+    text-decoration: none;
+    transition: color 0.2s;
+}
+
+.footer-col a:hover {
+    color: white;
+}
+
+.footer-col p {
+    color: rgba(255,255,255,0.7);
+    line-height: 1.6;
+}
+
+.footer-bottom {
+    border-top: 1px solid rgba(255,255,255,0.1);
+    padding-top: 1.5rem;
+    text-align: center;
+    color: rgba(255,255,255,0.6);
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+    .nav {
+        display: none;
+    }
+    
+    .hero h1 {
+        font-size: 1.75rem;
+    }
+    
+    .hero-description {
+        font-size: 1rem;
+    }
+    
+    .hero-stats {
+        gap: 1.5rem;
+    }
+    
+    .tool-body {
+        grid-template-columns: 1fr;
+    }
+    
+    .grid-3 {
+        grid-template-columns: 1fr;
+    }
+    
+    .step {
+        flex-direction: column;
+    }
+    
+    .tips-grid {
+        grid-template-columns: 1fr;
+    }
+    
+    .stats-grid {
+        grid-template-columns: repeat(2, 1fr);
+    }
+    
+    .benefits-grid {
+        grid-template-columns: 1fr;
+    }
+    
+    .footer-content {
+        grid-template-columns: 1fr;
+    }
+    
+    .tool-actions,
+    .output-actions {
+        flex-direction: column;
+    }
+}
+
+@media (min-width: 769px) and (max-width: 1024px) {
+    .grid-3 {
+        grid-template-columns: repeat(2, 1fr);
+    }
+    
+    .stats-grid {
+        grid-template-columns: repeat(2, 1fr);
+    }
+    
+    .footer-content {
+        grid-template-columns: repeat(2, 1fr);
+    }
+}
+
+/* Repeatable Fields Styling */
+.repeatable-container {
+    background: var(--bg-light);
+    border-radius: 10px;
+    padding: 1.5rem;
+    margin-top: 1.5rem;
+}
+
+.repeatable-header {
+    margin-bottom: 1.5rem;
+}
+
+.repeatable-header h4 {
+    font-size: 1.25rem;
+    color: var(--text-dark);
+    margin: 0;
+}
+
+.repeatable-items {
+    display: flex;
+    flex-direction: column;
+    gap: 1.25rem;
+}
+
+.repeatable-item {
+    background: var(--bg-white);
+    border: 2px solid var(--border-color);
+    border-radius: 8px;
+    padding: 1.25rem;
+    transition: border-color 0.2s;
+}
+
+.repeatable-item:hover {
+    border-color: var(--primary);
+}
+
+.repeatable-item-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 1rem;
+    padding-bottom: 0.75rem;
+    border-bottom: 1px solid var(--border-color);
+}
+
+.repeatable-item-header span {
+    font-weight: 600;
+    color: var(--primary);
+    font-size: 1.0625rem;
+}
+
+.btn-remove {
+    background: #FFF3F3;
+    color: #D32F2F;
+    border: 1px solid #FFCDD2;
+    padding: 0.5rem 1rem;
+    border-radius: 6px;
+    font-size: 0.875rem;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.2s;
+}
+
+.btn-remove:hover {
+    background: #FFEBEE;
+    border-color: #EF9A9A;
+    transform: translateY(-1px);
+}
+
+.repeatable-item-fields {
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+}
+
+.btn-add-more {
+    width: 100%;
+    margin-top: 1rem;
+    background: linear-gradient(135deg, #E8F5E9 0%, #F1F8E9 100%);
+    color: var(--secondary);
+    border: 2px dashed var(--secondary);
+    padding: 0.875rem 1.5rem;
+    border-radius: 8px;
+    font-size: 1rem;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.2s;
+}
+
+.btn-add-more:hover {
+    background: linear-gradient(135deg, #C8E6C9 0%, #DCEDC8 100%);
+    border-style: solid;
+    transform: translateY(-2px);
+    box-shadow: var(--shadow-sm);
+}
+
+@media (max-width: 768px) {
+    .repeatable-item-header {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 0.75rem;
+    }
+    
+    .btn-remove {
+        width: 100%;
+    }
+}
+
+/* Section Dividers */
+.section-divider {
+    background: linear-gradient(135deg, #E3F2FD 0%, #F8F9FA 100%);
+    border-radius: 8px;
+    padding: 1rem 1.5rem;
+    margin: 2rem 0 1.5rem 0;
+    border-left: 4px solid var(--primary);
+}
+
+.section-divider h3 {
+    font-size: 1.375rem;
+    color: var(--primary);
+    margin: 0;
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+}
+
+/* Dropdown Styles */
+.dropdown {
+    position: relative;
+    display: inline-block;
+}
+
+.dropbtn {
+    color: var(--text-gray);
+    text-decoration: none;
+    font-weight: 500;
+    transition: color 0.2s;
+    padding: 0.5rem;
+    cursor: pointer;
+}
+
+.dropbtn:hover {
+    color: var(--primary);
+}
+
+.dropdown-content {
+    display: none;
+    position: absolute;
+    background-color: var(--bg-white);
+    min-width: 200px;
+    box-shadow: var(--shadow-md);
+    z-index: 1000;
+    left: 0;
+    top: 100%;
+    border: 1px solid var(--border-color);
+    border-radius: 6px;
+    overflow: hidden;
+}
+
+.dropdown-content a {
+    color: var(--text-gray);
+    padding: 0.75rem 1rem;
+    text-decoration: none;
+    display: block;
+    font-weight: 500;
+    transition: background-color 0.2s, color 0.2s;
+    border-bottom: 1px solid var(--border-color);
+}
+
+.dropdown-content a:last-child {
+    border-bottom: none;
+}
+
+.dropdown-content a:hover {
+    background-color: var(--bg-light);
+    color: var(--primary);
+}
+
+.dropdown:hover .dropdown-content {
+    display: block;
+}
+
+/* Responsive - Hide dropdown on mobile */
+@media (max-width: 768px) {
+    .nav {
+        display: none;
+    }
+}
+    </style>
+</head>
+<body>
+   <!-- Header -->
+<header class="header">
+    <div class="container">
+        <div class="header-content">
+            <div class="logo">
+                <a href="https://fixmykb.com" style="display: flex; align-items: center; gap: 0.5rem; text-decoration: none; color: inherit;">
+                    <span class="logo-icon">🔧</span>
+                    <span class="logo-text">FixMyKB</span>
+                </a>
+            </div>
+            <nav class="nav">
+                <a href="https://fixmykb.com">Home</a>
+                <div class="dropdown">
+                    <a href="#" class="dropbtn">Schema Types</a>
+                    <div class="dropdown-content">
+                        <a href="https://fixmykb.com/types/Article-Schema.html">Article Schema</a>
+                        <a href="https://fixmykb.com/types/FAQ-Schema.html">FAQ Schema</a>
+                        <a href="https://fixmykb.com/types/How-To-Schema.html">HowTo Schema</a>
+                        <a href="https://fixmykb.com/types/Local-Business-Schema.html">Local Business Schema</a>
+                        <a href="https://fixmykb.com/types/Product-Schema.html">Product Schema</a>
+                        <a href="https://fixmykb.com/types/organization-schema.html">Organization Schema</a>
+                    </div>
+                </div>
+                <a href="https://fixmykb.com/guide">Implementation Guide</a>
+                <a href="https://fixmykb.com/contact">Contact Us</a>
+            </nav>
+        </div>
+    </div>
+</header>
+
+    <!-- Hero Section -->
+    <section class="hero">
+        <div class="container">
+            <div class="hero-content">
+                <h1>✈️ Complete Travel & Tourism Schema Generator</h1>
+                <p class="hero-description">Generate comprehensive schema markup for your entire travel business in one form. Include organization details, services, tour packages, pricing, reviews, and more. All-in-one solution for travel agencies, tour operators, and tourism businesses.</p>
+            </div>
+
+            <!-- Complete Travel & Tourism Schema Generator Tool -->
+            <div class="generator-tool">
+                <div class="tool-header">
+                    <h2>🌍 All-in-One Travel Business Schema Generator</h2>
+                    <p>Fill in all details about your travel business - one complete form</p>
+                </div>
+                
+                <div class="tool-body">
+                    <div class="tool-left">
+                        <div class="dynamic-fields">
+                            
+                            <!-- SECTION 1: Business Information -->
+                            <div class="section-divider">
+                                <h3>🏢 Business Information</h3>
+                            </div>
+                            
+                            <div class="form-group">
+                                <label for="businessName">Business Name *</label>
+                                <input type="text" id="businessName" class="form-control" placeholder="Paradise Travel & Tours">
+                            </div>
+
+                            <div class="form-group">
+                                <label for="businessType">Business Type *</label>
+                                <select id="businessType" class="form-control">
+                                    <option value="TravelAgency">Travel Agency</option>
+                                    <option value="TourOperator">Tour Operator</option>
+                                    <option value="LodgingBusiness">Hotel/Accommodation</option>
+                                    <option value="TouristInformationCenter">Tourist Information Center</option>
+                                </select>
+                            </div>
+
+                            <div class="form-group">
+                                <label for="businessUrl">Website URL *</label>
+                                <input type="url" id="businessUrl" class="form-control" placeholder="https://yourtravel.com">
+                            </div>
+
+                            <div class="form-group">
+                                <label for="businessLogo">Logo URL</label>
+                                <input type="url" id="businessLogo" class="form-control" placeholder="https://yourtravel.com/logo.png">
+                            </div>
+
+                            <div class="form-group">
+                                <label for="businessDescription">Business Description *</label>
+                                <textarea id="businessDescription" class="form-control" rows="3" placeholder="Describe your travel business, specializations, and unique offerings..."></textarea>
+                            </div>
+
+                            <!-- SECTION 2: Contact Information -->
+                            <div class="section-divider">
+                                <h3>📞 Contact Information</h3>
+                            </div>
+
+                            <div class="form-group">
+                                <label for="businessPhone">Phone Number *</label>
+                                <input type="tel" id="businessPhone" class="form-control" placeholder="+1-555-123-4567">
+                            </div>
+
+                            <div class="form-group">
+                                <label for="businessEmail">Email Address *</label>
+                                <input type="email" id="businessEmail" class="form-control" placeholder="info@yourtravel.com">
+                            </div>
+
+                            <div class="form-group">
+                                <label for="businessAddress">Street Address</label>
+                                <input type="text" id="businessAddress" class="form-control" placeholder="123 Main Street, Suite 100">
+                            </div>
+
+                            <div class="form-group">
+                                <label for="businessCity">City *</label>
+                                <input type="text" id="businessCity" class="form-control" placeholder="Miami">
+                            </div>
+
+                            <div class="form-group">
+                                <label for="businessState">State/Region</label>
+                                <input type="text" id="businessState" class="form-control" placeholder="Florida">
+                            </div>
+
+                            <div class="form-group">
+                                <label for="businessPostal">Postal Code</label>
+                                <input type="text" id="businessPostal" class="form-control" placeholder="33139">
+                            </div>
+
+                            <div class="form-group">
+                                <label for="businessCountry">Country *</label>
+                                <input type="text" id="businessCountry" class="form-control" placeholder="United States">
+                            </div>
+
+                            <!-- SECTION 3: Operating Hours -->
+                            <div class="section-divider">
+                                <h3>🕒 Operating Hours</h3>
+                            </div>
+
+                            <div class="form-group">
+                                <label for="businessHours">Opening Hours</label>
+                                <input type="text" id="businessHours" class="form-control" placeholder="Mo-Fr 09:00-18:00, Sa 10:00-16:00">
+                                <small style="color: var(--text-gray); font-size: 0.875rem;">Format: Mo-Fr 09:00-18:00 (Days: Mo, Tu, We, Th, Fr, Sa, Su)</small>
+                            </div>
+
+                            <!-- SECTION 4: Social Media & Online Presence -->
+                            <div class="section-divider">
+                                <h3>🌐 Social Media Links</h3>
+                            </div>
+
+                            <div class="form-group">
+                                <label for="socialFacebook">Facebook URL</label>
+                                <input type="url" id="socialFacebook" class="form-control" placeholder="https://facebook.com/yourtravel">
+                            </div>
+
+                            <div class="form-group">
+                                <label for="socialInstagram">Instagram URL</label>
+                                <input type="url" id="socialInstagram" class="form-control" placeholder="https://instagram.com/yourtravel">
+                            </div>
+
+                            <div class="form-group">
+                                <label for="socialTwitter">Twitter/X URL</label>
+                                <input type="url" id="socialTwitter" class="form-control" placeholder="https://twitter.com/yourtravel">
+                            </div>
+
+                            <div class="form-group">
+                                <label for="socialLinkedIn">LinkedIn URL</label>
+                                <input type="url" id="socialLinkedIn" class="form-control" placeholder="https://linkedin.com/company/yourtravel">
+                            </div>
+
+                            <!-- SECTION 5: Ratings & Reviews -->
+                            <div class="section-divider">
+                                <h3>⭐ Ratings & Reviews</h3>
+                            </div>
+
+                            <div class="form-group">
+                                <label for="ratingValue">Average Rating (1-5)</label>
+                                <input type="number" id="ratingValue" class="form-control" min="1" max="5" step="0.1" placeholder="4.5">
+                            </div>
+
+                            <div class="form-group">
+                                <label for="reviewCount">Total Number of Reviews</label>
+                                <input type="number" id="reviewCount" class="form-control" min="1" placeholder="250">
+                            </div>
+
+                            <!-- SECTION 6: Service Areas & Destinations -->
+                            <div class="section-divider">
+                                <h3>🗺️ Service Areas & Destinations</h3>
+                            </div>
+
+                            <div class="form-group">
+                                <label for="serviceAreas">Areas You Serve (comma-separated)</label>
+                                <input type="text" id="serviceAreas" class="form-control" placeholder="Europe, Asia, Caribbean, South America">
+                            </div>
+
+                            <div class="form-group">
+                                <label for="specializations">Travel Specializations (comma-separated)</label>
+                                <input type="text" id="specializations" class="form-control" placeholder="Adventure Tours, Luxury Travel, Family Vacations, Cruises">
+                            </div>
+
+                            <!-- SECTION 7: Tour Packages -->
+                            <div class="section-divider">
+                                <h3>🎒 Tour Packages Offered</h3>
+                            </div>
+
+                            <div class="repeatable-container">
+                                <div class="repeatable-header">
+                                    <h4>Add Your Tour Packages</h4>
+                                </div>
+                                <div id="tourPackagesItems" class="repeatable-items"></div>
+                                <button type="button" class="btn-add-more" onclick="addTourPackage()">+ Add Tour Package</button>
+                            </div>
+
+                            <!-- SECTION 8: Services Offered -->
+                            <div class="section-divider">
+                                <h3>💼 Services Offered</h3>
+                            </div>
+
+                            <div class="repeatable-container">
+                                <div class="repeatable-header">
+                                    <h4>Add Your Services</h4>
+                                </div>
+                                <div id="servicesItems" class="repeatable-items"></div>
+                                <button type="button" class="btn-add-more" onclick="addService()">+ Add Service</button>
+                            </div>
+
+                            <!-- SECTION 9: Payment & Pricing -->
+                            <div class="section-divider">
+                                <h3>💳 Payment Information</h3>
+                            </div>
+
+                            <div class="form-group">
+                                <label for="paymentMethods">Payment Methods Accepted (comma-separated)</label>
+                                <input type="text" id="paymentMethods" class="form-control" placeholder="Credit Card, PayPal, Bank Transfer, Cash">
+                            </div>
+
+                            <div class="form-group">
+                                <label for="currencies">Currencies Accepted (comma-separated)</label>
+                                <input type="text" id="currencies" class="form-control" placeholder="USD, EUR, GBP">
+                            </div>
+
+                            <!-- SECTION 10: Additional Features -->
+                            <div class="section-divider">
+                                <h3>✨ Additional Features & Amenities</h3>
+                            </div>
+
+                            <div class="form-group">
+                                <label for="amenities">Amenities/Features (comma-separated)</label>
+                                <input type="text" id="amenities" class="form-control" placeholder="24/7 Support, Travel Insurance, Visa Assistance, Airport Pickup">
+                            </div>
+
+                            <div class="form-group">
+                                <label for="languages">Languages Spoken (comma-separated)</label>
+                                <input type="text" id="languages" class="form-control" placeholder="English, Spanish, French, German">
+                            </div>
+
+                            <div class="form-group">
+                                <label for="priceRange">Overall Price Range</label>
+                                <select id="priceRange" class="form-control">
+                                    <option value="">Select Price Range</option>
+                                    <option value="$">$ (Budget-Friendly)</option>
+                                    <option value="$$">$$ (Moderate)</option>
+                                    <option value="$$$">$$$ (Upscale)</option>
+                                    <option value="$$$$">$$$$ (Luxury)</option>
+                                </select>
+                            </div>
+
+                        </div>
+
+                        <div class="tool-actions">
+                            <button id="generateBtn" class="btn btn-primary">✨ Generate Complete Schema</button>
+                            <button id="clearBtn" class="btn btn-secondary">🔄 Clear All Fields</button>
+                        </div>
+                    </div>
+
+                    <div class="tool-right">
+                        <div class="preview-header">
+                            <h3>📋 Complete JSON-LD Schema Preview</h3>
+                            <span id="validationStatus" class="validation-status"></span>
+                        </div>
+                        <pre id="schemaOutput" class="schema-output">// Your complete travel & tourism business schema will appear here...
+
+// This comprehensive schema will include:
+// ✓ Organization/Business details
+// ✓ Contact information
+// ✓ Operating hours
+// ✓ Social media profiles
+// ✓ Ratings & reviews
+// ✓ Service areas
+// ✓ Tour packages
+// ✓ Services offered
+// ✓ Payment methods
+// ✓ Amenities & features</pre>
+                        <div class="output-actions">
+                            <button id="copyBtn" class="btn btn-success">📄 Copy to Clipboard</button>
+                            <button id="downloadBtn" class="btn btn-success">💾 Download JSON</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- What is Travel Schema Section -->
+    <section class="intro-section">
+        <div class="container">
+            <div class="intro-content">
+                <h2>What is Complete Travel & Tourism Schema Markup?</h2>
+                <p>This all-in-one travel and tourism schema generator creates a comprehensive structured data package that covers every aspect of your travel business. Instead of implementing separate schemas for organization, services, packages, and reviews, you get one unified schema that search engines can fully understand.</p>
+                
+                <p>Our complete schema combines TravelAgency, Service, TouristTrip, AggregateRating, and ContactPoint schemas into a single, interconnected structured data object. This approach provides maximum SEO value by giving search engines a complete picture of your business - from basic contact information to detailed tour packages, pricing, customer reviews, and service areas.</p>
+
+                <p>Travel businesses need more than basic organization markup. You need to showcase your tour packages, services, destinations, pricing, customer ratings, payment methods, and unique features. This comprehensive tool generates all of that in one professional, valid JSON-LD schema that's ready to implement on your website.</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- Benefits Section -->
+    <section class="benefits">
+        <div class="container">
+            <div class="section-header">
+                <h2>Why Use Our Complete Travel Schema Generator?</h2>
+                <p>One form, complete schema coverage for your entire travel business</p>
+            </div>
+
+            <div class="benefits-grid">
+                <div class="benefit-card">
+                    <div class="benefit-icon">🎯</div>
+                    <h3>All-in-One Solution</h3>
+                    <p>Fill out one comprehensive form and get complete schema coverage including organization details, services, packages, reviews, contact information, and more. No need to create multiple separate schemas - everything is interconnected and optimized.</p>
+                </div>
+
+                <div class="benefit-card">
+                    <div class="benefit-icon">💼</div>
+                    <h3>Complete Business Profile</h3>
+                    <p>Showcase every aspect of your travel business from basic contact information to detailed tour packages, service areas, amenities, payment methods, and customer reviews. Search engines get a 360-degree view of your business capabilities.</p>
+                </div>
+
+                <div class="benefit-card">
+                    <div class="benefit-icon">⭐</div>
+                    <h3>Built-in Review Integration</h3>
+                    <p>Include aggregate ratings and review counts directly in your schema, displaying star ratings in search results. Build instant credibility and trust with potential customers before they even visit your website.</p>
+                </div>
+
+                <div class="benefit-card">
+                    <div class="benefit-icon">📦</div>
+                    <h3>Tour Package Showcasing</h3>
+                    <p>Add unlimited tour packages with names, descriptions, prices, durations, and itineraries. Each package becomes searchable and can appear in travel-specific search features, helping travelers find exactly what you offer.</p>
+                </div>
+
+                <div class="benefit-card">
+                    <div class="benefit-icon">🌐</div>
+                    <h3>Social Proof Integration</h3>
+                    <p>Link all your social media profiles in one place, helping search engines verify your legitimacy and build brand authority. Your Facebook, Instagram, Twitter, and LinkedIn profiles become connected to your business identity.</p>
+                </div>
+
+                <div class="benefit-card">
+                    <div class="benefit-icon">🚀</div>
+                    <h3>Maximum SEO Impact</h3>
+                    <p>Comprehensive schema provides more ranking signals to search engines, improving your chances of appearing in rich results, knowledge panels, Google Travel features, and local search results. More data means better visibility.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Implementation Guide -->
+    <section class="guide">
+        <div class="container">
+            <div class="section-header">
+                <h2>How to Use This Complete Schema Generator</h2>
+                <p>Simple 5-step process to create comprehensive travel business schema</p>
+            </div>
+
+            <div class="guide-steps">
+                <div class="step">
+                    <div class="step-number">1</div>
+                    <div class="step-content">
+                        <h3>Fill Out Business Basics</h3>
+                        <p>Start with your essential business information - name, type, website URL, description, and contact details. These required fields form the foundation of your schema. Be accurate and match the information visible on your website exactly.</p>
+                    </div>
+                </div>
+
+                <div class="step">
+                    <div class="step-number">2</div>
+                    <div class="step-content">
+                        <h3>Add Tour Packages & Services</h3>
+                        <p>Use the "Add Tour Package" and "Add Service" buttons to include your offerings. Add as many packages and services as you want - each one makes your business more discoverable in search. Include names, descriptions, prices, and durations for best results.</p>
+                    </div>
+                </div>
+
+                <div class="step">
+                    <div class="step-number">3</div>
+                    <div class="step-content">
+                        <h3>Complete All Optional Sections</h3>
+                        <p>Fill in operating hours, social media links, ratings, service areas, payment methods, and amenities. While technically optional, these sections dramatically improve your schema's effectiveness. The more complete your schema, the better your search visibility.</p>
+                    </div>
+                </div>
+
+                <div class="step">
+                    <div class="step-number">4</div>
+                    <div class="step-content">
+                        <h3>Generate and Review Schema</h3>
+                        <p>Click "Generate Complete Schema" to create your comprehensive JSON-LD markup. Review the output carefully to ensure all information is correct. The preview shows exactly what search engines will see, so verify accuracy before implementation.</p>
+                    </div>
+                </div>
+
+                <div class="step">
+                    <div class="step-number">5</div>
+                    <div class="step-content">
+                        <h3>Implement on Your Website</h3>
+                        <p>Copy the generated schema and add it to your website's homepage in the &lt;head&gt; section within &lt;script type="application/ld+json"&gt; tags. Test your implementation using Google's Rich Results Test, then monitor performance in Google Search Console.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- FAQ Section -->
+    <section class="faq">
+        <div class="container">
+            <div class="section-header">
+                <h2>Frequently Asked Questions</h2>
+                <p>Common questions about complete travel & tourism schema</p>
+            </div>
+
+            <div class="faq-list">
+                <div class="faq-item">
+                    <button class="faq-question">
+                        <span>Do I need to fill out every single field in this form?</span>
+                        <span class="faq-icon">+</span>
+                    </button>
+                    <div class="faq-answer">
+                        <p>Only fields marked with * are required. However, the more fields you complete, the better your schema performs. Think of schema as your business resume to search engines - comprehensive information leads to better rankings and visibility. We recommend filling out at least 80% of the available fields for maximum SEO impact.</p>
+                    </div>
+                </div>
+
+                <div class="faq-item">
+                    <button class="faq-question">
+                        <span>How many tour packages and services should I add?</span>
+                        <span class="faq-icon">+</span>
+                    </button>
+                    <div class="faq-answer">
+                        <p>Add as many as you actively offer. There's no limit, but focus on quality over quantity. Include your most popular packages and core services first (3-10 items is typical), then add more as needed. Each package and service becomes searchable, so more comprehensive listings improve discoverability for specific travel queries.</p>
+                    </div>
+                </div>
+
+                <div class="faq-item">
+                    <button class="faq-question">
+                        <span>Will this schema work for hotels, not just travel agencies?</span>
+                        <span class="faq-icon">+</span>
+                    </button>
+                    <div class="faq-answer">
+                        <p>Yes! Select "Hotel/Accommodation" from the Business Type dropdown. The generator adapts to create appropriate LodgingBusiness schema. You can add room types as "services" and vacation packages as "tour packages." The flexible structure works for travel agencies, tour operators, hotels, resorts, and tourist information centers.</p>
+                    </div>
+                </div>
+
+                <div class="faq-item">
+                    <button class="faq-question">
+                        <span>Should I include prices in my tour packages?</span>
+                        <span class="faq-icon">+</span>
+                    </button>
+                    <div class="faq-answer">
+                        <p>Absolutely! Including prices in your schema can help you appear in price-comparison features and travel planning tools. If your prices change seasonally, you can update your schema periodically or use the "starting from" price. Transparent pricing builds trust and helps qualified travelers make faster booking decisions.</p>
+                    </div>
+                </div>
+
+                <div class="faq-item">
+                    <button class="faq-question">
+                        <span>How do I update my schema when business information changes?</span>
+                        <span class="faq-icon">+</span>
+                    </button>
+                    <div class="faq-answer">
+                        <p>Simply revisit this generator, fill in the updated information, and replace your old schema with the new one. For businesses with frequently changing packages and prices, consider connecting your schema to your booking system's database so it updates automatically. Set calendar reminders to review and update your schema quarterly at minimum.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- CTA Section -->
+    <section class="final-cta">
+        <div class="container">
+            <div class="cta-content">
+                <h2>Ready to Dominate Travel Search Results?</h2>
+                <p>Generate your complete travel & tourism business schema now - one form, unlimited SEO power.</p>
+                <a href="#" onclick="window.scrollTo({top: 0, behavior: 'smooth'}); return false;" class="btn btn-large">Create Complete Schema ⚡</a>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-col">
+                    <h4>Popular Schema Types</h4>
+                    <ul>
+                        <li><a href="https://fixmykb.com/types/Article-Schema.html">Article Schema</a></li>
+                        <li><a href="https://fixmykb.com/types/FAQ-Schema.html">FAQ Schema</a></li>
+                        <li><a href="https://fixmykb.com/types/Local-Business-Schema.html">Local Business Schema</a></li>
+                        <li><a href="https://fixmykb.com/types/Product-Schema.html">Product Schema</a></li>
+                    </ul>
+                </div>
+                <div class="footer-col">
+                    <h4>Industry Solutions</h4>
+                    <ul>
+                        <li><a href="https://fixmykb.com/industries/travel-tourism-schema">Travel & Tourism</a></li>
+                        <li><a href="https://fixmykb.com/industries/real-estate-schema">Real Estate</a></li>
+                        <li><a href="https://fixmykb.com/industries/healthcare-schema">Healthcare</a></li>
+                        <li><a href="https://fixmykb.com/industries/restaurant-food-schema">Restaurant & Food</a></li>
+                    </ul>
+                </div>
+                <div class="footer-col">
+                    <h4>Resources</h4>
+                    <ul>
+                        <li><a href="https://fixmykb.com/about">About Us</a></li>
+                        <li><a href="https://fixmykb.com/contact">Contact</a></li>
+                        <li><a href="https://fixmykb.com/privacy">Privacy Policy</a></li>
+                        <li><a href="https://fixmykb.com/terms">Terms & Conditions</a></li>
+                    </ul>
+                </div>
+                <div class="footer-col">
+                    <h4>About FixMyKB</h4>
+                    <p>Comprehensive schema markup tools for travel, tourism, and hospitality businesses.</p>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p>&copy; 2025 FixMyKB. All rights reserved. | <a href="https://fixmykb.com" style="color: rgba(255,255,255,0.8);">Home</a></p>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        // Complete Travel & Tourism Schema Generator JavaScript
+        
+        let currentSchema = null;
+        let tourPackageCount = 0;
+        let serviceCount = 0;
+
+        // Add Tour Package
+        function addTourPackage() {
+            tourPackageCount++;
+            const container = document.getElementById('tourPackagesItems');
+            const item = document.createElement('div');
+            item.className = 'repeatable-item';
+            item.setAttribute('data-index', tourPackageCount);
+            item.innerHTML = `
+                <div class="repeatable-item-header">
+                    <span>Tour Package #${tourPackageCount}</span>
+                    <button type="button" class="btn-remove" onclick="removeTourPackage(${tourPackageCount})">Remove</button>
+                </div>
+                <div class="repeatable-item-fields">
+                    <div class="form-group">
+                        <label>Package Name *</label>
+                        <input type="text" class="form-control tour-name" placeholder="7-Day European Adventure">
+                    </div>
+                    <div class="form-group">
+                        <label>Description</label>
+                        <textarea class="form-control tour-description" rows="2" placeholder="Explore historic cities and scenic landscapes..."></textarea>
+                    </div>
+                    <div class="form-group">
+                        <label>Price (USD)</label>
+                        <input type="number" class="form-control tour-price" placeholder="2499">
+                    </div>
+                    <div class="form-group">
+                        <label>Duration (days)</label>
+                        <input type="number" class="form-control tour-duration" placeholder="7">
+                    </div>
+                    <div class="form-group">
+                        <label>Package URL</label>
+                        <input type="url" class="form-control tour-url" placeholder="https://yourtravel.com/packages/european-adventure">
+                    </div>
+                </div>
+            `;
+            container.appendChild(item);
+        }
+
+        function removeTourPackage(index) {
+            const item = document.querySelector(`#tourPackagesItems [data-index="${index}"]`);
+            if (item) item.remove();
+        }
+
+        // Add Service
+        function addService() {
+            serviceCount++;
+            const container = document.getElementById('servicesItems');
+            const item = document.createElement('div');
+            item.className = 'repeatable-item';
+            item.setAttribute('data-index', serviceCount);
+            item.innerHTML = `
+                <div class="repeatable-item-header">
+                    <span>Service #${serviceCount}</span>
+                    <button type="button" class="btn-remove" onclick="removeService(${serviceCount})">Remove</button>
+                </div>
+                <div class="repeatable-item-fields">
+                    <div class="form-group">
+                        <label>Service Name *</label>
+                        <input type="text" class="form-control service-name" placeholder="Flight Booking">
+                    </div>
+                    <div class="form-group">
+                        <label>Description</label>
+                        <textarea class="form-control service-description" rows="2" placeholder="Book domestic and international flights..."></textarea>
+                    </div>
+                    <div class="form-group">
+                        <label>Service Type</label>
+                        <select class="form-control service-type">
+                            <option value="">Select Type</option>
+                            <option value="FlightReservation">Flight Booking</option>
+                            <option value="LodgingReservation">Hotel Booking</option>
+                            <option value="TaxiReservation">Transportation</option>
+                            <option value="TouristTrip">Tour Package</option>
+                            <option value="TravelAction">General Travel Service</option>
+                        </select>
+                    </div>
+                </div>
+            `;
+            container.appendChild(item);
+        }
+
+        function removeService(index) {
+            const item = document.querySelector(`#servicesItems [data-index="${index}"]`);
+            if (item) item.remove();
+        }
+
+        // Generate Complete Schema
+        document.getElementById('generateBtn').addEventListener('click', generateCompleteSchema);
+
+        function generateCompleteSchema() {
+            // Validate required fields
+            const businessName = document.getElementById('businessName').value.trim();
+            const businessUrl = document.getElementById('businessUrl').value.trim();
+            const businessDescription = document.getElementById('businessDescription').value.trim();
+            const businessPhone = document.getElementById('businessPhone').value.trim();
+            const businessEmail = document.getElementById('businessEmail').value.trim();
+            const businessCity = document.getElementById('businessCity').value.trim();
+            const businessCountry = document.getElementById('businessCountry').value.trim();
+            
+            if (!businessName || !businessUrl || !businessDescription || !businessPhone || !businessEmail || !businessCity || !businessCountry) {
+                alert('Please fill in all required fields marked with *');
+                return;
+            }
+            
+            // Build comprehensive schema
+            const schema = {
+                "@context": "https://schema.org",
+                "@type": document.getElementById('businessType').value,
+                "name": businessName,
+                "url": businessUrl,
+                "description": businessDescription,
+                "telephone": businessPhone,
+                "email": businessEmail
+            };
+            
+            // Logo
+            const logo = document.getElementById('businessLogo').value.trim();
+            if (logo) schema.logo = logo;
+            
+            // Address
+            const address = document.getElementById('businessAddress').value.trim();
+            const state = document.getElementById('businessState').value.trim();
+            const postal = document.getElementById('businessPostal').value.trim();
+            
+            schema.address = {
+                "@type": "PostalAddress",
+                "addressLocality": businessCity,
+                "addressCountry": businessCountry
+            };
+            if (address) schema.address.streetAddress = address;
+            if (state) schema.address.addressRegion = state;
+            if (postal) schema.address.postalCode = postal;
+            
+            // Opening Hours
+            const hours = document.getElementById('businessHours').value.trim();
+            if (hours) schema.openingHours = hours;
+            
+            // Social Media (sameAs)
+            const socialLinks = [];
+            const facebook = document.getElementById('socialFacebook').value.trim();
+            const instagram = document.getElementById('socialInstagram').value.trim();
+            const twitter = document.getElementById('socialTwitter').value.trim();
+            const linkedin = document.getElementById('socialLinkedIn').value.trim();
+            
+            if (facebook) socialLinks.push(facebook);
+            if (instagram) socialLinks.push(instagram);
+            if (twitter) socialLinks.push(twitter);
+            if (linkedin) socialLinks.push(linkedin);
+            
+            if (socialLinks.length > 0) schema.sameAs = socialLinks;
+            
+            // Aggregate Rating
+            const ratingValue = document.getElementById('ratingValue').value.trim();
+            const reviewCount = document.getElementById('reviewCount').value.trim();
+            
+            if (ratingValue && reviewCount) {
+                schema.aggregateRating = {
+                    "@type": "AggregateRating",
+                    "ratingValue": ratingValue,
+                    "reviewCount": reviewCount,
+                    "bestRating": "5",
+                    "worstRating": "1"
+                };
+            }
+            
+            // Service Areas
+            const serviceAreas = document.getElementById('serviceAreas').value.trim();
+            if (serviceAreas) {
+                schema.areaServed = serviceAreas.split(',').map(area => area.trim());
+            }
+            
+            // Specializations (knowsAbout)
+            const specializations = document.getElementById('specializations').value.trim();
+            if (specializations) {
+                schema.knowsAbout = specializations.split(',').map(spec => spec.trim());
+            }
+            
+            // Tour Packages (hasOfferCatalog)
+            const tourPackages = document.querySelectorAll('#tourPackagesItems .repeatable-item');
+            if (tourPackages.length > 0) {
+                schema.hasOfferCatalog = {
+                    "@type": "OfferCatalog",
+                    "name": "Tour Packages",
+                    "itemListElement": []
+                };
+                
+                tourPackages.forEach((pkg, index) => {
+                    const name = pkg.querySelector('.tour-name').value.trim();
+                    const description = pkg.querySelector('.tour-description').value.trim();
+                    const price = pkg.querySelector('.tour-price').value.trim();
+                    const duration = pkg.querySelector('.tour-duration').value.trim();
+                    const url = pkg.querySelector('.tour-url').value.trim();
+                    
+                    if (name) {
+                        const offer = {
+                            "@type": "TouristTrip",
+                            "name": name
+                        };
+                        
+                        if (description) offer.description = description;
+                        if (url) offer.url = url;
+                        if (duration) offer.duration = `P${duration}D`;
+                        
+                        if (price) {
+                            offer.offers = {
+                                "@type": "Offer",
+                                "price": price,
+                                "priceCurrency": "USD"
+                            };
+                        }
+                        
+                        schema.hasOfferCatalog.itemListElement.push(offer);
+                    }
+                });
+            }
+            
+            // Services (makesOffer)
+            const services = document.querySelectorAll('#servicesItems .repeatable-item');
+            if (services.length > 0) {
+                schema.makesOffer = [];
+                
+                services.forEach(service => {
+                    const name = service.querySelector('.service-name').value.trim();
+                    const description = service.querySelector('.service-description').value.trim();
+                    const type = service.querySelector('.service-type').value;
+                    
+                    if (name) {
+                        const offer = {
+                            "@type": "Offer",
+                            "itemOffered": {
+                                "@type": type || "Service",
+                                "name": name
+                            }
+                        };
+                        
+                        if (description) offer.itemOffered.description = description;
+                        
+                        schema.makesOffer.push(offer);
+                    }
+                });
+            }
+            
+            // Payment Methods
+            const paymentMethods = document.getElementById('paymentMethods').value.trim();
+            if (paymentMethods) {
+                schema.paymentAccepted = paymentMethods;
+            }
+            
+            // Currencies
+            const currencies = document.getElementById('currencies').value.trim();
+            if (currencies) {
+                schema.currenciesAccepted = currencies;
+            }
+            
+            // Amenities
+            const amenities = document.getElementById('amenities').value.trim();
+            if (amenities) {
+                schema.amenityFeature = amenities.split(',').map(a => ({
+                    "@type": "LocationFeatureSpecification",
+                    "name": a.trim()
+                }));
+            }
+            
+            // Languages
+            const languages = document.getElementById('languages').value.trim();
+            if (languages) {
+                schema.knowsLanguage = languages.split(',').map(lang => lang.trim());
+            }
+            
+            // Price Range
+            const priceRange = document.getElementById('priceRange').value;
+            if (priceRange) schema.priceRange = priceRange;
+            
+            // Store and display
+            currentSchema = schema;
+            document.getElementById('schemaOutput').textContent = JSON.stringify(schema, null, 2);
+            document.getElementById('validationStatus').textContent = '✓ Valid Schema';
+            document.getElementById('validationStatus').className = 'validation-status valid';
+        }
+
+        // Clear Form
+        document.getElementById('clearBtn').addEventListener('click', () => {
+            if (confirm('Are you sure you want to clear all fields? This cannot be undone.')) {
+                document.querySelectorAll('.form-control').forEach(input => {
+                    input.value = '';
+                });
+                document.getElementById('tourPackagesItems').innerHTML = '';
+                document.getElementById('servicesItems').innerHTML = '';
+                tourPackageCount = 0;
+                serviceCount = 0;
+                document.getElementById('schemaOutput').textContent = '// Your complete travel & tourism business schema will appear here...\n\n// This comprehensive schema will include:\n// ✓ Organization/Business details\n// ✓ Contact information\n// ✓ Operating hours\n// ✓ Social media profiles\n// ✓ Ratings & reviews\n// ✓ Service areas\n// ✓ Tour packages\n// ✓ Services offered\n// ✓ Payment methods\n// ✓ Amenities & features';
+                document.getElementById('validationStatus').textContent = '';
+                currentSchema = null;
+            }
+        });
+
+        // Copy to Clipboard
+        document.getElementById('copyBtn').addEventListener('click', () => {
+            if (!currentSchema) {
+                alert('Please generate schema first');
+                return;
+            }
+            
+            const schemaText = JSON.stringify(currentSchema, null, 2);
+            navigator.clipboard.writeText(schemaText).then(() => {
+                const btn = document.getElementById('copyBtn');
+                const originalText = btn.textContent;
+                btn.textContent = '✓ Copied!';
+                setTimeout(() => {
+                    btn.textContent = originalText;
+                }, 2000);
+            });
+        });
+
+        // Download JSON
+        document.getElementById('downloadBtn').addEventListener('click', () => {
+            if (!currentSchema) {
+                alert('Please generate schema first');
+                return;
+            }
+            
+            const schemaText = JSON.stringify(currentSchema, null, 2);
+            const blob = new Blob([schemaText], { type: 'application/json' });
+            const url = URL.createObjectURL(blob);
+            const a = document.createElement('a');
+            a.href = url;
+            a.download = 'complete-travel-business-schema.json';
+            document.body.appendChild(a);
+            a.click();
+            document.body.removeChild(a);
+            URL.revokeObjectURL(url);
+        });
+
+        // FAQ Accordion
+        document.querySelectorAll('.faq-question').forEach(question => {
+            question.addEventListener('click', () => {
+                const faqItem = question.parentElement;
+                const isActive = faqItem.classList.contains('active');
+                
+                document.querySelectorAll('.faq-item').forEach(item => {
+                    item.classList.remove('active');
+                });
+                
+                if (!isActive) {
+                    faqItem.classList.add('active');
+                }
+            });
+        });
+    </script>
+
+    <!-- Page Schema Markup -->
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "WebPage",
+      "name": "Complete Travel & Tourism Schema Generator",
+      "description": "All-in-one schema generator for travel businesses including organization, services, packages, reviews, and more",
+      "url": "https://fixmykb.com/industries/travel-tourism-schema"
+    }
+    </script>
+</body>
+</html>
