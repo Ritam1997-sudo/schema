@@ -1,753 +1,440 @@
-// Schema Markup Generator - Enhanced with Dynamic Fields
-// Allows unlimited addition of repeatable fields (FAQs, steps, breadcrumbs, etc.)
-// Schema field definitions - now with repeatable field support
-const schemaFields = {
-    Organization: [
-        { name: 'name', label: 'Organization Name *', type: 'text', required: true },
-        { name: 'url', label: 'Website URL *', type: 'url', required: true },
-        { name: 'logo', label: 'Logo URL', type: 'url', required: false },
-        { name: 'description', label: 'Description', type: 'textarea', required: false },
-        { name: 'telephone', label: 'Phone Number', type: 'tel', required: false },
-        { name: 'email', label: 'Email', type: 'email', required: false },
-        { name: 'address', label: 'Street Address', type: 'text', required: false },
-        { name: 'city', label: 'City', type: 'text', required: false },
-        { name: 'state', label: 'State/Region', type: 'text', required: false },
-        { name: 'postalCode', label: 'Postal Code', type: 'text', required: false },
-        { name: 'country', label: 'Country', type: 'text', required: false }
-    ],
-    LocalBusiness: [
-        { name: 'name', label: 'Business Name *', type: 'text', required: true },
-        { name: 'image', label: 'Business Image URL', type: 'url', required: false },
-        { name: 'telephone', label: 'Phone Number *', type: 'tel', required: true },
-        { name: 'address', label: 'Street Address *', type: 'text', required: true },
-        { name: 'city', label: 'City *', type: 'text', required: true },
-        { name: 'state', label: 'State/Region *', type: 'text', required: true },
-        { name: 'postalCode', label: 'Postal Code *', type: 'text', required: true },
-        { name: 'country', label: 'Country *', type: 'text', required: true },
-        { name: 'priceRange', label: 'Price Range (e.g. $$)', type: 'text', required: false },
-        { name: 'openingHours', label: 'Opening Hours (e.g. Mo-Fr 09:00-17:00)', type: 'text', required: false }
-    ],
-    Product: [
-        { name: 'name', label: 'Product Name *', type: 'text', required: true },
-        { name: 'image', label: 'Product Image URL *', type: 'url', required: true },
-        { name: 'description', label: 'Product Description *', type: 'textarea', required: true },
-        { name: 'brand', label: 'Brand Name', type: 'text', required: false },
-        { name: 'sku', label: 'SKU', type: 'text', required: false },
-        { name: 'price', label: 'Price *', type: 'number', required: true },
-        { name: 'priceCurrency', label: 'Currency Code (e.g. USD) *', type: 'text', required: true },
-        { name: 'availability', label: 'Availability (InStock/OutOfStock)', type: 'text', required: false },
-        { name: 'ratingValue', label: 'Rating Value (1-5)', type: 'number', required: false },
-        { name: 'reviewCount', label: 'Number of Reviews', type: 'number', required: false }
-    ],
-    Article: [
-        { name: 'headline', label: 'Article Headline *', type: 'text', required: true },
-        { name: 'image', label: 'Article Image URL *', type: 'url', required: true },
-        { name: 'author', label: 'Author Name *', type: 'text', required: true },
-        { name: 'publisher', label: 'Publisher Name *', type: 'text', required: true },
-        { name: 'publisherLogo', label: 'Publisher Logo URL *', type: 'url', required: true },
-        { name: 'datePublished', label: 'Published Date (YYYY-MM-DD) *', type: 'date', required: true },
-        { name: 'dateModified', label: 'Modified Date (YYYY-MM-DD)', type: 'date', required: false },
-        { name: 'description', label: 'Article Description', type: 'textarea', required: false }
-    ],
-    FAQPage: {
-        staticFields: [],
-        repeatableGroup: {
-            name: 'faq',
-            label: 'FAQ Item',
-            minItems: 1,
-            fields: [
-                { name: 'question', label: 'Question *', type: 'text', required: true },
-                { name: 'answer', label: 'Answer *', type: 'textarea', required: true }
-            ]
-        }
-    },
-    HowTo: {
-        staticFields: [
-            { name: 'name', label: 'How-To Title *', type: 'text', required: true },
-            { name: 'description', label: 'Description *', type: 'textarea', required: true },
-            { name: 'image', label: 'Image URL', type: 'url', required: false },
-            { name: 'totalTime', label: 'Total Time (e.g. PT1H30M)', type: 'text', required: false }
-        ],
-        repeatableGroup: {
-            name: 'step',
-            label: 'Step',
-            minItems: 1,
-            fields: [
-                { name: 'text', label: 'Step Instructions *', type: 'textarea', required: true },
-                { name: 'image', label: 'Step Image URL', type: 'url', required: false }
-            ]
-        }
-    },
-    Recipe: {
-        staticFields: [
-            { name: 'name', label: 'Recipe Name *', type: 'text', required: true },
-            { name: 'image', label: 'Recipe Image URL *', type: 'url', required: true },
-            { name: 'author', label: 'Author Name *', type: 'text', required: true },
-            { name: 'description', label: 'Description', type: 'textarea', required: false },
-            { name: 'prepTime', label: 'Prep Time (e.g. PT30M)', type: 'text', required: false },
-            { name: 'cookTime', label: 'Cook Time (e.g. PT1H)', type: 'text', required: false },
-            { name: 'totalTime', label: 'Total Time (e.g. PT1H30M)', type: 'text', required: false },
-            { name: 'recipeYield', label: 'Servings (e.g. 4 servings)', type: 'text', required: false },
-            { name: 'calories', label: 'Calories', type: 'text', required: false }
-        ],
-        repeatableGroup: {
-            name: 'ingredient',
-            label: 'Ingredient',
-            minItems: 1,
-            fields: [
-                { name: 'ingredient', label: 'Ingredient *', type: 'text', required: true }
-            ]
-        }
-    },
-    Event: [
-        { name: 'name', label: 'Event Name *', type: 'text', required: true },
-        { name: 'startDate', label: 'Start Date & Time (YYYY-MM-DDTHH:MM) *', type: 'datetime-local', required: true },
-        { name: 'endDate', label: 'End Date & Time (YYYY-MM-DDTHH:MM)', type: 'datetime-local', required: false },
-        { name: 'location', label: 'Location Name *', type: 'text', required: true },
-        { name: 'address', label: 'Street Address', type: 'text', required: false },
-        { name: 'city', label: 'City', type: 'text', required: false },
-        { name: 'description', label: 'Event Description', type: 'textarea', required: false },
-        { name: 'image', label: 'Event Image URL', type: 'url', required: false },
-        { name: 'price', label: 'Ticket Price', type: 'number', required: false },
-        { name: 'priceCurrency', label: 'Currency (e.g. USD)', type: 'text', required: false }
-    ],
-    Person: [
-        { name: 'name', label: 'Full Name *', type: 'text', required: true },
-        { name: 'jobTitle', label: 'Job Title', type: 'text', required: false },
-        { name: 'image', label: 'Photo URL', type: 'url', required: false },
-        { name: 'url', label: 'Website URL', type: 'url', required: false },
-        { name: 'telephone', label: 'Phone Number', type: 'tel', required: false },
-        { name: 'email', label: 'Email', type: 'email', required: false },
-        { name: 'address', label: 'Street Address', type: 'text', required: false },
-        { name: 'city', label: 'City', type: 'text', required: false },
-        { name: 'description', label: 'Bio/Description', type: 'textarea', required: false }
-    ],
-    Review: [
-        { name: 'itemReviewed', label: 'Item Reviewed (Name) *', type: 'text', required: true },
-        { name: 'author', label: 'Reviewer Name *', type: 'text', required: true },
-        { name: 'reviewRating', label: 'Rating (1-5) *', type: 'number', required: true },
-        { name: 'reviewBody', label: 'Review Text *', type: 'textarea', required: true },
-        { name: 'datePublished', label: 'Review Date (YYYY-MM-DD)', type: 'date', required: false }
-    ],
-    VideoObject: [
-        { name: 'name', label: 'Video Title *', type: 'text', required: true },
-        { name: 'description', label: 'Video Description *', type: 'textarea', required: true },
-        { name: 'thumbnailUrl', label: 'Thumbnail URL *', type: 'url', required: true },
-        { name: 'uploadDate', label: 'Upload Date (YYYY-MM-DD) *', type: 'date', required: true },
-        { name: 'duration', label: 'Duration (e.g. PT1M33S)', type: 'text', required: false },
-        { name: 'contentUrl', label: 'Video URL', type: 'url', required: false }
-    ],
-    BreadcrumbList: {
-        staticFields: [],
-        repeatableGroup: {
-            name: 'breadcrumb',
-            label: 'Breadcrumb Level',
-            minItems: 2,
-            fields: [
-                { name: 'name', label: 'Page Name *', type: 'text', required: true },
-                { name: 'url', label: 'Page URL *', type: 'url', required: true }
-            ]
-        }
-    }
-};
-// Track repeatable field counters
-let repeatableCounters = {};
-// DOM elements
-const schemaTypeSelect = document.getElementById('schemaType');
-const dynamicFields = document.getElementById('dynamicFields');
-const generateBtn = document.getElementById('generateBtn');
-const clearBtn = document.getElementById('clearBtn');
-const schemaOutput = document.getElementById('schemaOutput');
-const copyBtn = document.getElementById('copyBtn');
-const downloadBtn = document.getElementById('downloadBtn');
-const validationStatus = document.getElementById('validationStatus');
-// Current schema data
-let currentSchema = null;
-// Create field element
-function createFieldElement(field, uniqueId = null) {
-    const formGroup = document.createElement('div');
-    formGroup.className = 'form-group';
-    if (uniqueId) formGroup.dataset.uniqueId = uniqueId;
-   
-    const label = document.createElement('label');
-    label.textContent = field.label;
-    const inputId = uniqueId || field.name;
-    label.htmlFor = inputId;
-   
-    let input;
-    if (field.type === 'textarea') {
-        input = document.createElement('textarea');
-        input.rows = 3;
-    } else {
-        input = document.createElement('input');
-        input.type = field.type;
-    }
-   
-    input.id = inputId;
-    input.name = field.name;
-    input.className = 'form-control';
-    input.required = field.required;
-   
-    formGroup.appendChild(label);
-    formGroup.appendChild(input);
-   
-    return formGroup;
-}
-// Create repeatable group container
-function createRepeatableGroup(groupConfig, schemaType) {
-    const container = document.createElement('div');
-    container.className = 'repeatable-container';
-    container.dataset.groupName = groupConfig.name;
-   
-    const header = document.createElement('div');
-    header.className = 'repeatable-header';
-    header.innerHTML = `<h4>📋 ${groupConfig.label}s</h4>`;
-    container.appendChild(header);
-   
-    const itemsContainer = document.createElement('div');
-    itemsContainer.className = 'repeatable-items';
-    container.appendChild(itemsContainer);
-   
-    // Initialize counter
-    if (!repeatableCounters[schemaType]) {
-        repeatableCounters[schemaType] = {};
-    }
-    repeatableCounters[schemaType][groupConfig.name] = 0;
-   
-    // Add initial items (minItems)
-    for (let i = 0; i < groupConfig.minItems; i++) {
-        addRepeatableItem(itemsContainer, groupConfig, schemaType);
-    }
-   
-    // Add button
-    const addButton = document.createElement('button');
-    addButton.type = 'button';
-    addButton.className = 'btn btn-add-more';
-    addButton.innerHTML = `➕ Add Another ${groupConfig.label}`;
-    addButton.onclick = () => addRepeatableItem(itemsContainer, groupConfig, schemaType);
-    container.appendChild(addButton);
-   
-    return container;
-}
-// Add repeatable item
-function addRepeatableItem(container, groupConfig, schemaType) {
-    const counter = repeatableCounters[schemaType][groupConfig.name]++;
-   
-    const item = document.createElement('div');
-    item.className = 'repeatable-item';
-    item.dataset.itemIndex = counter;
-   
-    const itemHeader = document.createElement('div');
-    itemHeader.className = 'repeatable-item-header';
-    itemHeader.innerHTML = `
-        <span>${groupConfig.label} #${counter + 1}</span>
-        <button type="button" class="btn-remove" onclick="removeRepeatableItem(this)">🗑️ Remove</button>
-    `;
-    item.appendChild(itemHeader);
-   
-    const fieldsContainer = document.createElement('div');
-    fieldsContainer.className = 'repeatable-item-fields';
-   
-    groupConfig.fields.forEach(field => {
-        const uniqueId = `${groupConfig.name}_${counter}_${field.name}`;
-        const fieldElement = createFieldElement(field, uniqueId);
-        fieldsContainer.appendChild(fieldElement);
-    });
-   
-    item.appendChild(fieldsContainer);
-    container.appendChild(item);
-   
-    // Update item numbers
-    updateItemNumbers(container, groupConfig.label);
-}
-// Remove repeatable item
-window.removeRepeatableItem = function(button) {
-    const item = button.closest('.repeatable-item');
-    const container = item.parentElement;
-    const repeatableContainer = item.closest('.repeatable-container');
-    const groupLabel = repeatableContainer.querySelector('.repeatable-header h4').textContent.replace('📋 ', '').replace('s', '');
-   
-    // Check minimum items
-    const itemCount = container.querySelectorAll('.repeatable-item').length;
-    const minItems = parseInt(repeatableContainer.dataset.minItems) || 1;
-   
-    if (itemCount <= minItems) {
-        alert(`You must have at least ${minItems} ${groupLabel}${minItems > 1 ? 's' : ''}`);
-        return;
-    }
-   
-    item.remove();
-    updateItemNumbers(container, groupLabel);
-};
-// Update item numbers
-function updateItemNumbers(container, label) {
-    const items = container.querySelectorAll('.repeatable-item');
-    items.forEach((item, index) => {
-        const header = item.querySelector('.repeatable-item-header span');
-        header.textContent = `${label} #${index + 1}`;
-        item.dataset.itemIndex = index;
-    });
-}
-// Render fields based on schema type
-function renderFields() {
-    const schemaType = schemaTypeSelect.value;
-    const config = schemaFields[schemaType];
-   
-    dynamicFields.innerHTML = '';
-    repeatableCounters = {};
-   
-    // Handle array-based schema (simple fields only)
-    if (Array.isArray(config)) {
-        config.forEach(field => {
-            const fieldElement = createFieldElement(field);
-            dynamicFields.appendChild(fieldElement);
+// ===============================================
+// Dental Studio 32 - Interactive JavaScript
+// ===============================================
+
+document.addEventListener('DOMContentLoaded', function() {
+    
+    // ===== Mobile Menu Toggle =====
+    const mobileMenuToggle = document.querySelector('.mobile-menu-toggle');
+    const navMenu = document.querySelector('.nav-menu');
+    
+    if (mobileMenuToggle) {
+        mobileMenuToggle.addEventListener('click', function() {
+            navMenu.classList.toggle('active');
+            const icon = this.querySelector('i');
+            icon.classList.toggle('fa-bars');
+            icon.classList.toggle('fa-times');
         });
     }
-    // Handle object-based schema (with repeatable groups)
-    else {
-        // Render static fields first
-        if (config.staticFields && config.staticFields.length > 0) {
-            config.staticFields.forEach(field => {
-                const fieldElement = createFieldElement(field);
-                dynamicFields.appendChild(fieldElement);
-            });
-        }
-       
-        // Render repeatable group
-        if (config.repeatableGroup) {
-            const groupContainer = createRepeatableGroup(config.repeatableGroup, schemaType);
-            groupContainer.dataset.minItems = config.repeatableGroup.minItems;
-            dynamicFields.appendChild(groupContainer);
-        }
-    }
-}
-// Collect form data
-function collectFormData(schemaType) {
-    const config = schemaFields[schemaType];
-    const data = {};
-   
-    if (Array.isArray(config)) {
-        // Simple fields
-        config.forEach(field => {
-            const input = document.getElementById(field.name);
-            const value = input ? input.value.trim() : '';
-            if (value) {
-                data[field.name] = value;
+
+    // Close mobile menu when clicking on a link
+    const navLinks = document.querySelectorAll('.nav-menu a');
+    navLinks.forEach(link => {
+        link.addEventListener('click', function() {
+            if (window.innerWidth <= 768) {
+                navMenu.classList.remove('active');
+                const icon = mobileMenuToggle.querySelector('i');
+                icon.classList.add('fa-bars');
+                icon.classList.remove('fa-times');
             }
         });
-    } else {
-        // Static fields
-        if (config.staticFields) {
-            config.staticFields.forEach(field => {
-                const input = document.getElementById(field.name);
-                const value = input ? input.value.trim() : '';
-                if (value) {
-                    data[field.name] = value;
-                }
-            });
+    });
+
+    // ===== Sticky Header =====
+    const header = document.getElementById('header');
+    let lastScroll = 0;
+    
+    window.addEventListener('scroll', function() {
+        const currentScroll = window.pageYOffset;
+        
+        if (currentScroll > 100) {
+            header.style.boxShadow = '0 4px 20px rgba(31, 47, 74, 0.15)';
+        } else {
+            header.style.boxShadow = '0 4px 20px rgba(31, 47, 74, 0.12)';
         }
-       
-        // Repeatable group
-        if (config.repeatableGroup) {
-            const groupName = config.repeatableGroup.name;
-            const repeatableContainer = document.querySelector(`[data-group-name="${groupName}"]`);
-            const itemsContainer = repeatableContainer ? repeatableContainer.querySelector('.repeatable-items') : null;
-            const items = itemsContainer ? itemsContainer.querySelectorAll('.repeatable-item') : [];
-            data[groupName + 's'] = [];
-           
-            items.forEach((item) => {
-                const itemData = {};
-                config.repeatableGroup.fields.forEach(field => {
-                    const input = item.querySelector(`[name="${field.name}"]`);
-                    const value = input ? input.value.trim() : '';
-                    if (value) {
-                        itemData[field.name] = value;
-                    }
+        
+        lastScroll = currentScroll;
+    });
+
+    // ===== Smooth Scroll for Navigation Links =====
+    document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+        anchor.addEventListener('click', function(e) {
+            e.preventDefault();
+            const targetId = this.getAttribute('href');
+            if (targetId === '#') return;
+            
+            const targetElement = document.querySelector(targetId);
+            if (targetElement) {
+                const headerHeight = header.offsetHeight;
+                const targetPosition = targetElement.offsetTop - headerHeight;
+                
+                window.scrollTo({
+                    top: targetPosition,
+                    behavior: 'smooth'
                 });
-                if (Object.keys(itemData).length > 0) {
-                    data[groupName + 's'].push(itemData);
-                }
-            });
-        }
-    }
-   
-    return data;
-}
-// Validate required fields
-function validateForm(schemaType) {
-    const config = schemaFields[schemaType];
-    let isValid = true;
-   
-    // Clear previous validation
-    document.querySelectorAll('.form-control').forEach(input => {
-        input.style.borderColor = '';
-    });
-   
-    if (Array.isArray(config)) {
-        config.forEach(field => {
-            if (field.required) {
-                const input = document.getElementById(field.name);
-                if (input && !input.value.trim()) {
-                    input.style.borderColor = '#F44336';
-                    isValid = false;
-                }
             }
         });
-    } else {
-        // Validate static fields
-        if (config.staticFields) {
-            config.staticFields.forEach(field => {
-                if (field.required) {
-                    const input = document.getElementById(field.name);
-                    if (input && !input.value.trim()) {
-                        input.style.borderColor = '#F44336';
-                        isValid = false;
-                    }
-                }
-            });
-        }
-       
-        // Validate repeatable items
-        if (config.repeatableGroup) {
-            const groupName = config.repeatableGroup.name;
-            const repeatableContainer = document.querySelector(`[data-group-name="${groupName}"]`);
-            const itemsContainer = repeatableContainer ? repeatableContainer.querySelector('.repeatable-items') : null;
-            const items = itemsContainer ? itemsContainer.querySelectorAll('.repeatable-item') : [];
-           
-            items.forEach((item) => {
-                config.repeatableGroup.fields.forEach(field => {
-                    if (field.required) {
-                        const input = item.querySelector(`[name="${field.name}"]`);
-                        if (input && !input.value.trim()) {
-                            input.style.borderColor = '#F44336';
-                            isValid = false;
-                        }
-                    }
-                });
-            });
-        }
-    }
-   
-    return isValid;
-}
-// Schema generators
-const schemaGenerators = {
-    Organization: (data) => ({
-        "@context": "https://schema.org",
-        "@type": "Organization",
-        "name": data.name,
-        "url": data.url,
-        ...(data.logo && { "logo": data.logo }),
-        ...(data.description && { "description": data.description }),
-        ...(data.telephone && { "telephone": data.telephone }),
-        ...(data.email && { "email": data.email }),
-        ...((data.address || data.city) && {
-            "address": {
-                "@type": "PostalAddress",
-                ...(data.address && { "streetAddress": data.address }),
-                ...(data.city && { "addressLocality": data.city }),
-                ...(data.state && { "addressRegion": data.state }),
-                ...(data.postalCode && { "postalCode": data.postalCode }),
-                ...(data.country && { "addressCountry": data.country })
-            }
-        })
-    }),
-    LocalBusiness: (data) => ({
-        "@context": "https://schema.org",
-        "@type": "LocalBusiness",
-        "name": data.name,
-        ...(data.image && { "image": data.image }),
-        "telephone": data.telephone,
-        "address": {
-            "@type": "PostalAddress",
-            "streetAddress": data.address,
-            "addressLocality": data.city,
-            "addressRegion": data.state,
-            "postalCode": data.postalCode,
-            "addressCountry": data.country
-        },
-        ...(data.priceRange && { "priceRange": data.priceRange }),
-        ...(data.openingHours && { "openingHours": data.openingHours })
-    }),
-    Product: (data) => ({
-        "@context": "https://schema.org",
-        "@type": "Product",
-        "name": data.name,
-        "image": data.image,
-        "description": data.description,
-        ...(data.brand && { "brand": { "@type": "Brand", "name": data.brand } }),
-        ...(data.sku && { "sku": data.sku }),
-        "offers": {
-            "@type": "Offer",
-            "price": data.price,
-            "priceCurrency": data.priceCurrency,
-            ...(data.availability && { "availability": `https://schema.org/${data.availability}` }),
-            "url": window.location.href
-        },
-        ...((data.ratingValue && data.reviewCount) && {
-            "aggregateRating": {
-                "@type": "AggregateRating",
-                "ratingValue": data.ratingValue,
-                "reviewCount": data.reviewCount
-            }
-        })
-    }),
-    Article: (data) => ({
-        "@context": "https://schema.org",
-        "@type": "Article",
-        "headline": data.headline,
-        "image": data.image,
-        "author": {
-            "@type": "Person",
-            "name": data.author
-        },
-        "publisher": {
-            "@type": "Organization",
-            "name": data.publisher,
-            "logo": {
-                "@type": "ImageObject",
-                "url": data.publisherLogo
-            }
-        },
-        "datePublished": data.datePublished,
-        ...(data.dateModified && { "dateModified": data.dateModified }),
-        ...(data.description && { "description": data.description })
-    }),
-    FAQPage: (data) => ({
-        "@context": "https://schema.org",
-        "@type": "FAQPage",
-        "mainEntity": data.faqs.map(faq => ({
-            "@type": "Question",
-            "name": faq.question,
-            "acceptedAnswer": {
-                "@type": "Answer",
-                "text": faq.answer
-            }
-        }))
-    }),
-    HowTo: (data) => ({
-        "@context": "https://schema.org",
-        "@type": "HowTo",
-        "name": data.name,
-        "description": data.description,
-        ...(data.image && { "image": data.image }),
-        ...(data.totalTime && { "totalTime": data.totalTime }),
-        "step": data.steps.map((step, index) => ({
-            "@type": "HowToStep",
-            "position": index + 1,
-            "text": step.text,
-            ...(step.image && { "image": step.image })
-        }))
-    }),
-    Recipe: (data) => ({
-        "@context": "https://schema.org",
-        "@type": "Recipe",
-        "name": data.name,
-        "image": data.image,
-        "author": {
-            "@type": "Person",
-            "name": data.author
-        },
-        ...(data.description && { "description": data.description }),
-        ...(data.prepTime && { "prepTime": data.prepTime }),
-        ...(data.cookTime && { "cookTime": data.cookTime }),
-        ...(data.totalTime && { "totalTime": data.totalTime }),
-        ...(data.recipeYield && { "recipeYield": data.recipeYield }),
-        ...(data.ingredients && data.ingredients.length > 0 && {
-            "recipeIngredient": data.ingredients.map(ing => ing.ingredient)
-        }),
-        ...(data.calories && {
-            "nutrition": {
-                "@type": "NutritionInformation",
-                "calories": data.calories
-            }
-        })
-    }),
-    Event: (data) => ({
-        "@context": "https://schema.org",
-        "@type": "Event",
-        "name": data.name,
-        "startDate": data.startDate,
-        ...(data.endDate && { "endDate": data.endDate }),
-        "location": {
-            "@type": "Place",
-            "name": data.location,
-            ...((data.address || data.city) && {
-                "address": {
-                    "@type": "PostalAddress",
-                    ...(data.address && { "streetAddress": data.address }),
-                    ...(data.city && { "addressLocality": data.city })
-                }
-            })
-        },
-        ...(data.description && { "description": data.description }),
-        ...(data.image && { "image": data.image }),
-        ...((data.price && data.priceCurrency) && {
-            "offers": {
-                "@type": "Offer",
-                "price": data.price,
-                "priceCurrency": data.priceCurrency
-            }
-        })
-    }),
-    Person: (data) => ({
-        "@context": "https://schema.org",
-        "@type": "Person",
-        "name": data.name,
-        ...(data.jobTitle && { "jobTitle": data.jobTitle }),
-        ...(data.image && { "image": data.image }),
-        ...(data.url && { "url": data.url }),
-        ...(data.telephone && { "telephone": data.telephone }),
-        ...(data.email && { "email": data.email }),
-        ...((data.address || data.city) && {
-            "address": {
-                "@type": "PostalAddress",
-                ...(data.address && { "streetAddress": data.address }),
-                ...(data.city && { "addressLocality": data.city })
-            }
-        }),
-        ...(data.description && { "description": data.description })
-    }),
-    Review: (data) => ({
-        "@context": "https://schema.org",
-        "@type": "Review",
-        "itemReviewed": {
-            "@type": "Thing",
-            "name": data.itemReviewed
-        },
-        "author": {
-            "@type": "Person",
-            "name": data.author
-        },
-        "reviewRating": {
-            "@type": "Rating",
-            "ratingValue": data.reviewRating,
-            "bestRating": "5"
-        },
-        "reviewBody": data.reviewBody,
-        ...(data.datePublished && { "datePublished": data.datePublished })
-    }),
-    VideoObject: (data) => ({
-        "@context": "https://schema.org",
-        "@type": "VideoObject",
-        "name": data.name,
-        "description": data.description,
-        "thumbnailUrl": data.thumbnailUrl,
-        "uploadDate": data.uploadDate,
-        ...(data.duration && { "duration": data.duration }),
-        ...(data.contentUrl && { "contentUrl": data.contentUrl })
-    }),
-    BreadcrumbList: (data) => ({
-        "@context": "https://schema.org",
-        "@type": "BreadcrumbList",
-        "itemListElement": data.breadcrumbs.map((crumb, index) => ({
-            "@type": "ListItem",
-            "position": index + 1,
-            "name": crumb.name,
-            "item": crumb.url
-        }))
-    })
-};
-// Generate schema
-function generateSchema() {
-    const schemaType = schemaTypeSelect.value;
-   
-    if (!validateForm(schemaType)) {
-        alert('Please fill in all required fields (marked with *)');
-        return;
-    }
-   
-    const data = collectFormData(schemaType);
-    const generator = schemaGenerators[schemaType];
-    currentSchema = generator(data);
-   
-    // Display schema wrapped in JSON-LD script tag
-    const jsonStr = JSON.stringify(currentSchema, null, 2);
-    const scriptTag = `<script type="application/ld+json">\n${jsonStr}\n</script>`;
-    const escapedScriptTag = scriptTag
-        .replace(/&/g, '&amp;')
-        .replace(/</g, '&lt;')
-        .replace(/>/g, '&gt;');
-    schemaOutput.innerHTML = `<pre style="white-space: pre-wrap; background: #f8f9fa; padding: 15px; border: 1px solid #dee2e6; border-radius: 5px; overflow: auto; font-family: monospace; font-size: 14px;">${escapedScriptTag}</pre>`;
-   
-    // Update validation status
-    validationStatus.textContent = '✓ Valid Schema';
-    validationStatus.className = 'validation-status valid';
-}
-// Clear form
-function clearForm() {
-    renderFields();
-    schemaOutput.innerHTML = `<pre style="white-space: pre-wrap; background: #f8f9fa; padding: 15px; border: 1px solid #dee2e6; border-radius: 5px; overflow: auto; font-family: monospace; font-size: 14px;">// Your generated schema will appear here...</pre>`;
-    validationStatus.textContent = '';
-    validationStatus.className = 'validation-status';
-    currentSchema = null;
-}
-// Copy to clipboard
-function copyToClipboard() {
-    if (!currentSchema) {
-        alert('Please generate schema first');
-        return;
-    }
-   
-    const jsonStr = JSON.stringify(currentSchema, null, 2);
-    const schemaText = `<script type="application/ld+json">\n${jsonStr}\n</script>`;
-    navigator.clipboard.writeText(schemaText).then(() => {
-        const originalText = copyBtn.textContent;
-        copyBtn.textContent = '✓ Copied!';
-        setTimeout(() => {
-            copyBtn.textContent = originalText;
-        }, 2000);
-    }).catch(err => {
-        alert('Failed to copy to clipboard');
     });
-}
-// Download JSON-LD script tag as HTML snippet
-function downloadJSON() {
-    if (!currentSchema) {
-        alert('Please generate schema first');
-        return;
+
+    // ===== Active Navigation Link =====
+    const sections = document.querySelectorAll('section[id]');
+    
+    window.addEventListener('scroll', function() {
+        let current = '';
+        const scrollPosition = window.pageYOffset + 150;
+        
+        sections.forEach(section => {
+            const sectionTop = section.offsetTop;
+            const sectionHeight = section.clientHeight;
+            
+            if (scrollPosition >= sectionTop && scrollPosition < sectionTop + sectionHeight) {
+                current = section.getAttribute('id');
+            }
+        });
+        
+        navLinks.forEach(link => {
+            link.classList.remove('active');
+            if (link.getAttribute('href') === `#${current}`) {
+                link.classList.add('active');
+            }
+        });
+    });
+
+    // ===== Counter Animation =====
+    const achievementNumbers = document.querySelectorAll('.achievement-number');
+    let counterAnimated = false;
+    
+    function animateCounter(element) {
+        const target = parseInt(element.getAttribute('data-target'));
+        const duration = 2000; // 2 seconds
+        const increment = target / (duration / 16); // 60 FPS
+        let current = 0;
+        
+        const updateCounter = () => {
+            current += increment;
+            if (current < target) {
+                element.textContent = Math.floor(current).toLocaleString();
+                requestAnimationFrame(updateCounter);
+            } else {
+                element.textContent = target.toLocaleString();
+            }
+        };
+        
+        updateCounter();
     }
-   
-    const jsonStr = JSON.stringify(currentSchema, null, 2);
-    const schemaText = `<script type="application/ld+json">\n${jsonStr}\n</script>`;
-    const blob = new Blob([schemaText], { type: 'text/html' });
-    const url = URL.createObjectURL(blob);
-    const a = document.createElement('a');
-    a.href = url;
-    a.download = `${schemaTypeSelect.value.toLowerCase()}-schema.html`;
-    document.body.appendChild(a);
-    a.click();
-    document.body.removeChild(a);
-    URL.revokeObjectURL(url);
-}
-// FAQ Accordion
-function initFAQ() {
+    
+    function checkCounterVisibility() {
+        const achievementsSection = document.querySelector('.achievements-section');
+        if (!achievementsSection || counterAnimated) return;
+        
+        const rect = achievementsSection.getBoundingClientRect();
+        const isVisible = rect.top < window.innerHeight && rect.bottom >= 0;
+        
+        if (isVisible) {
+            achievementNumbers.forEach(number => animateCounter(number));
+            counterAnimated = true;
+        }
+    }
+    
+    window.addEventListener('scroll', checkCounterVisibility);
+    checkCounterVisibility(); // Check on load
+
+    // ===== Review Slider =====
+    const reviewTrack = document.querySelector('.review-track');
+    const prevBtn = document.querySelector('.slider-btn.prev');
+    const nextBtn = document.querySelector('.slider-btn.next');
+    
+    if (reviewTrack && prevBtn && nextBtn) {
+        let currentSlide = 0;
+        const reviewCards = document.querySelectorAll('.review-card');
+        const totalSlides = reviewCards.length;
+        
+        // Calculate slides to show based on screen width
+        function getSlidesToShow() {
+            if (window.innerWidth >= 992) return 3;
+            if (window.innerWidth >= 768) return 2;
+            return 1;
+        }
+        
+        function updateSlider() {
+            const slidesToShow = getSlidesToShow();
+            const cardWidth = reviewCards[0].offsetWidth;
+            const gap = 30;
+            const offset = currentSlide * (cardWidth + gap);
+            
+            reviewTrack.style.transform = `translateX(-${offset}px)`;
+            
+            // Update button states
+            prevBtn.disabled = currentSlide === 0;
+            nextBtn.disabled = currentSlide >= totalSlides - slidesToShow;
+            
+            prevBtn.style.opacity = prevBtn.disabled ? '0.5' : '1';
+            nextBtn.style.opacity = nextBtn.disabled ? '0.5' : '1';
+        }
+        
+        prevBtn.addEventListener('click', () => {
+            if (currentSlide > 0) {
+                currentSlide--;
+                updateSlider();
+            }
+        });
+        
+        nextBtn.addEventListener('click', () => {
+            const slidesToShow = getSlidesToShow();
+            if (currentSlide < totalSlides - slidesToShow) {
+                currentSlide++;
+                updateSlider();
+            }
+        });
+        
+        // Auto-slide every 5 seconds
+        let autoSlide = setInterval(() => {
+            const slidesToShow = getSlidesToShow();
+            if (currentSlide < totalSlides - slidesToShow) {
+                currentSlide++;
+            } else {
+                currentSlide = 0;
+            }
+            updateSlider();
+        }, 5000);
+        
+        // Pause auto-slide on hover
+        reviewTrack.addEventListener('mouseenter', () => clearInterval(autoSlide));
+        reviewTrack.addEventListener('mouseleave', () => {
+            autoSlide = setInterval(() => {
+                const slidesToShow = getSlidesToShow();
+                if (currentSlide < totalSlides - slidesToShow) {
+                    currentSlide++;
+                } else {
+                    currentSlide = 0;
+                }
+                updateSlider();
+            }, 5000);
+        });
+        
+        // Update on window resize
+        window.addEventListener('resize', () => {
+            currentSlide = 0;
+            updateSlider();
+        });
+        
+        // Initial update
+        updateSlider();
+    }
+
+    // ===== Gallery Load More =====
+    const loadMoreBtn = document.getElementById('loadMoreGallery');
+    const hiddenGalleryItems = document.querySelectorAll('.gallery-item.hidden');
+    
+    if (loadMoreBtn && hiddenGalleryItems.length > 0) {
+        loadMoreBtn.addEventListener('click', function() {
+            hiddenGalleryItems.forEach(item => {
+                item.classList.remove('hidden');
+            });
+            
+            // Hide the button after showing all images
+            this.style.display = 'none';
+            
+            // Smooth scroll to first newly revealed item
+            if (hiddenGalleryItems[0]) {
+                setTimeout(() => {
+                    hiddenGalleryItems[0].scrollIntoView({
+                        behavior: 'smooth',
+                        block: 'center'
+                    });
+                }, 100);
+            }
+        });
+    } else if (loadMoreBtn && hiddenGalleryItems.length === 0) {
+        loadMoreBtn.style.display = 'none';
+    }
+
+    // ===== FAQ Accordion =====
     const faqQuestions = document.querySelectorAll('.faq-question');
+    
     faqQuestions.forEach(question => {
-        question.addEventListener('click', () => {
-            const faqItem = question.parentElement;
+        question.addEventListener('click', function() {
+            const faqItem = this.parentElement;
             const isActive = faqItem.classList.contains('active');
-           
-            // Close all FAQs
+            
+            // Close all FAQ items
             document.querySelectorAll('.faq-item').forEach(item => {
                 item.classList.remove('active');
             });
-           
-            // Toggle current FAQ
+            
+            // Open clicked item if it wasn't active
             if (!isActive) {
                 faqItem.classList.add('active');
             }
         });
     });
-}
-// Event listeners
-schemaTypeSelect.addEventListener('change', renderFields);
-generateBtn.addEventListener('click', generateSchema);
-clearBtn.addEventListener('click', clearForm);
-copyBtn.addEventListener('click', copyToClipboard);
-downloadBtn.addEventListener('click', downloadJSON);
-// Initialize
-document.addEventListener('DOMContentLoaded', () => {
-    renderFields();
-    initFAQ();
+
+    // ===== Contact Form Submission =====
+    const appointmentForm = document.getElementById('appointmentForm');
+    
+    if (appointmentForm) {
+        appointmentForm.addEventListener('submit', function(e) {
+            e.preventDefault();
+            
+            // Get form data
+            const formData = {
+                name: document.getElementById('name').value,
+                phone: document.getElementById('phone').value,
+                email: document.getElementById('email').value,
+                service: document.getElementById('service').value,
+                preferredDate: document.getElementById('preferredDate').value,
+                message: document.getElementById('message').value
+            };
+            
+            // Basic validation
+            if (!formData.name || !formData.phone || !formData.service) {
+                alert('Please fill in all required fields (Name, Phone, Treatment)');
+                return;
+            }
+            
+            // Phone validation
+            const phoneRegex = /^[0-9]{10}$/;
+            const cleanPhone = formData.phone.replace(/\D/g, '');
+            if (!phoneRegex.test(cleanPhone)) {
+                alert('Please enter a valid 10-digit phone number');
+                return;
+            }
+            
+            // Email validation (if provided)
+            if (formData.email) {
+                const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+                if (!emailRegex.test(formData.email)) {
+                    alert('Please enter a valid email address');
+                    return;
+                }
+            }
+            
+            // Simulate form submission (replace with actual API call)
+            console.log('Form submitted:', formData);
+            
+            // Show success message
+            alert('Thank you for your appointment request! We will contact you within 2 hours to confirm your appointment.');
+            
+            // Reset form
+            appointmentForm.reset();
+            
+            // In production, you would send this data to your backend:
+            // fetch('/api/appointments', {
+            //     method: 'POST',
+            //     headers: { 'Content-Type': 'application/json' },
+            //     body: JSON.stringify(formData)
+            // })
+            // .then(response => response.json())
+            // .then(data => {
+            //     alert('Appointment request submitted successfully!');
+            //     appointmentForm.reset();
+            // })
+            // .catch(error => {
+            //     alert('Error submitting form. Please try again or call us directly.');
+            // });
+        });
+    }
+
+    // ===== Scroll to Top Button =====
+    const scrollTopBtn = document.getElementById('scrollTopBtn');
+    
+    if (scrollTopBtn) {
+        window.addEventListener('scroll', function() {
+            if (window.pageYOffset > 300) {
+                scrollTopBtn.classList.add('visible');
+            } else {
+                scrollTopBtn.classList.remove('visible');
+            }
+        });
+        
+        scrollTopBtn.addEventListener('click', function() {
+            window.scrollTo({
+                top: 0,
+                behavior: 'smooth'
+            });
+        });
+    }
+
+    // ===== Lazy Loading Images (Performance Optimization) =====
+    if ('IntersectionObserver' in window) {
+        const imageObserver = new IntersectionObserver((entries, observer) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    const img = entry.target;
+                    if (img.dataset.src) {
+                        img.src = img.dataset.src;
+                        img.removeAttribute('data-src');
+                    }
+                    observer.unobserve(img);
+                }
+            });
+        });
+        
+        // Observe all images with data-src attribute
+        document.querySelectorAll('img[data-src]').forEach(img => {
+            imageObserver.observe(img);
+        });
+    }
+
+    // ===== Animation on Scroll (Fade in elements) =====
+    const observerOptions = {
+        threshold: 0.1,
+        rootMargin: '0px 0px -50px 0px'
+    };
+    
+    const observer = new IntersectionObserver((entries) => {
+        entries.forEach(entry => {
+            if (entry.isIntersecting) {
+                entry.target.style.opacity = '1';
+                entry.target.style.transform = 'translateY(0)';
+            }
+        });
+    }, observerOptions);
+    
+    // Apply animation to service cards, credential cards, etc.
+    const animatedElements = document.querySelectorAll(
+        '.service-card, .credential-card, .achievement-card, .review-card, .faq-item'
+    );
+    
+    animatedElements.forEach(el => {
+        el.style.opacity = '0';
+        el.style.transform = 'translateY(30px)';
+        el.style.transition = 'opacity 0.6s ease, transform 0.6s ease';
+        observer.observe(el);
+    });
+
+    // ===== Set minimum date for appointment form =====
+    const preferredDateInput = document.getElementById('preferredDate');
+    if (preferredDateInput) {
+        const today = new Date();
+        const tomorrow = new Date(today);
+        tomorrow.setDate(tomorrow.getDate() + 1);
+        
+        const minDate = tomorrow.toISOString().split('T')[0];
+        preferredDateInput.setAttribute('min', minDate);
+    }
+
+    // ===== Click to Call Analytics (Optional) =====
+    const phoneLinks = document.querySelectorAll('a[href^="tel:"]');
+    phoneLinks.forEach(link => {
+        link.addEventListener('click', function() {
+            console.log('Phone call initiated:', this.getAttribute('href'));
+            // You can add analytics tracking here
+        });
+    });
+
+    // ===== WhatsApp Link Analytics (Optional) =====
+    const whatsappLinks = document.querySelectorAll('a[href*="wa.me"]');
+    whatsappLinks.forEach(link => {
+        link.addEventListener('click', function() {
+            console.log('WhatsApp chat initiated');
+            // You can add analytics tracking here
+        });
+    });
+
+    // ===== Console Welcome Message =====
+    console.log('%cWelcome to Dental Studio 32!', 'color: #C2A56D; font-size: 20px; font-weight: bold;');
+    console.log('%cBest Dentist in Goregaon West Mumbai', 'color: #1F2F4A; font-size: 14px;');
+    console.log('Contact: +91 98765 43210');
+
+});
+
+// ===== Window Load Event (for final optimizations) =====
+window.addEventListener('load', function() {
+    // Remove any loading states
+    document.body.classList.add('loaded');
+    
+    // Log page load time (for performance monitoring)
+    const loadTime = performance.now();
+    console.log(`Page loaded in ${Math.round(loadTime)}ms`);
 });
