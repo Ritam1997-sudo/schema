@@ -51,7 +51,565 @@ img{max-width:100%;height:auto;display:block}
   gap: 24px;
   margin-top: 52px;
 }
+/* ══════════════════════════════════════════════════════
+   TEAM SECTION
+   ══════════════════════════════════════════════════════ */
 
+.team {
+  background: var(--off);
+  padding: 88px 0;
+}
+
+.team-grid {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 0;
+  margin-top: 52px;
+}
+
+
+/* ── CARD ── */
+.doc-card {
+  background: var(--white);
+  border-radius: var(--r-lg);
+  overflow: hidden;
+  border: 1px solid var(--border);
+  transition: var(--trans);
+  display: flex;
+  flex-direction: column;
+}
+
+.doc-card:hover {
+  box-shadow: 0 16px 48px rgba(27, 48, 88, .12);
+  transform: translateY(-5px);
+  border-color: rgba(196, 154, 60, .35);
+}
+
+
+/* ── CARD IMAGE ── */
+.doc-card-img {
+  position: relative;
+  overflow: hidden;
+  height: 320px;
+  background: var(--navy);
+}
+
+.doc-card-img img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: top center;
+  transition: transform .5s ease;
+}
+
+.doc-card:hover .doc-card-img img {
+  transform: scale(1.04);
+}
+
+
+/* ── CARD IMAGE OVERLAY (hover) ── */
+.doc-card-overlay {
+  position: absolute;
+  inset: 0;
+  background: rgba(27, 48, 88, .55);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  opacity: 0;
+  transition: var(--trans);
+}
+
+.doc-card:hover .doc-card-overlay {
+  opacity: 1;
+}
+
+.doc-read-btn {
+  background: rgba(196, 154, 60, .95);
+  color: #fff;
+  border: none;
+  border-radius: 50px;
+  padding: 10px 22px;
+  font-family: var(--ff-b);
+  font-size: .82rem;
+  font-weight: 700;
+  cursor: pointer;
+  transform: translateY(10px);
+  transition: opacity .25s, transform .3s;
+}
+
+.doc-card:hover .doc-read-btn {
+  transform: translateY(0);
+}
+
+.doc-read-btn:hover {
+  background: var(--gold-dk);
+}
+
+
+/* ── SPECIALITY BADGE ── */
+.doc-speciality-badge {
+  position: absolute;
+  top: 16px;
+  left: 16px;
+  background: var(--navy);
+  color: var(--gold-lt);
+  font-size: .68rem;
+  font-weight: 700;
+  letter-spacing: .1em;
+  text-transform: uppercase;
+  padding: 5px 12px;
+  border-radius: 50px;
+  border: 1px solid rgba(196, 154, 60, .35);
+}
+
+
+/* ── CARD BODY ── */
+.doc-card-body {
+  padding: 24px 22px 26px;
+  display: flex;
+  flex-direction: column;
+  flex: 1;
+}
+
+.doc-card-stars {
+  color: #F59E0B;
+  font-size: .85rem;
+  letter-spacing: 2px;
+  margin-bottom: 8px;
+}
+
+.doc-card-body h3 {
+  font-family: var(--ff-h);
+  font-size: 1.25rem;
+  color: var(--navy);
+  font-weight: 700;
+  margin-bottom: 4px;
+}
+
+.doc-card-role {
+  font-size: .78rem;
+  color: var(--muted);
+  line-height: 1.55;
+  margin-bottom: 12px;
+}
+
+.doc-card-tags {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+  margin-bottom: 14px;
+}
+
+.doc-card-tags span {
+  background: var(--gold-pale);
+  color: var(--gold-dk);
+  border: 1px solid rgba(196, 154, 60, .25);
+  border-radius: 50px;
+  font-size: .69rem;
+  font-weight: 700;
+  padding: 3px 11px;
+  letter-spacing: .04em;
+}
+
+.doc-card-short {
+  font-size: .84rem;
+  line-height: 1.7;
+  color: var(--muted);
+  margin-bottom: 18px;
+  flex: 1;
+}
+
+.doc-profile-btn {
+  background: var(--navy);
+  color: #fff;
+  border: none;
+  border-radius: 50px;
+  padding: 10px 22px;
+  font-family: var(--ff-b);
+  font-size: .82rem;
+  font-weight: 700;
+  cursor: pointer;
+  transition: var(--trans);
+  align-self: flex-start;
+  letter-spacing: .02em;
+}
+
+.doc-profile-btn:hover {
+  background: var(--navy-dk);
+  transform: translateY(-2px);
+}
+
+
+/* ══════════════════════════════════════════════════════
+   MODAL
+   ══════════════════════════════════════════════════════ */
+
+.doc-modal-overlay {
+  position: fixed;
+  inset: 0;
+  background: rgba(10, 18, 36, .7);
+  z-index: 1100;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 20px;
+  opacity: 0;
+  visibility: hidden;
+  transition: opacity .3s ease, visibility .3s ease;
+  backdrop-filter: blur(4px);
+}
+
+.doc-modal-overlay.open {
+  opacity: 1;
+  visibility: visible;
+}
+
+.doc-modal {
+  background: var(--white);
+  border-radius: 20px;
+  max-width: 860px;
+  width: 100%;
+  max-height: 90vh;
+  overflow-y: auto;
+  position: relative;
+  transform: translateY(24px) scale(.97);
+  transition: transform .35s ease;
+  box-shadow: 0 24px 80px rgba(10, 18, 36, .35);
+}
+
+.doc-modal-overlay.open .doc-modal {
+  transform: translateY(0) scale(1);
+}
+
+.doc-modal-close {
+  position: absolute;
+  top: 16px;
+  right: 16px;
+  width: 36px;
+  height: 36px;
+  border-radius: 50%;
+  background: var(--off);
+  border: 1px solid var(--border);
+  font-size: 1.2rem;
+  line-height: 1;
+  cursor: pointer;
+  color: var(--navy);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: var(--trans);
+  z-index: 10;
+}
+
+.doc-modal-close:hover {
+  background: var(--navy);
+  color: #fff;
+}
+
+.doc-modal-inner {
+  display: grid;
+  grid-template-columns: 260px 1fr;
+}
+
+
+/* ── MODAL LEFT ── */
+.doc-modal-left {
+  background: var(--navy);
+  border-radius: 20px 0 0 20px;
+  padding: 36px 24px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  gap: 14px;
+}
+
+.doc-modal-imgwrap {
+  width: 160px;
+  height: 160px;
+  border-radius: 50%;
+  overflow: hidden;
+  border: 4px solid rgba(196, 154, 60, .5);
+  flex-shrink: 0;
+}
+
+.doc-modal-imgwrap img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: top center;
+}
+
+.doc-modal-badge {
+  background: var(--gold);
+  color: var(--navy-dk);
+  font-size: .7rem;
+  font-weight: 700;
+  padding: 5px 14px;
+  border-radius: 20px;
+  letter-spacing: .06em;
+  text-transform: uppercase;
+}
+
+.doc-modal-stars {
+  color: #F59E0B;
+  letter-spacing: 3px;
+  font-size: .9rem;
+}
+
+.btn-wa-small {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 6px;
+  background: rgba(37, 211, 102, .15);
+  color: #4ade80;
+  border: 1px solid rgba(37, 211, 102, .3);
+  border-radius: 50px;
+  padding: 9px 18px;
+  font-family: var(--ff-b);
+  font-size: .78rem;
+  font-weight: 700;
+  text-decoration: none;
+  transition: var(--trans);
+  width: 100%;
+  margin-top: 8px;
+  text-align: center;
+}
+
+.btn-wa-small:hover {
+  background: rgba(37, 211, 102, .25);
+  border-color: #4ade80;
+}
+
+
+/* ── MODAL RIGHT ── */
+.doc-modal-right {
+  padding: 40px 36px;
+}
+
+.doc-modal-spec-tag {
+  display: inline-block;
+  font-size: .7rem;
+  font-weight: 700;
+  letter-spacing: .15em;
+  text-transform: uppercase;
+  color: var(--gold);
+  margin-bottom: 8px;
+}
+
+.doc-modal-right h3 {
+  font-family: var(--ff-h);
+  font-size: 1.8rem;
+  color: var(--navy);
+  font-weight: 700;
+  margin-bottom: 4px;
+  line-height: 1.2;
+}
+
+.doc-modal-role {
+  font-size: .84rem;
+  color: var(--muted);
+  line-height: 1.6;
+}
+
+.doc-modal-divider {
+  height: 1px;
+  background: var(--border);
+  margin: 20px 0;
+}
+
+.doc-modal-bio {
+  font-size: .9rem;
+  color: var(--muted);
+  line-height: 1.85;
+}
+
+.doc-modal-bio p {
+  margin-bottom: 14px;
+  font-size: .9rem;
+}
+
+.doc-modal-bio p:last-child {
+  margin-bottom: 0;
+}
+
+.doc-modal-tag-row {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 7px;
+  margin-top: 22px;
+}
+
+.doc-modal-tag-row span {
+  background: var(--gold-pale);
+  color: var(--gold-dk);
+  border: 1px solid rgba(196, 154, 60, .28);
+  border-radius: 50px;
+  font-size: .72rem;
+  font-weight: 700;
+  padding: 4px 13px;
+  letter-spacing: .04em;
+}
+
+
+/* ══════════════════════════════════════════════════════
+   SECONDARY DOCTORS GRID
+   ══════════════════════════════════════════════════════ */
+
+.team-grid-secondary {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 24px;
+  margin-top: 24px;
+}
+
+/* Secondary cards — slightly reduced image height */
+.team-grid-secondary .doc-card-img {
+  height: 260px;
+}
+
+.team-grid-secondary .doc-card-body h3 {
+  font-size: 1.1rem;
+}
+
+
+/* ══════════════════════════════════════════════════════
+   FEATURED FOUNDER CARD
+   ══════════════════════════════════════════════════════ */
+
+.doc-card--featured {
+  display: grid;
+  grid-template-columns: 420px 1fr;
+  border: 2px solid rgba(196, 154, 60, .55);
+  box-shadow: 0 8px 40px rgba(196, 154, 60, .12);
+  border-radius: var(--r-lg);
+}
+
+.doc-card--featured .doc-card-img {
+  height: 100%;
+  min-height: 420px;
+  border-radius: var(--r-lg) 0 0 var(--r-lg);
+}
+
+.doc-card--featured .doc-card-body {
+  padding: 36px 36px 36px;
+  justify-content: center;
+}
+
+.doc-card--featured .doc-card-body h3 {
+  font-size: 1.65rem;
+  margin-bottom: 6px;
+}
+
+.doc-card--featured .doc-card-role {
+  font-size: .84rem;
+  margin-bottom: 18px;
+}
+
+.doc-card--featured .doc-card-short {
+  font-size: .9rem;
+  line-height: 1.75;
+}
+
+.doc-card--featured .doc-card-stars {
+  font-size: 1rem;
+  letter-spacing: 3px;
+  margin-bottom: 12px;
+}
+
+.doc-card--featured .doc-profile-btn {
+  background: var(--gold, #C49A3C);
+  color: var(--navy-dk, #0a1224);
+  font-size: .9rem;
+  padding: 12px 28px;
+  margin-top: 6px;
+}
+
+.doc-card--featured .doc-profile-btn:hover {
+  background: var(--gold-dk, #a07a28);
+  transform: translateY(-2px);
+}
+
+/* Founder badge — gold highlight */
+.doc-speciality-badge--founder {
+  background: var(--gold, #C49A3C) !important;
+  color: #fff !important;
+  border-color: transparent !important;
+  font-size: .72rem !important;
+}
+
+
+/* ══════════════════════════════════════════════════════
+   RESPONSIVE
+   ══════════════════════════════════════════════════════ */
+
+@media (max-width: 1024px) {
+  .doc-card--featured {
+    grid-template-columns: 320px 1fr;
+  }
+
+  .doc-card--featured .doc-card-img {
+    min-height: 360px;
+  }
+
+  .team-grid-secondary .doc-card-img {
+    height: 240px;
+  }
+}
+
+@media (max-width: 768px) {
+  /* Featured card stacks vertically on tablet */
+  .doc-card--featured {
+    grid-template-columns: 1fr;
+  }
+
+  .doc-card--featured .doc-card-img {
+    height: 320px;
+    min-height: unset;
+    border-radius: var(--r-lg) var(--r-lg) 0 0;
+  }
+
+  .doc-card--featured .doc-card-body {
+    padding: 26px 24px 28px;
+  }
+
+  .doc-card--featured .doc-card-body h3 {
+    font-size: 1.35rem;
+  }
+
+  .doc-modal-inner {
+    grid-template-columns: 1fr;
+  }
+
+  .doc-modal-left {
+    border-radius: 20px 20px 0 0;
+    padding: 28px 24px 20px;
+  }
+
+  .doc-modal-imgwrap {
+    width: 120px;
+    height: 120px;
+  }
+
+  .doc-modal-right {
+    padding: 24px;
+  }
+}
+
+@media (max-width: 640px) {
+  .team-grid-secondary {
+    grid-template-columns: 1fr;
+  }
+
+  .doc-card-img {
+    height: 300px;
+  }
+
+  .doc-modal-right h3 {
+    font-size: 1.4rem;
+  }
+}
 
 /* ── CARD ── */
 .doc-card {
@@ -1135,6 +1693,129 @@ footer{background:var(--navy-dk);padding:68px 0 0}
     </div>
   </div>
 </section>
+<!-- ══ LINK STYLESHEET ══ -->
+<link rel="stylesheet" href="team.css"/>
+
+<!-- ══ TEAM SECTION ══ -->
+<section class="team" id="team">
+  <div class="container">
+
+    <div class="team-header center reveal">
+      <span class="tag">Our Specialist Team</span>
+      <h2>The Doctors Behind<br/>Your Perfect Smile</h2>
+      <div class="gbar gbar-c"></div>
+      <p class="max600">Every dentist at Dental Studio 32 is a qualified specialist in their field — bringing focused expertise, advanced training, and a genuine passion for patient care.</p>
+    </div>
+
+    <!-- ★ FOUNDER FEATURED CARD -->
+    <div class="team-grid reveal">
+      <div class="doc-card doc-card--featured" data-index="0">
+        <div class="doc-card-img">
+          <img src="https://ritam1997-sudo.github.io/schema/1000242492.jpg" alt="Dr. Stutee Nikhil Shukla – Chief Cosmetic Dentist & Implantologist, Dental Studio 32 Goregaon West" loading="lazy"/>
+          <div class="doc-card-overlay">
+            <button class="doc-read-btn" onclick="openDocModal(0)">Read Full Profile →</button>
+          </div>
+          <div class="doc-speciality-badge doc-speciality-badge--founder">👑 Founder & Chief Dentist</div>
+        </div>
+        <div class="doc-card-body">
+          <div class="doc-card-stars">★★★★★</div>
+          <h3>Dr. Stutee Nikhil Shukla</h3>
+          <div class="doc-card-role">MDS – Oral Medicine & Radiology<br/>Cosmetic Dentist · Implantologist</div>
+          <div class="doc-card-tags">
+            <span>Smile Makeover</span>
+            <span>Implants</span>
+            <span>Aesthetics</span>
+            <span>CBCT</span>
+            <span>Full-Mouth Rehab</span>
+            <span>Veneers</span>
+          </div>
+          <p class="doc-card-short">Founder of Dental Studio 32 with 13+ years of clinical excellence and 5000+ patients. Her Fellowship in Aesthetic Dentistry from Germany brings world-class standards to every smile. Specialist in smile design, implants, veneers, CBCT diagnostics, and full-mouth rehabilitation.</p>
+          <button class="doc-profile-btn" onclick="openDocModal(0)">View Full Profile</button>
+        </div>
+      </div>
+    </div><!-- /team-grid featured -->
+
+    <!-- SECONDARY DOCTORS -->
+    <div class="team-grid-secondary reveal">
+
+      <!-- DOCTOR 2: Dr. Bharvi Chudasama -->
+      <div class="doc-card" data-index="1">
+        <div class="doc-card-img">
+          <img src="https://ritam1997-sudo.github.io/schema/1000242520.jpg" alt="Dr. Bharvi Chudasama – Specialist Endodontist, Dental Studio 32 Goregaon West" loading="lazy"/>
+          <div class="doc-card-overlay">
+            <button class="doc-read-btn" onclick="openDocModal(1)">Read Full Profile →</button>
+          </div>
+          <div class="doc-speciality-badge">Endodontist</div>
+        </div>
+        <div class="doc-card-body">
+          <div class="doc-card-stars">★★★★★</div>
+          <h3>Dr. Bharvi Chudasama</h3>
+          <div class="doc-card-role">MDS – Conservative Dentistry & Endodontics<br/>Root Canal Specialist</div>
+          <div class="doc-card-tags">
+            <span>Root Canal</span>
+            <span>Microscopic</span>
+            <span>Pain-Free</span>
+          </div>
+          <p class="doc-card-short">Specialist Endodontist dedicated to saving natural teeth with precision. Expert in microscopic root canal therapy — gentle, efficient, and virtually painless.</p>
+          <button class="doc-profile-btn" onclick="openDocModal(1)">View Full Profile</button>
+        </div>
+      </div>
+
+      <!-- DOCTOR 3: Dr. Mugdha Surve -->
+      <div class="doc-card" data-index="2">
+        <div class="doc-card-img">
+          <img src="https://ritam1997-sudo.github.io/schema/1000242547.jpg" alt="Dr. Mugdha Surve – Orthodontist & Invisalign Specialist, Dental Studio 32 Goregaon West" loading="lazy"/>
+          <div class="doc-card-overlay">
+            <button class="doc-read-btn" onclick="openDocModal(2)">Read Full Profile →</button>
+          </div>
+          <div class="doc-speciality-badge">Orthodontist</div>
+        </div>
+        <div class="doc-card-body">
+          <div class="doc-card-stars">★★★★★</div>
+          <h3>Dr. Mugdha Surve</h3>
+          <div class="doc-card-role">MDS – Orthodontics<br/>Invisalign & Clear Aligner Specialist</div>
+          <div class="doc-card-tags">
+            <span>Invisalign</span>
+            <span>Braces</span>
+            <span>Aligners</span>
+            <span>Digital Planning</span>
+          </div>
+          <p class="doc-card-short">12+ years of orthodontic expertise. Specialist in Invisalign and digital clear aligner planning — delivering confident, beautiful smiles for teens and adults.</p>
+          <button class="doc-profile-btn" onclick="openDocModal(2)">View Full Profile</button>
+        </div>
+      </div>
+
+    </div><!-- /team-grid-secondary -->
+  </div>
+</section>
+
+<!-- ══ MODAL OVERLAY ══ -->
+<div class="doc-modal-overlay" id="docModalOverlay" onclick="closeDocModal(event)">
+  <div class="doc-modal" id="docModal" role="dialog" aria-modal="true" aria-labelledby="modalDocName">
+    <button class="doc-modal-close" onclick="closeDocModal()" aria-label="Close">&times;</button>
+    <div class="doc-modal-inner">
+      <div class="doc-modal-left">
+        <div class="doc-modal-imgwrap">
+          <img id="modalDocImg" src="" alt=""/>
+        </div>
+        <div class="doc-modal-meta">
+          <div id="modalDocBadge" class="doc-modal-badge"></div>
+          <div class="doc-modal-stars">★★★★★</div>
+          <a href="#contact" class="btn btn-gold btn-sm" onclick="closeDocModal()" style="width:100%;justify-content:center;margin-top:14px">📅 Book with This Doctor</a>
+          <a href="https://wa.me/917506815851" target="_blank" class="btn-wa-small">💬 WhatsApp Us</a>
+        </div>
+      </div>
+      <div class="doc-modal-right">
+        <div id="modalDocSpeciality" class="doc-modal-spec-tag"></div>
+        <h3 id="modalDocName"></h3>
+        <div id="modalDocRole" class="doc-modal-role"></div>
+        <div class="doc-modal-divider"></div>
+        <div id="modalDocBody" class="doc-modal-bio"></div>
+        <div id="modalDocTags" class="doc-modal-tag-row"></div>
+      </div>
+    </div>
+  </div>
+</div>
 
 <!-- ══════════════════════════════════ -->
 <!-- 4. SOLUTION BRIDGE -->
