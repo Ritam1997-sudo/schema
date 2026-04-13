@@ -36,6 +36,456 @@ img{max-width:100%;height:auto;display:block}
 .sp{padding:88px 0}.sp-sm{padding:64px 0}
 .alt{background:var(--off)}
 .navy-bg{background:var(--navy)}
+  /* ══════════════════════════════════════════════════════
+   TEAM SECTION
+   ══════════════════════════════════════════════════════ */
+
+.team {
+  background: var(--off);
+  padding: 88px 0;
+}
+
+.team-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 24px;
+  margin-top: 52px;
+}
+
+
+/* ── CARD ── */
+.doc-card {
+  background: var(--white);
+  border-radius: var(--r-lg);
+  overflow: hidden;
+  border: 1px solid var(--border);
+  transition: var(--trans);
+  display: flex;
+  flex-direction: column;
+}
+
+.doc-card:hover {
+  box-shadow: 0 16px 48px rgba(27, 48, 88, .12);
+  transform: translateY(-5px);
+  border-color: rgba(196, 154, 60, .35);
+}
+
+
+/* ── CARD IMAGE ── */
+.doc-card-img {
+  position: relative;
+  overflow: hidden;
+  height: 320px;
+  background: var(--navy);
+}
+
+.doc-card-img img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: top center;
+  transition: transform .5s ease;
+}
+
+.doc-card:hover .doc-card-img img {
+  transform: scale(1.04);
+}
+
+
+/* ── CARD IMAGE OVERLAY (hover) ── */
+.doc-card-overlay {
+  position: absolute;
+  inset: 0;
+  background: rgba(27, 48, 88, .55);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  opacity: 0;
+  transition: var(--trans);
+}
+
+.doc-card:hover .doc-card-overlay {
+  opacity: 1;
+}
+
+.doc-read-btn {
+  background: rgba(196, 154, 60, .95);
+  color: #fff;
+  border: none;
+  border-radius: 50px;
+  padding: 10px 22px;
+  font-family: var(--ff-b);
+  font-size: .82rem;
+  font-weight: 700;
+  cursor: pointer;
+  transform: translateY(10px);
+  transition: opacity .25s, transform .3s;
+}
+
+.doc-card:hover .doc-read-btn {
+  transform: translateY(0);
+}
+
+.doc-read-btn:hover {
+  background: var(--gold-dk);
+}
+
+
+/* ── SPECIALITY BADGE ── */
+.doc-speciality-badge {
+  position: absolute;
+  top: 16px;
+  left: 16px;
+  background: var(--navy);
+  color: var(--gold-lt);
+  font-size: .68rem;
+  font-weight: 700;
+  letter-spacing: .1em;
+  text-transform: uppercase;
+  padding: 5px 12px;
+  border-radius: 50px;
+  border: 1px solid rgba(196, 154, 60, .35);
+}
+
+
+/* ── CARD BODY ── */
+.doc-card-body {
+  padding: 24px 22px 26px;
+  display: flex;
+  flex-direction: column;
+  flex: 1;
+}
+
+.doc-card-stars {
+  color: #F59E0B;
+  font-size: .85rem;
+  letter-spacing: 2px;
+  margin-bottom: 8px;
+}
+
+.doc-card-body h3 {
+  font-family: var(--ff-h);
+  font-size: 1.25rem;
+  color: var(--navy);
+  font-weight: 700;
+  margin-bottom: 4px;
+}
+
+.doc-card-role {
+  font-size: .78rem;
+  color: var(--muted);
+  line-height: 1.55;
+  margin-bottom: 12px;
+}
+
+.doc-card-tags {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+  margin-bottom: 14px;
+}
+
+.doc-card-tags span {
+  background: var(--gold-pale);
+  color: var(--gold-dk);
+  border: 1px solid rgba(196, 154, 60, .25);
+  border-radius: 50px;
+  font-size: .69rem;
+  font-weight: 700;
+  padding: 3px 11px;
+  letter-spacing: .04em;
+}
+
+.doc-card-short {
+  font-size: .84rem;
+  line-height: 1.7;
+  color: var(--muted);
+  margin-bottom: 18px;
+  flex: 1;
+}
+
+.doc-profile-btn {
+  background: var(--navy);
+  color: #fff;
+  border: none;
+  border-radius: 50px;
+  padding: 10px 22px;
+  font-family: var(--ff-b);
+  font-size: .82rem;
+  font-weight: 700;
+  cursor: pointer;
+  transition: var(--trans);
+  align-self: flex-start;
+  letter-spacing: .02em;
+}
+
+.doc-profile-btn:hover {
+  background: var(--navy-dk);
+  transform: translateY(-2px);
+}
+
+
+/* ══════════════════════════════════════════════════════
+   MODAL
+   ══════════════════════════════════════════════════════ */
+
+.doc-modal-overlay {
+  position: fixed;
+  inset: 0;
+  background: rgba(10, 18, 36, .7);
+  z-index: 1100;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 20px;
+  opacity: 0;
+  visibility: hidden;
+  transition: opacity .3s ease, visibility .3s ease;
+  backdrop-filter: blur(4px);
+}
+
+.doc-modal-overlay.open {
+  opacity: 1;
+  visibility: visible;
+}
+
+.doc-modal {
+  background: var(--white);
+  border-radius: 20px;
+  max-width: 860px;
+  width: 100%;
+  max-height: 90vh;
+  overflow-y: auto;
+  position: relative;
+  transform: translateY(24px) scale(.97);
+  transition: transform .35s ease;
+  box-shadow: 0 24px 80px rgba(10, 18, 36, .35);
+}
+
+.doc-modal-overlay.open .doc-modal {
+  transform: translateY(0) scale(1);
+}
+
+.doc-modal-close {
+  position: absolute;
+  top: 16px;
+  right: 16px;
+  width: 36px;
+  height: 36px;
+  border-radius: 50%;
+  background: var(--off);
+  border: 1px solid var(--border);
+  font-size: 1.2rem;
+  line-height: 1;
+  cursor: pointer;
+  color: var(--navy);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: var(--trans);
+  z-index: 10;
+}
+
+.doc-modal-close:hover {
+  background: var(--navy);
+  color: #fff;
+}
+
+.doc-modal-inner {
+  display: grid;
+  grid-template-columns: 260px 1fr;
+}
+
+
+/* ── MODAL LEFT ── */
+.doc-modal-left {
+  background: var(--navy);
+  border-radius: 20px 0 0 20px;
+  padding: 36px 24px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  gap: 14px;
+}
+
+.doc-modal-imgwrap {
+  width: 160px;
+  height: 160px;
+  border-radius: 50%;
+  overflow: hidden;
+  border: 4px solid rgba(196, 154, 60, .5);
+  flex-shrink: 0;
+}
+
+.doc-modal-imgwrap img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: top center;
+}
+
+.doc-modal-badge {
+  background: var(--gold);
+  color: var(--navy-dk);
+  font-size: .7rem;
+  font-weight: 700;
+  padding: 5px 14px;
+  border-radius: 20px;
+  letter-spacing: .06em;
+  text-transform: uppercase;
+}
+
+.doc-modal-stars {
+  color: #F59E0B;
+  letter-spacing: 3px;
+  font-size: .9rem;
+}
+
+.btn-wa-small {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 6px;
+  background: rgba(37, 211, 102, .15);
+  color: #4ade80;
+  border: 1px solid rgba(37, 211, 102, .3);
+  border-radius: 50px;
+  padding: 9px 18px;
+  font-family: var(--ff-b);
+  font-size: .78rem;
+  font-weight: 700;
+  text-decoration: none;
+  transition: var(--trans);
+  width: 100%;
+  margin-top: 8px;
+  text-align: center;
+}
+
+.btn-wa-small:hover {
+  background: rgba(37, 211, 102, .25);
+  border-color: #4ade80;
+}
+
+
+/* ── MODAL RIGHT ── */
+.doc-modal-right {
+  padding: 40px 36px;
+}
+
+.doc-modal-spec-tag {
+  display: inline-block;
+  font-size: .7rem;
+  font-weight: 700;
+  letter-spacing: .15em;
+  text-transform: uppercase;
+  color: var(--gold);
+  margin-bottom: 8px;
+}
+
+.doc-modal-right h3 {
+  font-family: var(--ff-h);
+  font-size: 1.8rem;
+  color: var(--navy);
+  font-weight: 700;
+  margin-bottom: 4px;
+  line-height: 1.2;
+}
+
+.doc-modal-role {
+  font-size: .84rem;
+  color: var(--muted);
+  line-height: 1.6;
+}
+
+.doc-modal-divider {
+  height: 1px;
+  background: var(--border);
+  margin: 20px 0;
+}
+
+.doc-modal-bio {
+  font-size: .9rem;
+  color: var(--muted);
+  line-height: 1.85;
+}
+
+.doc-modal-bio p {
+  margin-bottom: 14px;
+  font-size: .9rem;
+}
+
+.doc-modal-bio p:last-child {
+  margin-bottom: 0;
+}
+
+.doc-modal-tag-row {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 7px;
+  margin-top: 22px;
+}
+
+.doc-modal-tag-row span {
+  background: var(--gold-pale);
+  color: var(--gold-dk);
+  border: 1px solid rgba(196, 154, 60, .28);
+  border-radius: 50px;
+  font-size: .72rem;
+  font-weight: 700;
+  padding: 4px 13px;
+  letter-spacing: .04em;
+}
+
+
+/* ══════════════════════════════════════════════════════
+   RESPONSIVE
+   ══════════════════════════════════════════════════════ */
+
+@media (max-width: 1024px) {
+  .team-grid {
+    grid-template-columns: 1fr 1fr;
+    gap: 20px;
+  }
+
+  .doc-card-img {
+    height: 280px;
+  }
+}
+
+@media (max-width: 768px) {
+  .doc-modal-inner {
+    grid-template-columns: 1fr;
+  }
+
+  .doc-modal-left {
+    border-radius: 20px 20px 0 0;
+    padding: 28px 24px 20px;
+  }
+
+  .doc-modal-imgwrap {
+    width: 120px;
+    height: 120px;
+  }
+
+  .doc-modal-right {
+    padding: 24px;
+  }
+}
+
+@media (max-width: 640px) {
+  .team-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .doc-card-img {
+    height: 300px;
+  }
+
+  .doc-modal-right h3 {
+    font-size: 1.4rem;
+  }
+}
 
 /* ── TYPOGRAPHY ── */
 h1,h2,h3,h4{font-family:var(--ff-h);font-weight:600;line-height:1.18}
@@ -545,6 +995,124 @@ footer{background:var(--navy-dk);padding:68px 0 0}
     </div>
   </div>
 </section>
+<!-- ══ LINK STYLESHEET ══ -->
+<link rel="stylesheet" href="team.css"/>
+
+<!-- ══ TEAM SECTION ══ -->
+<section class="team" id="team">
+  <div class="container">
+
+    <div class="team-header center reveal">
+      <span class="tag">Our Specialist Team</span>
+      <h2>The Doctors Behind<br/>Your Perfect Smile</h2>
+      <div class="gbar gbar-c"></div>
+      <p class="max600">Every dentist at Dental Studio 32 is a qualified specialist in their field — bringing focused expertise, advanced training, and a genuine passion for patient care.</p>
+    </div>
+
+    <div class="team-grid reveal">
+
+      <!-- DOCTOR 1: Dr. Stutee -->
+      <div class="doc-card" data-index="0">
+        <div class="doc-card-img">
+          <img src="/images/dr-stutee.jpg" alt="Dr. Stutee Nikhil Shukla – Chief Cosmetic Dentist & Implantologist, Dental Studio 32 Goregaon West" loading="lazy"/>
+          <div class="doc-card-overlay">
+            <button class="doc-read-btn" onclick="openDocModal(0)">Read Full Profile →</button>
+          </div>
+          <div class="doc-speciality-badge">Chief Dentist</div>
+        </div>
+        <div class="doc-card-body">
+          <div class="doc-card-stars">★★★★★</div>
+          <h3>Dr. Stutee Nikhil Shukla</h3>
+          <div class="doc-card-role">MDS – Oral Medicine & Radiology<br/>Cosmetic Dentist · Implantologist</div>
+          <div class="doc-card-tags">
+            <span>Smile Makeover</span>
+            <span>Implants</span>
+            <span>Aesthetics</span>
+            <span>CBCT</span>
+          </div>
+          <p class="doc-card-short">Chief of Dental Studio 32 with 13+ years of experience. Fellowship in Aesthetic Dentistry from Germany. Expert in smile design, implants, and full-mouth rehabilitation.</p>
+          <button class="doc-profile-btn" onclick="openDocModal(0)">View Full Profile</button>
+        </div>
+      </div>
+
+      <!-- DOCTOR 2: Dr. Bharvi Chudasama -->
+      <div class="doc-card" data-index="1">
+        <div class="doc-card-img">
+          <img src="/images/dr-bharvi.jpg" alt="Dr. Bharvi Chudasama – Specialist Endodontist, Dental Studio 32 Goregaon West" loading="lazy"/>
+          <div class="doc-card-overlay">
+            <button class="doc-read-btn" onclick="openDocModal(1)">Read Full Profile →</button>
+          </div>
+          <div class="doc-speciality-badge">Endodontist</div>
+        </div>
+        <div class="doc-card-body">
+          <div class="doc-card-stars">★★★★★</div>
+          <h3>Dr. Bharvi Chudasama</h3>
+          <div class="doc-card-role">MDS – Conservative Dentistry & Endodontics<br/>Root Canal Specialist</div>
+          <div class="doc-card-tags">
+            <span>Root Canal</span>
+            <span>Microscopic</span>
+            <span>Pain-Free</span>
+          </div>
+          <p class="doc-card-short">Specialist Endodontist dedicated to saving natural teeth with precision. Expert in microscopic root canal therapy — gentle, efficient, and virtually painless.</p>
+          <button class="doc-profile-btn" onclick="openDocModal(1)">View Full Profile</button>
+        </div>
+      </div>
+
+      <!-- DOCTOR 3: Dr. Mugdha Surve -->
+      <div class="doc-card" data-index="2">
+        <div class="doc-card-img">
+          <img src="/images/dr-mugdha.jpg" alt="Dr. Mugdha Surve – Orthodontist & Invisalign Specialist, Dental Studio 32 Goregaon West" loading="lazy"/>
+          <div class="doc-card-overlay">
+            <button class="doc-read-btn" onclick="openDocModal(2)">Read Full Profile →</button>
+          </div>
+          <div class="doc-speciality-badge">Orthodontist</div>
+        </div>
+        <div class="doc-card-body">
+          <div class="doc-card-stars">★★★★★</div>
+          <h3>Dr. Mugdha Surve</h3>
+          <div class="doc-card-role">MDS – Orthodontics<br/>Invisalign & Clear Aligner Specialist</div>
+          <div class="doc-card-tags">
+            <span>Invisalign</span>
+            <span>Braces</span>
+            <span>Aligners</span>
+            <span>Digital Planning</span>
+          </div>
+          <p class="doc-card-short">12+ years of orthodontic expertise. Specialist in Invisalign and digital clear aligner planning — delivering confident, beautiful smiles for teens and adults.</p>
+          <button class="doc-profile-btn" onclick="openDocModal(2)">View Full Profile</button>
+        </div>
+      </div>
+
+    </div><!-- /team-grid -->
+  </div>
+</section>
+
+<!-- ══ MODAL OVERLAY ══ -->
+<div class="doc-modal-overlay" id="docModalOverlay" onclick="closeDocModal(event)">
+  <div class="doc-modal" id="docModal" role="dialog" aria-modal="true" aria-labelledby="modalDocName">
+    <button class="doc-modal-close" onclick="closeDocModal()" aria-label="Close">&times;</button>
+    <div class="doc-modal-inner">
+      <div class="doc-modal-left">
+        <div class="doc-modal-imgwrap">
+          <img id="modalDocImg" src="" alt=""/>
+        </div>
+        <div class="doc-modal-meta">
+          <div id="modalDocBadge" class="doc-modal-badge"></div>
+          <div class="doc-modal-stars">★★★★★</div>
+          <a href="#contact" class="btn btn-gold btn-sm" onclick="closeDocModal()" style="width:100%;justify-content:center;margin-top:14px">📅 Book with This Doctor</a>
+          <a href="https://wa.me/917506815851" target="_blank" class="btn-wa-small">💬 WhatsApp Us</a>
+        </div>
+      </div>
+      <div class="doc-modal-right">
+        <div id="modalDocSpeciality" class="doc-modal-spec-tag"></div>
+        <h3 id="modalDocName"></h3>
+        <div id="modalDocRole" class="doc-modal-role"></div>
+        <div class="doc-modal-divider"></div>
+        <div id="modalDocBody" class="doc-modal-bio"></div>
+        <div id="modalDocTags" class="doc-modal-tag-row"></div>
+      </div>
+    </div>
+  </div>
+</div>
 
 <!-- ══════════════════════════════════ -->
 <!-- 3. PROBLEM SECTION -->
@@ -1158,6 +1726,98 @@ document.querySelectorAll('.faq-q').forEach(btn=>{
     else btn.setAttribute('aria-expanded','false');
   });
 });
+  // ══════════════════════════════════════════════════════
+// DOCTOR DATA
+// ══════════════════════════════════════════════════════
+
+const doctors = [
+  {
+    name: "Dr. Stutee Nikhil Shukla",
+    img: "/images/dr-stutee.jpg",
+    badge: "13+ Years | 5000+ Patients",
+    speciality: "Chief Cosmetic & Aesthetic Dentist | Implantologist",
+    role: "MDS – Oral Medicine & Radiology · Fellowship in Aesthetic Dentistry (Germany)",
+    bio: `
+      <p>Dr. Stutee Shukla (Beriwal) leads Dental Studio 32, Goregaon West, with over 13 years of clinical experience and a reputation for precision, diagnostic excellence, and patient-focused care.</p>
+      <p>An MDS specialist in Oral Medicine & Radiology, she is highly skilled in diagnosing complex oral conditions, TMJ disorders, and orofacial pain. Her advanced training in CBCT enables accurate, comprehensive treatment planning.</p>
+      <p>She further refined her expertise with a Fellowship in Aesthetic Dentistry from Germany, bringing global standards to smile design and minimally invasive cosmetic treatments. Blending diagnostic expertise with aesthetic finesse, she offers smile makeovers, veneers, implants, and full-mouth rehabilitation.</p>
+      <p>Known for her calm, compassionate approach, Dr. Stutee ensures a seamless experience where patients feel informed, comfortable, and assured at every step.</p>
+    `,
+    tags: ["Smile Makeover", "Dental Implants", "Veneers", "CBCT Imaging", "TMJ Disorders", "Full-Mouth Rehab", "Aesthetic Dentistry"]
+  },
+  {
+    name: "Dr. Bharvi Chudasama",
+    img: "/images/dr-bharvi.jpg",
+    badge: "MDS Endodontist",
+    speciality: "Specialist Endodontist",
+    role: "MDS – Conservative Dentistry & Endodontics · Microscopic Dentistry",
+    bio: `
+      <p>Dr. Bharvi Chudasama is a specialist Endodontist dedicated to the art and science of saving natural teeth. After earning an MDS in Conservative Dentistry and Endodontics, she focused her practice on high-precision root canal therapy and microscopic dentistry.</p>
+      <p>Known for a gentle touch and a strong emphasis on patient comfort, she combines advanced technology with a compassionate approach to ensure every procedure is efficient and truly pain-free.</p>
+      <p>Whether it is a routine root canal or a complex re-treatment, Dr. Bharvi applies meticulous technique and the latest endodontic instruments to achieve the best possible outcomes — preserving your natural tooth for life.</p>
+    `,
+    tags: ["Root Canal Treatment", "Microscopic Endodontics", "Re-treatment RCT", "Pain-Free Care", "Natural Tooth Preservation"]
+  },
+  {
+    name: "Dr. Mugdha Surve",
+    img: "/images/dr-mugdha.jpg",
+    badge: "12+ Years Orthodontist",
+    speciality: "Orthodontist & Invisalign Specialist",
+    role: "MDS – Orthodontics · Certified Invisalign Provider · Digital Treatment Planning",
+    bio: `
+      <p>Dr. Mugdha Surve is an experienced orthodontist with over 12 years of clinical expertise in creating confident, healthy smiles. She specialises in Invisalign and advanced clear aligner planning — offering customised, discreet orthodontic solutions for both teens and adults.</p>
+      <p>With a strong focus on digital treatment planning and precision-driven care, she designs personalised aligner treatments that deliver predictable, efficient results with minimal disruption to your daily life.</p>
+      <p>Dr. Mugdha is committed to combining the latest in orthodontic technology with a patient-centric approach — ensuring a comfortable, transparent, and seamless smile transformation experience from start to finish.</p>
+    `,
+    tags: ["Invisalign", "Clear Aligners", "Metal Braces", "Ceramic Braces", "Digital Planning", "Teen & Adult Ortho"]
+  }
+];
+
+
+// ══════════════════════════════════════════════════════
+// OPEN MODAL
+// ══════════════════════════════════════════════════════
+
+function openDocModal(index) {
+  const d = doctors[index];
+
+  document.getElementById('modalDocImg').src = d.img;
+  document.getElementById('modalDocImg').alt = d.name;
+  document.getElementById('modalDocBadge').textContent = d.badge;
+  document.getElementById('modalDocName').textContent = d.name;
+  document.getElementById('modalDocSpeciality').textContent = d.speciality;
+  document.getElementById('modalDocRole').textContent = d.role;
+  document.getElementById('modalDocBody').innerHTML = d.bio;
+
+  // Render tags
+  const tagRow = document.getElementById('modalDocTags');
+  tagRow.innerHTML = d.tags.map(t => `<span>${t}</span>`).join('');
+
+  // Open overlay
+  document.getElementById('docModalOverlay').classList.add('open');
+  document.body.style.overflow = 'hidden';
+}
+
+
+// ══════════════════════════════════════════════════════
+// CLOSE MODAL
+// ══════════════════════════════════════════════════════
+
+function closeDocModal(e) {
+  // Allow close only from overlay backdrop or the close button
+  if (e && e.target !== document.getElementById('docModalOverlay') && !e.target.classList.contains('doc-modal-close')) return;
+
+  document.getElementById('docModalOverlay').classList.remove('open');
+  document.body.style.overflow = '';
+}
+
+// Close on Escape key
+document.addEventListener('keydown', e => {
+  if (e.key === 'Escape') {
+    document.getElementById('docModalOverlay').classList.remove('open');
+    document.body.style.overflow = '';
+  }
+});
 
 // Scroll reveal
 const obs=new IntersectionObserver((entries)=>{
@@ -1188,6 +1848,7 @@ document.querySelectorAll('.big[data-target]').forEach(el=>cObs.observe(el));
     moreItems.forEach(el => el.classList.add('visible'));
     document.getElementById('loadMoreBtn').style.display = 'none';
   }
+  
 
 // Form submit → WhatsApp
 function submitForm(){
