@@ -91,6 +91,133 @@
     </div>
   </section>
 
+  
+  <section class="team" id="team">
+  <div class="container">
+
+    <div class="team-header center reveal">
+      <span class="tag">Our Specialist Team</span>
+      <h2>The Doctors Behind<br/>Your Perfect Smile</h2>
+      <div class="gbar gbar-c"></div>
+      <p class="max600">Every dentist at Dental Studio 32 is a qualified specialist — bringing focused expertise, advanced training, and a genuine passion for patient care.</p>
+    </div>
+
+    <!-- COLLAGE GRID -->
+    <div class="team-collage reveal">
+
+      <!-- LEFT: FOUNDER -->
+      <div class="tc-founder tc-panel" onclick="openDocModal(0)">
+        <img
+          src="/images/dr-stutee.jpg"
+          alt="Dr. Stutee Nikhil Shukla – Chief Cosmetic Dentist & Implantologist, Dental Studio 32"
+          loading="lazy"
+        />
+        <!-- gradient overlay -->
+        <div class="tc-gradient"></div>
+        <!-- hover cta -->
+        <div class="tc-hover-ring">
+          <span>View Profile</span>
+        </div>
+        <!-- info bar -->
+        <div class="tc-info">
+          <div class="tc-badge">Chief Dentist · 13+ Yrs</div>
+          <h3>Dr. Stutee Nikhil Shukla</h3>
+          <p>MDS · Cosmetic Dentist · Implantologist</p>
+          <div class="tc-tags">
+            <span>Smile Makeover</span><span>Implants</span><span>Aesthetic Dentistry</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- RIGHT COL -->
+      <div class="tc-right">
+
+        <!-- TOP RIGHT: Dr. Bharvi -->
+        <div class="tc-side tc-panel" onclick="openDocModal(1)">
+          <img
+            src="/images/dr-bharvi.jpg"
+            alt="Dr. Bharvi Chudasama – Specialist Endodontist, Dental Studio 32"
+            loading="lazy"
+          />
+          <div class="tc-gradient"></div>
+          <div class="tc-hover-ring">
+            <span>View Profile</span>
+          </div>
+          <div class="tc-info">
+            <div class="tc-badge">Endodontist</div>
+            <h3>Dr. Bharvi Chudasama</h3>
+            <p>MDS · Root Canal Specialist</p>
+            <div class="tc-tags">
+              <span>Root Canal</span><span>Microscopic RCT</span>
+            </div>
+          </div>
+        </div>
+
+        <!-- BOTTOM RIGHT: Dr. Mugdha -->
+        <div class="tc-side tc-panel" onclick="openDocModal(2)">
+          <img
+            src="/images/dr-mugdha.jpg"
+            alt="Dr. Mugdha Surve – Orthodontist & Invisalign Specialist, Dental Studio 32"
+            loading="lazy"
+          />
+          <div class="tc-gradient"></div>
+          <div class="tc-hover-ring">
+            <span>View Profile</span>
+          </div>
+          <div class="tc-info">
+            <div class="tc-badge">Orthodontist · 12+ Yrs</div>
+            <h3>Dr. Mugdha Surve</h3>
+            <p>MDS · Invisalign Specialist</p>
+            <div class="tc-tags">
+              <span>Invisalign</span><span>Braces</span>
+            </div>
+          </div>
+        </div>
+
+      </div><!-- /tc-right -->
+    </div><!-- /team-collage -->
+
+    <!-- BOTTOM CTA -->
+    <div class="team-cta-row">
+      <a href="#contact" class="btn btn-gold">📅 Book with Our Team</a>
+      <a href="https://wa.me/917506815851" target="_blank" class="btn btn-navy">💬 WhatsApp Us</a>
+    </div>
+
+  </div>
+</section>
+
+<!-- ══ MODAL ══ -->
+<div class="doc-modal-overlay" id="docModalOverlay" onclick="closeDocModal(event)">
+  <div class="doc-modal" id="docModal" role="dialog" aria-modal="true">
+    <button class="doc-modal-close" onclick="closeDocModal()" aria-label="Close">&times;</button>
+    <div class="doc-modal-inner">
+
+      <div class="doc-modal-left">
+        <div class="doc-modal-imgwrap">
+          <img id="modalDocImg" src="" alt=""/>
+        </div>
+        <div id="modalDocBadge" class="doc-modal-badge"></div>
+        <div class="doc-modal-stars">★★★★★</div>
+        <a href="#contact" class="btn btn-gold btn-sm" onclick="closeDocModal()"
+           style="width:100%;justify-content:center;margin-top:16px;border-radius:8px">
+          📅 Book Appointment
+        </a>
+        <a href="https://wa.me/917506815851" target="_blank" class="dc-modal-wa">💬 WhatsApp Us</a>
+      </div>
+
+      <div class="doc-modal-right">
+        <div id="modalDocSpec" class="doc-modal-spec"></div>
+        <h3 id="modalDocName"></h3>
+        <div id="modalDocRole" class="doc-modal-role-text"></div>
+        <div class="doc-modal-hr"></div>
+        <div id="modalDocBio" class="doc-modal-bio"></div>
+        <div id="modalDocTags" class="doc-modal-tags"></div>
+      </div>
+
+    </div>
+  </div>
+</div>
+
   <section class="section-pad">
     <div class="container">
       <div class="about-grid">
