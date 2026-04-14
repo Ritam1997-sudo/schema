@@ -768,3 +768,404 @@ footer{background:var(--navy-dk);padding:68px 0 0}
   .tc-side .tc-info h3 { font-size: .92rem; }
   .tc-tags { display: none; }
 }
+/* ── SECTION ── */
+.team { background: var(--off); padding: 88px 0; }
+
+/* ── COLLAGE GRID ── */
+.team-collage {
+  display: grid;
+  grid-template-columns: 1fr 1fr; /* 50% | 50% */
+  gap: 6px; /* tight seam like reference */
+  margin-top: 52px;
+  border-radius: 20px;
+  overflow: hidden;
+  height: 600px; /* fixed total height */
+}
+
+.tc-right {
+  display: grid;
+  grid-template-rows: 1fr 1fr; /* equal top/bottom */
+  gap: 6px;
+}
+
+/* ── EACH PANEL ── */
+.tc-panel {
+  position: relative;
+  overflow: hidden;
+  cursor: pointer;
+  background: var(--navy);
+}
+
+/* photo */
+.tc-panel img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: top center;
+  display: block;
+  transition: transform .55s ease;
+}
+.tc-panel:hover img { transform: scale(1.06); }
+
+/* dark gradient at bottom */
+.tc-gradient {
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(
+    to top,
+    rgba(11,20,42,.88) 0%,
+    rgba(11,20,42,.3) 45%,
+    transparent 70%
+  );
+  transition: opacity .3s ease;
+}
+.tc-panel:hover .tc-gradient {
+  background: linear-gradient(
+    to top,
+    rgba(11,20,42,.94) 0%,
+    rgba(11,20,42,.5) 55%,
+    rgba(11,20,42,.15) 100%
+  );
+}
+
+/* hover ring button */
+.tc-hover-ring {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%) scale(0.7);
+  opacity: 0;
+  transition: opacity .3s ease, transform .35s cubic-bezier(.34,1.4,.64,1);
+  z-index: 3;
+}
+.tc-panel:hover .tc-hover-ring {
+  opacity: 1;
+  transform: translate(-50%, -50%) scale(1);
+}
+.tc-hover-ring span {
+  display: inline-block;
+  background: var(--gold);
+  color: #fff;
+  font-family: var(--ff-b);
+  font-size: .82rem;
+  font-weight: 700;
+  padding: 10px 22px;
+  border-radius: 50px;
+  letter-spacing: .04em;
+  box-shadow: 0 4px 20px rgba(196,154,60,.5);
+  white-space: nowrap;
+}
+
+/* info bar pinned to bottom */
+.tc-info {
+  position: absolute;
+  bottom: 0; left: 0; right: 0;
+  padding: 20px 20px 22px;
+  z-index: 2;
+}
+.tc-badge {
+  display: inline-block;
+  background: var(--gold);
+  color: var(--navy-dk);
+  font-size: .64rem;
+  font-weight: 700;
+  letter-spacing: .1em;
+  text-transform: uppercase;
+  padding: 4px 12px;
+  border-radius: 50px;
+  margin-bottom: 7px;
+}
+.tc-info h3 {
+  font-family: var(--ff-h);
+  font-size: 1.2rem;
+  color: #fff;
+  font-weight: 700;
+  margin-bottom: 2px;
+  line-height: 1.2;
+}
+.tc-info p {
+  font-size: .76rem;
+  color: rgba(255,255,255,.72);
+  margin-bottom: 8px;
+  line-height: 1.4;
+}
+.tc-tags {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 5px;
+}
+.tc-tags span {
+  background: rgba(255,255,255,.12);
+  border: 1px solid rgba(255,255,255,.2);
+  color: rgba(255,255,255,.88);
+  font-size: .65rem;
+  font-weight: 600;
+  padding: 3px 9px;
+  border-radius: 50px;
+  backdrop-filter: blur(4px);
+}
+
+/* founder — slightly larger text */
+.tc-founder .tc-info h3 { font-size: 1.45rem; }
+.tc-founder .tc-info p { font-size: .82rem; }
+.tc-founder .tc-badge { font-size: .68rem; }
+
+/* side cards — tighter info */
+.tc-side .tc-info { padding: 14px 16px 16px; }
+.tc-side .tc-info h3 { font-size: 1.05rem; }
+.tc-side .tc-info p { font-size: .72rem; margin-bottom: 6px; }
+
+/* ── MODAL ── */
+.doc-modal-overlay {
+  position: fixed;
+  inset: 0;
+  background: rgba(10,18,36,.75);
+  z-index: 1100;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 20px;
+  opacity: 0;
+  visibility: hidden;
+  transition: opacity .3s ease, visibility .3s ease;
+  backdrop-filter: blur(6px);
+}
+.doc-modal-overlay.open { opacity: 1; visibility: visible; }
+
+.doc-modal {
+  background: var(--white);
+  border-radius: 20px;
+  max-width: 860px;
+  width: 100%;
+  max-height: 90vh;
+  overflow-y: auto;
+  position: relative;
+  transform: translateY(30px) scale(.96);
+  transition: transform .38s cubic-bezier(.34,1.2,.64,1);
+  box-shadow: 0 32px 90px rgba(10,18,36,.4);
+}
+.doc-modal-overlay.open .doc-modal { transform: translateY(0) scale(1); }
+
+.doc-modal-close {
+  position: absolute;
+  top: 14px; right: 14px;
+  width: 36px; height: 36px;
+  border-radius: 50%;
+  background: var(--off);
+  border: 1px solid var(--border);
+  font-size: 1.2rem;
+  cursor: pointer;
+  color: var(--navy);
+  display: flex; align-items: center; justify-content: center;
+  transition: var(--trans);
+  z-index: 10;
+}
+.doc-modal-close:hover { background: var(--navy); color: #fff; }
+
+.doc-modal-inner {
+  display: grid;
+  grid-template-columns: 240px 1fr;
+}
+.doc-modal-left {
+  background: var(--navy);
+  border-radius: 20px 0 0 20px;
+  padding: 36px 22px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  gap: 12px;
+}
+.doc-modal-imgwrap {
+  width: 150px; height: 150px;
+  border-radius: 50%;
+  overflow: hidden;
+  border: 4px solid rgba(196,154,60,.55);
+  flex-shrink: 0;
+}
+.doc-modal-imgwrap img {
+  width: 100%; height: 100%;
+  object-fit: cover;
+  object-position: top center;
+}
+.doc-modal-badge {
+  background: var(--gold);
+  color: var(--navy-dk);
+  font-size: .68rem;
+  font-weight: 700;
+  padding: 5px 14px;
+  border-radius: 20px;
+  letter-spacing: .06em;
+  text-transform: uppercase;
+}
+.doc-modal-stars { color: #F59E0B; letter-spacing: 3px; font-size: .9rem; }
+.dc-modal-wa {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 6px;
+  background: rgba(37,211,102,.12);
+  color: #4ade80;
+  border: 1px solid rgba(37,211,102,.3);
+  border-radius: 50px;
+  padding: 9px 18px;
+  font-family: var(--ff-b);
+  font-size: .76rem;
+  font-weight: 700;
+  text-decoration: none;
+  width: 100%;
+  margin-top: 4px;
+  transition: background .25s;
+}
+.dc-modal-wa:hover { background: rgba(37,211,102,.22); }
+
+.doc-modal-right { padding: 38px 34px; }
+.doc-modal-spec {
+  font-size: .7rem;
+  font-weight: 700;
+  letter-spacing: .15em;
+  text-transform: uppercase;
+  color: var(--gold);
+  margin-bottom: 7px;
+}
+.doc-modal-right h3 {
+  font-family: var(--ff-h);
+  font-size: 1.75rem;
+  color: var(--navy);
+  font-weight: 700;
+  margin-bottom: 5px;
+  line-height: 1.2;
+}
+.doc-modal-role-text {
+  font-size: .82rem;
+  color: var(--muted);
+  line-height: 1.6;
+}
+.doc-modal-hr {
+  height: 1px;
+  background: var(--border);
+  margin: 20px 0;
+}
+.doc-modal-bio p {
+  font-size: .9rem;
+  color: var(--muted);
+  line-height: 1.85;
+  margin-bottom: 13px;
+}
+.doc-modal-bio p:last-child { margin-bottom: 0; }
+.doc-modal-tags {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 7px;
+  margin-top: 20px;
+}
+.doc-modal-tags span {
+  background: var(--gold-pale);
+  color: var(--gold-dk);
+  border: 1px solid rgba(196,154,60,.28);
+  border-radius: 50px;
+  font-size: .7rem;
+  font-weight: 700;
+  padding: 4px 13px;
+}
+
+/* ── CTA ROW (replaces inline style) ── */
+.team-cta-row {
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+  gap: 12px;
+  margin-top: 32px;
+  flex-wrap: wrap;
+}
+
+/* ── DESKTOP COLLAGE FIX ── */
+/* Use aspect-ratio instead of fixed height so it scales properly */
+.team-collage {
+  height: auto; /* override the fixed 600px */
+  aspect-ratio: 16 / 9; /* proportional on all screens */
+  min-height: 400px;
+  max-height: 620px;
+}
+
+/* founder fills full left height */
+.tc-founder {
+  height: 100%;
+}
+
+/* right col children fill equally */
+.tc-right {
+  height: 100%;
+}
+.tc-side {
+  height: 100%;
+}
+
+/* ── TABLET ── */
+@media(max-width:1024px){
+  .team-collage {
+    aspect-ratio: 4 / 3;
+    min-height: 360px;
+    max-height: 500px;
+  }
+}
+
+/* ── MOBILE ── */
+@media(max-width:768px){
+  /* collage stacks vertically */
+  .team-collage {
+    grid-template-columns: 1fr;
+    aspect-ratio: unset;
+    height: auto;
+    min-height: unset;
+    max-height: unset;
+    gap: 6px;
+  }
+  /* founder takes good height on its own */
+  .tc-founder {
+    height: 340px;
+  }
+  /* two side doctors go side by side below */
+  .tc-right {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    grid-template-rows: unset;
+    height: 240px;
+    gap: 6px;
+  }
+  .tc-side { height: 100%; }
+
+  /* buttons stack cleanly centered */
+  .team-cta-row {
+    flex-direction: column;
+    align-items: center;
+    gap: 10px;
+    margin-top: 24px;
+  }
+  .team-cta-row .btn {
+    width: 100%;
+    max-width: 320px;
+    justify-content: center;
+  }
+
+  /* modal stacks */
+  .doc-modal-inner { grid-template-columns: 1fr; }
+  .doc-modal-left { border-radius: 20px 20px 0 0; padding: 26px 20px 18px; }
+  .doc-modal-imgwrap { width: 110px; height: 110px; }
+  .doc-modal-right { padding: 22px; }
+  .doc-modal-right h3 { font-size: 1.4rem; }
+}
+
+/* ── SMALL MOBILE ── */
+@media(max-width:480px){
+  .team-collage { gap: 4px; }
+  .tc-founder { height: 280px; }
+  .tc-right { height: 210px; gap: 4px; }
+  .tc-founder .tc-info h3 { font-size: 1.1rem; }
+  .tc-side .tc-info h3 { font-size: .88rem; }
+  .tc-side .tc-info p { display: none; }
+  .tc-tags { display: none; }
+  .tc-info { padding: 12px 12px 14px; }
+  .tc-badge { font-size: .6rem; padding: 3px 9px; }
+}
