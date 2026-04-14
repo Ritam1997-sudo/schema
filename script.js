@@ -24,31 +24,6 @@ const obs=new IntersectionObserver((entries)=>{
 },{threshold:0.1});
 document.querySelectorAll('.reveal').forEach(el=>obs.observe(el));
 
-// Counter animation
-function animCount(el,target,suffix){
-  let start=null,dur=1600;
-  const step=ts=>{if(!start)start=ts;const p=Math.min((ts-start)/dur,1);el.childNodes[0].textContent=Math.floor(p*target).toLocaleString('en-IN');if(p<1)requestAnimationFrame(step)};
-  requestAnimationFrame(step);
-}
-const cObs=new IntersectionObserver(entries=>{
-  entries.forEach(e=>{
-    if(e.isIntersecting){
-      const el=e.target,t=parseInt(el.getAttribute('data-target'));
-      if(t)animCount(el,t,el.querySelector('.plus')?.textContent||'');
-      cObs.unobserve(el);
-    }
-  });
-},{threshold:0.5});
-document.querySelectorAll('.big[data-target]').forEach(el=>cObs.observe(el));
-  
-  /* ── Gallery Load More ── */
-  function loadMore() {
-    const moreItems = document.querySelectorAll('.gallery-more');
-    moreItems.forEach(el => el.classList.add('visible'));
-    document.getElementById('loadMoreBtn').style.display = 'none';
-  }
-
-
 const doctors = [
   {
     name: "Dr. Stutee Nikhil Shukla",
@@ -118,6 +93,30 @@ document.addEventListener('keydown', e => {
     document.body.style.overflow = '';
   }
 });
+
+// Counter animation
+function animCount(el,target,suffix){
+  let start=null,dur=1600;
+  const step=ts=>{if(!start)start=ts;const p=Math.min((ts-start)/dur,1);el.childNodes[0].textContent=Math.floor(p*target).toLocaleString('en-IN');if(p<1)requestAnimationFrame(step)};
+  requestAnimationFrame(step);
+}
+const cObs=new IntersectionObserver(entries=>{
+  entries.forEach(e=>{
+    if(e.isIntersecting){
+      const el=e.target,t=parseInt(el.getAttribute('data-target'));
+      if(t)animCount(el,t,el.querySelector('.plus')?.textContent||'');
+      cObs.unobserve(el);
+    }
+  });
+},{threshold:0.5});
+document.querySelectorAll('.big[data-target]').forEach(el=>cObs.observe(el));
+  
+  /* ── Gallery Load More ── */
+  function loadMore() {
+    const moreItems = document.querySelectorAll('.gallery-more');
+    moreItems.forEach(el => el.classList.add('visible'));
+    document.getElementById('loadMoreBtn').style.display = 'none';
+  }
 
 // Form submit → WhatsApp
 function submitForm(){
