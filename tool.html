@@ -7,6 +7,114 @@
 <meta name="description" content="Free robots.txt validator and tester tool. Check if a URL is blocked, which rule is blocking it, and test any user agent. Fast, accurate, and free.">
 <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  <script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "FAQPage",
+  "mainEntity": [
+    {
+      "@type": "Question",
+      "name": "Does robots.txt prevent pages from being indexed in Google?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "No. A Disallow rule stops Googlebot from visiting the URL, but the page can still appear in search results if Google discovers it through a link from another site. To remove a page from Google's index, you need a noindex meta tag on the page, and that page must be crawlable so Google can read the tag."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "What happens if there is no robots.txt file on a website?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "When a crawler looks for robots.txt and gets a 404 response, it assumes the entire site is open to crawling. You do not need a robots.txt file unless you want to restrict something, like protecting admin pages or pointing crawlers to your sitemap."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "How do I check if a URL is blocked by robots.txt?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Paste your robots.txt content into a robots.txt tester tool, enter the URL you want to check, choose the user agent such as Googlebot or Bingbot, and run the test. The tool will show whether the URL is allowed or blocked and which specific rule applies."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "Is robots.txt case-sensitive?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "The directive names like User-agent, Disallow, and Allow are case-insensitive. However, the path values are case-sensitive on most servers. Always match the exact case of your actual URL paths."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "What is the difference between Allow and Disallow in robots.txt?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Disallow tells a bot not to crawl a path. Allow explicitly permits a path and is mainly used to carve out exceptions inside a broader Disallow rule. When both rules match a URL equally, Allow wins over Disallow."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "How often does Googlebot re-fetch robots.txt?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Google typically caches your robots.txt for up to 24 hours. If you make a critical change, you can request a re-fetch through Google Search Console. Do not expect robots.txt changes to take effect instantly."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "Can I use robots.txt to block a specific file type like PDF files?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Yes. Use a wildcard pattern with the end anchor: Disallow: /*.pdf$ blocks all URLs ending in .pdf. The dollar sign anchors the match to the end of the URL."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "Should the Sitemap be inside a User-agent block or outside?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Sitemap directives are global and apply to all crawlers regardless of where they appear in the file. The convention is to place them at the bottom of the file, outside any User-agent group, using absolute URLs starting with https."
+      }
+    }
+  ]
+}
+</script>
+ 
+ 
+<!-- ════════════════════════════════════════════════════
+  STEP 5: Replace your existing SoftwareApplication schema
+  OR add this new schema block inside <head>
+  (Tool schema helps Google understand this is a software tool)
+════════════════════════════════════════════════════ -->
+ 
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "SoftwareApplication",
+  "name": "Robots.txt Validator & Tester",
+  "applicationCategory": "WebApplication",
+  "operatingSystem": "Any",
+  "url": "https://byritam.in/tools/robots-txt-validator",
+  "description": "Free robots.txt validator and tester tool. Check if a URL is blocked, identify which rule is blocking it, validate syntax errors, and test any user agent including Googlebot and Bingbot.",
+  "offers": {
+    "@type": "Offer",
+    "price": "0",
+    "priceCurrency": "USD"
+  },
+  "featureList": [
+    "URL crawler access tester",
+    "Robots.txt syntax validator",
+    "Live robots.txt fetcher",
+    "Resource accessibility checker",
+    "Multi user-agent support"
+  ],
+  "author": {
+    "@type": "Person",
+    "name": "Ritam Debnath",
+    "url": "https://byritam.in"
+  }
+}
+</script>
 <style>
 *{margin:0;padding:0;box-sizing:border-box;font-family:'Poppins',sans-serif}
 
@@ -217,6 +325,209 @@ footer{background:var(--gray-900);color:var(--white);padding:36px 20px 24px}
 /* tooltip */
 [data-tip]{position:relative;cursor:help}
 [data-tip]:hover::after{content:attr(data-tip);position:absolute;bottom:calc(100% + 6px);left:50%;transform:translateX(-50%);background:var(--gray-800);color:var(--white);font-size:.72rem;padding:5px 10px;border-radius:6px;white-space:nowrap;z-index:10;pointer-events:none}
+/*
+  ── STICKY SIDEBARS ──────────────────────────────────
+  Replace your existing .sidebar style with this block
+*/
+.sidebar {
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+  position: sticky;
+  top: 72px; /* matches your header height */
+  max-height: calc(100vh - 90px);
+  overflow-y: auto;
+  scrollbar-width: thin;
+  scrollbar-color: var(--gray-200) transparent;
+}
+.sidebar::-webkit-scrollbar { width: 4px; }
+.sidebar::-webkit-scrollbar-thumb { background: var(--gray-200); border-radius: 99px; }
+ 
+/* ── SEMANTIC CONTENT SECTIONS ─────────────────────── */
+.content-section {
+  background: var(--white);
+  border-radius: var(--radius);
+  box-shadow: var(--shadow);
+  border: 1px solid var(--gray-200);
+  padding: 28px;
+  margin-top: 20px;
+}
+.content-section h2 {
+  font-size: 1.15rem;
+  font-weight: 700;
+  color: var(--gray-900);
+  margin-bottom: 10px;
+  line-height: 1.4;
+}
+.content-section h3 {
+  font-size: .92rem;
+  font-weight: 700;
+  color: var(--gray-800);
+  margin: 18px 0 7px;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+.content-section h3 i { color: var(--blue); font-size: .85rem; }
+.content-section p {
+  font-size: .84rem;
+  color: var(--gray-600);
+  line-height: 1.8;
+  margin-bottom: 10px;
+}
+.content-section p:last-child { margin-bottom: 0; }
+ 
+/* ── GLOSSARY GRID ──────────────────────────────────── */
+.glossary-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+  gap: 12px;
+  margin-top: 14px;
+}
+.glossary-item {
+  background: var(--gray-50);
+  border: 1px solid var(--gray-200);
+  border-radius: var(--radius-sm);
+  padding: 14px;
+}
+.glossary-item .term {
+  font-size: .8rem;
+  font-weight: 700;
+  color: var(--blue-dark);
+  font-family: monospace;
+  margin-bottom: 5px;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+.glossary-item .def {
+  font-size: .76rem;
+  color: var(--gray-600);
+  line-height: 1.6;
+}
+ 
+/* ── MISTAKES LIST ──────────────────────────────────── */
+.mistake-list {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  margin-top: 14px;
+}
+.mistake-item {
+  display: flex;
+  gap: 14px;
+  padding: 14px;
+  border-radius: var(--radius-sm);
+  border: 1px solid var(--gray-200);
+  background: var(--gray-50);
+}
+.mistake-icon {
+  width: 34px;
+  height: 34px;
+  border-radius: 8px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+  font-size: .9rem;
+}
+.mistake-icon.red { background: #fee2e2; color: #dc2626; }
+.mistake-icon.green { background: #dcfce7; color: #16a34a; }
+.mistake-body { flex: 1; }
+.mistake-body strong { font-size: .82rem; color: var(--gray-800); display: block; margin-bottom: 4px; }
+.mistake-body span { font-size: .77rem; color: var(--gray-600); line-height: 1.6; }
+ 
+/* ── FAQ ACCORDION ──────────────────────────────────── */
+.faq-list {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  margin-top: 14px;
+}
+.faq-item {
+  border: 1px solid var(--gray-200);
+  border-radius: var(--radius-sm);
+  overflow: hidden;
+  background: var(--white);
+}
+.faq-q {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 14px 16px;
+  font-size: .84rem;
+  font-weight: 600;
+  color: var(--gray-800);
+  cursor: pointer;
+  user-select: none;
+  gap: 12px;
+}
+.faq-q:hover { background: var(--gray-50); }
+.faq-q i { color: var(--blue); flex-shrink: 0; transition: transform .25s; }
+.faq-q.open i { transform: rotate(180deg); }
+.faq-a {
+  display: none;
+  padding: 0 16px 14px;
+  font-size: .81rem;
+  color: var(--gray-600);
+  line-height: 1.8;
+  border-top: 1px solid var(--gray-100);
+  padding-top: 12px;
+}
+.faq-a.open { display: block; }
+.faq-a code {
+  background: var(--gray-100);
+  padding: 1px 5px;
+  border-radius: 4px;
+  font-size: .78rem;
+  color: var(--blue-dark);
+}
+ 
+/* ── COMPARISON TABLE ───────────────────────────────── */
+.compare-table {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: .8rem;
+  margin-top: 14px;
+}
+.compare-table th {
+  background: var(--blue);
+  color: var(--white);
+  padding: 10px 14px;
+  text-align: left;
+  font-weight: 600;
+  font-size: .76rem;
+}
+.compare-table th:first-child { border-radius: var(--radius-sm) 0 0 0; }
+.compare-table th:last-child { border-radius: 0 var(--radius-sm) 0 0; }
+.compare-table td {
+  padding: 9px 14px;
+  border-bottom: 1px solid var(--gray-200);
+  color: var(--gray-700);
+  vertical-align: top;
+}
+.compare-table tr:last-child td { border-bottom: none; }
+.compare-table tr:nth-child(even) td { background: var(--gray-50); }
+.compare-table .pill {
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  padding: 2px 8px;
+  border-radius: 999px;
+  font-size: .72rem;
+  font-weight: 600;
+}
+.pill-yes { background: #dcfce7; color: #15803d; }
+.pill-no { background: #fee2e2; color: #dc2626; }
+ 
+/* MOBILE RESPONSIVE for new sections */
+@media (max-width: 768px) {
+  .glossary-grid { grid-template-columns: 1fr; }
+  .content-section { padding: 18px; }
+  .compare-table { display: block; overflow-x: auto; }
+  /* Sidebars go back to non-sticky on mobile */
+  .sidebar { position: static; max-height: none; overflow-y: visible; }
+}
 </style>
 </head>
 <body>
@@ -536,6 +847,245 @@ footer{background:var(--gray-900);color:var(--white);padding:36px 20px 24px}
         </div>
       </div>
     </div>
+
+    <div class="content-section fade-in">
+  <h2>What Is a Robots.txt File — and Why Does It Actually Matter?</h2>
+  <p>A robots.txt file sits at the root of your website — always at <code style="background:var(--gray-100);padding:2px 6px;border-radius:4px;font-size:.8rem;color:var(--blue-dark)">yourdomain.com/robots.txt</code> — and acts as a polite instruction sheet for web crawlers. When Googlebot, Bingbot, or any other crawler visits your site, the very first thing it checks is this file. It tells bots which pages they can crawl and which ones to skip.</p>
+  <p>Here's the thing most people get wrong: robots.txt doesn't prevent pages from appearing in search results. It only stops crawlers from <em>visiting</em> those URLs. A page can still get indexed if another site links to it, even if it's disallowed in robots.txt. If you truly want a page out of Google's index, you need a <code style="background:var(--gray-100);padding:2px 6px;border-radius:4px;font-size:.8rem;color:var(--blue-dark)">noindex</code> meta tag combined with proper crawl access.</p>
+  <p>For SEO in 2026, robots.txt is as important as ever — especially with Google's rendering pipeline. If your CSS, JavaScript, or font files are accidentally blocked, Googlebot can't render your pages properly, which directly impacts how it understands and ranks your content.</p>
+ 
+  <h3><i class="fas fa-sitemap"></i> The Basic Structure</h3>
+  <p>Every valid robots.txt follows the same pattern: a <code style="background:var(--gray-100);padding:2px 6px;border-radius:4px;font-size:.8rem;color:var(--blue-dark)">User-agent</code> line that names the bot, followed by one or more <code style="background:var(--gray-100);padding:2px 6px;border-radius:4px;font-size:.8rem;color:var(--blue-dark)">Allow</code> or <code style="background:var(--gray-100);padding:2px 6px;border-radius:4px;font-size:.8rem;color:var(--blue-dark)">Disallow</code> rules. Groups are separated by blank lines. The asterisk <code style="background:var(--gray-100);padding:2px 6px;border-radius:4px;font-size:.8rem;color:var(--blue-dark)">*</code> matches all bots. Rules for a named bot like <code style="background:var(--gray-100);padding:2px 6px;border-radius:4px;font-size:.8rem;color:var(--blue-dark)">Googlebot</code> always take priority over wildcard rules when both apply.</p>
+  <p>A <code style="background:var(--gray-100);padding:2px 6px;border-radius:4px;font-size:.8rem;color:var(--blue-dark)">Disallow: /</code> blocks the entire site. An empty <code style="background:var(--gray-100);padding:2px 6px;border-radius:4px;font-size:.8rem;color:var(--blue-dark)">Disallow:</code> allows everything. When there's no robots.txt at all, bots assume full access — which is fine for most public websites.</p>
+</div>
+ 
+<!-- GLOSSARY — entity/NLP building -->
+<div class="content-section fade-in">
+  <h2>Robots.txt Directives — Plain English Glossary</h2>
+  <p>These are all the directives you'll encounter when reading or writing a robots.txt file. Understanding each one helps you write rules that actually do what you intend.</p>
+  <div class="glossary-grid">
+    <div class="glossary-item">
+      <div class="term"><i class="fas fa-robot"></i> User-agent</div>
+      <div class="def">Specifies which crawler the following rules apply to. Use <code>*</code> for all bots, or name a specific crawler like <code>Googlebot</code>.</div>
+    </div>
+    <div class="glossary-item">
+      <div class="term"><i class="fas fa-ban"></i> Disallow</div>
+      <div class="def">Tells a crawler not to visit URLs that match the given path. An empty value means nothing is disallowed — the bot can crawl everything.</div>
+    </div>
+    <div class="glossary-item">
+      <div class="term"><i class="fas fa-check"></i> Allow</div>
+      <div class="def">Overrides a broader Disallow rule for a specific path. Commonly used to allow a file inside a blocked folder (e.g., allowing admin-ajax.php inside /wp-admin/).</div>
+    </div>
+    <div class="glossary-item">
+      <div class="term"><i class="fas fa-map"></i> Sitemap</div>
+      <div class="def">Points crawlers directly to your XML sitemap. Can appear anywhere in the file and applies globally — not just to the nearest User-agent group.</div>
+    </div>
+    <div class="glossary-item">
+      <div class="term"><i class="fas fa-clock"></i> Crawl-delay</div>
+      <div class="def">Asks a crawler to wait N seconds between requests. Not supported by Googlebot (use Google Search Console crawl rate settings instead). Honored by Bingbot and others.</div>
+    </div>
+    <div class="glossary-item">
+      <div class="term"><i class="fas fa-asterisk"></i> Wildcard (*)</div>
+      <div class="def">A special character in path rules that matches any sequence of characters. <code>/search/*</code> blocks all URLs starting with /search/, regardless of what follows.</div>
+    </div>
+    <div class="glossary-item">
+      <div class="term"><i class="fas fa-dollar-sign"></i> End anchor ($)</div>
+      <div class="def">Forces the pattern to match only at the end of a URL. <code>Disallow: /*.pdf$</code> blocks only URLs ending in .pdf, not URLs that contain .pdf somewhere in the middle.</div>
+    </div>
+    <div class="glossary-item">
+      <div class="term"><i class="fas fa-layer-group"></i> Rule priority</div>
+      <div class="def">When multiple rules match a URL, the <strong>most specific rule wins</strong> (longest matching path). If two rules have equal length, Allow takes precedence over Disallow.</div>
+    </div>
+  </div>
+</div>
+ 
+<!-- COMMON MISTAKES — long-tail intent coverage -->
+<div class="content-section fade-in">
+  <h2>7 Robots.txt Mistakes That Quietly Hurt Your SEO</h2>
+  <p>Most robots.txt errors aren't obvious — they don't break your site, they just silently stop Google from doing its job. These are the ones we see most often when auditing sites.</p>
+  <div class="mistake-list">
+    <div class="mistake-item">
+      <div class="mistake-icon red"><i class="fas fa-times"></i></div>
+      <div class="mistake-body">
+        <strong>Blocking CSS and JavaScript files</strong>
+        <span>If Googlebot can't load your stylesheets and scripts, it sees a broken version of your page — and ranks it accordingly. Check every <code style="background:var(--gray-100);padding:1px 5px;border-radius:4px;font-size:.77rem;color:var(--blue-dark)">/wp-includes/</code> and <code style="background:var(--gray-100);padding:1px 5px;border-radius:4px;font-size:.77rem;color:var(--blue-dark)">/assets/</code> disallow rule you have.</span>
+      </div>
+    </div>
+    <div class="mistake-item">
+      <div class="mistake-icon red"><i class="fas fa-times"></i></div>
+      <div class="mistake-body">
+        <strong>Using robots.txt to hide thin or duplicate content</strong>
+        <span>Blocking a URL with robots.txt doesn't remove it from Google's index — it just stops Googlebot from reading it. For pages you don't want indexed, use a <code style="background:var(--gray-100);padding:1px 5px;border-radius:4px;font-size:.77rem;color:var(--blue-dark)">noindex</code> tag on the page itself, not a Disallow rule.</span>
+      </div>
+    </div>
+    <div class="mistake-item">
+      <div class="mistake-icon red"><i class="fas fa-times"></i></div>
+      <div class="mistake-body">
+        <strong>Accidentally blocking the whole site with Disallow: /</strong>
+        <span>This is the most catastrophic and surprisingly common error — often introduced during a site migration or staging setup that never got reversed before launch. Run a validation check before pushing any robots.txt change live.</span>
+      </div>
+    </div>
+    <div class="mistake-item">
+      <div class="mistake-icon red"><i class="fas fa-times"></i></div>
+      <div class="mistake-body">
+        <strong>Relative Sitemap URLs</strong>
+        <span>Writing <code style="background:var(--gray-100);padding:1px 5px;border-radius:4px;font-size:.77rem;color:var(--blue-dark)">Sitemap: /sitemap.xml</code> instead of the full absolute URL (<code style="background:var(--gray-100);padding:1px 5px;border-radius:4px;font-size:.77rem;color:var(--blue-dark)">https://yourdomain.com/sitemap.xml</code>) is technically invalid. Some crawlers handle it fine; others ignore it entirely.</span>
+      </div>
+    </div>
+    <div class="mistake-item">
+      <div class="mistake-icon red"><i class="fas fa-times"></i></div>
+      <div class="mistake-body">
+        <strong>Forgetting that rules are case-sensitive</strong>
+        <span><code style="background:var(--gray-100);padding:1px 5px;border-radius:4px;font-size:.77rem;color:var(--blue-dark)">Disallow: /Admin/</code> and <code style="background:var(--gray-100);padding:1px 5px;border-radius:4px;font-size:.77rem;color:var(--blue-dark)">Disallow: /admin/</code> are different rules. URLs are case-sensitive in robots.txt. Write your paths exactly as they appear on your server.</span>
+      </div>
+    </div>
+    <div class="mistake-item">
+      <div class="mistake-icon red"><i class="fas fa-times"></i></div>
+      <div class="mistake-body">
+        <strong>Duplicate User-agent blocks for the same bot</strong>
+        <span>Having two separate <code style="background:var(--gray-100);padding:1px 5px;border-radius:4px;font-size:.77rem;color:var(--blue-dark)">User-agent: Googlebot</code> blocks in one file creates ambiguity. Different crawlers interpret this differently — consolidate all rules for a bot into a single group.</span>
+      </div>
+    </div>
+    <div class="mistake-item">
+      <div class="mistake-icon green"><i class="fas fa-lightbulb"></i></div>
+      <div class="mistake-body">
+        <strong>Not using this checker after every change</strong>
+        <span>Even a single typo in a path pattern can open up or block large sections of your site. Always validate your robots.txt with a tester like this one before deploying — especially after migrations, theme changes, or CMS updates.</span>
+      </div>
+    </div>
+  </div>
+</div>
+ 
+<!-- COMPARISON TABLE — allow vs disallow vs noindex -->
+<div class="content-section fade-in">
+  <h2>Robots.txt vs Meta Noindex vs Canonical — When to Use Which</h2>
+  <p>These three tools often get confused because they all deal with controlling what Google sees. They work very differently though, and using the wrong one can create invisible SEO problems.</p>
+  <table class="compare-table">
+    <thead>
+      <tr>
+        <th>Method</th>
+        <th>Stops Crawling?</th>
+        <th>Removes from Index?</th>
+        <th>Best Used For</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><strong>robots.txt Disallow</strong></td>
+        <td><span class="pill pill-yes"><i class="fas fa-check"></i> Yes</span></td>
+        <td><span class="pill pill-no"><i class="fas fa-times"></i> No</span></td>
+        <td>Saving crawl budget — keeping bots away from admin pages, internal search, duplicate parameter URLs</td>
+      </tr>
+      <tr>
+        <td><strong>Meta noindex</strong></td>
+        <td><span class="pill pill-no"><i class="fas fa-times"></i> No</span></td>
+        <td><span class="pill pill-yes"><i class="fas fa-check"></i> Yes</span></td>
+        <td>Removing a page from search results while still letting it be crawled (so Google can read the tag)</td>
+      </tr>
+      <tr>
+        <td><strong>Canonical tag</strong></td>
+        <td><span class="pill pill-no"><i class="fas fa-times"></i> No</span></td>
+        <td>Consolidates signals</td>
+        <td>Duplicate or near-duplicate content — tells Google which version is the "real" URL to rank</td>
+      </tr>
+      <tr>
+        <td><strong>Disallow + noindex combined</strong></td>
+        <td><span class="pill pill-yes"><i class="fas fa-check"></i> Yes</span></td>
+        <td>Won't work</td>
+        <td>This is a trap — if Googlebot is blocked from the page, it can't read the noindex tag. Don't combine these.</td>
+      </tr>
+    </tbody>
+  </table>
+</div>
+ 
+<!-- FAQ SECTION — PAA coverage -->
+<div class="content-section fade-in">
+  <h2>Frequently Asked Questions About Robots.txt</h2>
+  <p>These are the questions that come up most often — from beginners setting up their first file to developers debugging complex crawl issues.</p>
+  <div class="faq-list" id="faq-list">
+ 
+    <div class="faq-item">
+      <div class="faq-q" onclick="toggleFaq(this)">
+        Does robots.txt prevent pages from being indexed in Google?
+        <i class="fas fa-chevron-down"></i>
+      </div>
+      <div class="faq-a">
+        No — and this is probably the most common misunderstanding. A Disallow rule stops Googlebot from <em>visiting</em> the URL, but the page can still appear in search results if Google discovers it through a link from another site. The URL shows up in results with a message like "no information is available for this page." To actually remove a page from Google's index, you need a <code>noindex</code> meta tag on the page — and that page must be crawlable so Google can read the tag.
+      </div>
+    </div>
+ 
+    <div class="faq-item">
+      <div class="faq-q" onclick="toggleFaq(this)">
+        What happens if there's no robots.txt file on a website?
+        <i class="fas fa-chevron-down"></i>
+      </div>
+      <div class="faq-a">
+        Nothing bad. When a crawler looks for robots.txt and gets a 404 response, it simply assumes the entire site is open to crawling. This is the default behavior. You don't need a robots.txt file unless you actually want to restrict something — like protecting admin pages, avoiding crawl waste on search result pages, or pointing crawlers to your sitemap.
+      </div>
+    </div>
+ 
+    <div class="faq-item">
+      <div class="faq-q" onclick="toggleFaq(this)">
+        How do I check if a URL is blocked by robots.txt?
+        <i class="fas fa-chevron-down"></i>
+      </div>
+      <div class="faq-a">
+        Use the URL Tester tab on this page — paste your robots.txt content, enter the URL you want to check, choose the user agent (Googlebot, Bingbot, etc.), and click Test. The tool will show you exactly whether the URL is allowed or blocked and which rule is responsible. You can also use Google Search Console's URL Inspection tool for live verification against Google's actual copy of your robots.txt.
+      </div>
+    </div>
+ 
+    <div class="faq-item">
+      <div class="faq-q" onclick="toggleFaq(this)">
+        Can I use robots.txt to block a specific file type, like PDF files?
+        <i class="fas fa-chevron-down"></i>
+      </div>
+      <div class="faq-a">
+        Yes. Use a wildcard pattern with the end anchor: <code>Disallow: /*.pdf$</code> blocks all URLs ending in .pdf. The dollar sign anchors the match to the end of the URL, so it won't accidentally block something like <code>/pdf-guide/</code>. You can apply this approach to any file extension — <code>.doc</code>, <code>.xls</code>, <code>.zip</code>, and so on.
+      </div>
+    </div>
+ 
+    <div class="faq-item">
+      <div class="faq-q" onclick="toggleFaq(this)">
+        Is robots.txt case-sensitive?
+        <i class="fas fa-chevron-down"></i>
+      </div>
+      <div class="faq-a">
+        The directive names (User-agent, Disallow, Allow, Sitemap) are case-insensitive — you can write them in any case. But the path values <em>are</em> case-sensitive on most servers. <code>Disallow: /Admin/</code> and <code>Disallow: /admin/</code> are treated as two different rules. Always match the exact case of your actual URL paths.
+      </div>
+    </div>
+ 
+    <div class="faq-item">
+      <div class="faq-q" onclick="toggleFaq(this)">
+        How often does Googlebot re-fetch robots.txt?
+        <i class="fas fa-chevron-down"></i>
+      </div>
+      <div class="faq-a">
+        Google typically caches your robots.txt for up to 24 hours, though in practice it often refreshes more frequently for active sites. If you make a critical change — like removing an accidental block — you can request a re-fetch through Google Search Console. Don't expect robots.txt changes to take effect instantly in Google's crawl behavior.
+      </div>
+    </div>
+ 
+    <div class="faq-item">
+      <div class="faq-q" onclick="toggleFaq(this)">
+        What is the difference between Allow and Disallow in robots.txt?
+        <i class="fas fa-chevron-down"></i>
+      </div>
+      <div class="faq-a">
+        <code>Disallow</code> tells a bot not to crawl a path. <code>Allow</code> explicitly permits a path — its main purpose is to carve out exceptions inside a broader Disallow rule. For example, if you block all of <code>/wp-admin/</code> but need Googlebot to access <code>/wp-admin/admin-ajax.php</code> (which powers live search and AJAX features), you add an Allow rule for that specific file. When both rules match a URL equally, Allow wins over Disallow.
+      </div>
+    </div>
+ 
+    <div class="faq-item">
+      <div class="faq-q" onclick="toggleFaq(this)">
+        Should the Sitemap be inside a User-agent block or outside?
+        <i class="fas fa-chevron-down"></i>
+      </div>
+      <div class="faq-a">
+        Sitemap directives are global and apply to all crawlers regardless of where they appear in the file. The convention is to place them at the bottom of the file, outside any User-agent group — but placing them inside a group doesn't technically change their behavior. Use absolute URLs (starting with <code>https://</code>), and you can list multiple Sitemap lines if you have more than one sitemap file.
+      </div>
+    </div>
+ 
+  </div>
+</div>
   </main>
 
   <!-- RIGHT SIDEBAR -->
@@ -988,6 +1538,19 @@ function liveLineCount(textareaId,linesId){
 ══════════════════════════════════════════════ */
 const obs=new IntersectionObserver(es=>es.forEach(e=>{if(e.isIntersecting)e.target.classList.add('visible');}),{threshold:.08,rootMargin:'0px 0px -30px 0px'});
 document.querySelectorAll('.fade-in').forEach(el=>obs.observe(el));
+  /* FAQ accordion toggle */
+function toggleFaq(el) {
+  const answer = el.nextElementSibling;
+  const isOpen = answer.classList.contains('open');
+  // Close all
+  document.querySelectorAll('.faq-a').forEach(a => a.classList.remove('open'));
+  document.querySelectorAll('.faq-q').forEach(q => q.classList.remove('open'));
+  // Open clicked if it was closed
+  if (!isOpen) {
+    answer.classList.add('open');
+    el.classList.add('open');
+  }
+}
 </script>
 </body>
 </html>
