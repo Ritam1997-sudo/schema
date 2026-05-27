@@ -1,0 +1,993 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Robots.txt Validator & Tester Tool | byritam.in</title>
+<meta name="description" content="Free robots.txt validator and tester tool. Check if a URL is blocked, which rule is blocking it, and test any user agent. Fast, accurate, and free.">
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+<style>
+*{margin:0;padding:0;box-sizing:border-box;font-family:'Poppins',sans-serif}
+
+:root{
+  --blue:      #2563eb;
+  --blue-dark: #1e40af;
+  --blue-light:#dbeafe;
+  --blue-50:   #eff6ff;
+  --gray-50:   #f9fafb;
+  --gray-100:  #f3f4f6;
+  --gray-200:  #e5e7eb;
+  --gray-400:  #9ca3af;
+  --gray-500:  #6b7280;
+  --gray-600:  #4b5563;
+  --gray-700:  #374151;
+  --gray-800:  #1f2937;
+  --gray-900:  #111827;
+  --green:     #22c55e;
+  --green-dark:#16a34a;
+  --red:       #ef4444;
+  --yellow:    #f59e0b;
+  --white:     #ffffff;
+  --shadow-sm: 0 1px 3px rgba(0,0,0,.08),0 1px 2px rgba(0,0,0,.06);
+  --shadow:    0 4px 6px rgba(0,0,0,.07),0 2px 4px rgba(0,0,0,.06);
+  --shadow-lg: 0 10px 15px rgba(0,0,0,.08),0 4px 6px rgba(0,0,0,.05);
+  --shadow-xl: 0 20px 25px rgba(0,0,0,.1),0 10px 10px rgba(0,0,0,.04);
+  --radius:    16px;
+  --radius-sm: 10px;
+}
+
+body{background:var(--gray-50);color:var(--gray-800);line-height:1.6;font-size:15px}
+
+/* ── HEADER ──────────────────────────────────────── */
+header{background:var(--white);box-shadow:0 1px 0 var(--gray-200);position:sticky;top:0;z-index:100;padding:14px 20px}
+.header-inner{max-width:1400px;margin:0 auto;display:flex;align-items:center;justify-content:space-between}
+.logo a{font-size:1.25rem;font-weight:800;text-decoration:none;color:var(--gray-900)}
+.logo span{color:var(--blue)}
+header nav a{font-size:.82rem;font-weight:500;color:var(--gray-600);text-decoration:none;transition:color .2s}
+header nav a:hover{color:var(--blue)}
+header nav{display:flex;gap:18px;align-items:center}
+.btn-wa{background:linear-gradient(135deg,#25D366,#128C7E);color:var(--white)!important;padding:7px 16px;border-radius:999px;font-size:.78rem!important;font-weight:600!important}
+
+/* ── BREADCRUMB ──────────────────────────────────── */
+.breadcrumb{max-width:1400px;margin:14px auto 0;padding:0 20px;font-size:.78rem;color:var(--gray-500)}
+.breadcrumb a{color:var(--blue);text-decoration:none}
+.breadcrumb span{margin:0 5px}
+
+/* ── PAGE HERO ───────────────────────────────────── */
+.page-hero{background:linear-gradient(135deg,#aee0ff 0%,#ffffff 50%,#f2f2f2 100%);padding:36px 20px 28px;text-align:center}
+.page-hero h1{font-size:clamp(1.5rem,4vw,2.4rem);font-weight:800;color:var(--gray-900);margin-bottom:8px}
+.page-hero h1 span{color:var(--blue)}
+.page-hero p{font-size:.95rem;color:var(--gray-600);max-width:600px;margin:0 auto}
+
+/* ── MAIN LAYOUT ─────────────────────────────────── */
+.page-wrap{max-width:1400px;margin:28px auto 40px;padding:0 16px;display:grid;grid-template-columns:240px 1fr 240px;gap:20px;align-items:start}
+
+/* ── SIDEBAR ─────────────────────────────────────── */
+.sidebar{display:flex;flex-direction:column;gap:14px}
+.sidebar-card{background:var(--white);border-radius:var(--radius);box-shadow:var(--shadow);padding:18px;border:1px solid var(--gray-200)}
+.sidebar-card h3{font-size:.8rem;font-weight:700;text-transform:uppercase;letter-spacing:.05em;color:var(--blue);margin-bottom:12px;display:flex;align-items:center;gap:7px}
+.blog-list{display:flex;flex-direction:column;gap:10px}
+.blog-item{border-bottom:1px solid var(--gray-100);padding-bottom:10px}
+.blog-item:last-child{border-bottom:none;padding-bottom:0}
+.blog-item .date{font-size:.7rem;color:var(--gray-400);margin-bottom:3px;display:flex;align-items:center;gap:4px}
+.blog-item a.title{font-size:.78rem;font-weight:600;color:var(--gray-800);text-decoration:none;line-height:1.4;display:block;margin-bottom:5px}
+.blog-item a.title:hover{color:var(--blue)}
+.blog-item a.read-btn{font-size:.68rem;font-weight:600;color:var(--blue);background:var(--blue-50);border:1px solid var(--blue-light);padding:3px 9px;border-radius:999px;text-decoration:none;display:inline-flex;align-items:center;gap:4px;transition:all .2s}
+.blog-item a.read-btn:hover{background:var(--blue);color:var(--white)}
+
+/* ── TOOL AREA ───────────────────────────────────── */
+.tool-area{min-width:0}
+
+/* ── TOOL CARD ───────────────────────────────────── */
+.tool-card{background:var(--white);border-radius:var(--radius);box-shadow:var(--shadow-lg);border:1px solid var(--gray-200);overflow:hidden}
+
+/* ── TAB BAR ─────────────────────────────────────── */
+.tab-bar{display:flex;border-bottom:2px solid var(--gray-200);background:var(--gray-50);padding:0 20px;gap:4px}
+.tab-btn{padding:13px 18px;font-size:.82rem;font-weight:600;color:var(--gray-500);border:none;background:none;cursor:pointer;border-bottom:2px solid transparent;margin-bottom:-2px;transition:all .2s;display:flex;align-items:center;gap:6px}
+.tab-btn.active{color:var(--blue);border-bottom-color:var(--blue);background:var(--white)}
+.tab-btn:hover:not(.active){color:var(--gray-700)}
+
+/* ── PANEL ───────────────────────────────────────── */
+.tab-panel{display:none;padding:24px}
+.tab-panel.active{display:block}
+
+/* ── FORM ROWS ───────────────────────────────────── */
+.form-row{margin-bottom:16px}
+.form-row label{display:block;font-size:.8rem;font-weight:600;color:var(--gray-700);margin-bottom:6px}
+.form-row label span{color:var(--blue)}
+.input-wrap{position:relative}
+.input-wrap i{position:absolute;left:12px;top:50%;transform:translateY(-50%);color:var(--gray-400);font-size:.85rem;pointer-events:none}
+input[type=text],input[type=url],select,textarea{width:100%;padding:10px 12px 10px 34px;border:1.5px solid var(--gray-200);border-radius:var(--radius-sm);font-size:.85rem;font-family:'Poppins',sans-serif;color:var(--gray-800);outline:none;transition:border-color .2s,box-shadow .2s;background:var(--white)}
+textarea{padding-left:12px;resize:vertical;min-height:200px;line-height:1.6;font-size:.82rem}
+input:focus,textarea:focus,select:focus{border-color:var(--blue);box-shadow:0 0 0 3px rgba(37,99,235,.1)}
+select{padding-left:12px;appearance:none;background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='10' height='6'%3E%3Cpath d='M0 0l5 6 5-6z' fill='%239ca3af'/%3E%3C/svg%3E");background-repeat:no-repeat;background-position:right 12px center}
+
+.form-grid{display:grid;grid-template-columns:1fr 1fr;gap:14px}
+.form-grid .form-row{margin-bottom:0}
+
+/* ── BUTTONS ─────────────────────────────────────── */
+.btn{display:inline-flex;align-items:center;gap:8px;padding:11px 22px;border-radius:999px;font-weight:600;font-size:.85rem;cursor:pointer;border:none;transition:all .28s}
+.btn-primary{background:linear-gradient(135deg,var(--blue),var(--blue-dark));color:var(--white);box-shadow:0 4px 14px rgba(37,99,235,.25)}
+.btn-primary:hover{transform:translateY(-2px);box-shadow:0 8px 20px rgba(37,99,235,.32)}
+.btn-secondary{background:var(--white);color:var(--gray-700);border:1.5px solid var(--gray-200)}
+.btn-secondary:hover{background:var(--gray-50);border-color:var(--gray-300)}
+.btn-full{width:100%;justify-content:center}
+.btn-group{display:flex;gap:10px;margin-top:18px;flex-wrap:wrap}
+
+/* ── RESULT BOX ──────────────────────────────────── */
+.result-box{margin-top:20px;display:none}
+.result-box.show{display:block}
+.result-badge{display:inline-flex;align-items:center;gap:8px;padding:10px 18px;border-radius:999px;font-weight:700;font-size:.88rem;margin-bottom:14px}
+.badge-allowed{background:#dcfce7;color:#15803d}
+.badge-blocked{background:#fee2e2;color:#dc2626}
+.badge-info{background:var(--blue-light);color:var(--blue-dark)}
+
+.result-detail{background:var(--gray-50);border:1px solid var(--gray-200);border-radius:var(--radius-sm);padding:16px;font-size:.82rem}
+.result-detail .row{display:flex;align-items:flex-start;gap:10px;padding:7px 0;border-bottom:1px solid var(--gray-200)}
+.result-detail .row:last-child{border-bottom:none;padding-bottom:0}
+.result-detail .row label{width:130px;flex-shrink:0;font-weight:600;color:var(--gray-500);font-size:.75rem;text-transform:uppercase;letter-spacing:.04em;padding-top:1px}
+.result-detail .row .val{color:var(--gray-800);font-family:monospace;font-size:.82rem;word-break:break-all}
+.result-detail .row .val.green{color:var(--green-dark);font-weight:600}
+.result-detail .row .val.red{color:#dc2626;font-weight:600}
+
+/* ── ROBOTS EDITOR ───────────────────────────────── */
+.editor-header{display:flex;align-items:center;justify-content:space-between;margin-bottom:10px}
+.editor-header h4{font-size:.82rem;font-weight:700;color:var(--gray-700);display:flex;align-items:center;gap:6px}
+.status-dot{width:8px;height:8px;border-radius:50%;background:var(--gray-300)}
+.status-dot.ok{background:var(--green)}
+.status-dot.err{background:var(--red)}
+.line-nums-wrap{display:flex;gap:0;border:1.5px solid var(--gray-200);border-radius:var(--radius-sm);overflow:hidden;font-size:.8rem}
+.line-nums{width:32px;background:var(--gray-100);color:var(--gray-400);font-family:monospace;padding:10px 0;text-align:right;padding-right:8px;user-select:none;line-height:1.6;font-size:.75rem;flex-shrink:0;overflow:hidden}
+#robots-editor{border:none;border-radius:0;padding:10px 12px;line-height:1.6;flex:1;outline:none;resize:none;min-height:220px;font-size:.8rem}
+#robots-editor:focus{box-shadow:none}
+
+/* ── VALIDATION RESULT ───────────────────────────── */
+.validation-list{list-style:none;margin-top:14px;display:flex;flex-direction:column;gap:8px}
+.validation-list li{display:flex;align-items:flex-start;gap:10px;padding:10px 14px;border-radius:var(--radius-sm);font-size:.82rem}
+.validation-list li.ok{background:#f0fdf4;border:1px solid #bbf7d0;color:#166534}
+.validation-list li.warn{background:#fffbeb;border:1px solid #fde68a;color:#92400e}
+.validation-list li.err{background:#fef2f2;border:1px solid #fecaca;color:#991b1b}
+.validation-list li i{margin-top:2px;flex-shrink:0}
+
+/* ── RESOURCE CHECKER ────────────────────────────── */
+.resource-list{margin-top:14px;display:flex;flex-direction:column;gap:6px}
+.resource-row{display:flex;align-items:center;gap:10px;padding:9px 13px;background:var(--gray-50);border:1px solid var(--gray-200);border-radius:var(--radius-sm);font-size:.8rem}
+.resource-row .icon{width:20px;text-align:center;flex-shrink:0}
+.resource-row .url{flex:1;font-family:monospace;color:var(--gray-700);word-break:break-all}
+.resource-row .status{font-weight:600;font-size:.75rem;padding:2px 8px;border-radius:999px;flex-shrink:0}
+.status-ok{background:#dcfce7;color:#15803d}
+.status-blocked{background:#fee2e2;color:#dc2626}
+.status-unknown{background:#f3f4f6;color:var(--gray-500)}
+
+/* ── INFO CALLOUT ────────────────────────────────── */
+.callout{background:var(--blue-50);border-left:3px solid var(--blue);padding:12px 16px;border-radius:0 var(--radius-sm) var(--radius-sm) 0;font-size:.8rem;color:var(--gray-700);margin-top:16px}
+.callout strong{color:var(--blue-dark)}
+
+/* ── STATS BAR ───────────────────────────────────── */
+.stats-bar{display:grid;grid-template-columns:repeat(3,1fr);gap:1px;background:var(--gray-200);border-radius:var(--radius-sm);overflow:hidden;margin-top:14px}
+.stat-item{background:var(--white);padding:14px;text-align:center}
+.stat-item .num{font-size:1.3rem;font-weight:800;color:var(--blue)}
+.stat-item .lbl{font-size:.7rem;color:var(--gray-500);text-transform:uppercase;letter-spacing:.04em}
+
+/* ── FOOTER ──────────────────────────────────────── */
+footer{background:var(--gray-900);color:var(--white);padding:36px 20px 24px}
+.footer-inner{max-width:1400px;margin:0 auto}
+.footer-top{display:grid;grid-template-columns:1fr 1fr 1fr 1fr;gap:28px;margin-bottom:24px}
+.footer-col h4{font-size:.85rem;font-weight:700;margin-bottom:10px}
+.footer-col p,.footer-col a{font-size:.78rem;color:var(--gray-400);text-decoration:none;line-height:2}
+.footer-col a:hover{color:var(--blue)}
+.footer-social{display:flex;gap:12px;margin-top:8px}
+.footer-social a{color:var(--gray-400);font-size:1.2rem;transition:color .2s}
+.footer-social a:hover{color:var(--blue)}
+.footer-bottom{border-top:1px solid #374151;padding-top:16px;text-align:center;font-size:.75rem;color:var(--gray-500)}
+
+/* ── LOADING SPINNER ─────────────────────────────── */
+.spinner{display:inline-block;width:16px;height:16px;border:2px solid rgba(255,255,255,.3);border-top-color:var(--white);border-radius:50%;animation:spin .6s linear infinite}
+@keyframes spin{to{transform:rotate(360deg)}}
+
+/* ── FADE IN ─────────────────────────────────────── */
+.fade-in{opacity:0;transform:translateY(20px);transition:opacity .5s ease,transform .5s ease}
+.fade-in.visible{opacity:1;transform:none}
+
+/* ── RESPONSIVE ──────────────────────────────────── */
+@media(max-width:1024px){
+  .page-wrap{grid-template-columns:200px 1fr;grid-template-areas:"left main" "right main"}
+  .sidebar-right{grid-area:right;display:none}
+  .sidebar-left{grid-area:left}
+  .tool-area{grid-area:main}
+}
+@media(max-width:768px){
+  .page-wrap{grid-template-columns:1fr;grid-template-areas:"main" "left" "right"}
+  .sidebar-left,.sidebar-right{display:none}
+  .tab-bar{overflow-x:auto;padding:0 12px}
+  .tab-btn{white-space:nowrap;padding:11px 14px;font-size:.76rem}
+  .form-grid{grid-template-columns:1fr}
+  .footer-top{grid-template-columns:1fr 1fr;gap:20px}
+  header nav{display:none}
+  .page-hero{padding:24px 16px 20px}
+  .tab-panel{padding:16px}
+}
+@media(max-width:480px){
+  .footer-top{grid-template-columns:1fr}
+  .btn-group{flex-direction:column}
+  .btn-group .btn{width:100%;justify-content:center}
+}
+
+/* tooltip */
+[data-tip]{position:relative;cursor:help}
+[data-tip]:hover::after{content:attr(data-tip);position:absolute;bottom:calc(100% + 6px);left:50%;transform:translateX(-50%);background:var(--gray-800);color:var(--white);font-size:.72rem;padding:5px 10px;border-radius:6px;white-space:nowrap;z-index:10;pointer-events:none}
+</style>
+</head>
+<body>
+
+<!-- ─── HEADER ─────────────────────────────────────── -->
+<header>
+  <div class="header-inner">
+    <div class="logo"><a href="https://byritam.in/"><span>Ritam</span> Debnath</a></div>
+    <nav>
+      <a href="https://byritam.in/">Home</a>
+      <a href="https://byritam.in/about">About</a>
+      <a href="https://byritam.in/D2C-SEO-Services">D2C SEO</a>
+      <a href="https://byritam.in/B2B-SEO-Services">B2B SEO</a>
+      <a href="https://byritam.in/contact">Contact</a>
+      <a href="https://wa.me/919038303107" class="btn-wa"><i class="fab fa-whatsapp"></i> WhatsApp</a>
+    </nav>
+  </div>
+</header>
+
+<!-- ─── BREADCRUMB ────────────────────────────────── -->
+<div class="breadcrumb">
+  <a href="https://byritam.in/">Home</a>
+  <span>›</span>
+  <a href="https://byritam.in/seo-tools">SEO Tools</a>
+  <span>›</span>
+  Robots.txt Validator
+</div>
+
+<!-- ─── HERO ──────────────────────────────────────── -->
+<div class="page-hero">
+  <h1>Robots.txt <span>Validator & Tester</span></h1>
+  <p>Test any URL against your robots.txt rules, validate syntax, and check resource accessibility — all in one free tool.</p>
+</div>
+
+<!-- ─── MAIN WRAP ─────────────────────────────────── -->
+<div class="page-wrap">
+
+  <!-- LEFT SIDEBAR -->
+  <aside class="sidebar sidebar-left fade-in">
+    <div class="sidebar-card">
+      <h3><i class="fas fa-rss"></i> Latest Blogs</h3>
+      <div class="blog-list">
+        <div class="blog-item">
+          <div class="date"><i class="fas fa-calendar-alt"></i> Oct 15, 2025</div>
+          <a href="https://byritam.in/blog/best-seo-expert-kolkata.html" class="title">Best SEO Expert in Kolkata: Why Ritam Debnath Stands Out</a>
+          <a href="https://byritam.in/blog/best-seo-expert-kolkata.html" class="read-btn"><i class="fas fa-arrow-right"></i> Read</a>
+        </div>
+        <div class="blog-item">
+          <div class="date"><i class="fas fa-calendar-alt"></i> Oct 10, 2025</div>
+          <a href="https://byritam.in/blog/why-hire-organic-seo-expert-kolkata.html" class="title">Why Hire an Organic SEO Expert in Kolkata</a>
+          <a href="https://byritam.in/blog/why-hire-organic-seo-expert-kolkata.html" class="read-btn"><i class="fas fa-arrow-right"></i> Read</a>
+        </div>
+        <div class="blog-item">
+          <div class="date"><i class="fas fa-calendar-alt"></i> Oct 15, 2025</div>
+          <a href="https://byritam.in/blog/how-organic-seo-expert-kolkata-transforms-online-presence.html" class="title">How an Organic SEO Expert Can Transform Your Online Presence</a>
+          <a href="https://byritam.in/blog/how-organic-seo-expert-kolkata-transforms-online-presence.html" class="read-btn"><i class="fas fa-arrow-right"></i> Read</a>
+        </div>
+        <div class="blog-item">
+          <div class="date"><i class="fas fa-calendar-alt"></i> Sep 28, 2025</div>
+          <a href="https://byritam.in/blog/what-is-on-page-seo-for-b2b.html" class="title">What Is On-Page SEO for B2B Websites?</a>
+          <a href="https://byritam.in/blog/what-is-on-page-seo-for-b2b.html" class="read-btn"><i class="fas fa-arrow-right"></i> Read</a>
+        </div>
+        <div class="blog-item">
+          <div class="date"><i class="fas fa-calendar-alt"></i> Sep 20, 2025</div>
+          <a href="https://byritam.in/blog/ultimate-guide-hiring-seo-freelancer-kolkata.html" class="title">The Ultimate Guide to Hiring an SEO Freelancer in Kolkata</a>
+          <a href="https://byritam.in/blog/ultimate-guide-hiring-seo-freelancer-kolkata.html" class="read-btn"><i class="fas fa-arrow-right"></i> Read</a>
+        </div>
+        <div class="blog-item">
+          <div class="date"><i class="fas fa-calendar-alt"></i> Sep 10, 2025</div>
+          <a href="https://byritam.in/blog/top-11-reasons-seo-freelancer-kolkata.html" class="title">Top 11 Reasons to Hire an SEO Freelancer in Kolkata</a>
+          <a href="https://byritam.in/blog/top-11-reasons-seo-freelancer-kolkata.html" class="read-btn"><i class="fas fa-arrow-right"></i> Read</a>
+        </div>
+      </div>
+    </div>
+
+    <div class="sidebar-card">
+      <h3><i class="fas fa-tools"></i> SEO Services</h3>
+      <div class="blog-list">
+        <div class="blog-item">
+          <a href="https://byritam.in/D2C-SEO-Services" class="title">D2C SEO Services</a>
+          <a href="https://byritam.in/D2C-SEO-Services" class="read-btn"><i class="fas fa-arrow-right"></i> View</a>
+        </div>
+        <div class="blog-item">
+          <a href="https://byritam.in/B2B-SEO-Services" class="title">B2B SEO Services</a>
+          <a href="https://byritam.in/B2B-SEO-Services" class="read-btn"><i class="fas fa-arrow-right"></i> View</a>
+        </div>
+        <div class="blog-item">
+          <a href="https://byritam.in/ecommerce-seo-services-kolkata" class="title">E-Commerce SEO</a>
+          <a href="https://byritam.in/ecommerce-seo-services-kolkata" class="read-btn"><i class="fas fa-arrow-right"></i> View</a>
+        </div>
+        <div class="blog-item">
+          <a href="https://byritam.in/seo-consultant-kolkata" class="title">SEO Consultant Kolkata</a>
+          <a href="https://byritam.in/seo-consultant-kolkata" class="read-btn"><i class="fas fa-arrow-right"></i> View</a>
+        </div>
+      </div>
+    </div>
+  </aside>
+
+  <!-- ─── TOOL ──────────────────────────────────── -->
+  <main class="tool-area fade-in">
+    <div class="tool-card">
+      <div class="tab-bar">
+        <button class="tab-btn active" onclick="switchTab('url-test',this)">
+          <i class="fas fa-search"></i> URL Tester
+        </button>
+        <button class="tab-btn" onclick="switchTab('live',this)">
+          <i class="fas fa-globe"></i> Live Fetch
+        </button>
+        <button class="tab-btn" onclick="switchTab('editor',this)">
+          <i class="fas fa-code"></i> Editor &amp; Validator
+        </button>
+        <button class="tab-btn" onclick="switchTab('resources',this)">
+          <i class="fas fa-layer-group"></i> Check Resources
+        </button>
+      </div>
+
+      <!-- ── TAB: URL TESTER ─────────────────────── -->
+      <div id="tab-url-test" class="tab-panel active">
+        <div class="form-row">
+          <label><span><i class="fas fa-file-alt"></i></span> Robots.txt Content</label>
+          <div class="editor-header">
+            <span id="ut-status" style="font-size:.75rem;color:var(--gray-500)">Paste your robots.txt content above</span>
+            <button class="btn btn-secondary" style="padding:5px 12px;font-size:.74rem" onclick="loadSample()"><i class="fas fa-magic"></i> Load Sample</button>
+          </div>
+          <textarea id="ut-robots" placeholder="User-agent: *&#10;Disallow: /wp-admin/&#10;Allow: /wp-admin/admin-ajax.php&#10;&#10;Sitemap: https://example.com/sitemap.xml" oninput="liveLineCount('ut-robots','ut-lines')" spellcheck="false"></textarea>
+        </div>
+
+        <div class="form-grid">
+          <div class="form-row">
+            <label><span><i class="fas fa-link"></i></span> URL to Test</label>
+            <div class="input-wrap">
+              <i class="fas fa-link"></i>
+              <input type="url" id="ut-url" placeholder="https://example.com/admin/page" />
+            </div>
+          </div>
+          <div class="form-row">
+            <label><span><i class="fas fa-robot"></i></span> User Agent</label>
+            <div class="input-wrap">
+              <i class="fas fa-robot"></i>
+              <select id="ut-agent" style="padding-left:34px">
+                <option value="*">* (All Bots)</option>
+                <option value="Googlebot">Googlebot</option>
+                <option value="Googlebot-Image">Googlebot-Image</option>
+                <option value="Googlebot-Mobile">Googlebot-Mobile</option>
+                <option value="Bingbot">Bingbot</option>
+                <option value="Slurp">Yahoo Slurp</option>
+                <option value="DuckDuckBot">DuckDuckBot</option>
+                <option value="Baiduspider">Baiduspider</option>
+                <option value="YandexBot">YandexBot</option>
+                <option value="facebot">Facebookbot</option>
+                <option value="Twitterbot">Twitterbot</option>
+                <option value="custom">Custom…</option>
+              </select>
+            </div>
+          </div>
+        </div>
+
+        <div class="form-row" id="custom-agent-row" style="display:none">
+          <label>Custom User Agent</label>
+          <div class="input-wrap">
+            <i class="fas fa-keyboard"></i>
+            <input type="text" id="ut-custom-agent" placeholder="MyBot/1.0" />
+          </div>
+        </div>
+
+        <div class="btn-group">
+          <button class="btn btn-primary" onclick="runUrlTest()"><i class="fas fa-search"></i> Test URL</button>
+          <button class="btn btn-secondary" onclick="clearAll()"><i class="fas fa-trash"></i> Clear</button>
+        </div>
+
+        <div class="result-box" id="url-result"></div>
+
+        <div class="callout">
+          <strong>How to use:</strong> Paste your robots.txt content, enter the URL you want to check, choose the user agent (or use * for all), and click Test URL. The tool will tell you whether the URL is allowed or blocked and which rule applies.
+        </div>
+      </div>
+
+      <!-- ── TAB: LIVE FETCH ──────────────────────── -->
+      <div id="tab-live" class="tab-panel">
+        <div class="form-row">
+          <label><span><i class="fas fa-globe"></i></span> Website Domain</label>
+          <div class="input-wrap">
+            <i class="fas fa-globe"></i>
+            <input type="url" id="live-domain" placeholder="https://example.com" />
+          </div>
+        </div>
+
+        <div class="form-row">
+          <label><span><i class="fas fa-link"></i></span> URL to Test Against Live robots.txt</label>
+          <div class="input-wrap">
+            <i class="fas fa-link"></i>
+            <input type="url" id="live-url" placeholder="https://example.com/some/path" />
+          </div>
+        </div>
+
+        <div class="form-row">
+          <label><span><i class="fas fa-robot"></i></span> User Agent</label>
+          <div class="input-wrap">
+            <i class="fas fa-robot"></i>
+            <select id="live-agent" style="padding-left:34px">
+              <option value="*">* (All Bots)</option>
+              <option value="Googlebot">Googlebot</option>
+              <option value="Bingbot">Bingbot</option>
+              <option value="DuckDuckBot">DuckDuckBot</option>
+              <option value="YandexBot">YandexBot</option>
+            </select>
+          </div>
+        </div>
+
+        <div class="btn-group">
+          <button class="btn btn-primary" onclick="runLiveFetch()"><i class="fas fa-download"></i> Fetch &amp; Test</button>
+        </div>
+
+        <div class="result-box" id="live-result"></div>
+
+        <div class="callout">
+          <strong>Note:</strong> Due to browser CORS restrictions, live fetch simulates robots.txt fetching from the domain root (<code>/robots.txt</code>). For accurate live testing of your own site, use the URL Tester tab with your actual robots.txt content.
+        </div>
+      </div>
+
+      <!-- ── TAB: EDITOR & VALIDATOR ──────────────── -->
+      <div id="tab-editor" class="tab-panel">
+        <div class="form-row">
+          <div class="editor-header">
+            <label style="margin:0"><span><i class="fas fa-code"></i></span> Robots.txt Editor</label>
+            <div style="display:flex;gap:8px;align-items:center">
+              <span class="status-dot" id="ed-dot"></span>
+              <span id="ed-status-txt" style="font-size:.74rem;color:var(--gray-500)">Ready</span>
+              <button class="btn btn-secondary" style="padding:5px 12px;font-size:.74rem" onclick="loadEditorSample()"><i class="fas fa-magic"></i> Sample</button>
+            </div>
+          </div>
+          <div class="line-nums-wrap">
+            <div class="line-nums" id="ed-lines">1</div>
+            <textarea id="ed-robots" placeholder="Paste or type your robots.txt here…" oninput="onEditorChange()" spellcheck="false"></textarea>
+          </div>
+        </div>
+
+        <div class="btn-group">
+          <button class="btn btn-primary" onclick="validateRobots()"><i class="fas fa-check-circle"></i> Validate</button>
+          <button class="btn btn-secondary" onclick="formatRobots()"><i class="fas fa-align-left"></i> Format</button>
+          <button class="btn btn-secondary" onclick="copyRobots()"><i class="fas fa-copy"></i> Copy</button>
+          <button class="btn btn-secondary" onclick="clearEditor()"><i class="fas fa-trash"></i> Clear</button>
+        </div>
+
+        <ul class="validation-list" id="val-list"></ul>
+
+        <div class="stats-bar" id="ed-stats" style="display:none">
+          <div class="stat-item"><div class="num" id="st-agents">0</div><div class="lbl">User Agents</div></div>
+          <div class="stat-item"><div class="num" id="st-rules">0</div><div class="lbl">Rules</div></div>
+          <div class="stat-item"><div class="num" id="st-sitemaps">0</div><div class="lbl">Sitemaps</div></div>
+        </div>
+      </div>
+
+      <!-- ── TAB: RESOURCE CHECKER ────────────────── -->
+      <div id="tab-resources" class="tab-panel">
+        <div class="form-row">
+          <label><span><i class="fas fa-file-alt"></i></span> Robots.txt Content</label>
+          <textarea id="res-robots" placeholder="Paste your robots.txt content here…" spellcheck="false" style="min-height:140px"></textarea>
+        </div>
+
+        <div class="form-row">
+          <label><span><i class="fas fa-layer-group"></i></span> Page Resources (one URL per line)</label>
+          <textarea id="res-urls" placeholder="https://example.com/style.css&#10;https://example.com/script.js&#10;https://example.com/images/logo.png&#10;https://example.com/wp-includes/js/jquery.js" style="min-height:120px" spellcheck="false"></textarea>
+        </div>
+
+        <div class="form-row">
+          <label><span><i class="fas fa-robot"></i></span> User Agent</label>
+          <div class="input-wrap">
+            <i class="fas fa-robot"></i>
+            <select id="res-agent" style="padding-left:34px">
+              <option value="*">* (All Bots)</option>
+              <option value="Googlebot">Googlebot</option>
+              <option value="Bingbot">Bingbot</option>
+            </select>
+          </div>
+        </div>
+
+        <div class="btn-group">
+          <button class="btn btn-primary" onclick="checkResources()"><i class="fas fa-search"></i> Check Resources</button>
+          <button class="btn btn-secondary" onclick="loadResourceSample()"><i class="fas fa-magic"></i> Load Sample</button>
+        </div>
+
+        <div class="resource-list" id="res-list"></div>
+
+        <div class="callout" style="margin-top:16px">
+          <strong>Why check resources?</strong> If Google can't access your CSS, JS, or images, it can't render your page properly — which can <strong>hurt your rankings</strong>. This tool checks each resource URL against your robots.txt rules.
+        </div>
+      </div>
+    </div><!-- /tool-card -->
+
+    <!-- HOW IT WORKS -->
+    <div class="tool-card" style="margin-top:20px;padding:0">
+      <div style="padding:24px">
+        <h2 style="font-size:1.2rem;font-weight:700;color:var(--gray-900);margin-bottom:6px">How This Robots.txt Tester Works</h2>
+        <p style="font-size:.82rem;color:var(--gray-600);margin-bottom:16px">Everything runs 100% in your browser — no data is sent to any server.</p>
+        <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:14px">
+          <div style="background:var(--blue-50);border-radius:var(--radius-sm);padding:14px;border:1px solid var(--blue-light)">
+            <div style="color:var(--blue);font-size:1.3rem;margin-bottom:6px"><i class="fas fa-paste"></i></div>
+            <div style="font-weight:700;font-size:.82rem;color:var(--gray-800);margin-bottom:4px">1. Paste robots.txt</div>
+            <div style="font-size:.76rem;color:var(--gray-600)">Copy your robots.txt content and paste it into the editor or URL tester.</div>
+          </div>
+          <div style="background:var(--blue-50);border-radius:var(--radius-sm);padding:14px;border:1px solid var(--blue-light)">
+            <div style="color:var(--blue);font-size:1.3rem;margin-bottom:6px"><i class="fas fa-robot"></i></div>
+            <div style="font-weight:700;font-size:.82rem;color:var(--gray-800);margin-bottom:4px">2. Choose User Agent</div>
+            <div style="font-size:.76rem;color:var(--gray-600)">Select which bot you want to simulate — Googlebot, Bingbot, or any custom agent.</div>
+          </div>
+          <div style="background:var(--blue-50);border-radius:var(--radius-sm);padding:14px;border:1px solid var(--blue-light)">
+            <div style="color:var(--blue);font-size:1.3rem;margin-bottom:6px"><i class="fas fa-link"></i></div>
+            <div style="font-weight:700;font-size:.82rem;color:var(--gray-800);margin-bottom:4px">3. Enter URL</div>
+            <div style="font-size:.76rem;color:var(--gray-600)">Enter the full URL you want to test and click the Test button.</div>
+          </div>
+          <div style="background:var(--blue-50);border-radius:var(--radius-sm);padding:14px;border:1px solid var(--blue-light)">
+            <div style="color:var(--blue);font-size:1.3rem;margin-bottom:6px"><i class="fas fa-check-circle"></i></div>
+            <div style="font-weight:700;font-size:.82rem;color:var(--gray-800);margin-bottom:4px">4. See Results</div>
+            <div style="font-size:.76rem;color:var(--gray-600)">Get instant results showing allowed/blocked status and the exact rule causing it.</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </main>
+
+  <!-- RIGHT SIDEBAR -->
+  <aside class="sidebar sidebar-right fade-in">
+    <div class="sidebar-card">
+      <h3><i class="fas fa-clock"></i> Recent Posts</h3>
+      <div class="blog-list">
+        <div class="blog-item">
+          <div class="date"><i class="fas fa-calendar-alt"></i> Sep 10, 2025</div>
+          <a href="https://byritam.in/blog/top-11-reasons-seo-freelancer-kolkata.html" class="title">Top 11 Reasons to Hire an SEO Freelancer in Kolkata</a>
+          <a href="https://byritam.in/blog/top-11-reasons-seo-freelancer-kolkata.html" class="read-btn"><i class="fas fa-arrow-right"></i> Read</a>
+        </div>
+        <div class="blog-item">
+          <div class="date"><i class="fas fa-calendar-alt"></i> Sep 20, 2025</div>
+          <a href="https://byritam.in/blog/ultimate-guide-hiring-seo-freelancer-kolkata.html" class="title">Ultimate Guide to Hiring an SEO Freelancer</a>
+          <a href="https://byritam.in/blog/ultimate-guide-hiring-seo-freelancer-kolkata.html" class="read-btn"><i class="fas fa-arrow-right"></i> Read</a>
+        </div>
+        <div class="blog-item">
+          <div class="date"><i class="fas fa-calendar-alt"></i> Sep 28, 2025</div>
+          <a href="https://byritam.in/blog/what-is-on-page-seo-for-b2b.html" class="title">What Is On-Page SEO for B2B Websites?</a>
+          <a href="https://byritam.in/blog/what-is-on-page-seo-for-b2b.html" class="read-btn"><i class="fas fa-arrow-right"></i> Read</a>
+        </div>
+        <div class="blog-item">
+          <div class="date"><i class="fas fa-calendar-alt"></i> Oct 10, 2025</div>
+          <a href="https://byritam.in/blog/how-organic-seo-expert-kolkata-transforms-online-presence.html" class="title">How Organic SEO Transforms Your Online Presence</a>
+          <a href="https://byritam.in/blog/how-organic-seo-expert-kolkata-transforms-online-presence.html" class="read-btn"><i class="fas fa-arrow-right"></i> Read</a>
+        </div>
+        <div class="blog-item">
+          <div class="date"><i class="fas fa-calendar-alt"></i> Oct 15, 2025</div>
+          <a href="https://byritam.in/blog/best-seo-expert-kolkata.html" class="title">Best SEO Expert in Kolkata: Why Ritam Stands Out</a>
+          <a href="https://byritam.in/blog/best-seo-expert-kolkata.html" class="read-btn"><i class="fas fa-arrow-right"></i> Read</a>
+        </div>
+      </div>
+    </div>
+
+    <div class="sidebar-card" style="background:linear-gradient(135deg,#dbeafe,#eff6ff)">
+      <h3><i class="fas fa-star"></i> Need SEO Help?</h3>
+      <p style="font-size:.78rem;color:var(--gray-700);line-height:1.7;margin-bottom:12px">Get a free robots.txt audit + complete SEO audit for your website by Ritam Debnath — <strong>best SEO freelancer in Kolkata</strong>.</p>
+      <a href="https://wa.me/919038303107?text=Hi, I need a free robots.txt and SEO audit" style="display:flex;align-items:center;justify-content:center;gap:7px;background:linear-gradient(135deg,#25D366,#128C7E);color:#fff;padding:10px 16px;border-radius:999px;font-size:.78rem;font-weight:600;text-decoration:none;transition:all .2s" onmouseover="this.style.transform='translateY(-2px)'" onmouseout="this.style.transform='none'">
+        <i class="fab fa-whatsapp"></i> Get Free Audit
+      </a>
+    </div>
+
+    <div class="sidebar-card">
+      <h3><i class="fas fa-info-circle"></i> Quick Tips</h3>
+      <div style="display:flex;flex-direction:column;gap:9px">
+        <div style="font-size:.76rem;color:var(--gray-700);padding:8px 10px;background:var(--gray-50);border-radius:8px;border-left:3px solid var(--blue)">
+          <strong style="color:var(--blue-dark)">Tip:</strong> Always allow Googlebot to access CSS and JS files for proper rendering.
+        </div>
+        <div style="font-size:.76rem;color:var(--gray-700);padding:8px 10px;background:var(--gray-50);border-radius:8px;border-left:3px solid var(--green)">
+          <strong style="color:var(--green-dark)">Tip:</strong> Add your Sitemap URL to robots.txt for faster discovery.
+        </div>
+        <div style="font-size:.76rem;color:var(--gray-700);padding:8px 10px;background:var(--gray-50);border-radius:8px;border-left:3px solid var(--yellow)">
+          <strong style="color:#92400e">Tip:</strong> More specific rules always override wildcard (*) rules.
+        </div>
+        <div style="font-size:.76rem;color:var(--gray-700);padding:8px 10px;background:var(--gray-50);border-radius:8px;border-left:3px solid var(--blue)">
+          <strong style="color:var(--blue-dark)">Tip:</strong> A missing robots.txt means all URLs are crawlable by default.
+        </div>
+      </div>
+    </div>
+  </aside>
+</div><!-- /page-wrap -->
+
+<!-- ─── FOOTER ─────────────────────────────────────── -->
+<footer>
+  <div class="footer-inner">
+    <div class="footer-top">
+      <div class="footer-col">
+        <h4><span style="color:var(--blue)">Ritam</span> Debnath</h4>
+        <p>Best SEO freelancer in Kolkata offering local, technical & organic SEO services.</p>
+        <div class="footer-social">
+          <a href="https://www.youtube.com/@byritam"><i class="fab fa-youtube"></i></a>
+          <a href="https://in.linkedin.com/in/ritam-debnath-179330203"><i class="fab fa-linkedin"></i></a>
+          <a href="https://wa.me/919038303107"><i class="fab fa-whatsapp"></i></a>
+        </div>
+      </div>
+      <div class="footer-col">
+        <h4>Quick Links</h4>
+        <a href="https://byritam.in/about">About Me</a><br>
+        <a href="https://byritam.in/contact">Contact</a><br>
+        <a href="https://byritam.in/terms-condition">Terms &amp; Conditions</a><br>
+        <a href="https://byritam.in/privacy-policy">Privacy Policy</a>
+      </div>
+      <div class="footer-col">
+        <h4>SEO Services</h4>
+        <a href="https://byritam.in/B2B-SEO-Services">B2B SEO Services</a><br>
+        <a href="https://byritam.in/D2C-SEO-Services">D2C SEO Services</a><br>
+        <a href="https://byritam.in/seo-for-doctors">SEO for Doctors</a><br>
+        <a href="https://byritam.in/ecommerce-seo-services-kolkata">E-Commerce SEO</a>
+      </div>
+      <div class="footer-col">
+        <h4>Contact</h4>
+        <a href="tel:9038303107"><i class="fas fa-phone" style="margin-right:6px"></i>9038303107</a><br>
+        <a href="https://wa.me/919038303107"><i class="fab fa-whatsapp" style="margin-right:6px"></i>WhatsApp</a><br>
+        <a href="https://byritam.in/contact"><i class="fas fa-envelope" style="margin-right:6px"></i>Send Message</a>
+      </div>
+    </div>
+    <div class="footer-bottom">&copy; 2025 Ritam Debnath. All Rights Reserved.</div>
+  </div>
+</footer>
+
+<script>
+/* ══════════════════════════════════════════════
+   ROBOTS.TXT PARSER ENGINE
+══════════════════════════════════════════════ */
+function parseRobotsTxt(content){
+  const groups=[];
+  let current=null;
+  const lines=content.split(/\r?\n/);
+  lines.forEach((raw,idx)=>{
+    const line=raw.split('#')[0].trim();
+    if(!line){if(current){groups.push(current);current=null;}return;}
+    const m=line.match(/^([^:]+):\s*(.*)$/i);
+    if(!m)return;
+    const [,key,val]=[m[0],m[1].trim().toLowerCase(),m[2].trim()];
+    if(key==='user-agent'){
+      if(!current||current.rules.length>0){current={agents:[],rules:[],sitemaps:[]};groups.push(current);}
+      current.agents.push(val);
+    }else if(key==='disallow'&&current){
+      current.rules.push({type:'disallow',path:val,line:idx+1});
+    }else if(key==='allow'&&current){
+      current.rules.push({type:'allow',path:val,line:idx+1});
+    }else if(key==='sitemap'){
+      if(current)current.sitemaps.push(val);
+    }
+  });
+  return groups;
+}
+
+function matchesAgent(agentList,target){
+  if(agentList.includes('*'))return true;
+  const t=target.toLowerCase();
+  return agentList.some(a=>t.includes(a.toLowerCase())||a.toLowerCase().includes(t));
+}
+
+function matchPath(pattern,path){
+  if(pattern==='')return false;
+  // Convert robots.txt pattern to regex
+  let re=pattern.replace(/[.+^${}()|[\]\\]/g,'\\$&').replace(/\*/g,'.*').replace(/\?$/,'(?:\\?.*)?$');
+  if(!re.endsWith('$'))re=re+'';
+  try{return new RegExp('^'+re).test(path);}catch{return false;}
+}
+
+function testUrl(robotsTxt,urlStr,userAgent){
+  let pathname;
+  try{
+    const u=new URL(urlStr);
+    pathname=u.pathname+(u.search||'');
+  }catch{pathname=urlStr;}
+  const groups=parseRobotsTxt(robotsTxt);
+  // Find applicable groups (specific agent first, then *)
+  const specific=groups.filter(g=>matchesAgent(g.agents,userAgent)&&!g.agents.includes('*'));
+  const wild=groups.filter(g=>g.agents.includes('*'));
+  const applicable=[...specific,...wild];
+
+  let matchedRule=null;
+  let matchedAgent=null;
+
+  for(const g of applicable){
+    // longest matching rule wins
+    let longest=null;
+    for(const rule of g.rules){
+      if(matchPath(rule.path,pathname)){
+        if(!longest||rule.path.length>longest.path.length){
+          longest=rule;
+        }
+      }
+    }
+    if(longest){matchedRule=longest;matchedAgent=g.agents.join(', ');break;}
+  }
+
+  if(!matchedRule){return{allowed:true,rule:null,agent:matchedAgent||'*',note:'No matching rule — allowed by default'};}
+  return{
+    allowed:matchedRule.type==='allow',
+    rule:matchedRule,
+    agent:matchedAgent,
+    note:matchedRule.type==='disallow'?'Blocked by Disallow rule':'Allowed by Allow rule'
+  };
+}
+
+/* ══════════════════════════════════════════════
+   TAB SWITCHING
+══════════════════════════════════════════════ */
+function switchTab(id,btn){
+  document.querySelectorAll('.tab-panel').forEach(p=>p.classList.remove('active'));
+  document.querySelectorAll('.tab-btn').forEach(b=>b.classList.remove('active'));
+  document.getElementById('tab-'+id).classList.add('active');
+  btn.classList.add('active');
+}
+
+/* ══════════════════════════════════════════════
+   URL TESTER
+══════════════════════════════════════════════ */
+document.getElementById('ut-agent').addEventListener('change',function(){
+  document.getElementById('custom-agent-row').style.display=this.value==='custom'?'block':'none';
+});
+
+function runUrlTest(){
+  const robots=document.getElementById('ut-robots').value.trim();
+  const url=document.getElementById('ut-url').value.trim();
+  const agentSel=document.getElementById('ut-agent').value;
+  const agent=agentSel==='custom'?document.getElementById('ut-custom-agent').value.trim():agentSel;
+  const box=document.getElementById('url-result');
+
+  if(!robots){showResult(box,'err','Please paste your robots.txt content first.');return;}
+  if(!url){showResult(box,'err','Please enter a URL to test.');return;}
+
+  const res=testUrl(robots,url,agent);
+  let path;
+  try{const u=new URL(url);path=u.pathname+(u.search||'');}catch{path=url;}
+
+  const html=`
+    <div class="result-badge ${res.allowed?'badge-allowed':'badge-blocked'}">
+      <i class="fas fa-${res.allowed?'check-circle':'ban'}"></i>
+      ${res.allowed?'ALLOWED':'BLOCKED'} for ${agent}
+    </div>
+    <div class="result-detail">
+      <div class="row"><label>URL Path</label><div class="val">${escHtml(path)}</div></div>
+      <div class="row"><label>User Agent</label><div class="val">${escHtml(agent)}</div></div>
+      <div class="row"><label>Status</label><div class="val ${res.allowed?'green':'red'}">${res.note}</div></div>
+      ${res.rule?`<div class="row"><label>Rule</label><div class="val"><strong>${res.rule.type==='disallow'?'Disallow':'Allow'}:</strong> ${escHtml(res.rule.path||'(empty)')}</div></div>
+      <div class="row"><label>Line #</label><div class="val">${res.rule.line}</div></div>`:''}
+      ${res.rule&&res.rule.type==='disallow'&&res.rule.path===''?`<div class="row"><label>Note</label><div class="val" style="color:var(--yellow)">Empty Disallow means the bot is allowed everywhere.</div></div>`:''}
+    </div>`;
+  box.innerHTML=html;
+  box.classList.add('show');
+}
+
+function showResult(box,type,msg){
+  const color={ok:'badge-allowed',err:'badge-blocked',info:'badge-info'}[type]||'badge-info';
+  const icon={ok:'check-circle',err:'exclamation-triangle',info:'info-circle'}[type]||'info-circle';
+  box.innerHTML=`<div class="result-badge ${color}"><i class="fas fa-${icon}"></i> ${escHtml(msg)}</div>`;
+  box.classList.add('show');
+}
+
+function clearAll(){
+  document.getElementById('ut-robots').value='';
+  document.getElementById('ut-url').value='';
+  document.getElementById('url-result').classList.remove('show');
+  document.getElementById('url-result').innerHTML='';
+}
+
+function loadSample(){
+  document.getElementById('ut-robots').value=getSampleRobots();
+  document.getElementById('ut-url').value='https://example.com/wp-admin/edit.php';
+}
+
+/* ══════════════════════════════════════════════
+   LIVE FETCH (simulated — CORS limitation)
+══════════════════════════════════════════════ */
+async function runLiveFetch(){
+  const domain=document.getElementById('live-domain').value.trim();
+  const url=document.getElementById('live-url').value.trim();
+  const agent=document.getElementById('live-agent').value;
+  const box=document.getElementById('live-result');
+
+  if(!domain){showResult(box,'err','Enter a domain to fetch robots.txt from.');return;}
+
+  let base;
+  try{base=new URL(domain).origin;}catch{showResult(box,'err','Invalid domain URL.');return;}
+
+  box.innerHTML='<div class="result-badge badge-info"><span class="spinner"></span> Fetching robots.txt…</div>';
+  box.classList.add('show');
+
+  const robotsUrl=base+'/robots.txt';
+  try{
+    // Use a CORS proxy approach — fetch via no-cors gives opaque, so we build a helpful message
+    const res=await fetch(robotsUrl,{mode:'cors'}).catch(()=>null);
+    if(res&&res.ok){
+      const text=await res.text();
+      const result=testUrl(text,url||base+'/',agent);
+      let path;try{const u=new URL(url||base+'/');path=u.pathname;}catch{path='/';}
+      box.innerHTML=`
+        <div class="result-badge badge-info"><i class="fas fa-check"></i> Fetched: ${escHtml(robotsUrl)}</div>
+        <div class="result-badge ${result.allowed?'badge-allowed':'badge-blocked'}" style="margin-left:0">
+          <i class="fas fa-${result.allowed?'check-circle':'ban'}"></i>
+          ${result.allowed?'ALLOWED':'BLOCKED'}
+        </div>
+        <div class="result-detail">
+          <div class="row"><label>Robots URL</label><div class="val">${escHtml(robotsUrl)}</div></div>
+          <div class="row"><label>Tested Path</label><div class="val">${escHtml(path)}</div></div>
+          <div class="row"><label>User Agent</label><div class="val">${escHtml(agent)}</div></div>
+          <div class="row"><label>Result</label><div class="val ${result.allowed?'green':'red'}">${result.note}</div></div>
+          ${result.rule?`<div class="row"><label>Rule</label><div class="val">${result.rule.type}: ${escHtml(result.rule.path||'(empty)')}</div></div>`:''}
+        </div>
+        <div class="callout" style="margin-top:12px">
+          <strong>robots.txt Content Preview:</strong><br>
+          <pre style="margin-top:8px;font-size:.75rem;overflow:auto;max-height:200px;background:var(--white);padding:10px;border-radius:8px;border:1px solid var(--gray-200)">${escHtml(text.slice(0,1500)+(text.length>1500?'\n…(truncated)':''))}</pre>
+        </div>`;
+    }else{
+      box.innerHTML=`<div class="result-badge badge-blocked"><i class="fas fa-exclamation-triangle"></i> Could not fetch robots.txt</div>
+      <div class="callout">CORS restrictions prevent fetching external robots.txt in the browser. <strong>Tip:</strong> Copy your robots.txt content and use the <strong>URL Tester</strong> tab for accurate results.</div>`;
+    }
+  }catch(e){
+    box.innerHTML=`<div class="result-badge badge-blocked"><i class="fas fa-times-circle"></i> Fetch failed (CORS or network error)</div>
+    <div class="callout">Copy the robots.txt content from <a href="${escHtml(robotsUrl)}" target="_blank" style="color:var(--blue)">${escHtml(robotsUrl)}</a> and paste it in the <strong>URL Tester</strong> tab.</div>`;
+  }
+}
+
+/* ══════════════════════════════════════════════
+   EDITOR & VALIDATOR
+══════════════════════════════════════════════ */
+function onEditorChange(){
+  const ta=document.getElementById('ed-robots');
+  const lines=ta.value.split('\n');
+  document.getElementById('ed-lines').textContent=lines.map((_,i)=>i+1).join('\n');
+  document.getElementById('ed-dot').className='status-dot';
+  document.getElementById('ed-status-txt').textContent='Unsaved changes';
+  document.getElementById('val-list').innerHTML='';
+  document.getElementById('ed-stats').style.display='none';
+}
+
+function validateRobots(){
+  const content=document.getElementById('ed-robots').value.trim();
+  const list=document.getElementById('val-list');
+  list.innerHTML='';
+  if(!content){list.innerHTML='<li class="warn"><i class="fas fa-exclamation-triangle"></i> Robots.txt is empty.</li>';return;}
+
+  const issues=[];
+  const lines=content.split(/\r?\n/);
+  let hasUserAgent=false,lastWasAgent=false,blankBetween=false;
+  let agents=0,rules=0,sitemaps=0;
+
+  lines.forEach((raw,i)=>{
+    const clean=raw.split('#')[0].trim();
+    if(!clean){blankBetween=true;return;}
+    const m=clean.match(/^([^:]+):\s*(.*)$/i);
+    if(!m){issues.push({type:'warn',msg:`Line ${i+1}: Unrecognised directive — <code>${escHtml(clean)}</code>`});return;}
+    const [,key,val]=[m[0],m[1].trim().toLowerCase(),m[2].trim()];
+    if(key==='user-agent'){hasUserAgent=true;agents++;if(!lastWasAgent&&blankBetween){}lastWasAgent=true;blankBetween=false;}
+    else if(key==='disallow'||key==='allow'){rules++;lastWasAgent=false;if(!hasUserAgent)issues.push({type:'err',msg:`Line ${i+1}: <code>${key}</code> directive found before any User-agent declaration.`});}
+    else if(key==='sitemap'){sitemaps++;if(!val.startsWith('http'))issues.push({type:'warn',msg:`Line ${i+1}: Sitemap URL should be absolute (start with http/https).`});}
+    else if(key==='crawl-delay'){const d=parseFloat(val);if(isNaN(d)||d<0)issues.push({type:'warn',msg:`Line ${i+1}: Invalid Crawl-delay value.`});}
+    else{issues.push({type:'info',msg:`Line ${i+1}: Unknown directive <code>${escHtml(key)}</code> — may be ignored by bots.`});}
+  });
+
+  if(!hasUserAgent)issues.push({type:'err',msg:'No User-agent directive found. Robots.txt has no effect.'});
+  if(agents>0&&rules===0)issues.push({type:'warn',msg:'User-agent found but no Disallow/Allow rules. Consider adding rules.'});
+
+  // Check for duplicate agents
+  const ag=[];let dupeFound=false;
+  (content.match(/^user-agent:\s*.+/gim)||[]).forEach(l=>{const v=l.split(':')[1].trim().toLowerCase();if(ag.includes(v)&&!dupeFound){issues.push({type:'warn',msg:`Duplicate User-agent: ${escHtml(v)}`});dupeFound=true;}ag.push(v);});
+
+  if(issues.length===0){list.innerHTML=`<li class="ok"><i class="fas fa-check-circle"></i> Robots.txt syntax is valid. No issues found.</li>`;}
+  else{issues.forEach(is=>{list.innerHTML+=`<li class="${is.type}"><i class="fas fa-${is.type==='err'?'times-circle':is.type==='warn'?'exclamation-triangle':'info-circle'}"></i> ${is.msg}</li>`;});}
+
+  // Stats
+  document.getElementById('st-agents').textContent=agents;
+  document.getElementById('st-rules').textContent=rules;
+  document.getElementById('st-sitemaps').textContent=sitemaps;
+  document.getElementById('ed-stats').style.display='grid';
+
+  const hasErr=issues.some(i=>i.type==='err');
+  document.getElementById('ed-dot').className='status-dot '+(hasErr?'err':'ok');
+  document.getElementById('ed-status-txt').textContent=hasErr?'Errors found':'Looks good';
+}
+
+function formatRobots(){
+  const ta=document.getElementById('ed-robots');
+  const lines=ta.value.split(/\r?\n/);
+  const out=[];let prev='';
+  lines.forEach(raw=>{
+    const c=raw.split('#')[0].trim();
+    const comment=raw.includes('#')?raw.slice(raw.indexOf('#')):'';
+    if(!c&&!comment){if(prev!=='blank'){out.push('');prev='blank';}return;}
+    const m=c.match(/^([^:]+):\s*(.*)$/i);
+    if(m){
+      const k=m[1].trim();
+      const formatted=k.charAt(0).toUpperCase()+k.slice(1).toLowerCase().replace(/\b\w/g,x=>x.toUpperCase())+': '+m[2].trim();
+      out.push((comment?formatted+' '+comment:formatted));
+    }else{out.push(raw);}
+    prev='line';
+  });
+  ta.value=out.join('\n').replace(/\n{3,}/g,'\n\n').trim();
+  onEditorChange();
+}
+
+function copyRobots(){
+  const ta=document.getElementById('ed-robots');
+  navigator.clipboard.writeText(ta.value).then(()=>{
+    const btn=event.currentTarget;
+    const orig=btn.innerHTML;
+    btn.innerHTML='<i class="fas fa-check"></i> Copied!';
+    setTimeout(()=>{btn.innerHTML=orig;},1500);
+  });
+}
+
+function clearEditor(){document.getElementById('ed-robots').value='';onEditorChange();document.getElementById('val-list').innerHTML='';}
+
+function loadEditorSample(){document.getElementById('ed-robots').value=getSampleRobots();onEditorChange();}
+
+/* ══════════════════════════════════════════════
+   RESOURCE CHECKER
+══════════════════════════════════════════════ */
+function checkResources(){
+  const robots=document.getElementById('res-robots').value.trim();
+  const urls=document.getElementById('res-urls').value.trim().split('\n').filter(u=>u.trim());
+  const agent=document.getElementById('res-agent').value;
+  const list=document.getElementById('res-list');
+  list.innerHTML='';
+
+  if(!robots){list.innerHTML='<div style="font-size:.82rem;color:var(--gray-500);padding:12px">Please paste your robots.txt content first.</div>';return;}
+  if(!urls.length){list.innerHTML='<div style="font-size:.82rem;color:var(--gray-500);padding:12px">Please enter at least one resource URL.</div>';return;}
+
+  const typeIcon={'css':'fa-paint-brush','js':'fa-code','png':'fa-image','jpg':'fa-image','jpeg':'fa-image','gif':'fa-image','svg':'fa-image','webp':'fa-image','woff':'fa-font','woff2':'fa-font','ttf':'fa-font','pdf':'fa-file-pdf'};
+
+  urls.forEach(u=>{
+    const url=u.trim();
+    if(!url)return;
+    const ext=(url.split('?')[0].split('.').pop()||'').toLowerCase();
+    const icon=typeIcon[ext]||'fa-file';
+    const res=testUrl(robots,url,agent);
+    const label=res.allowed?`<span class="status status-ok"><i class="fas fa-check"></i> Allowed</span>`:`<span class="status status-blocked"><i class="fas fa-ban"></i> Blocked</span>`;
+    list.innerHTML+=`<div class="resource-row"><div class="icon"><i class="fas ${icon}" style="color:var(--blue)"></i></div><div class="url">${escHtml(url)}</div>${label}</div>`;
+  });
+}
+
+function loadResourceSample(){
+  document.getElementById('res-robots').value=getSampleRobots();
+  document.getElementById('res-urls').value=`https://example.com/wp-includes/css/dashicons.min.css\nhttps://example.com/wp-includes/js/jquery/jquery.min.js\nhttps://example.com/wp-admin/edit.php\nhttps://example.com/images/logo.png\nhttps://example.com/wp-content/themes/mytheme/style.css`;
+}
+
+/* ══════════════════════════════════════════════
+   HELPERS
+══════════════════════════════════════════════ */
+function escHtml(s){return String(s).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;');}
+
+function getSampleRobots(){
+  return `User-agent: *
+Disallow: /wp-admin/
+Allow: /wp-admin/admin-ajax.php
+Disallow: /search/
+Disallow: /tag/
+Allow: /
+
+User-agent: Googlebot
+Allow: /
+Disallow: /private/
+
+Sitemap: https://example.com/sitemap.xml
+Sitemap: https://example.com/sitemap-images.xml`;
+}
+
+function liveLineCount(textareaId,linesId){
+  /* not used in editor tab but available */
+}
+
+/* ══════════════════════════════════════════════
+   FADE IN OBSERVER
+══════════════════════════════════════════════ */
+const obs=new IntersectionObserver(es=>es.forEach(e=>{if(e.isIntersecting)e.target.classList.add('visible');}),{threshold:.08,rootMargin:'0px 0px -30px 0px'});
+document.querySelectorAll('.fade-in').forEach(el=>obs.observe(el));
+</script>
+</body>
+</html>
