@@ -1,0 +1,1261 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title> Robots.txt Generator — Free Advanced Tool </title>
+<meta name="description" content="Free advanced robots.txt generator tool. Generate a perfect robots.txt file for WordPress, Shopify, custom sites. Block bots, set crawl rules, add sitemaps — instantly.">
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+<style>
+*{margin:0;padding:0;box-sizing:border-box;font-family:'Poppins',sans-serif}
+:root{
+  --blue:#2563eb;--blue-dark:#1e40af;--blue-light:#dbeafe;--blue-50:#eff6ff;
+  --gray-50:#f9fafb;--gray-100:#f3f4f6;--gray-200:#e5e7eb;--gray-400:#9ca3af;
+  --gray-500:#6b7280;--gray-600:#4b5563;--gray-700:#374151;--gray-800:#1f2937;--gray-900:#111827;
+  --green:#22c55e;--green-dark:#16a34a;--red:#ef4444;--yellow:#f59e0b;--white:#ffffff;
+  --shadow-sm:0 1px 3px rgba(0,0,0,.08),0 1px 2px rgba(0,0,0,.06);
+  --shadow:0 4px 6px rgba(0,0,0,.07),0 2px 4px rgba(0,0,0,.06);
+  --shadow-lg:0 10px 15px rgba(0,0,0,.08),0 4px 6px rgba(0,0,0,.05);
+  --radius:16px;--radius-sm:10px;
+}
+body{background:var(--gray-50);color:var(--gray-800);line-height:1.6;font-size:15px}
+
+/* HEADER */
+header{background:var(--white);box-shadow:0 1px 0 var(--gray-200);position:sticky;top:0;z-index:100;padding:14px 20px}
+.header-inner{max-width:1400px;margin:0 auto;display:flex;align-items:center;justify-content:space-between}
+.logo a{font-size:1.25rem;font-weight:800;text-decoration:none;color:var(--gray-900)}
+.logo span{color:var(--blue)}
+header nav a{font-size:.82rem;font-weight:500;color:var(--gray-600);text-decoration:none;transition:color .2s}
+header nav a:hover{color:var(--blue)}
+header nav{display:flex;gap:18px;align-items:center}
+.btn-wa{background:linear-gradient(135deg,#25D366,#128C7E);color:var(--white)!important;padding:7px 16px;border-radius:999px;font-size:.78rem!important;font-weight:600!important}
+
+/* BREADCRUMB */
+.breadcrumb{max-width:1400px;margin:14px auto 0;padding:0 20px;font-size:.78rem;color:var(--gray-500)}
+.breadcrumb a{color:var(--blue);text-decoration:none}
+.breadcrumb span{margin:0 5px}
+
+/* HERO */
+.page-hero{background:linear-gradient(135deg,#aee0ff 0%,#ffffff 50%,#f2f2f2 100%);padding:36px 20px 28px;text-align:center}
+.page-hero h1{font-size:clamp(1.5rem,4vw,2.4rem);font-weight:800;color:var(--gray-900);margin-bottom:8px}
+.page-hero h1 span{color:var(--blue)}
+.page-hero p{font-size:.95rem;color:var(--gray-600);max-width:600px;margin:0 auto}
+
+/* LAYOUT */
+.page-wrap{max-width:1400px;margin:28px auto 40px;padding:0 16px;display:grid;grid-template-columns:240px 1fr 240px;gap:20px;align-items:start}
+
+/* STICKY SIDEBARS */
+.sidebar{display:flex;flex-direction:column;gap:14px;position:sticky;top:72px;max-height:calc(100vh - 90px);overflow-y:auto;scrollbar-width:thin;scrollbar-color:var(--gray-200) transparent}
+.sidebar::-webkit-scrollbar{width:4px}
+.sidebar::-webkit-scrollbar-thumb{background:var(--gray-200);border-radius:99px}
+.sidebar-card{background:var(--white);border-radius:var(--radius);box-shadow:var(--shadow);padding:18px;border:1px solid var(--gray-200)}
+.sidebar-card h3{font-size:.8rem;font-weight:700;text-transform:uppercase;letter-spacing:.05em;color:var(--blue);margin-bottom:12px;display:flex;align-items:center;gap:7px}
+.blog-list{display:flex;flex-direction:column;gap:10px}
+.blog-item{border-bottom:1px solid var(--gray-100);padding-bottom:10px}
+.blog-item:last-child{border-bottom:none;padding-bottom:0}
+.blog-item .date{font-size:.7rem;color:var(--gray-400);margin-bottom:3px;display:flex;align-items:center;gap:4px}
+.blog-item a.title{font-size:.78rem;font-weight:600;color:var(--gray-800);text-decoration:none;line-height:1.4;display:block;margin-bottom:5px}
+.blog-item a.title:hover{color:var(--blue)}
+.blog-item a.read-btn{font-size:.68rem;font-weight:600;color:var(--blue);background:var(--blue-50);border:1px solid var(--blue-light);padding:3px 9px;border-radius:999px;text-decoration:none;display:inline-flex;align-items:center;gap:4px;transition:all .2s}
+.blog-item a.read-btn:hover{background:var(--blue);color:var(--white)}
+
+/* TOOL AREA */
+.tool-area{min-width:0}
+.tool-card{background:var(--white);border-radius:var(--radius);box-shadow:var(--shadow-lg);border:1px solid var(--gray-200);overflow:hidden}
+
+/* TAB BAR */
+.tab-bar{display:flex;border-bottom:2px solid var(--gray-200);background:var(--gray-50);padding:0 20px;gap:4px}
+.tab-btn{padding:13px 18px;font-size:.82rem;font-weight:600;color:var(--gray-500);border:none;background:none;cursor:pointer;border-bottom:2px solid transparent;margin-bottom:-2px;transition:all .2s;display:flex;align-items:center;gap:6px;white-space:nowrap}
+.tab-btn.active{color:var(--blue);border-bottom-color:var(--blue);background:var(--white)}
+.tab-btn:hover:not(.active){color:var(--gray-700)}
+.tab-panel{display:none;padding:24px}
+.tab-panel.active{display:block}
+
+/* FORM ELEMENTS */
+.form-row{margin-bottom:16px}
+.form-row label{display:block;font-size:.8rem;font-weight:600;color:var(--gray-700);margin-bottom:6px}
+.form-row label .lbl-icon{color:var(--blue)}
+.input-wrap{position:relative}
+.input-wrap i.field-icon{position:absolute;left:12px;top:50%;transform:translateY(-50%);color:var(--gray-400);font-size:.85rem;pointer-events:none}
+input[type=text],input[type=url],input[type=number],select,textarea{width:100%;padding:10px 12px 10px 34px;border:1.5px solid var(--gray-200);border-radius:var(--radius-sm);font-size:.85rem;font-family:'Poppins',sans-serif;color:var(--gray-800);outline:none;transition:border-color .2s,box-shadow .2s;background:var(--white)}
+input[type=text].no-icon,input[type=url].no-icon,input[type=number].no-icon,select.no-icon{padding-left:12px}
+textarea{padding-left:12px;resize:vertical;min-height:180px;line-height:1.6;font-size:.82rem}
+input:focus,textarea:focus,select:focus{border-color:var(--blue);box-shadow:0 0 0 3px rgba(37,99,235,.1)}
+select{padding-left:12px;appearance:none;background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='10' height='6'%3E%3Cpath d='M0 0l5 6 5-6z' fill='%239ca3af'/%3E%3C/svg%3E");background-repeat:no-repeat;background-position:right 12px center}
+.form-grid{display:grid;grid-template-columns:1fr 1fr;gap:14px}
+.form-grid .form-row{margin-bottom:0}
+.form-row small{font-size:.72rem;color:var(--gray-400);margin-top:4px;display:block}
+
+/* TOGGLE SWITCH */
+.toggle-row{display:flex;align-items:center;justify-content:space-between;padding:10px 14px;background:var(--gray-50);border:1px solid var(--gray-200);border-radius:var(--radius-sm);margin-bottom:8px;cursor:pointer;transition:background .15s}
+.toggle-row:hover{background:var(--blue-50)}
+.toggle-row .toggle-label{font-size:.82rem;font-weight:500;color:var(--gray-700);display:flex;align-items:center;gap:8px}
+.toggle-row .toggle-label i{color:var(--blue);width:16px;text-align:center}
+.toggle-switch{position:relative;width:38px;height:21px;flex-shrink:0}
+.toggle-switch input{opacity:0;width:0;height:0}
+.toggle-slider{position:absolute;inset:0;background:var(--gray-300);border-radius:999px;transition:.25s;cursor:pointer}
+.toggle-slider:before{content:'';position:absolute;width:15px;height:15px;left:3px;bottom:3px;background:var(--white);border-radius:50%;transition:.25s}
+.toggle-switch input:checked+.toggle-slider{background:var(--blue)}
+.toggle-switch input:checked+.toggle-slider:before{transform:translateX(17px)}
+
+/* SECTION DIVIDER */
+.section-divider{font-size:.72rem;font-weight:700;text-transform:uppercase;letter-spacing:.08em;color:var(--gray-400);padding:10px 0 6px;border-bottom:1px solid var(--gray-200);margin-bottom:14px;display:flex;align-items:center;gap:8px}
+.section-divider i{color:var(--blue)}
+
+/* BOT AGENT ROWS */
+.agent-block{background:var(--gray-50);border:1px solid var(--gray-200);border-radius:var(--radius-sm);padding:14px;margin-bottom:10px}
+.agent-block-header{display:flex;align-items:center;justify-content:space-between;margin-bottom:10px}
+.agent-name-badge{font-size:.78rem;font-weight:700;color:var(--blue-dark);background:var(--blue-50);border:1px solid var(--blue-light);padding:3px 10px;border-radius:999px;display:inline-flex;align-items:center;gap:5px}
+.rule-rows{display:flex;flex-direction:column;gap:6px;margin-top:8px}
+.rule-row{display:flex;align-items:center;gap:8px}
+.rule-type-select{width:110px;flex-shrink:0;padding:7px 10px;font-size:.78rem}
+.rule-path-input{flex:1;padding:7px 10px;font-size:.78rem}
+.rule-del-btn{width:30px;height:30px;border-radius:8px;border:1px solid var(--gray-200);background:var(--white);color:var(--red);cursor:pointer;display:flex;align-items:center;justify-content:center;flex-shrink:0;transition:all .15s;font-size:.8rem}
+.rule-del-btn:hover{background:#fee2e2;border-color:#fca5a5}
+.add-rule-btn{font-size:.76rem;font-weight:600;color:var(--blue);background:var(--blue-50);border:1px solid var(--blue-light);padding:5px 12px;border-radius:999px;cursor:pointer;display:inline-flex;align-items:center;gap:5px;margin-top:8px;transition:all .2s}
+.add-rule-btn:hover{background:var(--blue);color:var(--white)}
+.del-agent-btn{font-size:.76rem;color:var(--gray-400);background:none;border:none;cursor:pointer;padding:3px 6px;border-radius:6px;transition:all .15s}
+.del-agent-btn:hover{color:var(--red);background:#fee2e2}
+
+/* PRESET CARDS */
+.preset-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(160px,1fr));gap:10px;margin-bottom:20px}
+.preset-card{background:var(--white);border:2px solid var(--gray-200);border-radius:var(--radius-sm);padding:14px 12px;cursor:pointer;transition:all .2s;text-align:center}
+.preset-card:hover{border-color:var(--blue);box-shadow:0 0 0 3px rgba(37,99,235,.08)}
+.preset-card.selected{border-color:var(--blue);background:var(--blue-50)}
+.preset-card .preset-icon{font-size:1.4rem;margin-bottom:7px;display:block}
+.preset-card .preset-name{font-size:.78rem;font-weight:700;color:var(--gray-800)}
+.preset-card .preset-desc{font-size:.68rem;color:var(--gray-500);margin-top:3px;line-height:1.4}
+
+/* OUTPUT AREA */
+.output-wrap{background:var(--gray-900);border-radius:var(--radius-sm);overflow:hidden;margin-top:20px}
+.output-header{display:flex;align-items:center;justify-content:space-between;padding:10px 16px;background:var(--gray-800);border-bottom:1px solid rgba(255,255,255,.08)}
+.output-header .file-name{font-size:.78rem;font-weight:600;color:var(--gray-300);display:flex;align-items:center;gap:7px}
+.output-header .file-name i{color:var(--green)}
+.output-actions{display:flex;gap:8px}
+.out-btn{font-size:.72rem;font-weight:600;padding:5px 12px;border-radius:999px;border:none;cursor:pointer;display:inline-flex;align-items:center;gap:5px;transition:all .2s}
+.out-btn-copy{background:rgba(255,255,255,.1);color:var(--white)}
+.out-btn-copy:hover{background:rgba(255,255,255,.2)}
+.out-btn-download{background:var(--blue);color:var(--white)}
+.out-btn-download:hover{background:var(--blue-dark)}
+.out-btn-validate{background:var(--green-dark);color:var(--white)}
+.out-btn-validate:hover{background:#15803d}
+#output-code{padding:16px;font-family:'Courier New',monospace;font-size:.78rem;color:#e2e8f0;line-height:1.8;min-height:200px;white-space:pre;overflow-x:auto;tab-size:2}
+.output-stats{display:flex;gap:0;background:rgba(255,255,255,.04);border-top:1px solid rgba(255,255,255,.06)}
+.out-stat{flex:1;padding:8px;text-align:center;border-right:1px solid rgba(255,255,255,.06)}
+.out-stat:last-child{border-right:none}
+.out-stat .n{font-size:1rem;font-weight:800;color:var(--blue-light)}
+.out-stat .l{font-size:.65rem;color:var(--gray-400);text-transform:uppercase;letter-spacing:.05em}
+
+/* BUTTONS */
+.btn{display:inline-flex;align-items:center;gap:8px;padding:11px 22px;border-radius:999px;font-weight:600;font-size:.85rem;cursor:pointer;border:none;transition:all .28s}
+.btn-primary{background:linear-gradient(135deg,var(--blue),var(--blue-dark));color:var(--white);box-shadow:0 4px 14px rgba(37,99,235,.25)}
+.btn-primary:hover{transform:translateY(-2px);box-shadow:0 8px 20px rgba(37,99,235,.32)}
+.btn-secondary{background:var(--white);color:var(--gray-700);border:1.5px solid var(--gray-200)}
+.btn-secondary:hover{background:var(--gray-50);border-color:var(--gray-300)}
+.btn-group{display:flex;gap:10px;margin-top:18px;flex-wrap:wrap}
+
+/* CALLOUT */
+.callout{background:var(--blue-50);border-left:3px solid var(--blue);padding:12px 16px;border-radius:0 var(--radius-sm) var(--radius-sm) 0;font-size:.8rem;color:var(--gray-700);margin-top:16px}
+.callout strong{color:var(--blue-dark)}
+
+/* VALIDATION INLINE */
+.val-inline{display:flex;flex-direction:column;gap:6px;margin-top:14px}
+.val-inline li{display:flex;align-items:flex-start;gap:8px;padding:8px 12px;border-radius:var(--radius-sm);font-size:.79rem;list-style:none}
+.val-inline li.ok{background:#f0fdf4;border:1px solid #bbf7d0;color:#166534}
+.val-inline li.warn{background:#fffbeb;border:1px solid #fde68a;color:#92400e}
+.val-inline li.err{background:#fef2f2;border:1px solid #fecaca;color:#991b1b}
+
+/* CONTENT SECTIONS */
+.content-section{background:var(--white);border-radius:var(--radius);box-shadow:var(--shadow);border:1px solid var(--gray-200);padding:28px;margin-top:20px}
+.content-section h2{font-size:1.15rem;font-weight:700;color:var(--gray-900);margin-bottom:10px;line-height:1.4}
+.content-section h3{font-size:.92rem;font-weight:700;color:var(--gray-800);margin:18px 0 7px;display:flex;align-items:center;gap:8px}
+.content-section h3 i{color:var(--blue);font-size:.85rem}
+.content-section p{font-size:.84rem;color:var(--gray-600);line-height:1.8;margin-bottom:10px}
+.content-section p:last-child{margin-bottom:0}
+
+/* GLOSSARY */
+.glossary-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(210px,1fr));gap:12px;margin-top:14px}
+.glossary-item{background:var(--gray-50);border:1px solid var(--gray-200);border-radius:var(--radius-sm);padding:14px}
+.glossary-item .term{font-size:.8rem;font-weight:700;color:var(--blue-dark);font-family:monospace;margin-bottom:5px;display:flex;align-items:center;gap:6px}
+.glossary-item .def{font-size:.76rem;color:var(--gray-600);line-height:1.6}
+
+/* FAQ */
+.faq-list{display:flex;flex-direction:column;gap:8px;margin-top:14px}
+.faq-item{border:1px solid var(--gray-200);border-radius:var(--radius-sm);overflow:hidden;background:var(--white)}
+.faq-q{display:flex;align-items:center;justify-content:space-between;padding:14px 16px;font-size:.84rem;font-weight:600;color:var(--gray-800);cursor:pointer;user-select:none;gap:12px}
+.faq-q:hover{background:var(--gray-50)}
+.faq-q i{color:var(--blue);flex-shrink:0;transition:transform .25s}
+.faq-q.open i{transform:rotate(180deg)}
+.faq-a{display:none;padding:12px 16px 14px;font-size:.81rem;color:var(--gray-600);line-height:1.8;border-top:1px solid var(--gray-100)}
+.faq-a.open{display:block}
+.faq-a code{background:var(--gray-100);padding:1px 5px;border-radius:4px;font-size:.78rem;color:var(--blue-dark)}
+
+/* MISTAKES */
+.mistake-list{display:flex;flex-direction:column;gap:10px;margin-top:14px}
+.mistake-item{display:flex;gap:12px;padding:13px;border-radius:var(--radius-sm);border:1px solid var(--gray-200);background:var(--gray-50)}
+.mistake-icon{width:32px;height:32px;border-radius:8px;display:flex;align-items:center;justify-content:center;flex-shrink:0;font-size:.85rem}
+.mistake-icon.red{background:#fee2e2;color:#dc2626}
+.mistake-icon.green{background:#dcfce7;color:#16a34a}
+.mistake-body strong{font-size:.82rem;color:var(--gray-800);display:block;margin-bottom:3px}
+.mistake-body span{font-size:.77rem;color:var(--gray-600);line-height:1.6}
+
+/* FADE IN */
+.fade-in{opacity:0;transform:translateY(20px);transition:opacity .5s ease,transform .5s ease}
+.fade-in.visible{opacity:1;transform:none}
+
+/* TOOLTIP */
+[data-tip]{position:relative;cursor:help}
+[data-tip]:hover::after{content:attr(data-tip);position:absolute;bottom:calc(100% + 6px);left:50%;transform:translateX(-50%);background:var(--gray-800);color:var(--white);font-size:.72rem;padding:5px 10px;border-radius:6px;white-space:nowrap;z-index:10;pointer-events:none}
+
+/* SPINNER */
+.spinner{display:inline-block;width:14px;height:14px;border:2px solid rgba(255,255,255,.3);border-top-color:var(--white);border-radius:50%;animation:spin .6s linear infinite}
+@keyframes spin{to{transform:rotate(360deg)}}
+
+/* NOTICE BADGE */
+.notice{display:inline-flex;align-items:center;gap:6px;padding:6px 12px;border-radius:999px;font-size:.74rem;font-weight:600;margin-bottom:12px}
+.notice-success{background:#dcfce7;color:#15803d}
+.notice-info{background:var(--blue-light);color:var(--blue-dark)}
+
+/* FOOTER */
+footer{background:var(--gray-900);color:var(--white);padding:36px 20px 24px}
+.footer-inner{max-width:1400px;margin:0 auto}
+.footer-top{display:grid;grid-template-columns:1fr 1fr 1fr 1fr;gap:28px;margin-bottom:24px}
+.footer-col h4{font-size:.85rem;font-weight:700;margin-bottom:10px}
+.footer-col p,.footer-col a{font-size:.78rem;color:var(--gray-400);text-decoration:none;line-height:2}
+.footer-col a:hover{color:var(--blue)}
+.footer-social{display:flex;gap:12px;margin-top:8px}
+.footer-social a{color:var(--gray-400);font-size:1.2rem;transition:color .2s}
+.footer-social a:hover{color:var(--blue)}
+.footer-bottom{border-top:1px solid #374151;padding-top:16px;text-align:center;font-size:.75rem;color:var(--gray-500)}
+
+/* RESPONSIVE */
+@media(max-width:1024px){
+  .page-wrap{grid-template-columns:200px 1fr;grid-template-areas:"left main";"right main"}
+  .sidebar-right{display:none}
+}
+@media(max-width:768px){
+  .page-wrap{grid-template-columns:1fr}
+  .sidebar-left,.sidebar-right{display:none}
+  .tab-bar{overflow-x:auto;padding:0 12px}
+  .tab-btn{font-size:.74rem;padding:10px 12px}
+  .form-grid{grid-template-columns:1fr}
+  .footer-top{grid-template-columns:1fr 1fr;gap:20px}
+  header nav{display:none}
+  .tab-panel{padding:16px}
+  .preset-grid{grid-template-columns:repeat(2,1fr)}
+  .sidebar{position:static;max-height:none;overflow-y:visible}
+  .glossary-grid{grid-template-columns:1fr}
+  .content-section{padding:18px}
+}
+@media(max-width:480px){
+  .footer-top{grid-template-columns:1fr}
+  .btn-group{flex-direction:column}
+  .btn-group .btn{width:100%;justify-content:center}
+  .preset-grid{grid-template-columns:repeat(2,1fr)}
+  .form-grid{grid-template-columns:1fr}
+}
+</style>
+</head>
+<body>
+
+<!-- HEADER -->
+<header>
+  <div class="header-inner">
+    <div class="logo"><a href="https://byritam.in/"><span>Ritam</span> Debnath</a></div>
+    <nav>
+      <a href="https://byritam.in/">Home</a>
+      <a href="https://byritam.in/about">About</a>
+      <a href="https://byritam.in/D2C-SEO-Services">D2C SEO</a>
+      <a href="https://byritam.in/B2B-SEO-Services">B2B SEO</a>
+      <a href="https://byritam.in/contact">Contact</a>
+      <a href="https://wa.me/919038303107" class="btn-wa"><i class="fab fa-whatsapp"></i> WhatsApp</a>
+    </nav>
+  </div>
+</header>
+
+<!-- BREADCRUMB -->
+<div class="breadcrumb">
+  <a href="https://byritam.in/">Home</a>
+  <span>›</span>
+  <a href="https://byritam.in/seo-tools">SEO Tools</a>
+  <span>›</span>
+  Robots.txt Generator
+</div>
+
+<!-- HERO -->
+<div class="page-hero">
+  <h1>Robots.txt <span>File Generator</span></h1>
+  <p>Generate a perfect robots.txt file in seconds. Choose a preset, customise crawl rules per bot, add sitemaps — then copy or download instantly.</p>
+</div>
+
+<!-- MAIN WRAP -->
+<div class="page-wrap">
+
+  <!-- LEFT SIDEBAR -->
+  <aside class="sidebar sidebar-left fade-in">
+    <div class="sidebar-card">
+      <h3><i class="fas fa-rss"></i> Latest Blogs</h3>
+      <div class="blog-list">
+        <div class="blog-item">
+          <div class="date"><i class="fas fa-calendar-alt"></i> Oct 15, 2025</div>
+          <a href="https://byritam.in/blog/best-seo-expert-kolkata.html" class="title">Best SEO Expert in Kolkata: Why Ritam Debnath Stands Out</a>
+          <a href="https://byritam.in/blog/best-seo-expert-kolkata.html" class="read-btn"><i class="fas fa-arrow-right"></i> Read</a>
+        </div>
+        <div class="blog-item">
+          <div class="date"><i class="fas fa-calendar-alt"></i> Oct 10, 2025</div>
+          <a href="https://byritam.in/blog/why-hire-organic-seo-expert-kolkata.html" class="title">Why Hire an Organic SEO Expert in Kolkata</a>
+          <a href="https://byritam.in/blog/why-hire-organic-seo-expert-kolkata.html" class="read-btn"><i class="fas fa-arrow-right"></i> Read</a>
+        </div>
+        <div class="blog-item">
+          <div class="date"><i class="fas fa-calendar-alt"></i> Sep 28, 2025</div>
+          <a href="https://byritam.in/blog/what-is-on-page-seo-for-b2b.html" class="title">What Is On-Page SEO for B2B Websites?</a>
+          <a href="https://byritam.in/blog/what-is-on-page-seo-for-b2b.html" class="read-btn"><i class="fas fa-arrow-right"></i> Read</a>
+        </div>
+        <div class="blog-item">
+          <div class="date"><i class="fas fa-calendar-alt"></i> Sep 20, 2025</div>
+          <a href="https://byritam.in/blog/ultimate-guide-hiring-seo-freelancer-kolkata.html" class="title">The Ultimate Guide to Hiring an SEO Freelancer in Kolkata</a>
+          <a href="https://byritam.in/blog/ultimate-guide-hiring-seo-freelancer-kolkata.html" class="read-btn"><i class="fas fa-arrow-right"></i> Read</a>
+        </div>
+        <div class="blog-item">
+          <div class="date"><i class="fas fa-calendar-alt"></i> Sep 10, 2025</div>
+          <a href="https://byritam.in/blog/top-11-reasons-seo-freelancer-kolkata.html" class="title">Top 11 Reasons to Hire an SEO Freelancer in Kolkata</a>
+          <a href="https://byritam.in/blog/top-11-reasons-seo-freelancer-kolkata.html" class="read-btn"><i class="fas fa-arrow-right"></i> Read</a>
+        </div>
+      </div>
+    </div>
+    <div class="sidebar-card">
+      <h3><i class="fas fa-tools"></i> SEO Services</h3>
+      <div class="blog-list">
+        <div class="blog-item">
+          <a href="https://byritam.in/D2C-SEO-Services" class="title">D2C SEO Services</a>
+          <a href="https://byritam.in/D2C-SEO-Services" class="read-btn"><i class="fas fa-arrow-right"></i> View</a>
+        </div>
+        <div class="blog-item">
+          <a href="https://byritam.in/B2B-SEO-Services" class="title">B2B SEO Services</a>
+          <a href="https://byritam.in/B2B-SEO-Services" class="read-btn"><i class="fas fa-arrow-right"></i> View</a>
+        </div>
+        <div class="blog-item">
+          <a href="https://byritam.in/ecommerce-seo-services-kolkata" class="title">E-Commerce SEO</a>
+          <a href="https://byritam.in/ecommerce-seo-services-kolkata" class="read-btn"><i class="fas fa-arrow-right"></i> View</a>
+        </div>
+        <div class="blog-item">
+          <a href="https://byritam.in/seo-consultant-kolkata" class="title">SEO Consultant Kolkata</a>
+          <a href="https://byritam.in/seo-consultant-kolkata" class="read-btn"><i class="fas fa-arrow-right"></i> View</a>
+        </div>
+      </div>
+    </div>
+    <!-- Link to validator -->
+    <div class="sidebar-card" style="background:linear-gradient(135deg,#eff6ff,#dbeafe)">
+      <h3><i class="fas fa-check-double"></i> Validate Your File</h3>
+      <p style="font-size:.76rem;color:var(--gray-700);line-height:1.7;margin-bottom:10px">Generated your robots.txt? Run it through the validator to catch any syntax errors before going live.</p>
+      <a href="https://byritam.in/tools/robots-txt-validator" style="display:flex;align-items:center;justify-content:center;gap:6px;background:var(--blue);color:var(--white);padding:9px 14px;border-radius:999px;font-size:.76rem;font-weight:600;text-decoration:none;transition:all .2s" onmouseover="this.style.opacity='.88'" onmouseout="this.style.opacity='1'">
+        <i class="fas fa-search"></i> Open Validator Tool
+      </a>
+    </div>
+  </aside>
+
+  <!-- TOOL MAIN -->
+  <main class="tool-area fade-in">
+    <div class="tool-card">
+      <div class="tab-bar">
+        <button class="tab-btn active" onclick="switchTab('preset',this)"><i class="fas fa-magic"></i> Quick Presets</button>
+        <button class="tab-btn" onclick="switchTab('builder',this)"><i class="fas fa-sliders-h"></i> Advanced Builder</button>
+        <button class="tab-btn" onclick="switchTab('bots',this)"><i class="fas fa-robot"></i> Bot Manager</button>
+        <button class="tab-btn" onclick="switchTab('output',this)" id="output-tab-btn"><i class="fas fa-code"></i> Output &amp; Export</button>
+      </div>
+
+      <!-- TAB: QUICK PRESETS -->
+      <div id="tab-preset" class="tab-panel active">
+        <p style="font-size:.82rem;color:var(--gray-600);margin-bottom:16px">Pick a platform preset to get a smart starting point instantly. You can fine-tune everything in the Advanced Builder.</p>
+
+        <div class="preset-grid" id="preset-grid">
+          <div class="preset-card selected" data-preset="wordpress" onclick="selectPreset(this,'wordpress')">
+            <span class="preset-icon">🔵</span>
+            <div class="preset-name">WordPress</div>
+            <div class="preset-desc">Protects admin, allows AJAX</div>
+          </div>
+          <div class="preset-card" data-preset="shopify" onclick="selectPreset(this,'shopify')">
+            <span class="preset-icon">🛍️</span>
+            <div class="preset-name">Shopify</div>
+            <div class="preset-desc">E-commerce best practices</div>
+          </div>
+          <div class="preset-card" data-preset="woocommerce" onclick="selectPreset(this,'woocommerce')">
+            <span class="preset-icon">🟣</span>
+            <div class="preset-name">WooCommerce</div>
+            <div class="preset-desc">WP + shop-specific rules</div>
+          </div>
+          <div class="preset-card" data-preset="nextjs" onclick="selectPreset(this,'nextjs')">
+            <span class="preset-icon">⚡</span>
+            <div class="preset-name">Next.js / React</div>
+            <div class="preset-desc">Modern JS app defaults</div>
+          </div>
+          <div class="preset-card" data-preset="blogger" onclick="selectPreset(this,'blogger')">
+            <span class="preset-icon">📝</span>
+            <div class="preset-name">Blog / CMS</div>
+            <div class="preset-desc">General blog setup</div>
+          </div>
+          <div class="preset-card" data-preset="laravel" onclick="selectPreset(this,'laravel')">
+            <span class="preset-icon">🔴</span>
+            <div class="preset-name">Laravel / PHP</div>
+            <div class="preset-desc">Protects app internals</div>
+          </div>
+          <div class="preset-card" data-preset="news" onclick="selectPreset(this,'news')">
+            <span class="preset-icon">📰</span>
+            <div class="preset-name">News / Media</div>
+            <div class="preset-desc">Google News optimised</div>
+          </div>
+          <div class="preset-card" data-preset="blank" onclick="selectPreset(this,'blank')">
+            <span class="preset-icon">🧱</span>
+            <div class="preset-name">Start Blank</div>
+            <div class="preset-desc">Build from scratch</div>
+          </div>
+        </div>
+
+        <div style="background:var(--gray-50);border:1px solid var(--gray-200);border-radius:var(--radius-sm);padding:14px;margin-bottom:16px">
+          <div style="font-size:.78rem;font-weight:700;color:var(--gray-700);margin-bottom:8px;display:flex;align-items:center;gap:7px"><i class="fas fa-globe" style="color:var(--blue)"></i> Your Website Domain</div>
+          <div class="input-wrap">
+            <i class="fas fa-globe field-icon"></i>
+            <input type="url" id="site-domain" placeholder="https://yourdomain.com" oninput="buildOutput()" />
+          </div>
+          <small>Used to generate absolute sitemap URLs</small>
+        </div>
+
+        <div class="btn-group">
+          <button class="btn btn-primary" onclick="applyPresetAndSwitch()"><i class="fas fa-sliders-h"></i> Apply &amp; Customise</button>
+          <button class="btn btn-secondary" onclick="switchTab('output', document.getElementById('output-tab-btn'));buildOutput()"><i class="fas fa-code"></i> Preview Output</button>
+        </div>
+
+        <div class="callout" style="margin-top:16px">
+          <strong>Tip:</strong> Every preset follows Google's crawl recommendations. WordPress preset allows <code style="background:rgba(37,99,235,.08);padding:1px 5px;border-radius:4px;font-size:.78rem">/wp-admin/admin-ajax.php</code> so live search and AJAX-powered features keep working for crawlers.
+        </div>
+      </div>
+
+      <!-- TAB: ADVANCED BUILDER -->
+      <div id="tab-builder" class="tab-panel">
+
+        <div class="section-divider"><i class="fas fa-cog"></i> Global Settings</div>
+
+        <div class="form-grid">
+          <div class="form-row">
+            <label><span class="lbl-icon"><i class="fas fa-globe"></i></span> Website Domain</label>
+            <div class="input-wrap">
+              <i class="fas fa-globe field-icon"></i>
+              <input type="url" id="b-domain" placeholder="https://yourdomain.com" oninput="syncDomain()" />
+            </div>
+          </div>
+          <div class="form-row">
+            <label><span class="lbl-icon"><i class="fas fa-map"></i></span> Sitemap URL</label>
+            <div class="input-wrap">
+              <i class="fas fa-map field-icon"></i>
+              <input type="url" id="b-sitemap1" placeholder="https://yourdomain.com/sitemap.xml" oninput="buildOutput()" />
+            </div>
+          </div>
+        </div>
+
+        <div class="form-row">
+          <label><span class="lbl-icon"><i class="fas fa-map"></i></span> Additional Sitemap URLs <span style="font-weight:400;color:var(--gray-400)">(optional, one per line)</span></label>
+          <textarea id="b-sitemaps-extra" placeholder="https://yourdomain.com/sitemap-images.xml&#10;https://yourdomain.com/sitemap-news.xml" style="min-height:70px" oninput="buildOutput()"></textarea>
+        </div>
+
+        <div class="section-divider" style="margin-top:8px"><i class="fas fa-shield-alt"></i> Access Controls — All Bots ( * )</div>
+
+        <div class="form-row">
+          <label><span class="lbl-icon"><i class="fas fa-ban"></i></span> Disallow These Paths <span style="font-weight:400;color:var(--gray-400)">(one per line)</span></label>
+          <textarea id="b-disallow" placeholder="/wp-admin/&#10;/search/&#10;/cart/&#10;/checkout/" style="min-height:110px" oninput="buildOutput()"></textarea>
+          <small>Leave empty to allow all. Use <code style="background:var(--gray-100);padding:1px 4px;border-radius:3px;font-size:.72rem">/</code> to block everything.</small>
+        </div>
+
+        <div class="form-row">
+          <label><span class="lbl-icon"><i class="fas fa-check"></i></span> Allow These Paths (overrides disallows above)</label>
+          <textarea id="b-allow" placeholder="/wp-admin/admin-ajax.php&#10;/public/" style="min-height:70px" oninput="buildOutput()"></textarea>
+        </div>
+
+        <div class="section-divider" style="margin-top:8px"><i class="fas fa-sliders-h"></i> Advanced Options</div>
+
+        <div class="toggle-row" onclick="toggleOption('opt-crawl-delay')">
+          <span class="toggle-label"><i class="fas fa-clock"></i> Set Crawl-delay</span>
+          <label class="toggle-switch" onclick="event.stopPropagation()">
+            <input type="checkbox" id="opt-crawl-delay" onchange="toggleCrawlDelay();buildOutput()">
+            <span class="toggle-slider"></span>
+          </label>
+        </div>
+        <div id="crawl-delay-row" style="display:none;margin-bottom:10px">
+          <div class="form-row" style="margin-bottom:0;padding:10px 14px;background:var(--gray-50);border:1px solid var(--gray-200);border-top:none;border-radius:0 0 var(--radius-sm) var(--radius-sm)">
+            <label>Delay in seconds <span style="font-weight:400;color:var(--gray-400)">(not honoured by Googlebot)</span></label>
+            <div class="input-wrap">
+              <i class="fas fa-stopwatch field-icon"></i>
+              <input type="number" id="crawl-delay-val" value="10" min="1" max="120" oninput="buildOutput()" />
+            </div>
+          </div>
+        </div>
+
+        <div class="toggle-row" onclick="toggleOption('opt-block-ai')">
+          <span class="toggle-label"><i class="fas fa-robot"></i> Block AI Training Bots (GPTBot, Claude, Bard etc.)</span>
+          <label class="toggle-switch" onclick="event.stopPropagation()">
+            <input type="checkbox" id="opt-block-ai" onchange="buildOutput()">
+            <span class="toggle-slider"></span>
+          </label>
+        </div>
+
+        <div class="toggle-row" onclick="toggleOption('opt-block-seo')">
+          <span class="toggle-label"><i class="fas fa-eye-slash"></i> Block SEO Scrapers (AhrefsBot, SemrushBot, MJ12)</span>
+          <label class="toggle-switch" onclick="event.stopPropagation()">
+            <input type="checkbox" id="opt-block-seo" onchange="buildOutput()">
+            <span class="toggle-slider"></span>
+          </label>
+        </div>
+
+        <div class="toggle-row" onclick="toggleOption('opt-block-bad')">
+          <span class="toggle-label"><i class="fas fa-bug"></i> Block Bad Bots (DotBot, MJ12bot, DataForSeoBot)</span>
+          <label class="toggle-switch" onclick="event.stopPropagation()">
+            <input type="checkbox" id="opt-block-bad" onchange="buildOutput()">
+            <span class="toggle-slider"></span>
+          </label>
+        </div>
+
+        <div class="toggle-row" onclick="toggleOption('opt-google-images')">
+          <span class="toggle-label"><i class="fas fa-image"></i> Disallow Googlebot-Image</span>
+          <label class="toggle-switch" onclick="event.stopPropagation()">
+            <input type="checkbox" id="opt-google-images" onchange="buildOutput()">
+            <span class="toggle-slider"></span>
+          </label>
+        </div>
+
+        <div class="toggle-row" onclick="toggleOption('opt-adsbot')">
+          <span class="toggle-label"><i class="fas fa-ad"></i> Allow AdsBot (required for Google Ads)</span>
+          <label class="toggle-switch" onclick="event.stopPropagation()">
+            <input type="checkbox" id="opt-adsbot" checked onchange="buildOutput()">
+            <span class="toggle-slider"></span>
+          </label>
+        </div>
+
+        <div class="btn-group">
+          <button class="btn btn-primary" onclick="buildOutput();switchTab('output',document.getElementById('output-tab-btn'))"><i class="fas fa-code"></i> Generate robots.txt</button>
+          <button class="btn btn-secondary" onclick="resetBuilder()"><i class="fas fa-undo"></i> Reset</button>
+        </div>
+      </div>
+
+      <!-- TAB: BOT MANAGER -->
+      <div id="tab-bots" class="tab-panel">
+        <p style="font-size:.82rem;color:var(--gray-600);margin-bottom:16px">Add custom rules for specific crawlers. Rules here are merged into the final output alongside the global rules in Advanced Builder.</p>
+
+        <div id="agent-blocks"></div>
+
+        <button class="btn btn-secondary" onclick="addAgentBlock()" style="margin-top:4px"><i class="fas fa-plus"></i> Add User-Agent</button>
+
+        <div class="callout" style="margin-top:16px">
+          <strong>How priority works:</strong> Named bot rules (e.g. <code style="background:rgba(37,99,235,.08);padding:1px 5px;border-radius:4px;font-size:.78rem">Googlebot</code>) take priority over wildcard (<code style="background:rgba(37,99,235,.08);padding:1px 5px;border-radius:4px;font-size:.78rem">*</code>) rules. Among rules for the same bot, the <strong>longest matching path wins</strong>.
+        </div>
+
+        <div class="btn-group">
+          <button class="btn btn-primary" onclick="buildOutput();switchTab('output',document.getElementById('output-tab-btn'))"><i class="fas fa-code"></i> Generate with These Rules</button>
+        </div>
+      </div>
+
+      <!-- TAB: OUTPUT & EXPORT -->
+      <div id="tab-output" class="tab-panel">
+        <div id="val-inline-list" class="val-inline" style="margin-bottom:14px"></div>
+
+        <div class="output-wrap">
+          <div class="output-header">
+            <div class="file-name"><i class="fas fa-file-code"></i> robots.txt</div>
+            <div class="output-actions">
+              <button class="out-btn out-btn-copy" onclick="copyOutput(this)"><i class="fas fa-copy"></i> Copy</button>
+              <button class="out-btn out-btn-download" onclick="downloadOutput()"><i class="fas fa-download"></i> Download</button>
+              <a href="https://byritam.in/tools/robots-txt-validator" class="out-btn out-btn-validate" style="text-decoration:none" target="_blank"><i class="fas fa-check-circle"></i> Validate</a>
+            </div>
+          </div>
+          <pre id="output-code"># Click "Generate robots.txt" in any tab to see your output here</pre>
+          <div class="output-stats" id="output-stats" style="display:none">
+            <div class="out-stat"><div class="n" id="os-agents">0</div><div class="l">User Agents</div></div>
+            <div class="out-stat"><div class="n" id="os-rules">0</div><div class="l">Rules</div></div>
+            <div class="out-stat"><div class="n" id="os-sitemaps">0</div><div class="l">Sitemaps</div></div>
+            <div class="out-stat"><div class="n" id="os-lines">0</div><div class="l">Lines</div></div>
+          </div>
+        </div>
+
+        <div style="margin-top:16px;padding:14px;background:var(--gray-50);border:1px solid var(--gray-200);border-radius:var(--radius-sm)">
+          <div style="font-size:.78rem;font-weight:700;color:var(--gray-700);margin-bottom:10px;display:flex;align-items:center;gap:7px"><i class="fas fa-edit" style="color:var(--blue)"></i> Edit Output Directly</div>
+          <textarea id="output-editable" style="min-height:160px;font-family:monospace;font-size:.78rem" placeholder="Your generated robots.txt will appear here — you can also edit it directly." oninput="syncFromEditable()"></textarea>
+          <div style="display:flex;gap:8px;margin-top:10px;flex-wrap:wrap">
+            <button class="out-btn out-btn-copy" style="font-size:.76rem;padding:6px 14px" onclick="copyEditable(this)"><i class="fas fa-copy"></i> Copy Edited</button>
+            <button class="out-btn out-btn-download" style="font-size:.76rem;padding:6px 14px" onclick="downloadEditable()"><i class="fas fa-download"></i> Download Edited</button>
+            <a href="https://byritam.in/tools/robots-txt-validator" target="_blank" class="out-btn out-btn-validate" style="font-size:.76rem;padding:6px 14px;text-decoration:none"><i class="fas fa-check-circle"></i> Validate This File</a>
+          </div>
+        </div>
+
+        <div class="callout">
+          <strong>Next step:</strong> Upload the generated <code style="background:rgba(37,99,235,.08);padding:1px 5px;border-radius:4px;font-size:.78rem">robots.txt</code> to your website root (same level as your homepage). Then paste the URL into <a href="https://search.google.com/search-console" target="_blank" style="color:var(--blue);font-weight:600">Google Search Console → URL Inspection</a> to verify Googlebot can access it correctly.
+        </div>
+      </div>
+    </div><!-- /tool-card -->
+
+    <!-- HOW IT WORKS -->
+    <div class="tool-card fade-in" style="margin-top:20px">
+      <div style="padding:24px">
+        <h2 style="font-size:1.2rem;font-weight:700;color:var(--gray-900);margin-bottom:6px">How This Robots.txt Generator Works</h2>
+        <p style="font-size:.82rem;color:var(--gray-600);margin-bottom:16px">Everything runs in your browser. Nothing is sent to any server — your domain and rules stay private.</p>
+        <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(190px,1fr));gap:14px">
+          <div style="background:var(--blue-50);border-radius:var(--radius-sm);padding:14px;border:1px solid var(--blue-light)">
+            <div style="color:var(--blue);font-size:1.3rem;margin-bottom:6px"><i class="fas fa-magic"></i></div>
+            <div style="font-weight:700;font-size:.82rem;color:var(--gray-800);margin-bottom:4px">1. Pick a Preset</div>
+            <div style="font-size:.76rem;color:var(--gray-600)">Choose WordPress, Shopify, WooCommerce, or start blank. Each preset follows platform-specific SEO best practices.</div>
+          </div>
+          <div style="background:var(--blue-50);border-radius:var(--radius-sm);padding:14px;border:1px solid var(--blue-light)">
+            <div style="color:var(--blue);font-size:1.3rem;margin-bottom:6px"><i class="fas fa-sliders-h"></i></div>
+            <div style="font-weight:700;font-size:.82rem;color:var(--gray-800);margin-bottom:4px">2. Customise Rules</div>
+            <div style="font-size:.76rem;color:var(--gray-600)">Add your domain, sitemap URLs, blocked paths, and toggle advanced options like AI bot blocking or crawl delay.</div>
+          </div>
+          <div style="background:var(--blue-50);border-radius:var(--radius-sm);padding:14px;border:1px solid var(--blue-light)">
+            <div style="color:var(--blue);font-size:1.3rem;margin-bottom:6px"><i class="fas fa-robot"></i></div>
+            <div style="font-weight:700;font-size:.82rem;color:var(--gray-800);margin-bottom:4px">3. Manage Bots</div>
+            <div style="font-size:.76rem;color:var(--gray-600)">Use the Bot Manager to write granular rules per crawler — Googlebot, Bingbot, Baiduspider, or any custom agent.</div>
+          </div>
+          <div style="background:var(--blue-50);border-radius:var(--radius-sm);padding:14px;border:1px solid var(--blue-light)">
+            <div style="color:var(--blue);font-size:1.3rem;margin-bottom:6px"><i class="fas fa-download"></i></div>
+            <div style="font-weight:700;font-size:.82rem;color:var(--gray-800);margin-bottom:4px">4. Copy or Download</div>
+            <div style="font-size:.76rem;color:var(--gray-600)">Grab your clean robots.txt file, edit it inline if needed, then upload it to your website root folder.</div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- SEMANTIC CONTENT: What is robots.txt generator -->
+    <div class="content-section fade-in">
+      <h2>What Makes a Good Robots.txt File in 2026?</h2>
+      <p>A robots.txt file is one of those things that's easy to set up and easy to get catastrophically wrong. At its best, it quietly saves your crawl budget and keeps bots focused on your most important pages. At its worst, a single mistyped line can block Googlebot from your entire site — and you might not notice for weeks.</p>
+      <p>A well-structured robots.txt does three things well. First, it protects internal pages that serve no purpose in search — admin areas, login pages, internal search result URLs, shopping cart pages, and duplicate parameter-based URLs that would just dilute your index. Second, it explicitly allows anything that Googlebot needs to render your pages correctly — CSS files, JavaScript bundles, web fonts, and image directories. Third, it points crawlers directly to your sitemap, which speeds up discovery of new and updated content.</p>
+      <p>What's changed in recent years is the rise of AI training bots. Crawlers like GPTBot (OpenAI), ClaudeBot (Anthropic), Google-Extended, and PerplexityBot now actively crawl the web to build training datasets. If you don't want your content used for AI training, robots.txt is the correct mechanism to opt out — and this generator includes a one-click toggle to block them all.</p>
+
+      <h3><i class="fas fa-sitemap"></i> Crawl Budget: Why It Matters More Than You Think</h3>
+      <p>Google allocates a limited number of crawls to each website based on its authority and server response times. If Googlebot wastes those crawls on admin pages, login flows, and URL parameter duplicates, it has fewer crawls left for your actual content. For large e-commerce sites or content-heavy sites, this is a real ranking factor — not a theoretical one.</p>
+      <p>Use the Disallow rules in this generator to block low-value URL patterns like <code style="background:var(--gray-100);padding:1px 5px;border-radius:4px;font-size:.8rem;color:var(--blue-dark)">/tag/</code>, <code style="background:var(--gray-100);padding:1px 5px;border-radius:4px;font-size:.8rem;color:var(--blue-dark)">/search/</code>, <code style="background:var(--gray-100);padding:1px 5px;border-radius:4px;font-size:.8rem;color:var(--blue-dark)">/?s=</code>, and <code style="background:var(--gray-100);padding:1px 5px;border-radius:4px;font-size:.8rem;color:var(--blue-dark)">/page/</code> where they generate infinite or near-duplicate pages. This is especially important for WordPress sites running lots of taxonomy pages.</p>
+    </div>
+
+    <!-- MISTAKES -->
+    <div class="content-section fade-in">
+      <h2>5 robots.txt Generation Mistakes That Kill Rankings</h2>
+      <div class="mistake-list">
+        <div class="mistake-item">
+          <div class="mistake-icon red"><i class="fas fa-times"></i></div>
+          <div class="mistake-body">
+            <strong>Using a relative Sitemap path</strong>
+            <span>Writing <code style="background:var(--gray-100);padding:1px 4px;border-radius:3px;font-size:.77rem">Sitemap: /sitemap.xml</code> instead of the full <code style="background:var(--gray-100);padding:1px 4px;border-radius:3px;font-size:.77rem">https://</code> URL. The robots.txt specification requires an absolute URL. This generator always produces the correct absolute format.</span>
+          </div>
+        </div>
+        <div class="mistake-item">
+          <div class="mistake-icon red"><i class="fas fa-times"></i></div>
+          <div class="mistake-body">
+            <strong>Blocking CSS and JavaScript from Googlebot</strong>
+            <span>If your theme files, JavaScript bundles, or web fonts are blocked, Googlebot renders a broken page. Google explicitly says this hurts how it understands and ranks your content. Always check the Resource Checker in the Validator tool after generating your file.</span>
+          </div>
+        </div>
+        <div class="mistake-item">
+          <div class="mistake-icon red"><i class="fas fa-times"></i></div>
+          <div class="mistake-body">
+            <strong>Generating robots.txt without setting a domain</strong>
+            <span>Sitemap URLs without a domain (like just <code style="background:var(--gray-100);padding:1px 4px;border-radius:3px;font-size:.77rem">/sitemap.xml</code>) are technically invalid per the Robots Exclusion Protocol. Enter your full domain in the generator to get correct absolute sitemap references every time.</span>
+          </div>
+        </div>
+        <div class="mistake-item">
+          <div class="mistake-icon red"><i class="fas fa-times"></i></div>
+          <div class="mistake-body">
+            <strong>Thinking Disallow removes pages from Google's index</strong>
+            <span>It doesn't. It only stops Googlebot from crawling. If the page is linked from elsewhere, Google can still index it — just without being able to read the content. For actual deindexing, you need a <code style="background:var(--gray-100);padding:1px 4px;border-radius:3px;font-size:.77rem">noindex</code> tag on the page itself.</span>
+          </div>
+        </div>
+        <div class="mistake-item">
+          <div class="mistake-icon green"><i class="fas fa-lightbulb"></i></div>
+          <div class="mistake-body">
+            <strong>Always validate after generating</strong>
+            <span>Even tools can produce files with logical errors — especially when you mix preset rules with manual overrides. Run every generated file through the <a href="https://byritam.in/tools/robots-txt-validator" style="color:var(--blue);font-weight:600">Robots.txt Validator</a> before uploading to your site. It checks syntax, rule conflicts, and flags any blocked resources.</span>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- GLOSSARY -->
+    <div class="content-section fade-in">
+      <h2>Robots.txt Directives — What Each One Does</h2>
+      <p>Understanding each directive helps you generate rules that actually do what you intend, rather than guessing and hoping for the best.</p>
+      <div class="glossary-grid">
+        <div class="glossary-item">
+          <div class="term"><i class="fas fa-robot"></i> User-agent</div>
+          <div class="def">Identifies which crawler the following rules apply to. <code>*</code> means all bots. Named agents like <code>Googlebot</code> override wildcard rules.</div>
+        </div>
+        <div class="glossary-item">
+          <div class="term"><i class="fas fa-ban"></i> Disallow</div>
+          <div class="def">Tells a bot not to crawl this path or any URL starting with this prefix. Empty value means nothing is disallowed.</div>
+        </div>
+        <div class="glossary-item">
+          <div class="term"><i class="fas fa-check"></i> Allow</div>
+          <div class="def">Overrides a Disallow for a specific sub-path. Most useful for allowing a single file inside a blocked folder.</div>
+        </div>
+        <div class="glossary-item">
+          <div class="term"><i class="fas fa-map"></i> Sitemap</div>
+          <div class="def">Points any crawler to your XML sitemap. Must be an absolute URL. Can appear multiple times for multiple sitemaps.</div>
+        </div>
+        <div class="glossary-item">
+          <div class="term"><i class="fas fa-clock"></i> Crawl-delay</div>
+          <div class="def">Asks a bot to wait N seconds between page fetches. Ignored by Googlebot. Respected by Bingbot, Yandex, and others.</div>
+        </div>
+        <div class="glossary-item">
+          <div class="term"><i class="fas fa-asterisk"></i> Wildcard *</div>
+          <div class="def">Matches any sequence of characters in a path. <code>/search/*</code> blocks all paths starting with /search/ regardless of what follows.</div>
+        </div>
+        <div class="glossary-item">
+          <div class="term"><i class="fas fa-dollar-sign"></i> End anchor $</div>
+          <div class="def">Forces the pattern to match only at the end of a URL. <code>/*.pdf$</code> blocks only URLs ending in .pdf.</div>
+        </div>
+        <div class="glossary-item">
+          <div class="term"><i class="fas fa-layer-group"></i> Specificity wins</div>
+          <div class="def">When two rules match the same URL, the longer (more specific) rule takes priority. Allow beats Disallow on equal-length matches.</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- FAQ -->
+    <div class="content-section fade-in">
+      <h2>Frequently Asked Questions About Generating robots.txt</h2>
+      <div class="faq-list">
+        <div class="faq-item">
+          <div class="faq-q" onclick="toggleFaq(this)">Do I need a robots.txt file if my whole site should be crawled?<i class="fas fa-chevron-down"></i></div>
+          <div class="faq-a">Not strictly — a missing robots.txt means bots assume full access. That said, having one is still recommended because it lets you point crawlers to your sitemap, which speeds up content discovery significantly. You can generate a minimal file here with just the sitemap line and no Disallow rules.</div>
+        </div>
+        <div class="faq-item">
+          <div class="faq-q" onclick="toggleFaq(this)">How do I generate a robots.txt file for WordPress?<i class="fas fa-chevron-down"></i></div>
+          <div class="faq-a">Use the WordPress preset in the Quick Presets tab. It comes pre-configured to block <code>/wp-admin/</code> while allowing <code>/wp-admin/admin-ajax.php</code> (needed for live search and AJAX), and blocks tag/search/author archive pages that commonly create duplicate content. Add your domain and sitemap URL, then download the file and upload it to your site root — replacing any existing robots.txt.</div>
+        </div>
+        <div class="faq-item">
+          <div class="faq-q" onclick="toggleFaq(this)">Where exactly do I upload the robots.txt file?<i class="fas fa-chevron-down"></i></div>
+          <div class="faq-a">The file must live at the root of your domain — at <code>https://yourdomain.com/robots.txt</code>. Upload it via FTP, cPanel File Manager, or your hosting panel to the <code>public_html</code> folder (or whatever your web root is). For WordPress, this is the same folder that contains <code>wp-config.php</code>. After uploading, visit the URL in your browser to confirm it's live.</div>
+        </div>
+        <div class="faq-item">
+          <div class="faq-q" onclick="toggleFaq(this)">How do I block AI bots like GPTBot and ClaudeBot from scraping my site?<i class="fas fa-chevron-down"></i></div>
+          <div class="faq-a">Toggle on "Block AI Training Bots" in the Advanced Builder tab. This adds individual <code>Disallow: /</code> rules for GPTBot (OpenAI), ClaudeBot (Anthropic), Google-Extended, PerplexityBot, FacebookBot, and Bytespider. These opt-outs are voluntary — compliant AI crawlers respect them, though not all do. This is currently the only legitimate mechanism to signal your content preference to AI companies.</div>
+        </div>
+        <div class="faq-item">
+          <div class="faq-q" onclick="toggleFaq(this)">Can I have different rules for Googlebot and Bingbot?<i class="fas fa-chevron-down"></i></div>
+          <div class="faq-a">Yes — use the Bot Manager tab to create separate rule groups for each crawler. You might want Googlebot to follow your main rules while allowing Bingbot slightly different access, or adding a Crawl-delay specifically for Bingbot without affecting Google. Named agent groups always override wildcard rules for that specific bot.</div>
+        </div>
+        <div class="faq-item">
+          <div class="faq-q" onclick="toggleFaq(this)">Should I use this generator or let WordPress auto-generate my robots.txt?<i class="fas fa-chevron-down"></i></div>
+          <div class="faq-a">WordPress generates a virtual robots.txt automatically, but it's extremely minimal — it only blocks <code>/wp-admin/</code>. It doesn't block SEO-wasteful URLs like search pages, tag archives, or URL parameters. For serious SEO work, generating a custom file with this tool and uploading a physical <code>robots.txt</code> gives you far more control. The physical file always takes precedence over WordPress's virtual one.</div>
+        </div>
+      </div>
+    </div>
+
+  </main>
+
+  <!-- RIGHT SIDEBAR -->
+  <aside class="sidebar sidebar-right fade-in">
+    <div class="sidebar-card" style="background:linear-gradient(135deg,#dbeafe,#eff6ff)">
+      <h3><i class="fas fa-search"></i> Validate Your File</h3>
+      <p style="font-size:.78rem;color:var(--gray-700);line-height:1.7;margin-bottom:12px">Generated your file? Run it through the tester to check which URLs are blocked and catch syntax errors.</p>
+      <a href="https://byritam.in/tools/robots-txt-validator" style="display:flex;align-items:center;justify-content:center;gap:7px;background:var(--blue);color:#fff;padding:10px 16px;border-radius:999px;font-size:.78rem;font-weight:600;text-decoration:none" target="_blank">
+        <i class="fas fa-check-double"></i> Open Validator
+      </a>
+    </div>
+    <div class="sidebar-card" style="background:linear-gradient(135deg,#dcfce7,#f0fdf4)">
+      <h3><i class="fas fa-star"></i> Need SEO Help?</h3>
+      <p style="font-size:.78rem;color:var(--gray-700);line-height:1.7;margin-bottom:12px">Get a free robots.txt audit + complete technical SEO audit by Ritam Debnath — <strong>best SEO freelancer in Kolkata</strong>.</p>
+      <a href="https://wa.me/919038303107?text=Hi, I need a free robots.txt and SEO audit" style="display:flex;align-items:center;justify-content:center;gap:7px;background:linear-gradient(135deg,#25D366,#128C7E);color:#fff;padding:10px 16px;border-radius:999px;font-size:.78rem;font-weight:600;text-decoration:none">
+        <i class="fab fa-whatsapp"></i> Get Free Audit
+      </a>
+    </div>
+    <div class="sidebar-card">
+      <h3><i class="fas fa-info-circle"></i> Generator Tips</h3>
+      <div style="display:flex;flex-direction:column;gap:9px">
+        <div style="font-size:.76rem;color:var(--gray-700);padding:8px 10px;background:var(--gray-50);border-radius:8px;border-left:3px solid var(--blue)">
+          <strong style="color:var(--blue-dark)">Always</strong> validate your robots.txt with the tester tool before uploading to production.
+        </div>
+        <div style="font-size:.76rem;color:var(--gray-700);padding:8px 10px;background:var(--gray-50);border-radius:8px;border-left:3px solid var(--green)">
+          <strong style="color:var(--green-dark)">Allow</strong> Googlebot to access your CSS, JS, and font files for proper page rendering.
+        </div>
+        <div style="font-size:.76rem;color:var(--gray-700);padding:8px 10px;background:var(--gray-50);border-radius:8px;border-left:3px solid var(--yellow)">
+          <strong style="color:#92400e">Don't</strong> use robots.txt to remove pages from Google's index — use noindex instead.
+        </div>
+        <div style="font-size:.76rem;color:var(--gray-700);padding:8px 10px;background:var(--gray-50);border-radius:8px;border-left:3px solid var(--blue)">
+          <strong style="color:var(--blue-dark)">Upload</strong> the file to your web root at <code style="background:var(--gray-100);padding:1px 4px;border-radius:3px;font-size:.7rem">/robots.txt</code> — not a subfolder.
+        </div>
+      </div>
+    </div>
+    <div class="sidebar-card">
+      <h3><i class="fas fa-clock"></i> Recent Posts</h3>
+      <div class="blog-list">
+        <div class="blog-item">
+          <div class="date"><i class="fas fa-calendar-alt"></i> Oct 15, 2025</div>
+          <a href="https://byritam.in/blog/best-seo-expert-kolkata.html" class="title">Best SEO Expert in Kolkata</a>
+          <a href="https://byritam.in/blog/best-seo-expert-kolkata.html" class="read-btn"><i class="fas fa-arrow-right"></i> Read</a>
+        </div>
+        <div class="blog-item">
+          <div class="date"><i class="fas fa-calendar-alt"></i> Sep 28, 2025</div>
+          <a href="https://byritam.in/blog/what-is-on-page-seo-for-b2b.html" class="title">What Is On-Page SEO for B2B?</a>
+          <a href="https://byritam.in/blog/what-is-on-page-seo-for-b2b.html" class="read-btn"><i class="fas fa-arrow-right"></i> Read</a>
+        </div>
+        <div class="blog-item">
+          <div class="date"><i class="fas fa-calendar-alt"></i> Sep 20, 2025</div>
+          <a href="https://byritam.in/blog/ultimate-guide-hiring-seo-freelancer-kolkata.html" class="title">Guide to Hiring SEO Freelancer</a>
+          <a href="https://byritam.in/blog/ultimate-guide-hiring-seo-freelancer-kolkata.html" class="read-btn"><i class="fas fa-arrow-right"></i> Read</a>
+        </div>
+      </div>
+    </div>
+  </aside>
+
+</div><!-- /page-wrap -->
+
+<!-- FOOTER -->
+<footer>
+  <div class="footer-inner">
+    <div class="footer-top">
+      <div class="footer-col">
+        <h4><span style="color:var(--blue)">Ritam</span> Debnath</h4>
+        <p>Best SEO freelancer in Kolkata offering local, technical & organic SEO services.</p>
+        <div class="footer-social">
+          <a href="https://www.youtube.com/@byritam"><i class="fab fa-youtube"></i></a>
+          <a href="https://in.linkedin.com/in/ritam-debnath-179330203"><i class="fab fa-linkedin"></i></a>
+          <a href="https://wa.me/919038303107"><i class="fab fa-whatsapp"></i></a>
+        </div>
+      </div>
+      <div class="footer-col">
+        <h4>Quick Links</h4>
+        <a href="https://byritam.in/about">About Me</a><br>
+        <a href="https://byritam.in/contact">Contact</a><br>
+        <a href="https://byritam.in/terms-condition">Terms & Conditions</a><br>
+        <a href="https://byritam.in/privacy-policy">Privacy Policy</a>
+      </div>
+      <div class="footer-col">
+        <h4>SEO Services</h4>
+        <a href="https://byritam.in/B2B-SEO-Services">B2B SEO Services</a><br>
+        <a href="https://byritam.in/D2C-SEO-Services">D2C SEO Services</a><br>
+        <a href="https://byritam.in/seo-for-doctors">SEO for Doctors</a><br>
+        <a href="https://byritam.in/ecommerce-seo-services-kolkata">E-Commerce SEO</a>
+      </div>
+      <div class="footer-col">
+        <h4>Contact</h4>
+        <a href="tel:9038303107"><i class="fas fa-phone" style="margin-right:6px"></i>9038303107</a><br>
+        <a href="https://wa.me/919038303107"><i class="fab fa-whatsapp" style="margin-right:6px"></i>WhatsApp</a><br>
+        <a href="https://byritam.in/contact"><i class="fas fa-envelope" style="margin-right:6px"></i>Send Message</a>
+      </div>
+    </div>
+    <div class="footer-bottom">&copy; 2025 Ritam Debnath. All Rights Reserved.</div>
+  </div>
+</footer>
+
+<!-- SCHEMA -->
+<script type="application/ld+json">
+{"@context":"https://schema.org","@type":"SoftwareApplication","name":"Robots.txt Generator","applicationCategory":"WebApplication","operatingSystem":"Any","url":"https://byritam.in/tools/robots-txt-generator","description":"Free advanced robots.txt generator. Generate a perfect robots.txt file for WordPress, Shopify, WooCommerce, Next.js and more. Block AI bots, SEO scrapers, set crawl rules and add sitemaps instantly.","offers":{"@type":"Offer","price":"0","priceCurrency":"USD"},"featureList":["Platform presets (WordPress, Shopify, WooCommerce)","Advanced builder with toggle options","Per-bot rule manager","AI training bot blocker","One-click download"],"author":{"@type":"Person","name":"Ritam Debnath","url":"https://byritam.in"}}
+</script>
+<script type="application/ld+json">
+{"@context":"https://schema.org","@type":"FAQPage","mainEntity":[{"@type":"Question","name":"Do I need a robots.txt file if my whole site should be crawled?","acceptedAnswer":{"@type":"Answer","text":"Not strictly — a missing robots.txt means bots assume full access. That said, having one is recommended because it lets you point crawlers to your sitemap, speeding up content discovery."}},{"@type":"Question","name":"How do I generate a robots.txt file for WordPress?","acceptedAnswer":{"@type":"Answer","text":"Use the WordPress preset in the Quick Presets tab. It blocks /wp-admin/ while allowing admin-ajax.php, and blocks tag/search/author archives that create duplicate content."}},{"@type":"Question","name":"Where exactly do I upload the robots.txt file?","acceptedAnswer":{"@type":"Answer","text":"The file must live at the root of your domain at https://yourdomain.com/robots.txt. Upload it to the public_html folder via FTP or cPanel File Manager."}},{"@type":"Question","name":"How do I block AI bots like GPTBot and ClaudeBot?","acceptedAnswer":{"@type":"Answer","text":"Toggle on Block AI Training Bots in the Advanced Builder. This adds Disallow rules for GPTBot, ClaudeBot, Google-Extended, PerplexityBot, and others."}},{"@type":"Question","name":"Can I have different rules for Googlebot and Bingbot?","acceptedAnswer":{"@type":"Answer","text":"Yes. Use the Bot Manager tab to create separate rule groups for each crawler. Named agent groups always override wildcard rules for that specific bot."}}]}
+</script>
+
+<script>
+/* ═══════════════════════════════════════════
+   PRESETS DATA
+═══════════════════════════════════════════ */
+const PRESETS = {
+  wordpress:{
+    disallow:['/wp-admin/','/search/','/tag/','/author/','/feed/','/trackback/','/wp-json/','/xmlrpc.php','/?s=','/?p='],
+    allow:['/wp-admin/admin-ajax.php','/wp-content/uploads/','/wp-content/themes/','/wp-content/plugins/'],
+    sitemap:'/sitemap.xml',
+    crawlDelay:false
+  },
+  shopify:{
+    disallow:['/admin/','/cart/','/checkout/','/account/','/orders/','/coupons/','/search','/policies/'],
+    allow:[],
+    sitemap:'/sitemap.xml',
+    crawlDelay:false
+  },
+  woocommerce:{
+    disallow:['/wp-admin/','/cart/','/checkout/','/my-account/','/search/','/tag/','/author/','/feed/','/?add-to-cart=','/?remove_item='],
+    allow:['/wp-admin/admin-ajax.php','/wp-content/uploads/','/wp-content/themes/'],
+    sitemap:'/sitemap.xml',
+    crawlDelay:false
+  },
+  nextjs:{
+    disallow:['/api/','/admin/','/dashboard/','/_next/static/'],
+    allow:['/_next/static/chunks/','/_next/image'],
+    sitemap:'/sitemap.xml',
+    crawlDelay:false
+  },
+  blogger:{
+    disallow:['/search','/admin/','/feeds/'],
+    allow:[],
+    sitemap:'/sitemap.xml',
+    crawlDelay:false
+  },
+  laravel:{
+    disallow:['/admin/','/storage/','/vendor/','/artisan','/.env','/.git/','/.htaccess'],
+    allow:['/public/'],
+    sitemap:'/sitemap.xml',
+    crawlDelay:false
+  },
+  news:{
+    disallow:['/admin/','/search/','/author/','/tag/','/feed/','/wp-admin/'],
+    allow:['/wp-admin/admin-ajax.php'],
+    sitemap:'/sitemap.xml',
+    crawlDelay:false,
+    googleNews:true
+  },
+  blank:{disallow:[],allow:[],sitemap:'',crawlDelay:false}
+};
+
+let currentPreset='wordpress';
+let agentCounter=0;
+
+/* ═══════════════════════════════════════════
+   TAB SWITCHING
+═══════════════════════════════════════════ */
+function switchTab(id,btn){
+  document.querySelectorAll('.tab-panel').forEach(p=>p.classList.remove('active'));
+  document.querySelectorAll('.tab-btn').forEach(b=>b.classList.remove('active'));
+  document.getElementById('tab-'+id).classList.add('active');
+  btn.classList.add('active');
+  if(id==='output') buildOutput();
+}
+
+/* ═══════════════════════════════════════════
+   PRESET SELECTION
+═══════════════════════════════════════════ */
+function selectPreset(card,name){
+  document.querySelectorAll('.preset-card').forEach(c=>c.classList.remove('selected'));
+  card.classList.add('selected');
+  currentPreset=name;
+}
+
+function applyPresetAndSwitch(){
+  const p=PRESETS[currentPreset];
+  const domain=document.getElementById('site-domain').value.trim();
+  // Sync domain
+  document.getElementById('b-domain').value=domain;
+  // Set disallows
+  document.getElementById('b-disallow').value=p.disallow.join('\n');
+  document.getElementById('b-allow').value=p.allow.join('\n');
+  // Sitemap
+  const sitemapBase=domain||'https://yourdomain.com';
+  document.getElementById('b-sitemap1').value=sitemapBase+'/sitemap.xml';
+  if(p.googleNews){
+    document.getElementById('b-sitemaps-extra').value=sitemapBase+'/sitemap-news.xml';
+  }
+  buildOutput();
+  switchTab('builder',document.querySelectorAll('.tab-btn')[1]);
+}
+
+function syncDomain(){
+  const d=document.getElementById('b-domain').value.trim();
+  document.getElementById('site-domain').value=d;
+  if(d && !document.getElementById('b-sitemap1').value){
+    document.getElementById('b-sitemap1').value=d+'/sitemap.xml';
+  }
+  buildOutput();
+}
+
+/* ═══════════════════════════════════════════
+   TOGGLE HELPERS
+═══════════════════════════════════════════ */
+function toggleOption(id){
+  const cb=document.getElementById(id);
+  cb.checked=!cb.checked;
+  cb.dispatchEvent(new Event('change'));
+}
+function toggleCrawlDelay(){
+  const show=document.getElementById('opt-crawl-delay').checked;
+  document.getElementById('crawl-delay-row').style.display=show?'block':'none';
+}
+
+/* ═══════════════════════════════════════════
+   BOT MANAGER
+═══════════════════════════════════════════ */
+const COMMON_AGENTS=['Googlebot','Googlebot-Image','Googlebot-Mobile','Bingbot','DuckDuckBot','YandexBot','Baiduspider','Slurp','facebot','Twitterbot','AhrefsBot','SemrushBot'];
+
+function addAgentBlock(agentName, rules){
+  agentCounter++;
+  const id='agent-'+agentCounter;
+  const rulesHtml=(rules||[{type:'Disallow',path:''}]).map((r,i)=>renderRuleRow(id,i,r.type,r.path)).join('');
+  const optionsHtml=COMMON_AGENTS.map(a=>`<option value="${a}"${agentName===a?' selected':''}>${a}</option>`).join('');
+  const block=document.createElement('div');
+  block.className='agent-block';
+  block.id=id;
+  block.innerHTML=`
+    <div class="agent-block-header">
+      <span class="agent-name-badge"><i class="fas fa-robot"></i>
+        <select id="${id}-name" style="border:none;background:none;font-size:.78rem;font-weight:700;color:var(--blue-dark);cursor:pointer;outline:none;padding:0 4px 0 0;width:auto" onchange="buildOutput()">
+          ${optionsHtml}
+          <option value="custom"${!COMMON_AGENTS.includes(agentName)?' selected':''}>Custom…</option>
+        </select>
+      </span>
+      <button class="del-agent-btn" onclick="document.getElementById('${id}').remove();buildOutput()" data-tip="Remove this agent group"><i class="fas fa-trash"></i> Remove</button>
+    </div>
+    <div id="${id}-custom-row" style="margin-bottom:8px;display:${(!agentName||COMMON_AGENTS.includes(agentName))?'none':'block'}">
+      <input type="text" class="no-icon" id="${id}-custom-name" placeholder="CustomBot/1.0" value="${(!agentName||COMMON_AGENTS.includes(agentName))?'':agentName}" style="padding:7px 10px;font-size:.78rem" oninput="buildOutput()">
+    </div>
+    <div class="rule-rows" id="${id}-rules">${rulesHtml}</div>
+    <button class="add-rule-btn" onclick="addRuleRow('${id}')"><i class="fas fa-plus"></i> Add Rule</button>`;
+  document.getElementById('agent-blocks').appendChild(block);
+  document.getElementById(id+'-name').addEventListener('change',function(){
+    document.getElementById(id+'-custom-row').style.display=this.value==='custom'?'block':'none';
+    buildOutput();
+  });
+}
+
+function renderRuleRow(agentId,idx,type,path){
+  const rid=agentId+'-rule-'+idx+'-'+Date.now();
+  return `<div class="rule-row" id="${rid}">
+    <select class="rule-type-select no-icon" onchange="buildOutput()">
+      <option value="Disallow"${type==='Disallow'?' selected':''}>Disallow</option>
+      <option value="Allow"${type==='Allow'?' selected':''}>Allow</option>
+    </select>
+    <input type="text" class="rule-path-input no-icon" value="${esc(path)}" placeholder="/path/" oninput="buildOutput()">
+    <button class="rule-del-btn" onclick="document.getElementById('${rid}').remove();buildOutput()"><i class="fas fa-times"></i></button>
+  </div>`;
+}
+
+function addRuleRow(agentId){
+  const container=document.getElementById(agentId+'-rules');
+  const div=document.createElement('div');
+  div.innerHTML=renderRuleRow(agentId,Date.now(),'Disallow','');
+  container.appendChild(div.firstElementChild);
+}
+
+/* ═══════════════════════════════════════════
+   CORE GENERATOR
+═══════════════════════════════════════════ */
+function buildOutput(){
+  const domain=(document.getElementById('b-domain').value||document.getElementById('site-domain').value).trim().replace(/\/$/,'');
+  const sitemap1=document.getElementById('b-sitemap1').value.trim();
+  const sitemapsExtra=document.getElementById('b-sitemaps-extra').value.trim().split('\n').map(s=>s.trim()).filter(Boolean);
+  const disallowRaw=document.getElementById('b-disallow').value.trim().split('\n').map(s=>s.trim()).filter(Boolean);
+  const allowRaw=document.getElementById('b-allow').value.trim().split('\n').map(s=>s.trim()).filter(Boolean);
+  const blockAI=document.getElementById('opt-block-ai').checked;
+  const blockSEO=document.getElementById('opt-block-seo').checked;
+  const blockBad=document.getElementById('opt-block-bad').checked;
+  const blockImages=document.getElementById('opt-google-images').checked;
+  const adsbot=document.getElementById('opt-adsbot').checked;
+  const crawlDelay=document.getElementById('opt-crawl-delay').checked;
+  const crawlDelayVal=document.getElementById('crawl-delay-val').value||'10';
+
+  const lines=[];
+  const comment=(c)=>lines.push('# '+c);
+  const blank=()=>lines.push('');
+  const directive=(k,v)=>lines.push(k+': '+v);
+
+  comment('robots.txt generated by byritam.in/tools/robots-txt-generator');
+  comment('Validate at: byritam.in/tools/robots-txt-validator');
+  blank();
+
+  // GLOBAL RULES
+  directive('User-agent','*');
+  if(disallowRaw.length===0){
+    directive('Disallow','');
+  } else {
+    allowRaw.forEach(p=>directive('Allow',p));
+    disallowRaw.forEach(p=>directive('Disallow',p));
+  }
+  if(crawlDelay) directive('Crawl-delay',crawlDelayVal);
+
+  // Bot manager groups
+  const agentBlocks=document.querySelectorAll('.agent-block');
+  agentBlocks.forEach(block=>{
+    const id=block.id;
+    const sel=document.getElementById(id+'-name');
+    if(!sel) return;
+    let agentName=sel.value==='custom'?(document.getElementById(id+'-custom-name')?.value||'CustomBot').trim():sel.value;
+    if(!agentName) return;
+    const ruleRows=block.querySelectorAll('.rule-row');
+    if(!ruleRows.length) return;
+    blank();
+    directive('User-agent',agentName);
+    ruleRows.forEach(row=>{
+      const type=row.querySelector('.rule-type-select')?.value||'Disallow';
+      const path=row.querySelector('.rule-path-input')?.value||'';
+      directive(type,path);
+    });
+  });
+
+  // AI BOTS
+  if(blockAI){
+    blank();
+    comment('Block AI training bots');
+    ['GPTBot','ChatGPT-User','Claude-Web','ClaudeBot','Google-Extended','Googlebot-Extended','PerplexityBot','cohere-ai','anthropic-ai','Amazonbot','Bytespider','FacebookBot','CCBot'].forEach(bot=>{
+      blank();
+      directive('User-agent',bot);
+      directive('Disallow','/');
+    });
+  }
+
+  // SEO SCRAPERS
+  if(blockSEO){
+    blank();
+    comment('Block SEO tool scrapers');
+    ['AhrefsBot','SemrushBot','MJ12bot','DotBot','BLEXBot','SiteExplorer'].forEach(bot=>{
+      blank();
+      directive('User-agent',bot);
+      directive('Disallow','/');
+    });
+  }
+
+  // BAD BOTS
+  if(blockBad){
+    blank();
+    comment('Block known bad bots');
+    ['DataForSeoBot','PetalBot','Yeti','spbot','Nutch','GrapeshotCrawler'].forEach(bot=>{
+      blank();
+      directive('User-agent',bot);
+      directive('Disallow','/');
+    });
+  }
+
+  // GOOGLE IMAGES
+  if(blockImages){
+    blank();
+    comment('Disallow Googlebot-Image');
+    directive('User-agent','Googlebot-Image');
+    directive('Disallow','/');
+  }
+
+  // ADSBOT
+  if(adsbot){
+    blank();
+    comment('Allow AdsBot for Google Ads quality checks');
+    directive('User-agent','AdsBot-Google');
+    directive('Allow','/');
+    directive('User-agent','AdsBot-Google-Mobile');
+    directive('Allow','/');
+  }
+
+  // SITEMAPS
+  blank();
+  comment('Sitemaps');
+  if(sitemap1) directive('Sitemap', toAbsolute(sitemap1,domain));
+  sitemapsExtra.forEach(s=>{ if(s) directive('Sitemap',toAbsolute(s,domain)); });
+  if(!sitemap1&&!sitemapsExtra.length && domain){
+    directive('Sitemap',domain+'/sitemap.xml');
+  }
+
+  const output=lines.join('\n');
+  document.getElementById('output-code').textContent=output;
+  document.getElementById('output-editable').value=output;
+
+  // Stats
+  const agents=(output.match(/^User-agent:/gm)||[]).length;
+  const rules=(output.match(/^(Disallow|Allow):/gm)||[]).length;
+  const sitemaps=(output.match(/^Sitemap:/gm)||[]).length;
+  const linesCount=output.split('\n').length;
+  document.getElementById('os-agents').textContent=agents;
+  document.getElementById('os-rules').textContent=rules;
+  document.getElementById('os-sitemaps').textContent=sitemaps;
+  document.getElementById('os-lines').textContent=linesCount;
+  document.getElementById('output-stats').style.display='grid';
+
+  // Inline validation
+  validateInline(output);
+  return output;
+}
+
+function toAbsolute(path,domain){
+  if(path.startsWith('http')) return path;
+  return (domain||'https://yourdomain.com')+'/'+path.replace(/^\//,'');
+}
+
+function validateInline(content){
+  const list=document.getElementById('val-inline-list');
+  list.innerHTML='';
+  const issues=[];
+  if(content.match(/^Sitemap:\s*\//m)) issues.push({t:'warn',m:'Sitemap URL should be absolute (starts with https://)'});
+  if(content.match(/^Disallow:\s*\/\s*$/m) && !content.match(/User-agent:\s*\*/)) issues.push({t:'err',m:'Disallow: / blocks the entire site for all bots'});
+  if(!content.match(/^User-agent:/m)) issues.push({t:'err',m:'No User-agent directive found'});
+  if(!content.match(/^Sitemap:/m)) issues.push({t:'warn',m:'No Sitemap URL found — add one to help crawlers discover your pages'});
+  if(issues.length===0){ list.innerHTML='<li class="ok"><i class="fas fa-check-circle"></i> Looks good — no obvious issues found. Still run the full validator before going live.</li>'; return; }
+  issues.forEach(i=>{ list.innerHTML+=`<li class="${i.t}"><i class="fas fa-${i.t==='err'?'times-circle':'exclamation-triangle'}"></i> ${i.m}</li>`; });
+}
+
+/* ═══════════════════════════════════════════
+   OUTPUT ACTIONS
+═══════════════════════════════════════════ */
+function copyOutput(btn){
+  const text=document.getElementById('output-code').textContent;
+  navigator.clipboard.writeText(text).then(()=>{
+    const orig=btn.innerHTML;
+    btn.innerHTML='<i class="fas fa-check"></i> Copied!';
+    setTimeout(()=>btn.innerHTML=orig,1800);
+  });
+}
+function downloadOutput(){
+  const text=document.getElementById('output-code').textContent;
+  triggerDownload(text,'robots.txt');
+}
+function copyEditable(btn){
+  const text=document.getElementById('output-editable').value;
+  navigator.clipboard.writeText(text).then(()=>{
+    const orig=btn.innerHTML;
+    btn.innerHTML='<i class="fas fa-check"></i> Copied!';
+    setTimeout(()=>btn.innerHTML=orig,1800);
+  });
+}
+function downloadEditable(){
+  triggerDownload(document.getElementById('output-editable').value,'robots.txt');
+}
+function triggerDownload(text,filename){
+  const a=document.createElement('a');
+  a.href=URL.createObjectURL(new Blob([text],{type:'text/plain'}));
+  a.download=filename;
+  a.click();
+}
+function syncFromEditable(){
+  document.getElementById('output-code').textContent=document.getElementById('output-editable').value;
+}
+function resetBuilder(){
+  document.getElementById('b-disallow').value='';
+  document.getElementById('b-allow').value='';
+  document.getElementById('b-sitemap1').value='';
+  document.getElementById('b-sitemaps-extra').value='';
+  document.getElementById('opt-block-ai').checked=false;
+  document.getElementById('opt-block-seo').checked=false;
+  document.getElementById('opt-block-bad').checked=false;
+  document.getElementById('opt-google-images').checked=false;
+  document.getElementById('opt-crawl-delay').checked=false;
+  toggleCrawlDelay();
+  buildOutput();
+}
+
+/* ═══════════════════════════════════════════
+   FAQ
+═══════════════════════════════════════════ */
+function toggleFaq(el){
+  const ans=el.nextElementSibling;
+  const isOpen=ans.classList.contains('open');
+  document.querySelectorAll('.faq-a').forEach(a=>a.classList.remove('open'));
+  document.querySelectorAll('.faq-q').forEach(q=>q.classList.remove('open'));
+  if(!isOpen){ans.classList.add('open');el.classList.add('open');}
+}
+
+/* ═══════════════════════════════════════════
+   HELPERS
+═══════════════════════════════════════════ */
+function esc(s){return String(s||'').replace(/"/g,'&quot;');}
+
+/* ═══════════════════════════════════════════
+   INIT
+═══════════════════════════════════════════ */
+document.addEventListener('DOMContentLoaded',()=>{
+  // Apply wordpress preset on load
+  const p=PRESETS.wordpress;
+  document.getElementById('b-disallow').value=p.disallow.join('\n');
+  document.getElementById('b-allow').value=p.allow.join('\n');
+  document.getElementById('b-sitemap1').value='https://yourdomain.com/sitemap.xml';
+
+  // Add one default agent block
+  addAgentBlock('Googlebot',[{type:'Allow',path:'/'},{type:'Disallow',path:'/private/'}]);
+
+  // Build initial output
+  buildOutput();
+
+  // Fade observer
+  const obs=new IntersectionObserver(es=>es.forEach(e=>{if(e.isIntersecting)e.target.classList.add('visible');}),{threshold:.08,rootMargin:'0px 0px -30px 0px'});
+  document.querySelectorAll('.fade-in').forEach(el=>obs.observe(el));
+});
+</script>
+</body>
+</html>
