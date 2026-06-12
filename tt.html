@@ -1,0 +1,683 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>TT Capital Partners — We Invest. We Mentor. We Multiply.</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,300..900&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --charcoal:#1c1b1a;
+    --off-white:#f7f5f0;
+    --cream:#efebe3;
+    --gold:#c8a35a;
+    --gold-deep:#a8823d;
+    --line:#e0dcd2;
+    --grey-text:#5c5953;
+  }
+
+  *{margin:0;padding:0;box-sizing:border-box;}
+
+  body{
+    font-family:'Inter', sans-serif;
+    color:var(--charcoal);
+    background:var(--off-white);
+    line-height:1.6;
+    -webkit-font-smoothing:antialiased;
+  }
+
+  h1,h2,h3,h4{
+    font-family:'Fraunces', serif;
+    font-weight:600;
+    letter-spacing:-0.01em;
+    line-height:1.1;
+  }
+
+  a{text-decoration:none;color:inherit;}
+
+  .container{
+    max-width:1180px;
+    margin:0 auto;
+    padding:0 32px;
+  }
+
+  /* ===== NAV ===== */
+  header{
+    position:sticky;
+    top:0;
+    z-index:100;
+    background:rgba(247,245,240,0.92);
+    backdrop-filter:blur(10px);
+    border-bottom:1px solid var(--line);
+  }
+  nav{
+    display:flex;
+    align-items:center;
+    justify-content:space-between;
+    padding:20px 32px;
+    max-width:1180px;
+    margin:0 auto;
+  }
+  .logo{
+    font-family:'Fraunces', serif;
+    font-weight:700;
+    font-size:1.35rem;
+    letter-spacing:0.02em;
+  }
+  .logo span{color:var(--gold-deep);}
+
+  .nav-links{
+    display:flex;
+    align-items:center;
+    gap:36px;
+    list-style:none;
+  }
+  .nav-links a{
+    font-size:0.92rem;
+    font-weight:500;
+    color:var(--charcoal);
+    transition:color 0.2s;
+    position:relative;
+  }
+  .nav-links a:not(.pitch-btn):hover{color:var(--gold-deep);}
+
+  .pitch-btn{
+    background:var(--charcoal);
+    color:var(--off-white) !important;
+    padding:11px 24px;
+    border-radius:2px;
+    font-weight:600;
+    transition:background 0.25s, color 0.25s;
+  }
+  .pitch-btn:hover{background:var(--gold-deep);}
+
+  .menu-toggle{display:none;background:none;border:none;cursor:pointer;}
+
+  /* ===== HERO ===== */
+  .hero{
+    padding:100px 0 90px;
+    border-bottom:1px solid var(--line);
+  }
+  .hero-inner{
+    display:grid;
+    grid-template-columns:1.1fr 0.9fr;
+    gap:64px;
+    align-items:center;
+  }
+  .eyebrow{
+    font-size:0.78rem;
+    font-weight:600;
+    letter-spacing:0.18em;
+    text-transform:uppercase;
+    color:var(--gold-deep);
+    margin-bottom:22px;
+    display:flex;
+    align-items:center;
+    gap:14px;
+  }
+  .eyebrow::before{
+    content:'';
+    display:block;
+    width:36px;
+    height:1px;
+    background:var(--gold-deep);
+  }
+  .hero h1{
+    font-size:3.6rem;
+    margin-bottom:26px;
+  }
+  .hero p.sub{
+    font-size:1.08rem;
+    color:var(--grey-text);
+    max-width:480px;
+    margin-bottom:36px;
+  }
+  .cta-row{display:flex;gap:16px;flex-wrap:wrap;}
+  .btn{
+    padding:14px 28px;
+    border-radius:2px;
+    font-weight:600;
+    font-size:0.92rem;
+    transition:all 0.25s;
+    display:inline-block;
+    border:1px solid var(--charcoal);
+  }
+  .btn-primary{background:var(--charcoal);color:var(--off-white);}
+  .btn-primary:hover{background:var(--gold-deep);border-color:var(--gold-deep);}
+  .btn-secondary{background:transparent;color:var(--charcoal);}
+  .btn-secondary:hover{background:var(--charcoal);color:var(--off-white);}
+
+  .hero-img-wrap{
+    position:relative;
+    border-radius:2px;
+    overflow:hidden;
+    aspect-ratio:4/5;
+  }
+  .hero-img-wrap img{
+    width:100%;height:100%;
+    object-fit:cover;
+    filter:grayscale(15%) contrast(1.05);
+  }
+  .hero-img-wrap::after{
+    content:'';
+    position:absolute;
+    inset:0;
+    border:1px solid var(--gold);
+    margin:18px;
+    pointer-events:none;
+  }
+  .hero-tag{
+    position:absolute;
+    bottom:30px;
+    left:30px;
+    background:var(--off-white);
+    padding:14px 20px;
+    font-size:0.8rem;
+    font-weight:600;
+    letter-spacing:0.05em;
+    text-transform:uppercase;
+  }
+
+  /* ===== STAT BAR ===== */
+  .statbar{
+    border-bottom:1px solid var(--line);
+    background:var(--cream);
+  }
+  .statbar .container{
+    display:grid;
+    grid-template-columns:repeat(4,1fr);
+  }
+  .stat{
+    padding:36px 28px;
+    border-right:1px solid var(--line);
+  }
+  .stat:last-child{border-right:none;}
+  .stat .num{
+    font-family:'Fraunces', serif;
+    font-size:2.1rem;
+    font-weight:600;
+    color:var(--gold-deep);
+    display:block;
+    margin-bottom:6px;
+  }
+  .stat .label{
+    font-size:0.82rem;
+    letter-spacing:0.06em;
+    text-transform:uppercase;
+    color:var(--grey-text);
+  }
+
+  /* ===== WHY DIFFERENT ===== */
+  .section{padding:100px 0;}
+  .section-head{
+    display:grid;
+    grid-template-columns:1fr 1fr;
+    gap:64px;
+    margin-bottom:64px;
+    align-items:end;
+  }
+  .section-head .eyebrow{margin-bottom:18px;}
+  .section-head h2{font-size:2.6rem;}
+  .section-head p{color:var(--grey-text);font-size:1.02rem;max-width:440px;}
+
+  .diff-grid{
+    display:grid;
+    grid-template-columns:repeat(2,1fr);
+    gap:1px;
+    background:var(--line);
+    border:1px solid var(--line);
+  }
+  .diff-item{
+    background:var(--off-white);
+    padding:38px 36px;
+    transition:background 0.25s;
+  }
+  .diff-item:hover{background:var(--cream);}
+  .diff-item .mark{
+    font-family:'Fraunces', serif;
+    font-size:1.6rem;
+    color:var(--gold-deep);
+    margin-bottom:14px;
+    display:block;
+  }
+  .diff-item h4{
+    font-size:1.15rem;
+    margin-bottom:10px;
+    font-weight:600;
+  }
+  .diff-item p{
+    font-size:0.94rem;
+    color:var(--grey-text);
+  }
+
+  /* ===== APPROACH STRIP ===== */
+  .approach{
+    background:var(--charcoal);
+    color:var(--off-white);
+    padding:90px 0;
+  }
+  .approach .section-head h2,
+  .approach .eyebrow{color:var(--off-white);}
+  .approach .eyebrow::before{background:var(--gold);}
+  .approach .eyebrow{color:var(--gold);}
+  .approach .section-head p{color:#b9b6af;}
+
+  .approach-img{
+    display:grid;
+    grid-template-columns:repeat(3,1fr);
+    gap:20px;
+  }
+  .approach-img figure{
+    overflow:hidden;
+    border-radius:2px;
+    aspect-ratio:3/4;
+  }
+  .approach-img img{
+    width:100%;height:100%;object-fit:cover;
+    filter:grayscale(40%) brightness(0.9);
+    transition:filter 0.4s;
+  }
+  .approach-img figure:hover img{filter:grayscale(0%) brightness(1);}
+  .approach-img figcaption{
+    margin-top:14px;
+    font-size:0.82rem;
+    letter-spacing:0.05em;
+    text-transform:uppercase;
+    color:#b9b6af;
+  }
+
+  /* ===== FAQ ===== */
+  .faq-list{
+    border-top:1px solid var(--line);
+  }
+  .faq-item{
+    border-bottom:1px solid var(--line);
+    padding:28px 0;
+    cursor:pointer;
+  }
+  .faq-q{
+    display:flex;
+    justify-content:space-between;
+    align-items:center;
+    font-family:'Fraunces', serif;
+    font-size:1.25rem;
+    font-weight:500;
+  }
+  .faq-q .plus{
+    font-size:1.6rem;
+    color:var(--gold-deep);
+    transition:transform 0.3s;
+    font-weight:300;
+  }
+  .faq-item.open .plus{transform:rotate(45deg);}
+  .faq-a{
+    max-height:0;
+    overflow:hidden;
+    transition:max-height 0.35s ease, opacity 0.3s ease;
+    opacity:0;
+    color:var(--grey-text);
+    font-size:0.96rem;
+  }
+  .faq-item.open .faq-a{
+    max-height:200px;
+    opacity:1;
+    padding-top:16px;
+  }
+
+  /* ===== TEAM TEASER ===== */
+  .team-section{background:var(--cream);}
+  .team-grid{
+    display:grid;
+    grid-template-columns:repeat(4,1fr);
+    gap:28px;
+  }
+  .team-card img{
+    width:100%;
+    aspect-ratio:1/1;
+    object-fit:cover;
+    border-radius:2px;
+    filter:grayscale(30%);
+    margin-bottom:18px;
+  }
+  .team-card h4{font-size:1.05rem;margin-bottom:4px;}
+  .team-card .role{
+    font-size:0.82rem;
+    color:var(--gold-deep);
+    text-transform:uppercase;
+    letter-spacing:0.05em;
+    font-weight:600;
+  }
+
+  /* ===== CTA BAND ===== */
+  .cta-band{
+    background:var(--charcoal);
+    color:var(--off-white);
+    padding:90px 0;
+    text-align:center;
+  }
+  .cta-band h2{
+    font-size:2.6rem;
+    margin-bottom:18px;
+    max-width:680px;
+    margin-left:auto;
+    margin-right:auto;
+  }
+  .cta-band p{
+    color:#b9b6af;
+    max-width:520px;
+    margin:0 auto 36px;
+  }
+  .cta-band .cta-row{justify-content:center;}
+  .cta-band .btn-primary{background:var(--gold);border-color:var(--gold);color:var(--charcoal);}
+  .cta-band .btn-primary:hover{background:var(--off-white);border-color:var(--off-white);}
+  .cta-band .btn-secondary{border-color:#5c5953;color:var(--off-white);}
+  .cta-band .btn-secondary:hover{background:var(--off-white);color:var(--charcoal);border-color:var(--off-white);}
+
+  /* ===== FOOTER ===== */
+  footer{
+    background:var(--charcoal);
+    color:#b9b6af;
+    padding:60px 0 30px;
+    font-size:0.9rem;
+  }
+  .footer-grid{
+    display:grid;
+    grid-template-columns:1.4fr 1fr 1fr 1fr;
+    gap:40px;
+    padding-bottom:40px;
+    border-bottom:1px solid #38362f;
+  }
+  .footer-grid .logo{color:var(--off-white);margin-bottom:14px;}
+  .footer-grid .logo span{color:var(--gold);}
+  .footer-grid p{max-width:280px;color:#8a8780;}
+  .footer-col h5{
+    color:var(--off-white);
+    font-size:0.8rem;
+    letter-spacing:0.1em;
+    text-transform:uppercase;
+    margin-bottom:18px;
+    font-weight:600;
+  }
+  .footer-col ul{list-style:none;display:flex;flex-direction:column;gap:10px;}
+  .footer-col a{transition:color 0.2s;}
+  .footer-col a:hover{color:var(--gold);}
+  .footer-bottom{
+    padding-top:24px;
+    display:flex;
+    justify-content:space-between;
+    font-size:0.82rem;
+    color:#6f6c66;
+  }
+
+  /* ===== RESPONSIVE ===== */
+  @media (max-width:900px){
+    .nav-links{display:none;}
+    .menu-toggle{display:block;}
+    .hero-inner{grid-template-columns:1fr;gap:48px;}
+    .hero h1{font-size:2.4rem;}
+    .section-head{grid-template-columns:1fr;gap:28px;}
+    .statbar .container{grid-template-columns:repeat(2,1fr);}
+    .stat:nth-child(2){border-right:none;}
+    .diff-grid{grid-template-columns:1fr;}
+    .approach-img{grid-template-columns:1fr;}
+    .team-grid{grid-template-columns:repeat(2,1fr);}
+    .footer-grid{grid-template-columns:1fr 1fr;}
+    .footer-grid > div:first-child{grid-column:1/-1;}
+    .cta-band h2{font-size:1.9rem;}
+  }
+</style>
+</head>
+<body>
+
+<header>
+  <nav>
+    <div class="logo">TT <span>Capital</span> Partners</div>
+    <ul class="nav-links">
+      <li><a href="#home">Home</a></li>
+      <li><a href="#partner">How We Partner</a></li>
+      <li><a href="#people">People</a></li>
+      <li><a href="#portfolio">Portfolio</a></li>
+      <li><a href="#contact">Contact Us</a></li>
+      <li><a href="#contact" class="pitch-btn">Pitch</a></li>
+    </ul>
+    <button class="menu-toggle" aria-label="Menu">
+      <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 6h18M3 12h18M3 18h18"/></svg>
+    </button>
+  </nav>
+</header>
+
+<!-- HERO -->
+<section class="hero" id="home">
+  <div class="container hero-inner">
+    <div>
+      <div class="eyebrow">Operator-Led Venture Capital</div>
+      <h1>We Invest. We Mentor. We Multiply.</h1>
+      <p class="sub">We fuel exceptional founders with strategic expertise, operational support, and real-world growth playbooks — not just capital.</p>
+      <div class="cta-row">
+        <a href="#contact" class="btn btn-primary">Apply for Funding</a>
+        <a href="#partner" class="btn btn-secondary">Explore Our Approach</a>
+      </div>
+    </div>
+    <div class="hero-img-wrap">
+      <img src="https://images.unsplash.com/photo-1556761175-b413da4baf72?q=80&w=900&auto=format&fit=crop" alt="Founders working together in a strategy session">
+      <div class="hero-tag">Founder-First, Since Day One</div>
+    </div>
+  </div>
+</section>
+
+<!-- STAT BAR -->
+<section class="statbar">
+  <div class="container">
+    <div class="stat">
+      <span class="num">Pre-Seed–A</span>
+      <span class="label">Stage Focus</span>
+    </div>
+    <div class="stat">
+      <span class="num">D2C · FMCG · Tech</span>
+      <span class="label">Sector Focus</span>
+    </div>
+    <div class="stat">
+      <span class="num">15+ Yrs</span>
+      <span class="label">Operator Experience</span>
+    </div>
+    <div class="stat">
+      <span class="num">India-First</span>
+      <span class="label">Investment Geography</span>
+    </div>
+  </div>
+</section>
+
+<!-- WHY WE'RE DIFFERENT -->
+<section class="section">
+  <div class="container">
+    <div class="section-head">
+      <div>
+        <div class="eyebrow">Why We're Different</div>
+        <h2>Not Just Money. Real Growth Partners.</h2>
+      </div>
+      <p>Most funds write cheques. We unlock exponential growth. We partner deeply with founders by embedding our experience into strategy, operations, go-to-market, talent, and fundraising — turning potential into scale.</p>
+    </div>
+
+    <div class="diff-grid">
+      <div class="diff-item">
+        <span class="mark">Aa</span>
+        <h4>Strategic Mentorship From Day One</h4>
+        <p>We get involved before the term sheet — shaping direction, sharpening positioning, and stress-testing the plan.</p>
+      </div>
+      <div class="diff-item">
+        <span class="mark">Op</span>
+        <h4>Hands-On Operational Support</h4>
+        <p>From hiring frameworks to process design, we roll up our sleeves alongside founding teams.</p>
+      </div>
+      <div class="diff-item">
+        <span class="mark">Nw</span>
+        <h4>Network Access That Accelerates Growth</h4>
+        <p>Warm introductions to partners, customers, and operators who can move the needle globally.</p>
+      </div>
+      <div class="diff-item">
+        <span class="mark">Fp</span>
+        <h4>Founder-First, Long-Term Partnerships</h4>
+        <p>We back people first. Our relationships outlast any single round or milestone.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- APPROACH -->
+<section class="approach" id="partner">
+  <div class="container">
+    <div class="section-head">
+      <div>
+        <div class="eyebrow">How We Partner</div>
+        <h2>Real-World Playbooks for Scaling</h2>
+      </div>
+      <p>Our value add spans strategy, operations, go-to-market, hiring, and fundraising — built from experience operating and exiting businesses, not theorising about them.</p>
+    </div>
+    <div class="approach-img">
+      <figure>
+        <img src="https://images.unsplash.com/photo-1542744173-8e7e53415bb0?q=80&w=600&auto=format&fit=crop" alt="Strategy planning session">
+        <figcaption>Strategy & Positioning</figcaption>
+      </figure>
+      <figure>
+        <img src="https://images.unsplash.com/photo-1551434678-e076c223a692?q=80&w=600&auto=format&fit=crop" alt="Operations and process design">
+        <figcaption>Operations & Hiring</figcaption>
+      </figure>
+      <figure>
+        <img src="https://images.unsplash.com/photo-1521791136064-7986c2920216?q=80&w=600&auto=format&fit=crop" alt="Go-to-market and growth">
+        <figcaption>GTM & Fundraising</figcaption>
+      </figure>
+    </div>
+  </div>
+</section>
+
+<!-- TEAM TEASER -->
+<section class="section team-section" id="people">
+  <div class="container">
+    <div class="section-head">
+      <div>
+        <div class="eyebrow">Decision Committee</div>
+        <h2>The People Behind TT Capital</h2>
+      </div>
+      <p>An operator-led team with deep experience building, scaling, and exiting businesses across India.</p>
+    </div>
+    <div class="team-grid">
+      <div class="team-card">
+        <img src="https://images.unsplash.com/photo-1560250097-0b93528c311a?q=80&w=400&auto=format&fit=crop" alt="Hardik Jain">
+        <h4>Hardik Jain</h4>
+        <div class="role">Principal</div>
+      </div>
+      <div class="team-card">
+        <img src="https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?q=80&w=400&auto=format&fit=crop" alt="Tejas Gandhi">
+        <h4>Tejas Gandhi</h4>
+        <div class="role">Advisor</div>
+      </div>
+      <div class="team-card">
+        <img src="https://images.unsplash.com/photo-1500648767791-00d5a4ee9baa?q=80&w=400&auto=format&fit=crop" alt="Ankit Gulgulia">
+        <h4>Ankit Gulgulia</h4>
+        <div class="role">Advisor</div>
+      </div>
+      <div class="team-card">
+        <img src="https://images.unsplash.com/photo-1519085360753-af0119f7cbe7?q=80&w=400&auto=format&fit=crop" alt="Sanjay K Jain">
+        <h4>Sanjay K Jain</h4>
+        <div class="role">Advisor</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- FAQ -->
+<section class="section" id="faq">
+  <div class="container">
+    <div class="section-head">
+      <div>
+        <div class="eyebrow">FAQ</div>
+        <h2>Common Questions</h2>
+      </div>
+      <p>Everything founders ask us before applying — answered up front.</p>
+    </div>
+    <div class="faq-list">
+      <div class="faq-item">
+        <div class="faq-q"><span>What industries does TT Capital invest in?</span><span class="plus">+</span></div>
+        <div class="faq-a">We focus primarily on D2C, FMCG, and technology-led businesses across India, with an eye for founders building category-defining brands.</div>
+      </div>
+      <div class="faq-item">
+        <div class="faq-q"><span>What stages of startups does TT Capital invest in?</span><span class="plus">+</span></div>
+        <div class="faq-a">We invest at pre-seed, seed, and Series A — the stages where hands-on partnership has the greatest impact on outcomes.</div>
+      </div>
+      <div class="faq-item">
+        <div class="faq-q"><span>How does TT Capital support startups beyond providing capital?</span><span class="plus">+</span></div>
+        <div class="faq-a">Through strategic mentorship, operational execution support, hiring and talent networks, go-to-market playbooks, and introductions across our partner ecosystem.</div>
+      </div>
+      <div class="faq-item">
+        <div class="faq-q"><span>What is the process for a startup to secure investment from TT Capital?</span><span class="plus">+</span></div>
+        <div class="faq-a">Submit your pitch via our Founder Pitch form. Our team reviews every submission and reaches out directly for promising fits within two weeks.</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- CTA BAND -->
+<section class="cta-band" id="contact">
+  <div class="container">
+    <h2>Ready to build something exceptional?</h2>
+    <p>If you're a founder solving a real problem with conviction, we want to hear from you.</p>
+    <div class="cta-row">
+      <a href="#" class="btn btn-primary">Apply for Funding</a>
+      <a href="#" class="btn btn-secondary">General Enquiry</a>
+    </div>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer id="portfolio">
+  <div class="container">
+    <div class="footer-grid">
+      <div>
+        <div class="logo">TT <span>Capital</span> Partners</div>
+        <p>An operator-led venture capital fund backing exceptional founders across India with capital, strategy, and execution.</p>
+      </div>
+      <div class="footer-col">
+        <h5>About</h5>
+        <ul>
+          <li><a href="#partner">How We Partner</a></li>
+          <li><a href="#people">People</a></li>
+          <li><a href="#faq">FAQ</a></li>
+        </ul>
+      </div>
+      <div class="footer-col">
+        <h5>Portfolio</h5>
+        <ul>
+          <li><a href="#">India's Upcoming Unicorns</a></li>
+          <li><a href="#">Loading Soon</a></li>
+        </ul>
+      </div>
+      <div class="footer-col">
+        <h5>Contact</h5>
+        <ul>
+          <li><a href="#contact">Founder Pitch</a></li>
+          <li><a href="#contact">General Enquiry</a></li>
+          <li><a href="mailto:hello@ttcapital.in">hello@ttcapital.in</a></li>
+        </ul>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <span>© 2026 TT Capital Partners. All rights reserved.</span>
+      <span>Demo design — content placeholder</span>
+    </div>
+  </div>
+</footer>
+
+<script>
+  document.querySelectorAll('.faq-item').forEach(item=>{
+    item.querySelector('.faq-q').addEventListener('click',()=>{
+      const isOpen=item.classList.contains('open');
+      document.querySelectorAll('.faq-item').forEach(i=>i.classList.remove('open'));
+      if(!isOpen) item.classList.add('open');
+    });
+  });
+</script>
+
+</body>
+</html>
