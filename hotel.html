@@ -1,0 +1,473 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Spice Route — A Table Along the Trade Winds</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,300;0,9..144,500;0,9..144,600;1,9..144,400;1,9..144,500&family=Work+Sans:wght@300;400;500;600&family=Space+Mono:wght@400;700&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --ink:#1f1730;
+    --ink-2:#2a1f3d;
+    --cream:#f8eeda;
+    --cream-2:#f1e2c4;
+    --saffron:#e3a008;
+    --chili:#b3222c;
+    --teal:#1f6f5c;
+    --charcoal:#241a1a;
+    --line: rgba(248,238,218,0.28);
+  }
+  *{margin:0;padding:0;box-sizing:border-box;}
+  html{scroll-behavior:smooth;}
+  body{
+    background:var(--cream);
+    color:var(--charcoal);
+    font-family:'Work Sans', sans-serif;
+    font-weight:400;
+    overflow-x:hidden;
+  }
+  h1,h2,h3{font-family:'Fraunces', serif; font-weight:500; letter-spacing:-0.01em;}
+  .eyebrow{
+    font-family:'Space Mono', monospace;
+    font-size:0.72rem;
+    letter-spacing:0.22em;
+    text-transform:uppercase;
+    color:var(--chili);
+    margin-bottom:0.9rem;
+    display:inline-flex;
+    align-items:center;
+    gap:0.6rem;
+  }
+  .eyebrow::before{content:"";width:22px;height:1px;background:var(--chili);}
+  a{color:inherit; text-decoration:none;}
+  img{display:block; max-width:100%;}
+  .wrap{max-width:1180px; margin:0 auto; padding:0 6vw;}
+  @media(min-width:1300px){.wrap{padding:0 3rem;}}
+
+  /* ---------- NAV ---------- */
+  nav{
+    position:fixed; top:0; left:0; right:0; z-index:100;
+    display:flex; align-items:center; justify-content:space-between;
+    padding:1.1rem 6vw;
+    background:rgba(31,23,48,0.0);
+    transition:background .4s ease, padding .4s ease, box-shadow .4s ease;
+  }
+  nav.scrolled{
+    background:rgba(31,23,48,0.92);
+    backdrop-filter:blur(10px);
+    padding:0.8rem 6vw;
+    box-shadow:0 8px 30px rgba(0,0,0,0.25);
+  }
+  .brand{
+    font-family:'Fraunces', serif; font-style:italic; font-weight:500;
+    font-size:1.35rem; color:var(--cream); letter-spacing:0.01em;
+  }
+  .navlinks{display:flex; gap:2.1rem; align-items:center;}
+  .navlinks a{
+    font-family:'Space Mono', monospace; font-size:0.72rem;
+    letter-spacing:0.12em; text-transform:uppercase; color:var(--cream-2);
+    opacity:0.85; transition:opacity .25s ease;
+  }
+  .navlinks a:hover{opacity:1; color:var(--saffron);}
+  .btn{
+    font-family:'Space Mono', monospace; font-size:0.72rem;
+    letter-spacing:0.1em; text-transform:uppercase;
+    padding:0.7rem 1.3rem; border:1px solid var(--saffron);
+    color:var(--saffron); border-radius:2px; transition:all .3s ease;
+    white-space:nowrap;
+  }
+  .btn:hover{background:var(--saffron); color:var(--ink);}
+  .btn.solid{background:var(--chili); border-color:var(--chili); color:var(--cream);}
+  .btn.solid:hover{background:#8f1a22; border-color:#8f1a22;}
+  .navlinks .btn{padding:0.55rem 1.1rem;}
+  .navtoggle{display:none; color:var(--cream); font-size:1.5rem; background:none; border:none; cursor:pointer;}
+
+  /* ---------- HERO ---------- */
+  .hero{
+    position:relative; height:100svh; min-height:560px;
+    display:flex; align-items:flex-end;
+    background:#141021;
+  }
+  .hero-img{
+    position:absolute; inset:0; width:100%; height:100%; object-fit:cover;
+    opacity:0.55;
+  }
+  .hero::after{
+    content:""; position:absolute; inset:0;
+    background:
+      linear-gradient(180deg, rgba(20,16,33,0.55) 0%, rgba(20,16,33,0.35) 35%, rgba(20,16,33,0.96) 100%);
+  }
+  .hero-content{position:relative; z-index:2; padding:0 6vw 6.5rem; width:100%;}
+  .hero-eyebrow{
+    font-family:'Space Mono', monospace; color:var(--saffron);
+    font-size:0.78rem; letter-spacing:0.3em; text-transform:uppercase;
+    margin-bottom:1.4rem;
+  }
+  .hero h1{
+    color:var(--cream); font-size:clamp(3.2rem, 10vw, 7.2rem);
+    line-height:0.92; font-weight:500;
+  }
+  .hero h1 em{font-style:italic; color:var(--saffron); font-weight:400;}
+  .hero-sub{
+    color:var(--cream-2); font-size:clamp(1.05rem,2vw,1.3rem);
+    max-width:36ch; margin:1.6rem 0 2.3rem; font-weight:300;
+  }
+  .hero-ctas{display:flex; gap:1rem; flex-wrap:wrap;}
+  .route-line{
+    position:absolute; left:0; right:0; bottom:0; height:3px;
+    background-image: linear-gradient(90deg, var(--saffron) 0 10px, transparent 10px 20px);
+    background-size:20px 3px;
+    background-repeat:repeat-x;
+    z-index:3;
+  }
+
+  /* ---------- SECTION BASE ---------- */
+  section{padding:7rem 0;}
+  .section-head{max-width:640px; margin-bottom:3.5rem;}
+  .section-head h2{font-size:clamp(2.1rem,4vw,3rem); line-height:1.05;}
+  .section-head p{margin-top:1.1rem; font-size:1.05rem; color:#4a3c3c; font-weight:300; line-height:1.6;}
+
+  .reveal{opacity:0; transform:translateY(28px); transition:opacity .8s ease, transform .8s ease;}
+  .reveal.in{opacity:1; transform:translateY(0);}
+
+  /* ---------- ABOUT ---------- */
+  .about{background:var(--cream);}
+  .about-grid{display:grid; grid-template-columns:1.05fr 0.95fr; gap:4.5rem; align-items:center;}
+  .about-img-wrap{position:relative;}
+  .about-img-wrap img{border-radius:3px; width:100%; height:460px; object-fit:cover;}
+  .about-tag{
+    position:absolute; bottom:-1.6rem; left:-1.6rem; background:var(--chili); color:var(--cream);
+    padding:1.3rem 1.6rem; border-radius:2px; font-family:'Space Mono',monospace;
+    font-size:0.78rem; line-height:1.6; letter-spacing:0.03em; box-shadow:0 20px 40px rgba(179,34,44,0.25);
+  }
+  .about-tag b{display:block; font-family:'Fraunces',serif; font-size:1.7rem; font-weight:500; font-style:italic;}
+  .about-body p{font-size:1.08rem; line-height:1.75; color:#3a2e2e; font-weight:300; margin-bottom:1.3rem;}
+  .about-body p:first-of-type::first-letter{
+    font-family:'Fraunces',serif; font-size:3.4rem; float:left; line-height:0.8;
+    padding:0.1rem 0.5rem 0 0; color:var(--chili); font-weight:500;
+  }
+
+  /* ---------- ROUTE (SIGNATURE) ---------- */
+  .route{background:var(--ink); color:var(--cream); position:relative; overflow:hidden;}
+  .route .section-head h2{color:var(--cream);}
+  .route .section-head p{color:var(--cream-2); opacity:0.85;}
+  .route .eyebrow{color:var(--saffron);}
+  .route .eyebrow::before{background:var(--saffron);}
+
+  .stops{
+    display:grid; grid-template-columns:repeat(4,1fr); gap:0;
+    position:relative; margin-top:1rem;
+  }
+  .stops::before{
+    content:""; position:absolute; top:38px; left:6%; right:6%; height:2px;
+    background-image: linear-gradient(90deg, var(--saffron) 0 9px, transparent 9px 18px);
+    background-size:18px 2px; background-repeat:repeat-x;
+    z-index:0;
+  }
+  .stop{position:relative; padding:0 1.2rem; z-index:1;}
+  .stop-num{
+    width:14px; height:14px; border-radius:50%; background:var(--saffron);
+    margin:32px auto 1.6rem; position:relative; box-shadow:0 0 0 5px var(--ink), 0 0 0 6px rgba(227,160,8,0.4);
+  }
+  .stop-img{width:100%; height:180px; object-fit:cover; border-radius:3px; margin-bottom:1.2rem; filter:saturate(1.05);}
+  .stop-coord{font-family:'Space Mono',monospace; font-size:0.68rem; letter-spacing:0.1em; color:var(--saffron); text-transform:uppercase;}
+  .stop h3{font-size:1.5rem; margin:0.4rem 0 0.3rem; font-style:italic; font-weight:500;}
+  .stop-desc{font-size:0.9rem; color:var(--cream-2); opacity:0.8; margin-bottom:0.9rem; font-weight:300; line-height:1.5;}
+  .stop-dishes{list-style:none; border-top:1px solid rgba(248,238,218,0.18); padding-top:0.8rem;}
+  .stop-dishes li{
+    display:flex; justify-content:space-between; gap:0.6rem;
+    font-size:0.86rem; padding:0.35rem 0; color:var(--cream-2);
+  }
+  .stop-dishes li span:last-child{font-family:'Space Mono',monospace; color:var(--saffron); font-size:0.8rem;}
+
+  /* ---------- GALLERY ---------- */
+  .gallery{background:var(--cream-2);}
+  .gallery-grid{
+    display:grid; grid-template-columns:repeat(6, 1fr); grid-auto-rows:120px; gap:0.6rem;
+  }
+  .gitem{overflow:hidden; border-radius:3px; position:relative;}
+  .gitem img{width:100%; height:100%; object-fit:cover; transition:transform .6s ease;}
+  .gitem:hover img{transform:scale(1.08);}
+  .gitem .cap{
+    position:absolute; left:0; right:0; bottom:0; padding:0.6rem 0.8rem;
+    background:linear-gradient(180deg, transparent, rgba(20,16,33,0.85));
+    color:var(--cream); font-family:'Space Mono',monospace; font-size:0.68rem;
+    letter-spacing:0.05em; opacity:0; transition:opacity .3s ease;
+  }
+  .gitem:hover .cap{opacity:1;}
+  .g1{grid-column:span 3; grid-row:span 2;}
+  .g2{grid-column:span 3; grid-row:span 2;}
+  .g3{grid-column:span 2; grid-row:span 2;}
+  .g4{grid-column:span 2; grid-row:span 2;}
+  .g5{grid-column:span 2; grid-row:span 2;}
+
+  /* ---------- TESTIMONIALS ---------- */
+  .testimonials{background:var(--cream);}
+  .t-grid{display:grid; grid-template-columns:repeat(3,1fr); gap:1.8rem;}
+  .t-card{
+    background:var(--cream-2); border:1px solid rgba(36,26,26,0.08); border-radius:3px;
+    padding:2.2rem 1.9rem; position:relative;
+  }
+  .t-stamp{
+    font-family:'Space Mono',monospace; font-size:0.68rem; letter-spacing:0.12em;
+    color:var(--teal); text-transform:uppercase; border:1px solid var(--teal);
+    display:inline-block; padding:0.25rem 0.55rem; border-radius:2px; margin-bottom:1.1rem;
+    transform:rotate(-2deg);
+  }
+  .t-quote{font-family:'Fraunces',serif; font-style:italic; font-size:1.18rem; line-height:1.55; margin-bottom:1.3rem; color:var(--charcoal);}
+  .t-name{font-family:'Space Mono',monospace; font-size:0.78rem; color:#6b5a5a;}
+
+  /* ---------- VISIT / RESERVE ---------- */
+  .visit{
+    position:relative; color:var(--cream); background:#141021;
+    padding:8rem 0;
+  }
+  .visit-img{position:absolute; inset:0; width:100%; height:100%; object-fit:cover; opacity:0.32;}
+  .visit::after{content:""; position:absolute; inset:0; background:linear-gradient(180deg, rgba(20,16,33,0.75), rgba(31,23,48,0.96));}
+  .visit-inner{position:relative; z-index:2; text-align:center; max-width:680px; margin:0 auto;}
+  .visit .eyebrow{justify-content:center; color:var(--saffron);}
+  .visit .eyebrow::before{background:var(--saffron);}
+  .visit h2{font-size:clamp(2.4rem,5vw,3.6rem); margin-bottom:1.4rem;}
+  .visit h2 em{color:var(--saffron); font-style:italic;}
+  .visit p{color:var(--cream-2); font-weight:300; font-size:1.08rem; margin-bottom:2.4rem; line-height:1.6;}
+  .visit-details{
+    display:flex; justify-content:center; gap:3rem; flex-wrap:wrap;
+    margin-top:3rem; padding-top:2.5rem; border-top:1px solid rgba(248,238,218,0.2);
+  }
+  .vd{text-align:left;}
+  .vd .eyebrow{font-size:0.65rem; margin-bottom:0.5rem;}
+  .vd p{margin:0; font-size:0.95rem; color:var(--cream-2);}
+  .visit-ctas{display:flex; gap:1rem; justify-content:center; flex-wrap:wrap;}
+
+  /* ---------- FOOTER ---------- */
+  footer{background:var(--ink); color:var(--cream-2); padding:3rem 0 2rem;}
+  .foot-grid{display:flex; justify-content:space-between; align-items:center; flex-wrap:wrap; gap:1.5rem;}
+  .foot-brand{font-family:'Fraunces',serif; font-style:italic; font-size:1.3rem; color:var(--cream);}
+  .foot-links{display:flex; gap:1.8rem; font-family:'Space Mono',monospace; font-size:0.72rem; letter-spacing:0.08em; text-transform:uppercase;}
+  .foot-copy{font-family:'Space Mono',monospace; font-size:0.7rem; opacity:0.55; margin-top:2rem; text-align:center;}
+
+  /* ---------- RESPONSIVE ---------- */
+  @media(max-width:980px){
+    .navlinks{display:none;}
+    .navtoggle{display:block;}
+    .about-grid{grid-template-columns:1fr; gap:3rem;}
+    .about-tag{left:1rem; bottom:-1.4rem;}
+    .stops{grid-template-columns:1fr 1fr; gap:2.5rem 1.5rem;}
+    .stops::before{display:none;}
+    .gallery-grid{grid-template-columns:repeat(2,1fr); grid-auto-rows:160px;}
+    .g1,.g2,.g3,.g4,.g5{grid-column:span 1; grid-row:span 1;}
+    .t-grid{grid-template-columns:1fr; gap:1.4rem;}
+    .visit-details{gap:1.6rem;}
+  }
+  @media(max-width:560px){
+    .stops{grid-template-columns:1fr;}
+    section{padding:4.5rem 0;}
+    .hero-content{padding-bottom:4rem;}
+  }
+</style>
+</head>
+<body>
+
+<nav id="nav">
+  <a href="#top" class="brand">Spice Route</a>
+  <div class="navlinks">
+    <a href="#story">Story</a>
+    <a href="#route">The Route</a>
+    <a href="#menu">Menu</a>
+    <a href="#visit">Visit</a>
+    <a href="#visit" class="btn">Reserve</a>
+  </div>
+  <button class="navtoggle" aria-label="menu">&#9776;</button>
+</nav>
+
+<section class="hero" id="top">
+  <img class="hero-img" src="https://images.pexels.com/photos/941869/pexels-photo-941869.jpeg?auto=compress&cs=tinysrgb&w=1800" alt="A vibrant spread of Indian dishes including dosa, curry and chutney">
+  <div class="hero-content">
+    <div class="hero-eyebrow">Est. on the old trade winds</div>
+    <h1>Spice<br><em>Route</em></h1>
+    <p class="hero-sub">One kitchen, four coastlines of flavor — Zanzibar, Kerala, Istanbul and Marrakesh, plated the way each port would recognize.</p>
+    <div class="hero-ctas">
+      <a href="#visit" class="btn solid">Reserve a Table</a>
+      <a href="#route" class="btn">View the Route</a>
+    </div>
+  </div>
+  <div class="route-line"></div>
+</section>
+
+<section class="about" id="story">
+  <div class="wrap about-grid">
+    <div class="about-img-wrap reveal">
+      <img src="https://images.pexels.com/photos/776538/pexels-photo-776538.jpeg?auto=compress&cs=tinysrgb&w=1200" alt="Warm-lit dining room with hanging lamps">
+      <div class="about-tag"><b>1,400+</b>nautical miles of menu, one dining room</div>
+    </div>
+    <div class="about-body reveal">
+      <div class="eyebrow">Our Story</div>
+      <h2 style="font-size:clamp(1.9rem,3.4vw,2.6rem); margin-bottom:1.3rem;">Charted, not fused.</h2>
+      <p>For centuries, ships carried cardamom out of Kerala, cloves out of Zanzibar, sumac from the Levant and saffron from Persia along the same monsoon winds. Spice Route keeps that itinerary alive on one menu — not blended into something new, but plated the way each port has always served it.</p>
+      <p>Every dish here traces back to a place, a family recipe, and a spice trader who once made the crossing. Pull up a chair. You're joining us mid-voyage.</p>
+    </div>
+  </div>
+</section>
+
+<section class="route" id="route">
+  <div class="wrap">
+    <div class="section-head reveal">
+      <div class="eyebrow">The Route</div>
+      <h2>Four ports, one evening</h2>
+      <p>Work your way down the coastline — or pick a port and stay awhile. Each stop is a self-contained meal, built the way it's eaten at home.</p>
+    </div>
+    <div class="stops">
+      <div class="stop reveal">
+        <div class="stop-num"></div>
+        <img class="stop-img" src="https://images.pexels.com/photos/15777497/pexels-photo-15777497.jpeg?auto=compress&cs=tinysrgb&w=800" alt="Overflowing bins of colorful spices at a market stall">
+        <div class="stop-coord">06°S · Zanzibar</div>
+        <h3>The Spice Islands</h3>
+        <p class="stop-desc">Clove, cinnamon and pepper, the cargo that started it all.</p>
+        <ul class="stop-dishes">
+          <li><span>Clove-rubbed prawns</span><span>$24</span></li>
+          <li><span>Zanzibar mix pilau</span><span>$21</span></li>
+          <li><span>Coconut &amp; cardamom curry</span><span>$23</span></li>
+        </ul>
+      </div>
+      <div class="stop reveal">
+        <div class="stop-num"></div>
+        <img class="stop-img" src="https://images.pexels.com/photos/29148133/pexels-photo-29148133.jpeg?auto=compress&cs=tinysrgb&w=800" alt="Indian thali with naan bread, paneer curry and rice">
+        <div class="stop-coord">10°N · Kerala</div>
+        <h3>The Malabar Coast</h3>
+        <p class="stop-desc">Coconut, curry leaf and black pepper, straight off the backwaters.</p>
+        <ul class="stop-dishes">
+          <li><span>Malabar fish curry</span><span>$26</span></li>
+          <li><span>Appam &amp; vegetable stew</span><span>$19</span></li>
+          <li><span>Masala dosa</span><span>$17</span></li>
+        </ul>
+      </div>
+      <div class="stop reveal">
+        <div class="stop-num"></div>
+        <img class="stop-img" src="https://images.pexels.com/photos/53148/pexels-photo-53148.jpeg?auto=compress&cs=tinysrgb&w=800" alt="Colorful grilled skewers with mixed vegetables and meat">
+        <div class="stop-coord">41°N · Istanbul</div>
+        <h3>The Bazaar</h3>
+        <p class="stop-desc">Charcoal, sumac and pomegranate, served straight off the grill.</p>
+        <ul class="stop-dishes">
+          <li><span>Adana lamb skewers</span><span>$25</span></li>
+          <li><span>Charred vegetable pide</span><span>$18</span></li>
+          <li><span>Smoked eggplant meze</span><span>$14</span></li>
+        </ul>
+      </div>
+      <div class="stop reveal">
+        <div class="stop-num"></div>
+        <img class="stop-img" src="https://images.pexels.com/photos/7205249/pexels-photo-7205249.jpeg?auto=compress&cs=tinysrgb&w=800" alt="A chef managing a flaming pan in a professional kitchen">
+        <div class="stop-coord">32°N · Marrakesh</div>
+        <h3>The Souk</h3>
+        <p class="stop-desc">Saffron, preserved lemon and slow heat, straight from the tagine.</p>
+        <ul class="stop-dishes">
+          <li><span>Saffron chicken tagine</span><span>$24</span></li>
+          <li><span>Preserved lemon couscous</span><span>$17</span></li>
+          <li><span>Spiced almond pastilla</span><span>$12</span></li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="gallery" id="menu">
+  <div class="wrap">
+    <div class="section-head reveal">
+      <div class="eyebrow">From the Pass</div>
+      <h2>Tonight's crossing</h2>
+      <p>A running log of what's leaving the kitchen — the full menu changes with the season, the route rarely does.</p>
+    </div>
+    <div class="gallery-grid">
+      <div class="gitem g1 reveal"><img src="https://images.pexels.com/photos/958547/pexels-photo-958547.jpeg?auto=compress&cs=tinysrgb&w=900" alt="An assortment of Indian cuisine on a serving tray"><div class="cap">Zanzibar mix pilau, plated</div></div>
+      <div class="gitem g2 reveal"><img src="https://images.pexels.com/photos/17050759/pexels-photo-17050759.jpeg?auto=compress&cs=tinysrgb&w=900" alt="Overhead view of curries served on white plates"><div class="cap">The evening curry line-up</div></div>
+      <div class="gitem g3 reveal"><img src="https://images.pexels.com/photos/20422129/pexels-photo-20422129.jpeg?auto=compress&cs=tinysrgb&w=700" alt="Crispy dosa served with coconut chutney and sambar"><div class="cap">Malabar-style dosa</div></div>
+      <div class="gitem g4 reveal"><img src="https://images.pexels.com/photos/28909537/pexels-photo-28909537.jpeg?auto=compress&cs=tinysrgb&w=700" alt="Close-up of biryani served on a traditional metal plate"><div class="cap">Saffron biryani</div></div>
+      <div class="gitem g5 reveal"><img src="https://images.pexels.com/photos/5086624/pexels-photo-5086624.jpeg?auto=compress&cs=tinysrgb&w=700" alt="A beautifully plated meal with a glass of red wine"><div class="cap">Table for two, Bazaar side</div></div>
+    </div>
+  </div>
+</section>
+
+<section class="testimonials">
+  <div class="wrap">
+    <div class="section-head reveal">
+      <div class="eyebrow">Guest Log</div>
+      <h2>Notes from the voyage</h2>
+    </div>
+    <div class="t-grid">
+      <div class="t-card reveal">
+        <div class="t-stamp">Port: Kerala</div>
+        <p class="t-quote">The dosa alone is worth the trip — and then they bring out the Istanbul course and you forget you were full.</p>
+        <p class="t-name">— Priya M.</p>
+      </div>
+      <div class="t-card reveal">
+        <div class="t-stamp">Port: Marrakesh</div>
+        <p class="t-quote">Every dish tastes like it actually came from somewhere. Nothing on this menu feels invented.</p>
+        <p class="t-name">— Daniel R.</p>
+      </div>
+      <div class="t-card reveal">
+        <div class="t-stamp">Port: Zanzibar</div>
+        <p class="t-quote">Booked a table for two, ended up ordering across all four stops. Ask for the pilau, don't overthink it.</p>
+        <p class="t-name">— Aisha K.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="visit" id="visit">
+  <img class="visit-img" src="https://images.pexels.com/photos/5086624/pexels-photo-5086624.jpeg?auto=compress&cs=tinysrgb&w=1800" alt="Candlelit table setting with wine">
+  <div class="wrap visit-inner reveal">
+    <div class="eyebrow">Visit</div>
+    <h2>Come <em>aboard</em></h2>
+    <p>Reservations are held for fifteen minutes past booking time. Walk-ins are always welcome at the bar end of the Bazaar counter.</p>
+    <div class="visit-ctas">
+      <a href="tel:+10000000000" class="btn solid">Call to Reserve</a>
+      <a href="mailto:hello@spiceroute.example" class="btn">Email Us</a>
+    </div>
+    <div class="visit-details">
+      <div class="vd">
+        <div class="eyebrow" style="justify-content:flex-start;">Hours</div>
+        <p>Tue – Sun, 5:00 pm – 11:00 pm</p>
+        <p>Closed Mondays</p>
+      </div>
+      <div class="vd">
+        <div class="eyebrow" style="justify-content:flex-start;">Address</div>
+        <p>14 Harbourfront Lane</p>
+        <p>Portside District</p>
+      </div>
+      <div class="vd">
+        <div class="eyebrow" style="justify-content:flex-start;">Contact</div>
+        <p>(000) 000-0000</p>
+        <p>hello@spiceroute.example</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<footer>
+  <div class="wrap foot-grid">
+    <div class="foot-brand">Spice Route</div>
+    <div class="foot-links">
+      <a href="#story">Story</a>
+      <a href="#route">Route</a>
+      <a href="#menu">Menu</a>
+      <a href="#visit">Visit</a>
+    </div>
+  </div>
+  <p class="foot-copy">© 2026 Spice Route. Four ports, one table.</p>
+</footer>
+
+<script>
+  const nav = document.getElementById('nav');
+  window.addEventListener('scroll', () => {
+    nav.classList.toggle('scrolled', window.scrollY > 40);
+  });
+
+  const io = new IntersectionObserver((entries) => {
+    entries.forEach(e => { if(e.isIntersecting){ e.target.classList.add('in'); io.unobserve(e.target); } });
+  }, { threshold: 0.15 });
+  document.querySelectorAll('.reveal').forEach(el => io.observe(el));
+</script>
+
+</body>
+</html>
