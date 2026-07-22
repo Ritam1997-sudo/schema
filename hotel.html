@@ -486,6 +486,158 @@
   }
   body{padding-bottom:64px;}
   @media (min-width:761px){ body{padding-bottom:0;} }
+  /* ===== MOBILE OVERFLOW / RIGHT-DRAG FIX ===== */
+html,
+body {
+  width: 100%;
+  max-width: 100%;
+  overflow-x: hidden;
+}
+
+body {
+  position: relative;
+}
+
+img,
+svg,
+iframe,
+video,
+canvas {
+  max-width: 100%;
+}
+
+/* prevent hidden/fixed elements from creating extra width */
+header,
+.mobile-panel,
+.hero,
+.hero-inner,
+.wrap,
+section,
+footer,
+.float-ctas {
+  max-width: 100%;
+}
+
+.mobile-panel {
+  width: 100vw;
+  max-width: 100%;
+  overflow-x: hidden;
+}
+
+/* review slider should stay inside viewport */
+.review-track {
+  max-width: 100%;
+  overflow-x: auto;
+  overflow-y: hidden;
+}
+
+@media (max-width: 760px) {
+  .wrap {
+    padding-left: 16px;
+    padding-right: 16px;
+  }
+
+  .nav,
+  .nav-right,
+  .hero-grid,
+  .about-grid,
+  .dish-grid,
+  .why-grid,
+  .loc-grid3,
+  .footer-grid,
+  .about-list {
+    min-width: 0;
+  }
+
+  /* buttons/rows stack cleanly on phone */
+  .hero-ctas,
+  .cta-strip .btns,
+  .loc-actions {
+    flex-direction: column;
+    align-items: stretch;
+  }
+
+  .hero-ctas .btn,
+  .cta-strip .btn,
+  .loc-actions .btn {
+    width: 100%;
+    justify-content: center;
+  }
+
+  /* long pills can overflow on small phones */
+  .hero-trust .pill {
+    max-width: 100%;
+    white-space: normal;
+    text-align: center;
+    justify-content: center;
+  }
+
+  /* this is one major source of horizontal drag */
+  .review-card {
+    flex: 0 0 calc(100vw - 32px);
+    max-width: calc(100vw - 32px);
+  }
+
+  /* biggest overflow culprit on narrow devices */
+  .gallery-grid {
+    columns: 1 !important;
+    column-gap: 0 !important;
+  }
+
+  .g-item {
+    margin-bottom: 16px;
+  }
+
+  .footer-grid,
+  .about-list {
+    grid-template-columns: 1fr;
+  }
+
+  .newsletter {
+    flex-direction: column;
+    border-radius: 18px;
+    overflow: hidden;
+  }
+
+  .newsletter button {
+    width: 100%;
+  }
+
+  .float-ctas {
+    left: 0;
+    right: 0;
+    width: 100%;
+    max-width: 100%;
+    border-radius: 0;
+  }
+
+  .float-ctas a {
+    min-width: 0;
+    font-size: 0.84rem;
+    padding: 14px 8px;
+  }
+
+  .faq-q {
+    font-size: 1rem;
+    padding: 18px 18px;
+  }
+}
+
+@media (max-width: 480px) {
+  .cat-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .hero h1 {
+    font-size: 1.95rem;
+  }
+
+  .review-card {
+    flex-basis: calc(100vw - 24px);
+    max-width: calc(100vw - 24px);
+  }
+}
+
 </style>
 </head>
 <body>
