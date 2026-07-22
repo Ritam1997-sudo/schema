@@ -1,0 +1,438 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Kurry Patta — Multicuisine Restaurant, Kolkata</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,600;9..144,700&family=Nunito:wght@400;600;700;800&family=Caveat:wght@600;700&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --cream:#FDF6E8;
+    --cream-2:#F7ECD3;
+    --marigold:#F5B914;
+    --marigold-deep:#E0A400;
+    --espresso:#3A2618;
+    --espresso-soft:#5C4331;
+    --leaf:#4A7C3A;
+    --leaf-light:#7FAF5C;
+    --burnt:#8B3A1A;
+    --radius:18px;
+  }
+  *{box-sizing:border-box; margin:0; padding:0;}
+  html{scroll-behavior:smooth;}
+  body{
+    font-family:'Nunito', sans-serif;
+    background:var(--cream);
+    color:var(--espresso);
+    line-height:1.55;
+  }
+  h1,h2,h3,.display{
+    font-family:'Fraunces', serif;
+    font-weight:600;
+    letter-spacing:-0.01em;
+  }
+  a{text-decoration:none; color:inherit;}
+  img,svg{display:block;}
+  .wrap{max-width:1180px; margin:0 auto; padding:0 24px;}
+
+  /* Leaf motif - reused signature element */
+  .leaf{
+    display:inline-block;
+    width:16px; height:16px;
+    background: radial-gradient(ellipse at 30% 30%, var(--leaf-light), var(--leaf));
+    clip-path: path('M8 0C12 3 16 7 16 11C16 14 12 16 8 16C4 16 0 14 0 11C0 7 4 3 8 0Z');
+    transform: rotate(-20deg);
+  }
+  .leaf-row{display:flex; gap:6px; align-items:center;}
+
+  /* ---------- HEADER ---------- */
+  header{
+    position:sticky; top:0; z-index:50;
+    background:rgba(253,246,232,0.92);
+    backdrop-filter: blur(6px);
+    border-bottom:1px solid rgba(58,38,24,0.08);
+  }
+  .nav{
+    display:flex; align-items:center; justify-content:space-between;
+    padding:16px 24px;
+    max-width:1180px; margin:0 auto;
+  }
+  .logo{
+    font-family:'Caveat', cursive;
+    font-weight:700;
+    font-size:2.1rem;
+    color:var(--espresso);
+    display:flex; align-items:center; gap:6px;
+  }
+  .logo .leaf{width:18px; height:18px; margin-bottom:14px;}
+  .nav-links{
+    display:flex; gap:32px; font-weight:700; font-size:0.95rem;
+  }
+  .nav-links a{position:relative; padding:4px 0;}
+  .nav-links a:hover{color:var(--burnt);}
+  .nav-cta{
+    background:var(--espresso); color:var(--cream);
+    padding:10px 22px; border-radius:999px; font-weight:800; font-size:0.9rem;
+    white-space:nowrap;
+  }
+  .nav-cta:hover{background:var(--burnt);}
+  .menu-toggle{display:none; font-size:1.6rem; background:none; border:none; cursor:pointer; color:var(--espresso);}
+
+  /* ---------- HERO ---------- */
+  .hero{
+    background:
+      linear-gradient(180deg, rgba(245,185,20,0.94) 0%, rgba(245,185,20,0.94) 60%, var(--cream) 60%),
+      url('https://images.unsplash.com/photo-1574071318508-1cdbab80d002?w=1600&q=60&auto=format&fit=crop');
+    background-size:cover;
+    background-position:center;
+    position:relative; overflow:hidden;
+  }
+  .hero-inner{
+    max-width:1180px; margin:0 auto; padding:64px 24px 0;
+    display:grid; grid-template-columns:1.1fr 0.9fr; gap:40px; align-items:center;
+  }
+  .eyebrow{
+    font-weight:800; letter-spacing:0.14em; text-transform:uppercase;
+    font-size:0.78rem; color:var(--espresso-soft);
+    display:flex; align-items:center; gap:10px; margin-bottom:18px;
+  }
+  .hero h1{
+    font-size:3.4rem; line-height:1.05; color:var(--espresso); margin-bottom:20px;
+  }
+  .hero h1 em{font-style:italic; color:var(--burnt);}
+  .hero p.lede{
+    font-size:1.1rem; max-width:480px; color:var(--espresso-soft); margin-bottom:28px;
+  }
+  .hero-ctas{display:flex; gap:14px; flex-wrap:wrap;}
+  .btn{
+    padding:14px 28px; border-radius:999px; font-weight:800; font-size:0.95rem;
+    display:inline-block; transition:transform .15s ease;
+  }
+  .btn:hover{transform:translateY(-2px);}
+  .btn-primary{background:var(--espresso); color:var(--cream);}
+  .btn-primary:hover{background:var(--burnt);}
+  .btn-ghost{border:2px solid var(--espresso); color:var(--espresso);}
+  .btn-ghost:hover{background:var(--espresso); color:var(--cream);}
+
+  /* menu-card shaped hero art, echoes the physical octagon menu cards */
+  .hero-art{
+    position:relative; height:420px;
+    display:flex; align-items:center; justify-content:center;
+  }
+  .menu-card{
+    width:280px; height:380px;
+    background:var(--cream);
+    clip-path: polygon(20% 0%, 80% 0%, 100% 20%, 100% 80%, 80% 100%, 20% 100%, 0% 80%, 0% 20%);
+    box-shadow:0 30px 60px rgba(58,38,24,0.25);
+    display:flex; flex-direction:column; align-items:center; justify-content:flex-end;
+    gap:8px; padding:20px 20px 26px; text-align:center;
+    transform:rotate(-3deg);
+    position:relative;
+    background-image:
+      linear-gradient(180deg, rgba(58,38,24,0) 40%, rgba(58,38,24,0.85) 100%),
+      url('https://images.unsplash.com/photo-1596797038530-2c107229654b?w=700&q=75&auto=format&fit=crop');
+    background-size:cover;
+    background-position:center;
+  }
+  .menu-card .leaf-row .leaf{width:20px; height:20px; filter:brightness(0) invert(1) sepia(1) saturate(3) hue-rotate(70deg);}
+  .menu-card h3{color:var(--cream); font-size:1.4rem;}
+  .menu-card p{font-size:0.85rem; color:var(--cream); font-weight:700;}
+  .hero-badge{
+    position:absolute; top:10px; right:calc(50% - 190px);
+    background:var(--burnt); color:var(--cream);
+    width:74px; height:74px; border-radius:50%;
+    display:flex; align-items:center; justify-content:center;
+    font-family:'Fraunces',serif; font-size:0.72rem; font-weight:700; text-align:center;
+    transform:rotate(12deg);
+    box-shadow:0 8px 20px rgba(139,58,26,0.35);
+  }
+
+  section{padding:88px 0;}
+  .section-head{text-align:center; max-width:640px; margin:0 auto 52px;}
+  .section-head .eyebrow{justify-content:center;}
+  .section-head h2{font-size:2.4rem; color:var(--espresso);}
+  .section-head p{color:var(--espresso-soft); margin-top:12px;}
+
+  /* ---------- CATEGORIES ---------- */
+  .cat-grid{
+    display:grid; grid-template-columns:repeat(4, 1fr); gap:28px 24px;
+  }
+  .cat-card{
+    background:var(--cream-2);
+    clip-path: polygon(18% 0%, 82% 0%, 100% 18%, 100% 82%, 82% 100%, 18% 100%, 0% 82%, 0% 18%);
+    padding:0 0 26px;
+    text-align:center;
+    transition:transform .2s ease, box-shadow .2s ease;
+    overflow:hidden;
+  }
+  .cat-card:hover{transform:translateY(-6px); box-shadow:0 18px 30px rgba(58,38,24,0.12);}
+  .cat-photo{
+    width:100%; height:150px; object-fit:cover; display:block;
+    margin-bottom:16px;
+  }
+  .cat-card h3{font-size:1.15rem; color:var(--espresso); margin-bottom:6px; padding:0 16px;}
+  .cat-card p{font-size:0.82rem; color:var(--espresso-soft); font-weight:700; padding:0 16px;}
+
+  /* ---------- MENU HIGHLIGHTS ---------- */
+  .menu-section{background:var(--espresso);}
+  .menu-section .section-head h2, .menu-section .eyebrow{color:var(--cream);}
+  .menu-section .section-head p{color:#C9B8A8;}
+  .menu-tabs-grid{
+    display:grid; grid-template-columns:repeat(2, 1fr); gap:36px;
+  }
+  .menu-block{
+    background:rgba(253,246,232,0.04);
+    border:1px solid rgba(253,246,232,0.12);
+    border-radius:var(--radius);
+    padding:30px 28px;
+  }
+  .menu-block h3{
+    color:var(--marigold); font-size:1.3rem; margin-bottom:18px;
+    display:flex; align-items:center; gap:10px;
+  }
+  .dish-row{
+    display:flex; justify-content:space-between; align-items:baseline;
+    padding:10px 0; border-bottom:1px dashed rgba(253,246,232,0.15);
+    color:var(--cream);
+  }
+  .dish-row:last-child{border-bottom:none;}
+  .dish-name{font-weight:700; font-size:0.98rem;}
+  .dish-price{font-weight:800; color:var(--leaf-light); font-size:0.95rem;}
+
+  /* ---------- LOCATIONS / CONTACT ---------- */
+  .loc-grid{
+    display:grid; grid-template-columns:repeat(2,1fr); gap:28px;
+  }
+  .loc-card{
+    background:var(--cream-2); border-radius:var(--radius);
+    padding:32px; border-left:5px solid var(--leaf);
+  }
+  .loc-card h3{font-size:1.3rem; margin-bottom:10px;}
+  .loc-card p{color:var(--espresso-soft); font-weight:700; margin-bottom:4px;}
+  .loc-card a.phone{color:var(--burnt); font-weight:800;}
+
+  /* ---------- FOOTER ---------- */
+  footer{
+    background:var(--espresso); color:var(--cream);
+    padding:56px 0 24px;
+  }
+  .footer-grid{
+    display:grid; grid-template-columns:1.3fr 1fr 1fr; gap:40px;
+    padding-bottom:36px; border-bottom:1px solid rgba(253,246,232,0.15);
+  }
+  .footer-logo{font-family:'Caveat', cursive; font-size:2.2rem; font-weight:700; margin-bottom:12px;}
+  .footer-grid p, .footer-grid a{color:#D8C7B4; font-size:0.92rem;}
+  .footer-grid h4{color:var(--marigold); font-size:0.95rem; margin-bottom:14px; letter-spacing:0.06em; text-transform:uppercase;}
+  .footer-grid ul{list-style:none;}
+  .footer-grid li{margin-bottom:10px;}
+  .footer-grid a:hover{color:var(--marigold);}
+  .footer-bottom{
+    display:flex; justify-content:space-between; align-items:center;
+    padding-top:22px; flex-wrap:wrap; gap:10px;
+    font-size:0.8rem; color:#B39F8B;
+  }
+  .socials{display:flex; gap:14px;}
+  .socials a{
+    width:34px; height:34px; border-radius:50%; border:1px solid rgba(253,246,232,0.3);
+    display:flex; align-items:center; justify-content:center; font-size:0.85rem;
+  }
+  .socials a:hover{background:var(--marigold); color:var(--espresso); border-color:var(--marigold);}
+
+  /* ---------- RESPONSIVE ---------- */
+  @media (max-width:900px){
+    .hero-inner{grid-template-columns:1fr;}
+    .hero-art{height:320px;}
+    .cat-grid{grid-template-columns:repeat(2,1fr);}
+    .menu-tabs-grid{grid-template-columns:1fr;}
+    .loc-grid{grid-template-columns:1fr;}
+    .footer-grid{grid-template-columns:1fr; gap:26px;}
+  }
+  @media (max-width:640px){
+    .nav-links{display:none;}
+    .menu-toggle{display:block;}
+    .hero h1{font-size:2.3rem;}
+    .cat-grid{grid-template-columns:1fr 1fr;}
+  }
+  :focus-visible{outline:3px solid var(--burnt); outline-offset:2px;}
+  @media (prefers-reduced-motion: reduce){
+    *{transition:none !important;}
+  }
+</style>
+</head>
+<body>
+
+<header>
+  <nav class="nav">
+    <a href="#top" class="logo"><span class="leaf"></span>kurry patta</a>
+    <div class="nav-links">
+      <a href="#categories">Categories</a>
+      <a href="#menu">Menu</a>
+      <a href="#locations">Locations</a>
+      <a href="#contact">Contact</a>
+    </div>
+    <a href="#contact" class="nav-cta">Order Now</a>
+    <button class="menu-toggle" aria-label="Menu">&#9776;</button>
+  </nav>
+</header>
+
+<div id="top"></div>
+
+<section class="hero" style="padding:0;">
+  <div class="hero-inner">
+    <div>
+      <div class="eyebrow"><span class="leaf"></span> Multicuisine · Kolkata</div>
+      <h1>Comfort food,<br>cooked the way<br><em>home does it.</em></h1>
+      <p class="lede">North Indian curries, South Indian batters, Chinese wok classics and Italian favourites — all under one roof at Kurry Patta.</p>
+      <div class="hero-ctas">
+        <a href="#menu" class="btn btn-primary">View Full Menu</a>
+        <a href="#locations" class="btn btn-ghost">Find a Location</a>
+      </div>
+    </div>
+    <div class="hero-art">
+      <div class="hero-badge">Fresh<br>Batters<br>Daily</div>
+      <div class="menu-card">
+        <div class="leaf-row"><span class="leaf"></span><span class="leaf"></span><span class="leaf"></span></div>
+        <h3>Today's Pick</h3>
+        <p>Mysore Masala Dosa</p>
+        <p>Paneer Butter Masala</p>
+        <p>Chilli Garlic Noodles</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section id="categories">
+  <div class="wrap">
+    <div class="section-head">
+      <div class="eyebrow"><span class="leaf"></span> What We Serve</div>
+      <h2>Seven kitchens, one menu</h2>
+      <p>Every category below is cooked fresh to order across our Lake Road and Hungerford Street kitchens.</p>
+    </div>
+    <div class="cat-grid">
+      <div class="cat-card">
+        <img class="cat-photo" src="https://images.unsplash.com/photo-1596797038530-2c107229654b?w=600&q=80&auto=format&fit=crop" alt="North Indian curry">
+        <h3>North Indian</h3><p>Curries, dal &amp; tandoor breads</p>
+      </div>
+      <div class="cat-card">
+        <img class="cat-photo" src="https://images.unsplash.com/photo-1743517894265-c86ab035adef?w=600&q=80&auto=format&fit=crop" alt="South Indian dosa">
+        <h3>South Indian</h3><p>Dosa, idli, vada &amp; uttapam</p>
+      </div>
+      <div class="cat-card">
+        <img class="cat-photo" src="https://images.unsplash.com/photo-1631709497146-a239ef373cf1?w=600&q=80&auto=format&fit=crop" alt="Chinese noodles">
+        <h3>Chinese</h3><p>Wok-tossed noodles &amp; rice</p>
+      </div>
+      <div class="cat-card">
+        <img class="cat-photo" src="https://images.unsplash.com/photo-1574071318508-1cdbab80d002?w=600&q=80&auto=format&fit=crop" alt="Italian pizza">
+        <h3>Italian</h3><p>Pasta &amp; wood-fired pizza</p>
+      </div>
+      <div class="cat-card">
+        <img class="cat-photo" src="https://images.unsplash.com/photo-1741376509047-66dae5df90f9?w=600&q=80&auto=format&fit=crop" alt="Idli batter and chutneys">
+        <h3>Batters</h3><p>Fresh idli, dosa &amp; vada batter</p>
+      </div>
+      <div class="cat-card">
+        <img class="cat-photo" src="https://images.unsplash.com/photo-1628702774354-f09e4a167a8e?w=600&q=80&auto=format&fit=crop" alt="Masala chai beverage">
+        <h3>Beverages</h3><p>Lassi, shakes &amp; filter coffee</p>
+      </div>
+      <div class="cat-card">
+        <img class="cat-photo" src="https://images.unsplash.com/photo-1593701461250-d7b22dfd3a77?w=600&q=80&auto=format&fit=crop" alt="Gulab jamun dessert">
+        <h3>Desserts</h3><p>Gulab jamun, jalebi &amp; more</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section id="menu" class="menu-section">
+  <div class="wrap">
+    <div class="section-head">
+      <div class="eyebrow"><span class="leaf"></span> Menu Highlights</div>
+      <h2>A few house favourites</h2>
+      <p>A small taste of what's on offer — the full menu runs much longer.</p>
+    </div>
+    <div class="menu-tabs-grid">
+      <div class="menu-block">
+        <h3><span class="leaf"></span>North Indian</h3>
+        <div class="dish-row"><span class="dish-name">Paneer Butter Masala</span><span class="dish-price">₹355</span></div>
+        <div class="dish-row"><span class="dish-name">Dal Makhani</span><span class="dish-price">₹350</span></div>
+        <div class="dish-row"><span class="dish-name">Veg Kofta</span><span class="dish-price">₹330</span></div>
+        <div class="dish-row"><span class="dish-name">Lachha Paratha</span><span class="dish-price">₹110</span></div>
+      </div>
+      <div class="menu-block">
+        <h3><span class="leaf"></span>South Indian</h3>
+        <div class="dish-row"><span class="dish-name">Mysore Masala Dosa</span><span class="dish-price">₹250–275</span></div>
+        <div class="dish-row"><span class="dish-name">Ghee Roast Dosa</span><span class="dish-price">₹200</span></div>
+        <div class="dish-row"><span class="dish-name">Bisi Bele Bhaat</span><span class="dish-price">₹200–220</span></div>
+        <div class="dish-row"><span class="dish-name">Rasam Idli</span><span class="dish-price">₹120</span></div>
+      </div>
+      <div class="menu-block">
+        <h3><span class="leaf"></span>Chinese</h3>
+        <div class="dish-row"><span class="dish-name">Veg Manchurian</span><span class="dish-price">₹260–300</span></div>
+        <div class="dish-row"><span class="dish-name">Chilli Garlic Noodles</span><span class="dish-price">₹265–295</span></div>
+        <div class="dish-row"><span class="dish-name">Burnt Garlic Fried Rice</span><span class="dish-price">₹280–310</span></div>
+        <div class="dish-row"><span class="dish-name">American Chopsuey</span><span class="dish-price">₹305</span></div>
+      </div>
+      <div class="menu-block">
+        <h3><span class="leaf"></span>Beverages &amp; Desserts</h3>
+        <div class="dish-row"><span class="dish-name">Masala Tea</span><span class="dish-price">₹95–105</span></div>
+        <div class="dish-row"><span class="dish-name">Lassi</span><span class="dish-price">₹185–205</span></div>
+        <div class="dish-row"><span class="dish-name">Gulab Jamun (2 pcs)</span><span class="dish-price">₹110</span></div>
+        <div class="dish-row"><span class="dish-name">Jalebi (7–11 AM)</span><span class="dish-price">₹120</span></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section id="locations">
+  <div class="wrap">
+    <div class="section-head">
+      <div class="eyebrow"><span class="leaf"></span> Visit Us</div>
+      <h2>Two locations in Kolkata</h2>
+    </div>
+    <div class="loc-grid">
+      <div class="loc-card">
+        <h3>Lake Road</h3>
+        <p>P79, Lake Road, 1st Floor, Kolkata 700 029</p>
+        <a class="phone" href="tel:+913379613497">+91 33 7961 3497</a>
+      </div>
+      <div class="loc-card">
+        <h3>Hungerford Street</h3>
+        <p>6, Hungerford Street, 1st Floor, Kolkata 700 017</p>
+        <a class="phone" href="tel:+919330920780">+91 93309 20780</a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<footer id="contact">
+  <div class="wrap">
+    <div class="footer-grid">
+      <div>
+        <div class="footer-logo"><span class="leaf"></span> kurry patta</div>
+        <p>Multicuisine comfort food across two Kolkata kitchens. Takeaway, home delivery and catering available.</p>
+      </div>
+      <div>
+        <h4>Explore</h4>
+        <ul>
+          <li><a href="#categories">Categories</a></li>
+          <li><a href="#menu">Menu</a></li>
+          <li><a href="#locations">Locations</a></li>
+        </ul>
+      </div>
+      <div>
+        <h4>Follow</h4>
+        <p>Instagram &amp; Facebook: <a href="#">@kurrypatta</a></p>
+        <div class="socials" style="margin-top:14px;">
+          <a href="#" aria-label="Instagram">IG</a>
+          <a href="#" aria-label="Facebook">FB</a>
+        </div>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <span>© 2026 Kurry Patta. Government taxes extra as applicable. We levy no service charge.</span>
+      <span>Take away / home delivery available.</span>
+    </div>
+  </div>
+</footer>
+
+</body>
+</html>
