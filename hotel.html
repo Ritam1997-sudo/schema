@@ -3,470 +3,940 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Spice Route — A Table Along the Trade Winds</title>
+<title>Kurry Patta — Multi-Cuisine Family Restaurant</title>
+<meta name="description" content="Kurry Patta — warm, homemade multi-cuisine food. Indian, Chinese, Tandoori & Continental favourites made fresh, served with love.">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,300;0,9..144,500;0,9..144,600;1,9..144,400;1,9..144,500&family=Work+Sans:wght@300;400;500;600&family=Space+Mono:wght@400;700&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display:ital@0;1&family=Caveat:wght@500;600;700&family=Poppins:wght@300;400;500;600;700&family=Nunito:wght@600;700;800&display=swap" rel="stylesheet">
 <style>
   :root{
-    --ink:#1f1730;
-    --ink-2:#2a1f3d;
-    --cream:#f8eeda;
-    --cream-2:#f1e2c4;
-    --saffron:#e3a008;
-    --chili:#b3222c;
-    --teal:#1f6f5c;
-    --charcoal:#241a1a;
-    --line: rgba(248,238,218,0.28);
+    --mustard:#F5B914;
+    --mustard-deep:#E0A400;
+    --mustard-tint:#FCE9AE;
+    --brown:#3A2618;
+    --brown-soft:#6B4E37;
+    --leaf:#4A7C3A;
+    --leaf-light:#8DC63F;
+    --cream:#FFFAF0;
+    --cream-2:#FBF1D9;
+    --white:#FFFFFF;
+    --charcoal:#2B2420;
+    --border-beige:#F0E1BE;
+    --radius-lg:28px;
+    --radius-md:18px;
+    --radius-sm:12px;
+    --shadow-soft:0 20px 45px rgba(58,38,24,0.10);
+    --shadow-lift:0 26px 55px rgba(58,38,24,0.16);
   }
-  *{margin:0;padding:0;box-sizing:border-box;}
+  *{box-sizing:border-box; margin:0; padding:0;}
   html{scroll-behavior:smooth;}
   body{
+    font-family:'Poppins', sans-serif;
+    font-weight:400;
     background:var(--cream);
     color:var(--charcoal);
-    font-family:'Work Sans', sans-serif;
-    font-weight:400;
+    line-height:1.65;
     overflow-x:hidden;
+    -webkit-font-smoothing:antialiased;
   }
-  h1,h2,h3{font-family:'Fraunces', serif; font-weight:500; letter-spacing:-0.01em;}
-  .eyebrow{
-    font-family:'Space Mono', monospace;
-    font-size:0.72rem;
-    letter-spacing:0.22em;
-    text-transform:uppercase;
-    color:var(--chili);
-    margin-bottom:0.9rem;
-    display:inline-flex;
-    align-items:center;
-    gap:0.6rem;
+  h1,h2,h3,h4{
+    font-family:'DM Serif Display', serif;
+    font-weight:400;
+    color:var(--brown);
+    line-height:1.12;
+    letter-spacing:-0.01em;
   }
-  .eyebrow::before{content:"";width:22px;height:1px;background:var(--chili);}
-  a{color:inherit; text-decoration:none;}
+  a{text-decoration:none; color:inherit;}
   img{display:block; max-width:100%;}
-  .wrap{max-width:1180px; margin:0 auto; padding:0 6vw;}
-  @media(min-width:1300px){.wrap{padding:0 3rem;}}
+  ul{list-style:none;}
+  button{font-family:inherit; cursor:pointer;}
+  .wrap{max-width:1240px; margin:0 auto; padding:0 clamp(20px,5vw,48px);}
+  section{padding:clamp(64px,9vw,120px) 0;}
+  ::selection{background:var(--mustard); color:var(--brown);}
+  :focus-visible{outline:3px solid var(--leaf); outline-offset:3px; border-radius:4px;}
+  @media (prefers-reduced-motion: reduce){
+    html{scroll-behavior:auto;}
+    *{animation-duration:0.01ms !important; transition-duration:0.01ms !important;}
+  }
 
-  /* ---------- NAV ---------- */
-  nav{
-    position:fixed; top:0; left:0; right:0; z-index:100;
-    display:flex; align-items:center; justify-content:space-between;
-    padding:1.1rem 6vw;
-    background:rgba(31,23,48,0.0);
-    transition:background .4s ease, padding .4s ease, box-shadow .4s ease;
+  /* ---------- Signature leaf sprig (echoes logo's leaf-topped tt) ---------- */
+  .sprig{display:inline-flex; align-items:flex-end; gap:2px; flex-shrink:0;}
+  .sprig svg{display:block;}
+  .eyebrow{
+    font-family:'Nunito', sans-serif; font-weight:800; font-size:0.78rem;
+    letter-spacing:0.16em; text-transform:uppercase; color:var(--leaf);
+    display:inline-flex; align-items:center; gap:8px; margin-bottom:16px;
   }
-  nav.scrolled{
-    background:rgba(31,23,48,0.92);
-    backdrop-filter:blur(10px);
-    padding:0.8rem 6vw;
-    box-shadow:0 8px 30px rgba(0,0,0,0.25);
-  }
-  .brand{
-    font-family:'Fraunces', serif; font-style:italic; font-weight:500;
-    font-size:1.35rem; color:var(--cream); letter-spacing:0.01em;
-  }
-  .navlinks{display:flex; gap:2.1rem; align-items:center;}
-  .navlinks a{
-    font-family:'Space Mono', monospace; font-size:0.72rem;
-    letter-spacing:0.12em; text-transform:uppercase; color:var(--cream-2);
-    opacity:0.85; transition:opacity .25s ease;
-  }
-  .navlinks a:hover{opacity:1; color:var(--saffron);}
+  .center{text-align:center; margin-left:auto; margin-right:auto;}
+
+  .section-head{max-width:620px; margin-bottom:52px;}
+  .section-head.center{margin-left:auto; margin-right:auto; text-align:center;}
+  .section-head h2{font-size:clamp(2rem,4vw,2.9rem); font-style:italic;}
+  .section-head p{color:var(--brown-soft); margin-top:14px; font-size:1.02rem;}
+
   .btn{
-    font-family:'Space Mono', monospace; font-size:0.72rem;
-    letter-spacing:0.1em; text-transform:uppercase;
-    padding:0.7rem 1.3rem; border:1px solid var(--saffron);
-    color:var(--saffron); border-radius:2px; transition:all .3s ease;
-    white-space:nowrap;
+    font-family:'Nunito', sans-serif; font-weight:800; font-size:0.95rem;
+    padding:15px 30px; border-radius:999px; display:inline-flex; align-items:center; gap:8px;
+    border:2px solid transparent; transition:transform .25s ease, box-shadow .25s ease, background .25s ease, color .25s ease;
+    position:relative; overflow:hidden;
   }
-  .btn:hover{background:var(--saffron); color:var(--ink);}
-  .btn.solid{background:var(--chili); border-color:var(--chili); color:var(--cream);}
-  .btn.solid:hover{background:#8f1a22; border-color:#8f1a22;}
-  .navlinks .btn{padding:0.55rem 1.1rem;}
-  .navtoggle{display:none; color:var(--cream); font-size:1.5rem; background:none; border:none; cursor:pointer;}
+  .btn-primary{background:var(--brown); color:var(--cream); box-shadow:0 14px 30px rgba(58,38,24,0.28);}
+  .btn-primary:hover{transform:translateY(-3px); background:#2b1a10; box-shadow:0 18px 34px rgba(58,38,24,0.34);}
+  .btn-ghost{border-color:var(--brown); color:var(--brown);}
+  .btn-ghost:hover{background:var(--brown); color:var(--cream); transform:translateY(-3px);}
+  .btn-leaf{background:var(--leaf); color:var(--cream); box-shadow:0 14px 26px rgba(74,124,58,0.3);}
+  .btn-leaf:hover{background:#3d6830; transform:translateY(-3px);}
+  .btn::after{
+    content:""; position:absolute; inset:0; background:radial-gradient(circle, rgba(255,255,255,0.5) 0%, transparent 60%);
+    opacity:0; transform:scale(0.4); transition:opacity .5s ease, transform .5s ease; pointer-events:none;
+  }
+  .btn:active::after{opacity:1; transform:scale(1.6); transition:0s;}
+
+  /* ---------- reveal animation ---------- */
+  .reveal{opacity:0; transform:translateY(34px); transition:opacity .8s cubic-bezier(.2,.7,.2,1), transform .8s cubic-bezier(.2,.7,.2,1);}
+  .reveal.in{opacity:1; transform:translateY(0);}
+  .reveal-scale{opacity:0; transform:scale(0.92); transition:opacity .7s ease, transform .7s ease;}
+  .reveal-scale.in{opacity:1; transform:scale(1);}
+  .stagger .reveal:nth-child(1){transition-delay:.05s;}
+  .stagger .reveal:nth-child(2){transition-delay:.15s;}
+  .stagger .reveal:nth-child(3){transition-delay:.25s;}
+  .stagger .reveal:nth-child(4){transition-delay:.35s;}
+  .stagger .reveal:nth-child(5){transition-delay:.45s;}
+  .stagger .reveal:nth-child(6){transition-delay:.55s;}
+  .stagger .reveal:nth-child(7){transition-delay:.65s;}
+  .stagger .reveal:nth-child(8){transition-delay:.75s;}
+
+  /* ---------- scroll progress ---------- */
+  #progress{position:fixed; top:0; left:0; height:3px; background:linear-gradient(90deg,var(--leaf),var(--mustard-deep)); width:0%; z-index:999; transition:width .1s linear;}
+
+  /* ---------- HEADER ---------- */
+  header{
+    position:fixed; top:3px; left:0; right:0; z-index:90;
+    padding:18px 0; transition:background .35s ease, padding .35s ease, box-shadow .35s ease, backdrop-filter .35s ease;
+  }
+  header.scrolled{
+    background:rgba(255,250,240,0.9); backdrop-filter:blur(14px); -webkit-backdrop-filter:blur(14px);
+    padding:12px 0; box-shadow:0 8px 30px rgba(58,38,24,0.08);
+    border-bottom:1px solid var(--border-beige);
+  }
+  .nav{display:flex; align-items:center; justify-content:space-between; gap:20px;}
+  .brand{
+    font-family:'Caveat', cursive; font-weight:700; font-size:2rem; color:var(--brown);
+    display:flex; align-items:center; gap:8px; white-space:nowrap;
+  }
+  .nav-links{display:flex; align-items:center; gap:34px; font-family:'Nunito',sans-serif; font-weight:700; font-size:0.93rem; color:var(--brown);}
+  .nav-links a{position:relative; padding:4px 0;}
+  .nav-links a::after{
+    content:""; position:absolute; left:0; bottom:-2px; width:0; height:2px; background:var(--leaf);
+    transition:width .3s ease;
+  }
+  .nav-links a:hover::after{width:100%;}
+  .nav-right{display:flex; align-items:center; gap:18px;}
+  .menu-toggle{display:none; background:none; border:none; color:var(--brown); font-size:1.6rem; z-index:110;}
+
+  .mobile-panel{
+    position:fixed; inset:0; background:var(--cream); z-index:100;
+    display:flex; flex-direction:column; align-items:center; justify-content:center; gap:30px;
+    transform:translateX(100%); transition:transform .45s cubic-bezier(.2,.8,.2,1);
+  }
+  .mobile-panel.open{transform:translateX(0);}
+  .mobile-panel a{font-family:'DM Serif Display',serif; font-size:1.9rem; color:var(--brown); font-style:italic;}
 
   /* ---------- HERO ---------- */
   .hero{
-    position:relative; height:100svh; min-height:560px;
-    display:flex; align-items:flex-end;
-    background:#141021;
+    position:relative; min-height:100svh; display:flex; align-items:flex-end;
+    padding-top:110px; overflow:hidden;
   }
-  .hero-img{
-    position:absolute; inset:0; width:100%; height:100%; object-fit:cover;
-    opacity:0.55;
+  @media (max-width:760px){
+    .hero{min-height:82svh;}
   }
-  .hero::after{
+  .hero-bg{position:absolute; inset:0; z-index:0;}
+  .hero-bg img{width:100%; height:100%; object-fit:cover;}
+  .hero-bg::after{
     content:""; position:absolute; inset:0;
     background:
-      linear-gradient(180deg, rgba(20,16,33,0.55) 0%, rgba(20,16,33,0.35) 35%, rgba(20,16,33,0.96) 100%);
+      linear-gradient(180deg, rgba(58,38,24,0.55) 0%, rgba(58,38,24,0.35) 40%, rgba(58,38,24,0.2) 65%, var(--cream) 100%);
   }
-  .hero-content{position:relative; z-index:2; padding:0 6vw 6.5rem; width:100%;}
+  .hero-inner{position:relative; z-index:2; width:100%; padding-bottom:clamp(50px,8vw,90px);}
+  .hero-grid{display:grid; grid-template-columns:1.15fr 0.85fr; gap:40px; align-items:end;}
   .hero-eyebrow{
-    font-family:'Space Mono', monospace; color:var(--saffron);
-    font-size:0.78rem; letter-spacing:0.3em; text-transform:uppercase;
-    margin-bottom:1.4rem;
+    font-family:'Nunito',sans-serif; font-weight:800; letter-spacing:0.18em; text-transform:uppercase;
+    font-size:0.8rem; color:var(--mustard); display:flex; align-items:center; gap:10px; margin-bottom:20px;
   }
   .hero h1{
-    color:var(--cream); font-size:clamp(3.2rem, 10vw, 7.2rem);
-    line-height:0.92; font-weight:500;
+    font-size:clamp(2.5rem,6vw,4.4rem); color:var(--cream); font-style:italic;
+    text-shadow:0 6px 30px rgba(0,0,0,0.25);
   }
-  .hero h1 em{font-style:italic; color:var(--saffron); font-weight:400;}
-  .hero-sub{
-    color:var(--cream-2); font-size:clamp(1.05rem,2vw,1.3rem);
-    max-width:36ch; margin:1.6rem 0 2.3rem; font-weight:300;
+  .hero p.lede{
+    color:var(--cream-2); font-size:clamp(1rem,1.6vw,1.18rem); max-width:520px; margin:22px 0 30px; opacity:0.95;
   }
-  .hero-ctas{display:flex; gap:1rem; flex-wrap:wrap;}
-  .route-line{
-    position:absolute; left:0; right:0; bottom:0; height:3px;
-    background-image: linear-gradient(90deg, var(--saffron) 0 10px, transparent 10px 20px);
-    background-size:20px 3px;
-    background-repeat:repeat-x;
-    z-index:3;
+  .hero-ctas{display:flex; gap:16px; flex-wrap:wrap;}
+  .review-badge{
+    background:var(--white); border-radius:var(--radius-md); padding:20px 22px;
+    box-shadow:var(--shadow-lift); display:flex; align-items:center; gap:14px;
+    margin-left:auto; max-width:280px; justify-self:end;
   }
+  .review-badge .stars{color:var(--mustard-deep); font-size:1rem; letter-spacing:2px;}
+  .review-badge b{font-family:'DM Serif Display',serif; font-size:1.5rem; color:var(--brown); display:block;}
+  .review-badge span{font-size:0.78rem; color:var(--brown-soft); font-weight:600;}
+  .hero-leaf{position:absolute; z-index:1; opacity:0.9; pointer-events:none;}
+  .hero-leaf.l1{top:14%; left:6%; width:70px; animation:sway 6s ease-in-out infinite;}
+  .hero-leaf.l2{top:32%; right:8%; width:50px; animation:sway 7s ease-in-out infinite 1s;}
+  @keyframes sway{0%,100%{transform:rotate(-6deg) translateY(0);} 50%{transform:rotate(6deg) translateY(-10px);}}
 
-  /* ---------- SECTION BASE ---------- */
-  section{padding:7rem 0;}
-  .section-head{max-width:640px; margin-bottom:3.5rem;}
-  .section-head h2{font-size:clamp(2.1rem,4vw,3rem); line-height:1.05;}
-  .section-head p{margin-top:1.1rem; font-size:1.05rem; color:#4a3c3c; font-weight:300; line-height:1.6;}
+  /* ---------- TRUST STRIP ---------- */
+  .trust{background:var(--white); padding:0; margin-top:-1px;}
+  .trust-inner{
+    display:grid; grid-template-columns:repeat(5,1fr);
+    border-top:1px solid var(--border-beige);
+  }
+  .trust-item{
+    padding:34px 18px; text-align:center; border-right:1px solid var(--border-beige);
+    display:flex; flex-direction:column; align-items:center; gap:8px;
+  }
+  .trust-item:last-child{border-right:none;}
+  .trust-item .ic{width:34px; height:34px; color:var(--leaf); margin-bottom:4px;}
+  .trust-item b{font-family:'DM Serif Display',serif; font-size:1.35rem; color:var(--brown);}
+  .trust-item span{font-size:0.8rem; color:var(--brown-soft); font-weight:600; font-family:'Nunito',sans-serif;}
 
-  .reveal{opacity:0; transform:translateY(28px); transition:opacity .8s ease, transform .8s ease;}
-  .reveal.in{opacity:1; transform:translateY(0);}
+  /* ---------- CATEGORIES ---------- */
+  .cat-grid{display:grid; grid-template-columns:repeat(4,1fr); gap:26px;}
+  .cat-card{
+    position:relative; border-radius:var(--radius-md); overflow:hidden; aspect-ratio:3/3.6;
+    box-shadow:var(--shadow-soft); transition:transform .4s cubic-bezier(.2,.8,.2,1), box-shadow .4s ease;
+  }
+  .cat-card:hover{transform:translateY(-8px); box-shadow:var(--shadow-lift);}
+  .cat-card img{width:100%; height:100%; object-fit:cover; transition:transform .6s ease;}
+  .cat-card:hover img{transform:scale(1.08);}
+  .cat-card .overlay{
+    position:absolute; inset:0; background:linear-gradient(180deg, transparent 40%, rgba(58,38,24,0.88) 100%);
+    display:flex; flex-direction:column; justify-content:flex-end; padding:22px; color:var(--cream);
+  }
+  .cat-card h3{color:var(--cream); font-size:1.35rem; font-style:italic; margin-bottom:4px;}
+  .cat-card .cta{
+    font-family:'Nunito',sans-serif; font-weight:700; font-size:0.78rem; color:var(--mustard);
+    display:inline-flex; align-items:center; gap:6px; margin-top:8px; opacity:0; transform:translateY(6px);
+    transition:opacity .3s ease, transform .3s ease;
+  }
+  .cat-card:hover .cta{opacity:1; transform:translateY(0);}
+
+  /* ---------- POPULAR DISHES ---------- */
+  .dishes{background:var(--cream-2);}
+  .dish-grid{display:grid; grid-template-columns:repeat(3,1fr); gap:30px;}
+  .dish-card{
+    background:var(--white); border-radius:var(--radius-md); overflow:hidden; box-shadow:var(--shadow-soft);
+    transition:transform .35s ease, box-shadow .35s ease; display:flex; flex-direction:column;
+  }
+  .dish-card:hover{transform:translateY(-8px); box-shadow:var(--shadow-lift);}
+  .dish-img-wrap{aspect-ratio:4/3; overflow:hidden;}
+  .dish-img-wrap img{width:100%; height:100%; object-fit:cover; transition:transform .6s ease;}
+  .dish-card:hover .dish-img-wrap img{transform:scale(1.08);}
+  .dish-body{padding:22px 24px 26px; display:flex; flex-direction:column; gap:10px; flex:1;}
+  .dish-top{display:flex; justify-content:space-between; align-items:flex-start; gap:10px;}
+  .dish-top h3{font-size:1.3rem; font-style:italic;}
+  .dish-rating{font-size:0.8rem; color:var(--mustard-deep); font-family:'Nunito',sans-serif; font-weight:800; white-space:nowrap;}
+  .dish-desc{color:var(--brown-soft); font-size:0.9rem; flex:1;}
+  .dish-foot{display:flex; align-items:center; justify-content:space-between; margin-top:6px;}
+  .dish-price{font-family:'DM Serif Display',serif; font-size:1.3rem; color:var(--brown);}
+  .dish-order{
+    font-family:'Nunito',sans-serif; font-weight:800; font-size:0.8rem; color:var(--leaf);
+    display:inline-flex; align-items:center; gap:6px; border:2px solid var(--leaf); padding:8px 16px; border-radius:999px;
+    transition:background .25s ease, color .25s ease;
+  }
+  .dish-order:hover{background:var(--leaf); color:var(--white);}
 
   /* ---------- ABOUT ---------- */
-  .about{background:var(--cream);}
-  .about-grid{display:grid; grid-template-columns:1.05fr 0.95fr; gap:4.5rem; align-items:center;}
-  .about-img-wrap{position:relative;}
-  .about-img-wrap img{border-radius:3px; width:100%; height:460px; object-fit:cover;}
-  .about-tag{
-    position:absolute; bottom:-1.6rem; left:-1.6rem; background:var(--chili); color:var(--cream);
-    padding:1.3rem 1.6rem; border-radius:2px; font-family:'Space Mono',monospace;
-    font-size:0.78rem; line-height:1.6; letter-spacing:0.03em; box-shadow:0 20px 40px rgba(179,34,44,0.25);
+  .about-grid{display:grid; grid-template-columns:0.95fr 1.05fr; gap:56px; align-items:center;}
+  .about-img{position:relative;}
+  .about-img img{width:100%; height:520px; object-fit:cover; border-radius:var(--radius-lg); box-shadow:var(--shadow-lift);}
+  .about-stat{
+    position:absolute; bottom:-24px; left:-24px; background:var(--mustard); color:var(--brown);
+    padding:20px 24px; border-radius:var(--radius-md); box-shadow:var(--shadow-lift);
+    font-family:'Nunito',sans-serif; font-weight:700; font-size:0.85rem; text-align:center;
   }
-  .about-tag b{display:block; font-family:'Fraunces',serif; font-size:1.7rem; font-weight:500; font-style:italic;}
-  .about-body p{font-size:1.08rem; line-height:1.75; color:#3a2e2e; font-weight:300; margin-bottom:1.3rem;}
-  .about-body p:first-of-type::first-letter{
-    font-family:'Fraunces',serif; font-size:3.4rem; float:left; line-height:0.8;
-    padding:0.1rem 0.5rem 0 0; color:var(--chili); font-weight:500;
-  }
+  .about-stat b{display:block; font-family:'DM Serif Display',serif; font-size:2.1rem; line-height:1;}
+  .about-body p{color:var(--brown-soft); font-size:1.04rem; margin-bottom:16px;}
+  .about-body h2{font-size:clamp(2rem,4vw,2.8rem); font-style:italic; margin-bottom:18px;}
+  .about-list{display:grid; grid-template-columns:1fr 1fr; gap:14px 20px; margin-top:22px;}
+  .about-list li{display:flex; align-items:center; gap:10px; font-family:'Nunito',sans-serif; font-weight:700; font-size:0.92rem; color:var(--brown);}
 
-  /* ---------- ROUTE (SIGNATURE) ---------- */
-  .route{background:var(--ink); color:var(--cream); position:relative; overflow:hidden;}
-  .route .section-head h2{color:var(--cream);}
-  .route .section-head p{color:var(--cream-2); opacity:0.85;}
-  .route .eyebrow{color:var(--saffron);}
-  .route .eyebrow::before{background:var(--saffron);}
+  /* ---------- WHY CHOOSE ---------- */
+  .why{background:var(--brown); color:var(--cream);}
+  .why .eyebrow{color:var(--mustard);}
+  .why .section-head h2{color:var(--cream);}
+  .why .section-head p{color:#D8C4AC;}
+  .why-grid{display:grid; grid-template-columns:repeat(3,1fr); gap:24px;}
+  .why-card{
+    background:rgba(255,250,240,0.05); border:1px solid rgba(255,250,240,0.14); border-radius:var(--radius-md);
+    padding:32px 26px; transition:transform .3s ease, background .3s ease;
+  }
+  .why-card:hover{transform:translateY(-6px); background:rgba(255,250,240,0.09);}
+  .why-card .ic{width:40px; height:40px; color:var(--mustard); margin-bottom:16px;}
+  .why-card h3{color:var(--cream); font-size:1.2rem; font-style:italic; margin-bottom:8px;}
+  .why-card p{color:#D8C4AC; font-size:0.92rem;}
 
-  .stops{
-    display:grid; grid-template-columns:repeat(4,1fr); gap:0;
-    position:relative; margin-top:1rem;
-  }
-  .stops::before{
-    content:""; position:absolute; top:38px; left:6%; right:6%; height:2px;
-    background-image: linear-gradient(90deg, var(--saffron) 0 9px, transparent 9px 18px);
-    background-size:18px 2px; background-repeat:repeat-x;
-    z-index:0;
-  }
-  .stop{position:relative; padding:0 1.2rem; z-index:1;}
-  .stop-num{
-    width:14px; height:14px; border-radius:50%; background:var(--saffron);
-    margin:32px auto 1.6rem; position:relative; box-shadow:0 0 0 5px var(--ink), 0 0 0 6px rgba(227,160,8,0.4);
-  }
-  .stop-img{width:100%; height:180px; object-fit:cover; border-radius:3px; margin-bottom:1.2rem; filter:saturate(1.05);}
-  .stop-coord{font-family:'Space Mono',monospace; font-size:0.68rem; letter-spacing:0.1em; color:var(--saffron); text-transform:uppercase;}
-  .stop h3{font-size:1.5rem; margin:0.4rem 0 0.3rem; font-style:italic; font-weight:500;}
-  .stop-desc{font-size:0.9rem; color:var(--cream-2); opacity:0.8; margin-bottom:0.9rem; font-weight:300; line-height:1.5;}
-  .stop-dishes{list-style:none; border-top:1px solid rgba(248,238,218,0.18); padding-top:0.8rem;}
-  .stop-dishes li{
-    display:flex; justify-content:space-between; gap:0.6rem;
-    font-size:0.86rem; padding:0.35rem 0; color:var(--cream-2);
-  }
-  .stop-dishes li span:last-child{font-family:'Space Mono',monospace; color:var(--saffron); font-size:0.8rem;}
-
-  /* ---------- GALLERY ---------- */
-  .gallery{background:var(--cream-2);}
+  /* ---------- GALLERY (masonry) ---------- */
   .gallery-grid{
-    display:grid; grid-template-columns:repeat(6, 1fr); grid-auto-rows:120px; gap:0.6rem;
+    columns:4 260px; column-gap:20px;
   }
-  .gitem{overflow:hidden; border-radius:3px; position:relative;}
-  .gitem img{width:100%; height:100%; object-fit:cover; transition:transform .6s ease;}
-  .gitem:hover img{transform:scale(1.08);}
-  .gitem .cap{
-    position:absolute; left:0; right:0; bottom:0; padding:0.6rem 0.8rem;
-    background:linear-gradient(180deg, transparent, rgba(20,16,33,0.85));
-    color:var(--cream); font-family:'Space Mono',monospace; font-size:0.68rem;
-    letter-spacing:0.05em; opacity:0; transition:opacity .3s ease;
+  .g-item{
+    break-inside:avoid; margin-bottom:20px; border-radius:var(--radius-sm); overflow:hidden;
+    position:relative; box-shadow:var(--shadow-soft);
   }
-  .gitem:hover .cap{opacity:1;}
-  .g1{grid-column:span 3; grid-row:span 2;}
-  .g2{grid-column:span 3; grid-row:span 2;}
-  .g3{grid-column:span 2; grid-row:span 2;}
-  .g4{grid-column:span 2; grid-row:span 2;}
-  .g5{grid-column:span 2; grid-row:span 2;}
+  .g-item img{width:100%; display:block; transition:transform .6s ease;}
+  .g-item:hover img{transform:scale(1.1);}
+  .g-item .cap{
+    position:absolute; inset:0; background:linear-gradient(180deg, transparent 55%, rgba(58,38,24,0.85));
+    display:flex; align-items:flex-end; padding:16px; opacity:0; transition:opacity .3s ease;
+  }
+  .g-item:hover .cap{opacity:1;}
+  .g-item .cap span{color:var(--cream); font-family:'Nunito',sans-serif; font-weight:700; font-size:0.82rem;}
 
-  /* ---------- TESTIMONIALS ---------- */
-  .testimonials{background:var(--cream);}
-  .t-grid{display:grid; grid-template-columns:repeat(3,1fr); gap:1.8rem;}
-  .t-card{
-    background:var(--cream-2); border:1px solid rgba(36,26,26,0.08); border-radius:3px;
-    padding:2.2rem 1.9rem; position:relative;
+  /* ---------- REVIEWS ---------- */
+  .reviews{background:var(--cream-2);}
+  .review-track{
+    display:flex; gap:24px; overflow-x:auto; scroll-snap-type:x mandatory; padding-bottom:14px;
+    scrollbar-width:none;
   }
-  .t-stamp{
-    font-family:'Space Mono',monospace; font-size:0.68rem; letter-spacing:0.12em;
-    color:var(--teal); text-transform:uppercase; border:1px solid var(--teal);
-    display:inline-block; padding:0.25rem 0.55rem; border-radius:2px; margin-bottom:1.1rem;
-    transform:rotate(-2deg);
+  .review-track::-webkit-scrollbar{display:none;}
+  .review-card{
+    scroll-snap-align:start; flex:0 0 min(340px,85vw); background:var(--white); border-radius:var(--radius-md);
+    padding:28px 26px; box-shadow:var(--shadow-soft); display:flex; flex-direction:column; gap:14px;
   }
-  .t-quote{font-family:'Fraunces',serif; font-style:italic; font-size:1.18rem; line-height:1.55; margin-bottom:1.3rem; color:var(--charcoal);}
-  .t-name{font-family:'Space Mono',monospace; font-size:0.78rem; color:#6b5a5a;}
+  .review-top{display:flex; align-items:center; gap:12px;}
+  .avatar{
+    width:46px; height:46px; border-radius:50%; background:linear-gradient(135deg,var(--mustard),var(--leaf-light));
+    display:flex; align-items:center; justify-content:center; color:var(--white); font-family:'DM Serif Display',serif; font-size:1.2rem;
+  }
+  .review-name{font-family:'Nunito',sans-serif; font-weight:800; font-size:0.92rem; color:var(--brown);}
+  .review-stars{color:var(--mustard-deep); font-size:0.85rem;}
+  .review-text{color:var(--brown-soft); font-size:0.92rem; font-style:italic;}
+  .review-nav{display:flex; gap:12px; margin-top:22px;}
+  .review-nav button{
+    width:44px; height:44px; border-radius:50%; border:2px solid var(--brown); background:transparent; color:var(--brown);
+    display:flex; align-items:center; justify-content:center; transition:background .25s ease, color .25s ease;
+  }
+  .review-nav button:hover{background:var(--brown); color:var(--cream);}
 
-  /* ---------- VISIT / RESERVE ---------- */
-  .visit{
-    position:relative; color:var(--cream); background:#141021;
-    padding:8rem 0;
+  /* ---------- LOCATION ---------- */
+  .loc-grid{display:grid; grid-template-columns:0.9fr 1.1fr; gap:40px; align-items:stretch;}
+  .loc-card{
+    background:var(--white); border-radius:var(--radius-lg); padding:40px 36px; box-shadow:var(--shadow-soft);
+    display:flex; flex-direction:column; gap:22px;
   }
-  .visit-img{position:absolute; inset:0; width:100%; height:100%; object-fit:cover; opacity:0.32;}
-  .visit::after{content:""; position:absolute; inset:0; background:linear-gradient(180deg, rgba(20,16,33,0.75), rgba(31,23,48,0.96));}
-  .visit-inner{position:relative; z-index:2; text-align:center; max-width:680px; margin:0 auto;}
-  .visit .eyebrow{justify-content:center; color:var(--saffron);}
-  .visit .eyebrow::before{background:var(--saffron);}
-  .visit h2{font-size:clamp(2.4rem,5vw,3.6rem); margin-bottom:1.4rem;}
-  .visit h2 em{color:var(--saffron); font-style:italic;}
-  .visit p{color:var(--cream-2); font-weight:300; font-size:1.08rem; margin-bottom:2.4rem; line-height:1.6;}
-  .visit-details{
-    display:flex; justify-content:center; gap:3rem; flex-wrap:wrap;
-    margin-top:3rem; padding-top:2.5rem; border-top:1px solid rgba(248,238,218,0.2);
+  .loc-row{display:flex; gap:16px; align-items:flex-start;}
+  .loc-row .ic{width:24px; height:24px; color:var(--leaf); flex-shrink:0; margin-top:3px;}
+  .loc-row h4{font-family:'Nunito',sans-serif; font-weight:800; font-size:0.85rem; text-transform:uppercase; letter-spacing:0.08em; color:var(--brown); margin-bottom:4px;}
+  .loc-row p{color:var(--brown-soft); font-size:0.94rem;}
+  .map-wrap{border-radius:var(--radius-lg); overflow:hidden; box-shadow:var(--shadow-soft); min-height:340px;}
+  .map-wrap iframe{width:100%; height:100%; min-height:340px; border:0; display:block;}
+
+  /* ---------- FAQ ---------- */
+  .faq-list{max-width:780px; margin:0 auto; display:flex; flex-direction:column; gap:14px;}
+  .faq-item{background:var(--white); border-radius:var(--radius-md); box-shadow:var(--shadow-soft); overflow:hidden;}
+  .faq-q{
+    width:100%; background:none; border:none; text-align:left; padding:22px 26px;
+    display:flex; align-items:center; justify-content:space-between; gap:16px;
+    font-family:'DM Serif Display',serif; font-size:1.1rem; color:var(--brown); font-style:italic;
   }
-  .vd{text-align:left;}
-  .vd .eyebrow{font-size:0.65rem; margin-bottom:0.5rem;}
-  .vd p{margin:0; font-size:0.95rem; color:var(--cream-2);}
-  .visit-ctas{display:flex; gap:1rem; justify-content:center; flex-wrap:wrap;}
+  .faq-q .plus{
+    width:28px; height:28px; border-radius:50%; background:var(--mustard-tint); color:var(--brown); flex-shrink:0;
+    display:flex; align-items:center; justify-content:center; font-size:1.1rem; font-family:'Nunito',sans-serif; font-weight:800;
+    transition:transform .35s ease, background .35s ease;
+  }
+  .faq-item.open .faq-q .plus{transform:rotate(135deg); background:var(--leaf); color:var(--cream);}
+  .faq-a{max-height:0; overflow:hidden; transition:max-height .4s ease;}
+  .faq-a p{padding:0 26px 22px; color:var(--brown-soft); font-size:0.94rem;}
+
+  /* ---------- CTA STRIP ---------- */
+  .cta-strip{
+    background:linear-gradient(120deg,var(--mustard) 0%, var(--mustard-deep) 100%);
+    border-radius:var(--radius-lg); padding:56px clamp(28px,6vw,72px); text-align:center;
+    position:relative; overflow:hidden; margin:0 auto;
+  }
+  .cta-strip h2{font-size:clamp(1.8rem,4vw,2.6rem); font-style:italic; margin-bottom:14px;}
+  .cta-strip p{color:var(--brown-soft); font-weight:600; max-width:480px; margin:0 auto 26px;}
+  .cta-strip .btns{display:flex; gap:16px; justify-content:center; flex-wrap:wrap;}
 
   /* ---------- FOOTER ---------- */
-  footer{background:var(--ink); color:var(--cream-2); padding:3rem 0 2rem;}
-  .foot-grid{display:flex; justify-content:space-between; align-items:center; flex-wrap:wrap; gap:1.5rem;}
-  .foot-brand{font-family:'Fraunces',serif; font-style:italic; font-size:1.3rem; color:var(--cream);}
-  .foot-links{display:flex; gap:1.8rem; font-family:'Space Mono',monospace; font-size:0.72rem; letter-spacing:0.08em; text-transform:uppercase;}
-  .foot-copy{font-family:'Space Mono',monospace; font-size:0.7rem; opacity:0.55; margin-top:2rem; text-align:center;}
+  footer{background:var(--brown); color:#D8C4AC; padding:70px 0 0;}
+  .footer-grid{display:grid; grid-template-columns:1.4fr 1fr 1fr 1.1fr; gap:44px; padding-bottom:44px; border-bottom:1px solid rgba(255,250,240,0.12);}
+  .footer-brand{font-family:'Caveat',cursive; font-weight:700; font-size:2.2rem; color:var(--cream); display:flex; align-items:center; gap:8px; margin-bottom:14px;}
+  .footer-grid p{font-size:0.9rem; line-height:1.7;}
+  .footer-grid h4{color:var(--mustard); font-family:'Nunito',sans-serif; font-size:0.85rem; text-transform:uppercase; letter-spacing:0.1em; margin-bottom:16px;}
+  .footer-grid li{margin-bottom:10px; font-size:0.9rem;}
+  .footer-grid a:hover{color:var(--mustard);}
+  .newsletter{display:flex; gap:0; margin-top:14px; border-radius:999px; overflow:hidden; border:1px solid rgba(255,250,240,0.25);}
+  .newsletter input{
+    flex:1; background:transparent; border:none; padding:12px 16px; color:var(--cream); font-family:'Poppins',sans-serif; font-size:0.85rem;
+  }
+  .newsletter input::placeholder{color:#C9B39C;}
+  .newsletter button{background:var(--mustard); color:var(--brown); border:none; padding:12px 18px; font-family:'Nunito',sans-serif; font-weight:800; font-size:0.85rem;}
+  .socials{display:flex; gap:12px; margin-top:16px;}
+  .socials a{
+    width:38px; height:38px; border-radius:50%; border:1px solid rgba(255,250,240,0.25);
+    display:flex; align-items:center; justify-content:center; transition:background .25s ease, border-color .25s ease;
+  }
+  .socials a:hover{background:var(--mustard); border-color:var(--mustard); color:var(--brown);}
+  .footer-bottom{display:flex; justify-content:space-between; align-items:center; padding:22px 0; font-size:0.8rem; flex-wrap:wrap; gap:10px; color:#B79E85;}
+
+  /* ---------- BACK TO TOP ---------- */
+  #toTop{
+    position:fixed; right:22px; bottom:22px; width:50px; height:50px; border-radius:50%; background:var(--brown); color:var(--cream);
+    display:flex; align-items:center; justify-content:center; box-shadow:var(--shadow-lift); border:none;
+    opacity:0; transform:translateY(14px) scale(0.9); pointer-events:none; transition:opacity .3s ease, transform .3s ease;
+    z-index:80;
+  }
+  #toTop.show{opacity:1; transform:translateY(0) scale(1); pointer-events:auto;}
+
+  /* counter target base */
+  .count{font-variant-numeric:tabular-nums;}
 
   /* ---------- RESPONSIVE ---------- */
-  @media(max-width:980px){
-    .navlinks{display:none;}
-    .navtoggle{display:block;}
-    .about-grid{grid-template-columns:1fr; gap:3rem;}
-    .about-tag{left:1rem; bottom:-1.4rem;}
-    .stops{grid-template-columns:1fr 1fr; gap:2.5rem 1.5rem;}
-    .stops::before{display:none;}
-    .gallery-grid{grid-template-columns:repeat(2,1fr); grid-auto-rows:160px;}
-    .g1,.g2,.g3,.g4,.g5{grid-column:span 1; grid-row:span 1;}
-    .t-grid{grid-template-columns:1fr; gap:1.4rem;}
-    .visit-details{gap:1.6rem;}
+  @media (max-width:1080px){
+    .cat-grid{grid-template-columns:repeat(2,1fr);}
+    .dish-grid{grid-template-columns:repeat(2,1fr);}
+    .why-grid{grid-template-columns:repeat(2,1fr);}
+    .about-grid{grid-template-columns:1fr; gap:70px;}
+    .about-img img{height:400px;}
+    .loc-grid{grid-template-columns:1fr;}
+    .gallery-grid{columns:3 220px;}
+    .trust-inner{grid-template-columns:repeat(3,1fr);}
+    .trust-item:nth-child(3){border-right:none;}
   }
-  @media(max-width:560px){
-    .stops{grid-template-columns:1fr;}
-    section{padding:4.5rem 0;}
-    .hero-content{padding-bottom:4rem;}
+  @media (max-width:760px){
+    .nav-links{display:none;}
+    .menu-toggle{display:block;}
+    .hero-grid{grid-template-columns:1fr; gap:26px;}
+    .review-badge{margin-left:0; justify-self:start;}
+    .cat-grid{grid-template-columns:repeat(2,1fr); gap:16px;}
+    .dish-grid{grid-template-columns:1fr; gap:22px;}
+    .why-grid{grid-template-columns:1fr;}
+    .footer-grid{grid-template-columns:1fr 1fr; gap:32px;}
+    .gallery-grid{columns:2 160px; column-gap:12px;}
+    .g-item{margin-bottom:12px;}
+    .trust-inner{grid-template-columns:repeat(2,1fr);}
+    .trust-item:nth-child(2n){border-right:none;}
+    .about-stat{left:12px; bottom:-18px; padding:14px 18px;}
+    section{padding:56px 0;}
+    .about-img img{height:280px;}
+    .cat-card{aspect-ratio:1/1.05;}
+    .dish-img-wrap{aspect-ratio:16/10;}
+  }
+  @media (max-width:480px){
+    .cat-grid{grid-template-columns:1fr 1fr;}
+    .hero h1{font-size:2.1rem;}
   }
 </style>
 </head>
 <body>
 
-<nav id="nav">
-  <a href="#top" class="brand">Spice Route</a>
-  <div class="navlinks">
-    <a href="#story">Story</a>
-    <a href="#route">The Route</a>
-    <a href="#menu">Menu</a>
-    <a href="#visit">Visit</a>
-    <a href="#visit" class="btn">Reserve</a>
+<div id="progress"></div>
+
+<header id="siteHeader">
+  <div class="wrap nav">
+    <a href="#top" class="brand">
+      <span class="sprig">
+        <svg width="20" height="20" viewBox="0 0 20 20"><path d="M10 0C13 3 17 6 17 10C17 14 13 17 10 17C7 17 3 14 3 10C3 6 7 3 10 0Z" fill="#4A7C3A"/></svg>
+      </span>
+      kurry patta
+    </a>
+    <nav class="nav-links">
+      <a href="#top">Home</a>
+      <a href="#menu">Menu</a>
+      <a href="#about">About</a>
+      <a href="#gallery">Gallery</a>
+      <a href="#contact">Contact</a>
+    </nav>
+    <div class="nav-right">
+      <a href="#contact" class="btn btn-primary" style="padding:11px 22px; font-size:0.85rem;">Order Now</a>
+      <button class="menu-toggle" id="menuToggle" aria-label="Open menu" aria-expanded="false">&#9776;</button>
+    </div>
   </div>
-  <button class="navtoggle" aria-label="menu">&#9776;</button>
-</nav>
+</header>
+
+<div class="mobile-panel" id="mobilePanel">
+  <a href="#top" class="mob-link">Home</a>
+  <a href="#menu" class="mob-link">Menu</a>
+  <a href="#about" class="mob-link">About</a>
+  <a href="#gallery" class="mob-link">Gallery</a>
+  <a href="#contact" class="mob-link">Contact</a>
+  <a href="#contact" class="btn btn-primary" style="margin-top:10px;">Order Now</a>
+</div>
 
 <section class="hero" id="top">
-  <img class="hero-img" src="https://images.pexels.com/photos/941869/pexels-photo-941869.jpeg?auto=compress&cs=tinysrgb&w=1800" alt="A vibrant spread of Indian dishes including dosa, curry and chutney">
-  <div class="hero-content">
-    <div class="hero-eyebrow">Est. on the old trade winds</div>
-    <h1>Spice<br><em>Route</em></h1>
-    <p class="hero-sub">One kitchen, four coastlines of flavor — Zanzibar, Kerala, Istanbul and Marrakesh, plated the way each port would recognize.</p>
-    <div class="hero-ctas">
-      <a href="#visit" class="btn solid">Reserve a Table</a>
-      <a href="#route" class="btn">View the Route</a>
+  <div class="hero-bg">
+    <img src="https://images.pexels.com/photos/941869/pexels-photo-941869.jpeg?auto=compress&cs=tinysrgb&w=1080&q=70" srcset="https://images.pexels.com/photos/941869/pexels-photo-941869.jpeg?auto=compress&cs=tinysrgb&w=480&q=65 480w, https://images.pexels.com/photos/941869/pexels-photo-941869.jpeg?auto=compress&cs=tinysrgb&w=800&q=70 800w, https://images.pexels.com/photos/941869/pexels-photo-941869.jpeg?auto=compress&cs=tinysrgb&w=1400&q=70 1400w" sizes="100vw" width="1400" height="1000" fetchpriority="high" alt="A vibrant spread of Indian dishes including dosa, curry and chutney at Kurry Patta">
+  </div>
+  <img class="hero-leaf l1" src="data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 40 40'><path d='M20 0C26 6 34 12 34 20C34 28 26 34 20 34C14 34 6 28 6 20C6 12 14 6 20 0Z' fill='%238DC63F'/></svg>" alt="">
+  <img class="hero-leaf l2" src="data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 40 40'><path d='M20 0C26 6 34 12 34 20C34 28 26 34 20 34C14 34 6 28 6 20C6 12 14 6 20 0Z' fill='%234A7C3A'/></svg>" alt="">
+  <div class="wrap hero-inner">
+    <div class="hero-grid">
+      <div>
+        <div class="hero-eyebrow">
+          <span class="sprig"><svg width="14" height="14" viewBox="0 0 20 20"><path d="M10 0C13 3 17 6 17 10C17 14 13 17 10 17C7 17 3 14 3 10C3 6 7 3 10 0Z" fill="#F5B914"/></svg></span>
+          Multi-Cuisine · Family Kitchen
+        </div>
+        <h1 class="reveal">Fresh Flavours.<br>Authentic Recipes.<br>Memorable Moments.</h1>
+        <p class="lede reveal">Kurry Patta brings Indian curries, Chinese wok classics, smoky tandoori and continental comfort together — cooked fresh daily, served warm, and shared like family.</p>
+        <div class="hero-ctas reveal">
+          <a href="#contact" class="btn btn-primary">Order Now</a>
+          <a href="#menu" class="btn btn-ghost" style="background:rgba(255,250,240,0.12); color:var(--cream); border-color:rgba(255,250,240,0.6);">Explore Menu</a>
+        </div>
+      </div>
+      <div class="review-badge reveal-scale">
+        <div>
+          <div class="stars">★★★★★</div>
+          <b>4.9</b>
+          <span>2,300+ Happy Diners</span>
+        </div>
+      </div>
     </div>
   </div>
-  <div class="route-line"></div>
 </section>
 
-<section class="about" id="story">
+<div class="trust">
+  <div class="wrap">
+    <div class="trust-inner stagger">
+      <div class="trust-item reveal">
+        <svg class="ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M12 2l2.9 6.3 6.9.7-5.2 4.7 1.5 6.8L12 17l-6.1 3.5 1.5-6.8L2.2 9l6.9-.7L12 2z"/></svg>
+        <b><span class="count" data-target="4.9" data-decimal="1">0</span></b>
+        <span>Google Rating</span>
+      </div>
+      <div class="trust-item reveal">
+        <svg class="ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3.5 2"/></svg>
+        <b><span class="count" data-target="15">0</span>+</b>
+        <span>Years of Cooking</span>
+      </div>
+      <div class="trust-item reveal">
+        <svg class="ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M12 2l8 4v6c0 5-3.5 8.5-8 10-4.5-1.5-8-5-8-10V6l8-4z"/><path d="M9 12l2 2 4-4"/></svg>
+        <b>FSSAI</b>
+        <span>Certified Kitchen</span>
+      </div>
+      <div class="trust-item reveal">
+        <svg class="ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M12 2C8 6 6 9 6 13a6 6 0 0012 0c0-4-2-7-6-11z"/></svg>
+        <b>Daily</b>
+        <span>Fresh Ingredients</span>
+      </div>
+      <div class="trust-item reveal">
+        <svg class="ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M17 21v-2a4 4 0 00-4-4H7a4 4 0 00-4 4v2"/><circle cx="10" cy="7" r="4"/><path d="M23 21v-2a4 4 0 00-3-3.87"/><path d="M16 3.13a4 4 0 010 7.75"/></svg>
+        <b><span class="count" data-target="12000">0</span>+</b>
+        <span>Happy Customers</span>
+      </div>
+    </div>
+  </div>
+</div>
+
+<section id="categories">
+  <div class="wrap">
+    <div class="section-head center">
+      <div class="eyebrow"><span class="sprig"><svg width="14" height="14" viewBox="0 0 20 20"><path d="M10 0C13 3 17 6 17 10C17 14 13 17 10 17C7 17 3 14 3 10C3 6 7 3 10 0Z" fill="#4A7C3A"/></svg></span>What We Serve</div>
+      <h2>Seven kitchens, one table</h2>
+      <p>Every category below is cooked fresh to order, the way it's meant to be — no shortcuts, no compromises.</p>
+    </div>
+    <div class="cat-grid stagger">
+      <a href="#menu" class="cat-card reveal">
+        <img src="https://images.unsplash.com/photo-1596797038530-2c107229654b?w=500&q=70&auto=format&fit=crop" srcset="https://images.unsplash.com/photo-1596797038530-2c107229654b?w=320&q=65&auto=format&fit=crop 320w, https://images.unsplash.com/photo-1596797038530-2c107229654b?w=500&q=70&auto=format&fit=crop 500w, https://images.unsplash.com/photo-1596797038530-2c107229654b?w=700&q=75&auto=format&fit=crop 700w" sizes="(max-width:760px) 50vw, (max-width:1080px) 33vw, 25vw" width="500" height="560" loading="lazy" decoding="async" alt="North Indian paneer curry with rice">
+        <div class="overlay"><h3>Indian Curries</h3><span class="cta">Explore Category →</span></div>
+      </a>
+      <a href="#menu" class="cat-card reveal">
+        <img src="https://images.unsplash.com/photo-1631709497146-a239ef373cf1?w=500&q=70&auto=format&fit=crop" srcset="https://images.unsplash.com/photo-1631709497146-a239ef373cf1?w=320&q=65&auto=format&fit=crop 320w, https://images.unsplash.com/photo-1631709497146-a239ef373cf1?w=500&q=70&auto=format&fit=crop 500w, https://images.unsplash.com/photo-1631709497146-a239ef373cf1?w=700&q=75&auto=format&fit=crop 700w" sizes="(max-width:760px) 50vw, (max-width:1080px) 33vw, 25vw" width="500" height="560" loading="lazy" decoding="async" alt="Chinese wok-tossed noodles">
+        <div class="overlay"><h3>Chinese</h3><span class="cta">Explore Category →</span></div>
+      </a>
+      <a href="#menu" class="cat-card reveal">
+        <img src="https://images.pexels.com/photos/28909537/pexels-photo-28909537.jpeg?auto=compress&cs=tinysrgb&w=500&q=70" srcset="https://images.pexels.com/photos/28909537/pexels-photo-28909537.jpeg?auto=compress&cs=tinysrgb&w=320&q=65 320w, https://images.pexels.com/photos/28909537/pexels-photo-28909537.jpeg?auto=compress&cs=tinysrgb&w=500&q=70 500w, https://images.pexels.com/photos/28909537/pexels-photo-28909537.jpeg?auto=compress&cs=tinysrgb&w=700&q=75 700w" sizes="(max-width:760px) 50vw, (max-width:1080px) 33vw, 25vw" width="500" height="560" loading="lazy" decoding="async" alt="Biryani served on a traditional metal plate">
+        <div class="overlay"><h3>Biryani</h3><span class="cta">Explore Category →</span></div>
+      </a>
+      <a href="#menu" class="cat-card reveal">
+        <img src="https://images.pexels.com/photos/53148/pexels-photo-53148.jpeg?auto=compress&cs=tinysrgb&w=500&q=70" srcset="https://images.pexels.com/photos/53148/pexels-photo-53148.jpeg?auto=compress&cs=tinysrgb&w=320&q=65 320w, https://images.pexels.com/photos/53148/pexels-photo-53148.jpeg?auto=compress&cs=tinysrgb&w=500&q=70 500w, https://images.pexels.com/photos/53148/pexels-photo-53148.jpeg?auto=compress&cs=tinysrgb&w=700&q=75 700w" sizes="(max-width:760px) 50vw, (max-width:1080px) 33vw, 25vw" width="500" height="560" loading="lazy" decoding="async" alt="Smoky grilled tandoori skewers">
+        <div class="overlay"><h3>Tandoori</h3><span class="cta">Explore Category →</span></div>
+      </a>
+      <a href="#menu" class="cat-card reveal">
+        <img src="https://images.pexels.com/photos/20422129/pexels-photo-20422129.jpeg?auto=compress&cs=tinysrgb&w=500&q=70" srcset="https://images.pexels.com/photos/20422129/pexels-photo-20422129.jpeg?auto=compress&cs=tinysrgb&w=320&q=65 320w, https://images.pexels.com/photos/20422129/pexels-photo-20422129.jpeg?auto=compress&cs=tinysrgb&w=500&q=70 500w, https://images.pexels.com/photos/20422129/pexels-photo-20422129.jpeg?auto=compress&cs=tinysrgb&w=700&q=75 700w" sizes="(max-width:760px) 50vw, (max-width:1080px) 33vw, 25vw" width="500" height="560" loading="lazy" decoding="async" alt="Crispy dosa with coconut chutney and sambar">
+        <div class="overlay"><h3>South Indian</h3><span class="cta">Explore Category →</span></div>
+      </a>
+      <a href="#menu" class="cat-card reveal">
+        <img src="https://images.unsplash.com/photo-1574071318508-1cdbab80d002?w=500&q=70&auto=format&fit=crop" srcset="https://images.unsplash.com/photo-1574071318508-1cdbab80d002?w=320&q=65&auto=format&fit=crop 320w, https://images.unsplash.com/photo-1574071318508-1cdbab80d002?w=500&q=70&auto=format&fit=crop 500w, https://images.unsplash.com/photo-1574071318508-1cdbab80d002?w=700&q=75&auto=format&fit=crop 700w" sizes="(max-width:760px) 50vw, (max-width:1080px) 33vw, 25vw" width="500" height="560" loading="lazy" decoding="async" alt="Continental pasta and pizza spread">
+        <div class="overlay"><h3>Continental</h3><span class="cta">Explore Category →</span></div>
+      </a>
+      <a href="#menu" class="cat-card reveal">
+        <img src="https://images.unsplash.com/photo-1593701461250-d7b22dfd3a77?w=500&q=70&auto=format&fit=crop" srcset="https://images.unsplash.com/photo-1593701461250-d7b22dfd3a77?w=320&q=65&auto=format&fit=crop 320w, https://images.unsplash.com/photo-1593701461250-d7b22dfd3a77?w=500&q=70&auto=format&fit=crop 500w, https://images.unsplash.com/photo-1593701461250-d7b22dfd3a77?w=700&q=75&auto=format&fit=crop 700w" sizes="(max-width:760px) 50vw, (max-width:1080px) 33vw, 25vw" width="500" height="560" loading="lazy" decoding="async" alt="Gulab jamun dessert">
+        <div class="overlay"><h3>Desserts</h3><span class="cta">Explore Category →</span></div>
+      </a>
+      <a href="#menu" class="cat-card reveal">
+        <img src="https://images.unsplash.com/photo-1628702774354-f09e4a167a8e?w=500&q=70&auto=format&fit=crop" srcset="https://images.unsplash.com/photo-1628702774354-f09e4a167a8e?w=320&q=65&auto=format&fit=crop 320w, https://images.unsplash.com/photo-1628702774354-f09e4a167a8e?w=500&q=70&auto=format&fit=crop 500w, https://images.unsplash.com/photo-1628702774354-f09e4a167a8e?w=700&q=75&auto=format&fit=crop 700w" sizes="(max-width:760px) 50vw, (max-width:1080px) 33vw, 25vw" width="500" height="560" loading="lazy" decoding="async" alt="Masala chai and beverages">
+        <div class="overlay"><h3>Beverages</h3><span class="cta">Explore Category →</span></div>
+      </a>
+    </div>
+  </div>
+</section>
+
+<section class="dishes" id="menu">
+  <div class="wrap">
+    <div class="section-head center">
+      <div class="eyebrow"><span class="sprig"><svg width="14" height="14" viewBox="0 0 20 20"><path d="M10 0C13 3 17 6 17 10C17 14 13 17 10 17C7 17 3 14 3 10C3 6 7 3 10 0Z" fill="#4A7C3A"/></svg></span>House Favourites</div>
+      <h2>Our most-loved dishes</h2>
+      <p>A small taste of what's cooking — the full menu runs much longer, and changes with the season.</p>
+    </div>
+    <div class="dish-grid stagger">
+      <div class="dish-card reveal">
+        <div class="dish-img-wrap"><img src="https://images.pexels.com/photos/958547/pexels-photo-958547.jpeg?auto=compress&cs=tinysrgb&w=560&q=70" srcset="https://images.pexels.com/photos/958547/pexels-photo-958547.jpeg?auto=compress&cs=tinysrgb&w=360&q=65 360w, https://images.pexels.com/photos/958547/pexels-photo-958547.jpeg?auto=compress&cs=tinysrgb&w=560&q=70 560w, https://images.pexels.com/photos/958547/pexels-photo-958547.jpeg?auto=compress&cs=tinysrgb&w=800&q=75 800w" sizes="(max-width:760px) 92vw, (max-width:1080px) 45vw, 30vw" width="560" height="420" loading="lazy" decoding="async" alt="Paneer butter masala served with naan"></div>
+        <div class="dish-body">
+          <div class="dish-top"><h3>Paneer Butter Masala</h3><span class="dish-rating">★ 4.8</span></div>
+          <p class="dish-desc">Cottage cheese simmered in a velvety tomato-butter gravy, finished with cream.</p>
+          <div class="dish-foot"><span class="dish-price">₹355</span><a href="#contact" class="dish-order">Order →</a></div>
+        </div>
+      </div>
+      <div class="dish-card reveal">
+        <div class="dish-img-wrap"><img src="https://images.pexels.com/photos/17050759/pexels-photo-17050759.jpeg?auto=compress&cs=tinysrgb&w=560&q=70" srcset="https://images.pexels.com/photos/17050759/pexels-photo-17050759.jpeg?auto=compress&cs=tinysrgb&w=360&q=65 360w, https://images.pexels.com/photos/17050759/pexels-photo-17050759.jpeg?auto=compress&cs=tinysrgb&w=560&q=70 560w, https://images.pexels.com/photos/17050759/pexels-photo-17050759.jpeg?auto=compress&cs=tinysrgb&w=800&q=75 800w" sizes="(max-width:760px) 92vw, (max-width:1080px) 45vw, 30vw" width="560" height="420" loading="lazy" decoding="async" alt="Overhead view of assorted Indian curries"></div>
+        <div class="dish-body">
+          <div class="dish-top"><h3>Dal Makhani</h3><span class="dish-rating">★ 4.9</span></div>
+          <p class="dish-desc">Whole black lentils slow-cooked overnight with butter and a whisper of smoke.</p>
+          <div class="dish-foot"><span class="dish-price">₹350</span><a href="#contact" class="dish-order">Order →</a></div>
+        </div>
+      </div>
+      <div class="dish-card reveal">
+        <div class="dish-img-wrap"><img src="https://images.unsplash.com/photo-1743517894265-c86ab035adef?w=560&q=70&auto=format&fit=crop" srcset="https://images.unsplash.com/photo-1743517894265-c86ab035adef?w=360&q=65&auto=format&fit=crop 360w, https://images.unsplash.com/photo-1743517894265-c86ab035adef?w=560&q=70&auto=format&fit=crop 560w, https://images.unsplash.com/photo-1743517894265-c86ab035adef?w=800&q=75&auto=format&fit=crop 800w" sizes="(max-width:760px) 92vw, (max-width:1080px) 45vw, 30vw" width="560" height="420" loading="lazy" decoding="async" alt="Mysore masala dosa with chutney"></div>
+        <div class="dish-body">
+          <div class="dish-top"><h3>Mysore Masala Dosa</h3><span class="dish-rating">★ 4.8</span></div>
+          <p class="dish-desc">Crisp rice crepe with a spiced red chutney layer, stuffed with potato masala.</p>
+          <div class="dish-foot"><span class="dish-price">₹250</span><a href="#contact" class="dish-order">Order →</a></div>
+        </div>
+      </div>
+      <div class="dish-card reveal">
+        <div class="dish-img-wrap"><img src="https://images.unsplash.com/photo-1631709497146-a239ef373cf1?w=560&q=70&auto=format&fit=crop" srcset="https://images.unsplash.com/photo-1631709497146-a239ef373cf1?w=360&q=65&auto=format&fit=crop 360w, https://images.unsplash.com/photo-1631709497146-a239ef373cf1?w=560&q=70&auto=format&fit=crop 560w, https://images.unsplash.com/photo-1631709497146-a239ef373cf1?w=800&q=75&auto=format&fit=crop 800w" sizes="(max-width:760px) 92vw, (max-width:1080px) 45vw, 30vw" width="560" height="420" loading="lazy" decoding="async" alt="Chilli garlic noodles"></div>
+        <div class="dish-body">
+          <div class="dish-top"><h3>Chilli Garlic Noodles</h3><span class="dish-rating">★ 4.7</span></div>
+          <p class="dish-desc">Wok-tossed hakka noodles with charred garlic, spring onion and a fiery kick.</p>
+          <div class="dish-foot"><span class="dish-price">₹265</span><a href="#contact" class="dish-order">Order →</a></div>
+        </div>
+      </div>
+      <div class="dish-card reveal">
+        <div class="dish-img-wrap"><img src="https://images.pexels.com/photos/53148/pexels-photo-53148.jpeg?auto=compress&cs=tinysrgb&w=560&q=70" srcset="https://images.pexels.com/photos/53148/pexels-photo-53148.jpeg?auto=compress&cs=tinysrgb&w=360&q=65 360w, https://images.pexels.com/photos/53148/pexels-photo-53148.jpeg?auto=compress&cs=tinysrgb&w=560&q=70 560w, https://images.pexels.com/photos/53148/pexels-photo-53148.jpeg?auto=compress&cs=tinysrgb&w=800&q=75 800w" sizes="(max-width:760px) 92vw, (max-width:1080px) 45vw, 30vw" width="560" height="420" loading="lazy" decoding="async" alt="Tandoori grilled skewer platter"></div>
+        <div class="dish-body">
+          <div class="dish-top"><h3>Tandoori Platter</h3><span class="dish-rating">★ 4.9</span></div>
+          <p class="dish-desc">Charcoal-grilled skewers marinated overnight in yogurt and hand-ground spice.</p>
+          <div class="dish-foot"><span class="dish-price">₹425</span><a href="#contact" class="dish-order">Order →</a></div>
+        </div>
+      </div>
+      <div class="dish-card reveal">
+        <div class="dish-img-wrap"><img src="https://images.unsplash.com/photo-1593701461250-d7b22dfd3a77?w=560&q=70&auto=format&fit=crop" srcset="https://images.unsplash.com/photo-1593701461250-d7b22dfd3a77?w=360&q=65&auto=format&fit=crop 360w, https://images.unsplash.com/photo-1593701461250-d7b22dfd3a77?w=560&q=70&auto=format&fit=crop 560w, https://images.unsplash.com/photo-1593701461250-d7b22dfd3a77?w=800&q=75&auto=format&fit=crop 800w" sizes="(max-width:760px) 92vw, (max-width:1080px) 45vw, 30vw" width="560" height="420" loading="lazy" decoding="async" alt="Gulab jamun dessert bowl"></div>
+        <div class="dish-body">
+          <div class="dish-top"><h3>Gulab Jamun</h3><span class="dish-rating">★ 4.9</span></div>
+          <p class="dish-desc">Soft milk-solid dumplings soaked in warm cardamom and rose syrup.</p>
+          <div class="dish-foot"><span class="dish-price">₹110</span><a href="#contact" class="dish-order">Order →</a></div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section id="about">
   <div class="wrap about-grid">
-    <div class="about-img-wrap reveal">
-      <img src="https://images.pexels.com/photos/776538/pexels-photo-776538.jpeg?auto=compress&cs=tinysrgb&w=1200" alt="Warm-lit dining room with hanging lamps">
-      <div class="about-tag"><b>1,400+</b>nautical miles of menu, one dining room</div>
+    <div class="about-img reveal">
+      <img src="https://images.pexels.com/photos/776538/pexels-photo-776538.jpeg?auto=compress&cs=tinysrgb&w=800&q=70" srcset="https://images.pexels.com/photos/776538/pexels-photo-776538.jpeg?auto=compress&cs=tinysrgb&w=480&q=65 480w, https://images.pexels.com/photos/776538/pexels-photo-776538.jpeg?auto=compress&cs=tinysrgb&w=800&q=70 800w, https://images.pexels.com/photos/776538/pexels-photo-776538.jpeg?auto=compress&cs=tinysrgb&w=1200&q=75 1200w" sizes="(max-width:1080px) 92vw, 45vw" width="800" height="600" loading="lazy" decoding="async" alt="Warm-lit Kurry Patta dining room with hanging lamps">
+      <div class="about-stat"><b><span class="count" data-target="15">0</span>+</b>Years of Hospitality</div>
     </div>
     <div class="about-body reveal">
-      <div class="eyebrow">Our Story</div>
-      <h2 style="font-size:clamp(1.9rem,3.4vw,2.6rem); margin-bottom:1.3rem;">Charted, not fused.</h2>
-      <p>For centuries, ships carried cardamom out of Kerala, cloves out of Zanzibar, sumac from the Levant and saffron from Persia along the same monsoon winds. Spice Route keeps that itinerary alive on one menu — not blended into something new, but plated the way each port has always served it.</p>
-      <p>Every dish here traces back to a place, a family recipe, and a spice trader who once made the crossing. Pull up a chair. You're joining us mid-voyage.</p>
+      <div class="eyebrow"><span class="sprig"><svg width="14" height="14" viewBox="0 0 20 20"><path d="M10 0C13 3 17 6 17 10C17 14 13 17 10 17C7 17 3 14 3 10C3 6 7 3 10 0Z" fill="#4A7C3A"/></svg></span>Our Story</div>
+      <h2>Cooked the way home does it</h2>
+      <p>Kurry Patta started as a single kitchen with one promise: every dish leaves tasting like someone's grandmother made it. That promise hasn't changed, even as the menu grew to span four cuisines.</p>
+      <p>We grind our own spice blends every morning, source vegetables and herbs daily, and let our chefs cook the way they learned at home — slow curries, hand-rolled dosa batter, charcoal tandoors, and a wok that never stops moving.</p>
+      <ul class="about-list">
+        <li><span class="sprig"><svg width="14" height="14" viewBox="0 0 20 20"><path d="M10 0C13 3 17 6 17 10C17 14 13 17 10 17C7 17 3 14 3 10C3 6 7 3 10 0Z" fill="#4A7C3A"/></svg></span>Fresh ingredients daily</li>
+        <li><span class="sprig"><svg width="14" height="14" viewBox="0 0 20 20"><path d="M10 0C13 3 17 6 17 10C17 14 13 17 10 17C7 17 3 14 3 10C3 6 7 3 10 0Z" fill="#4A7C3A"/></svg></span>Traditional family recipes</li>
+        <li><span class="sprig"><svg width="14" height="14" viewBox="0 0 20 20"><path d="M10 0C13 3 17 6 17 10C17 14 13 17 10 17C7 17 3 14 3 10C3 6 7 3 10 0Z" fill="#4A7C3A"/></svg></span>Passionate, trained chefs</li>
+        <li><span class="sprig"><svg width="14" height="14" viewBox="0 0 20 20"><path d="M10 0C13 3 17 6 17 10C17 14 13 17 10 17C7 17 3 14 3 10C3 6 7 3 10 0Z" fill="#4A7C3A"/></svg></span>Warm, family hospitality</li>
+      </ul>
+      <a href="#menu" class="btn btn-primary" style="margin-top:28px;">See Full Menu</a>
     </div>
   </div>
 </section>
 
-<section class="route" id="route">
+<section class="why">
   <div class="wrap">
-    <div class="section-head reveal">
-      <div class="eyebrow">The Route</div>
-      <h2>Four ports, one evening</h2>
-      <p>Work your way down the coastline — or pick a port and stay awhile. Each stop is a self-contained meal, built the way it's eaten at home.</p>
+    <div class="section-head center">
+      <div class="eyebrow"><span class="sprig"><svg width="14" height="14" viewBox="0 0 20 20"><path d="M10 0C13 3 17 6 17 10C17 14 13 17 10 17C7 17 3 14 3 10C3 6 7 3 10 0Z" fill="#F5B914"/></svg></span>Why Kurry Patta</div>
+      <h2>Made to feel like home</h2>
+      <p>Here's what keeps families, friends and regulars coming back.</p>
     </div>
-    <div class="stops">
-      <div class="stop reveal">
-        <div class="stop-num"></div>
-        <img class="stop-img" src="https://images.pexels.com/photos/15777497/pexels-photo-15777497.jpeg?auto=compress&cs=tinysrgb&w=800" alt="Overflowing bins of colorful spices at a market stall">
-        <div class="stop-coord">06°S · Zanzibar</div>
-        <h3>The Spice Islands</h3>
-        <p class="stop-desc">Clove, cinnamon and pepper, the cargo that started it all.</p>
-        <ul class="stop-dishes">
-          <li><span>Clove-rubbed prawns</span><span>$24</span></li>
-          <li><span>Zanzibar mix pilau</span><span>$21</span></li>
-          <li><span>Coconut &amp; cardamom curry</span><span>$23</span></li>
-        </ul>
+    <div class="why-grid stagger">
+      <div class="why-card reveal">
+        <svg class="ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M12 2C8 6 6 9 6 13a6 6 0 0012 0c0-4-2-7-6-11z"/></svg>
+        <h3>Fresh Ingredients</h3><p>Sourced and prepped every single morning, never frozen for later.</p>
       </div>
-      <div class="stop reveal">
-        <div class="stop-num"></div>
-        <img class="stop-img" src="https://images.pexels.com/photos/29148133/pexels-photo-29148133.jpeg?auto=compress&cs=tinysrgb&w=800" alt="Indian thali with naan bread, paneer curry and rice">
-        <div class="stop-coord">10°N · Kerala</div>
-        <h3>The Malabar Coast</h3>
-        <p class="stop-desc">Coconut, curry leaf and black pepper, straight off the backwaters.</p>
-        <ul class="stop-dishes">
-          <li><span>Malabar fish curry</span><span>$26</span></li>
-          <li><span>Appam &amp; vegetable stew</span><span>$19</span></li>
-          <li><span>Masala dosa</span><span>$17</span></li>
-        </ul>
+      <div class="why-card reveal">
+        <svg class="ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><circle cx="12" cy="8" r="4"/><path d="M4 21c1-4 4-6 8-6s7 2 8 6"/></svg>
+        <h3>Experienced Chefs</h3><p>Decades of combined kitchen experience behind every recipe.</p>
       </div>
-      <div class="stop reveal">
-        <div class="stop-num"></div>
-        <img class="stop-img" src="https://images.pexels.com/photos/53148/pexels-photo-53148.jpeg?auto=compress&cs=tinysrgb&w=800" alt="Colorful grilled skewers with mixed vegetables and meat">
-        <div class="stop-coord">41°N · Istanbul</div>
-        <h3>The Bazaar</h3>
-        <p class="stop-desc">Charcoal, sumac and pomegranate, served straight off the grill.</p>
-        <ul class="stop-dishes">
-          <li><span>Adana lamb skewers</span><span>$25</span></li>
-          <li><span>Charred vegetable pide</span><span>$18</span></li>
-          <li><span>Smoked eggplant meze</span><span>$14</span></li>
-        </ul>
+      <div class="why-card reveal">
+        <svg class="ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M17 21v-2a4 4 0 00-4-4H7a4 4 0 00-4 4v2"/><circle cx="10" cy="7" r="4"/><path d="M23 21v-2a4 4 0 00-3-3.87"/><path d="M16 3.13a4 4 0 010 7.75"/></svg>
+        <h3>Family Dining</h3><p>Warm, spacious seating built for gatherings big and small.</p>
       </div>
-      <div class="stop reveal">
-        <div class="stop-num"></div>
-        <img class="stop-img" src="https://images.pexels.com/photos/7205249/pexels-photo-7205249.jpeg?auto=compress&cs=tinysrgb&w=800" alt="A chef managing a flaming pan in a professional kitchen">
-        <div class="stop-coord">32°N · Marrakesh</div>
-        <h3>The Souk</h3>
-        <p class="stop-desc">Saffron, preserved lemon and slow heat, straight from the tagine.</p>
-        <ul class="stop-dishes">
-          <li><span>Saffron chicken tagine</span><span>$24</span></li>
-          <li><span>Preserved lemon couscous</span><span>$17</span></li>
-          <li><span>Spiced almond pastilla</span><span>$12</span></li>
-        </ul>
+      <div class="why-card reveal">
+        <svg class="ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3.5 2"/></svg>
+        <h3>Fast Service</h3><p>Fresh food, without the wait — because hungry shouldn't mean patient.</p>
+      </div>
+      <div class="why-card reveal">
+        <svg class="ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M12 2l8 4v6c0 5-3.5 8.5-8 10-4.5-1.5-8-5-8-10V6l8-4z"/><path d="M9 12l2 2 4-4"/></svg>
+        <h3>Hygienic Kitchen</h3><p>FSSAI-certified, spotless kitchens you'd be happy to walk through.</p>
+      </div>
+      <div class="why-card reveal">
+        <svg class="ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M12 1v22M17 5H9.5a3.5 3.5 0 000 7h5a3.5 3.5 0 010 7H6"/></svg>
+        <h3>Affordable Prices</h3><p>Generous portions and honest pricing, every day of the week.</p>
       </div>
     </div>
   </div>
 </section>
 
-<section class="gallery" id="menu">
+<section id="gallery">
   <div class="wrap">
-    <div class="section-head reveal">
-      <div class="eyebrow">From the Pass</div>
-      <h2>Tonight's crossing</h2>
-      <p>A running log of what's leaving the kitchen — the full menu changes with the season, the route rarely does.</p>
+    <div class="section-head center">
+      <div class="eyebrow"><span class="sprig"><svg width="14" height="14" viewBox="0 0 20 20"><path d="M10 0C13 3 17 6 17 10C17 14 13 17 10 17C7 17 3 14 3 10C3 6 7 3 10 0Z" fill="#4A7C3A"/></svg></span>Gallery</div>
+      <h2>A peek inside Kurry Patta</h2>
+      <p>Our kitchen, our dining room, and the dishes leaving the pass tonight.</p>
     </div>
     <div class="gallery-grid">
-      <div class="gitem g1 reveal"><img src="https://images.pexels.com/photos/958547/pexels-photo-958547.jpeg?auto=compress&cs=tinysrgb&w=900" alt="An assortment of Indian cuisine on a serving tray"><div class="cap">Zanzibar mix pilau, plated</div></div>
-      <div class="gitem g2 reveal"><img src="https://images.pexels.com/photos/17050759/pexels-photo-17050759.jpeg?auto=compress&cs=tinysrgb&w=900" alt="Overhead view of curries served on white plates"><div class="cap">The evening curry line-up</div></div>
-      <div class="gitem g3 reveal"><img src="https://images.pexels.com/photos/20422129/pexels-photo-20422129.jpeg?auto=compress&cs=tinysrgb&w=700" alt="Crispy dosa served with coconut chutney and sambar"><div class="cap">Malabar-style dosa</div></div>
-      <div class="gitem g4 reveal"><img src="https://images.pexels.com/photos/28909537/pexels-photo-28909537.jpeg?auto=compress&cs=tinysrgb&w=700" alt="Close-up of biryani served on a traditional metal plate"><div class="cap">Saffron biryani</div></div>
-      <div class="gitem g5 reveal"><img src="https://images.pexels.com/photos/5086624/pexels-photo-5086624.jpeg?auto=compress&cs=tinysrgb&w=700" alt="A beautifully plated meal with a glass of red wine"><div class="cap">Table for two, Bazaar side</div></div>
+      <div class="g-item"><img src="https://images.pexels.com/photos/776538/pexels-photo-776538.jpeg?auto=compress&cs=tinysrgb&w=420&q=65" srcset="https://images.pexels.com/photos/776538/pexels-photo-776538.jpeg?auto=compress&cs=tinysrgb&w=260&q=60 260w, https://images.pexels.com/photos/776538/pexels-photo-776538.jpeg?auto=compress&cs=tinysrgb&w=420&q=65 420w, https://images.pexels.com/photos/776538/pexels-photo-776538.jpeg?auto=compress&cs=tinysrgb&w=600&q=70 600w" sizes="(max-width:760px) 48vw, (max-width:1080px) 32vw, 24vw" loading="lazy" decoding="async" alt="Warm dining room interior"><div class="cap"><span>Dining Room</span></div></div>
+      <div class="g-item"><img src="https://images.pexels.com/photos/7205249/pexels-photo-7205249.jpeg?auto=compress&cs=tinysrgb&w=420&q=65" srcset="https://images.pexels.com/photos/7205249/pexels-photo-7205249.jpeg?auto=compress&cs=tinysrgb&w=260&q=60 260w, https://images.pexels.com/photos/7205249/pexels-photo-7205249.jpeg?auto=compress&cs=tinysrgb&w=420&q=65 420w, https://images.pexels.com/photos/7205249/pexels-photo-7205249.jpeg?auto=compress&cs=tinysrgb&w=600&q=70 600w" sizes="(max-width:760px) 48vw, (max-width:1080px) 32vw, 24vw" loading="lazy" decoding="async" alt="Chef preparing a dish in the kitchen"><div class="cap"><span>The Kitchen</span></div></div>
+      <div class="g-item"><img src="https://images.pexels.com/photos/17050759/pexels-photo-17050759.jpeg?auto=compress&cs=tinysrgb&w=420&q=65" srcset="https://images.pexels.com/photos/17050759/pexels-photo-17050759.jpeg?auto=compress&cs=tinysrgb&w=260&q=60 260w, https://images.pexels.com/photos/17050759/pexels-photo-17050759.jpeg?auto=compress&cs=tinysrgb&w=420&q=65 420w, https://images.pexels.com/photos/17050759/pexels-photo-17050759.jpeg?auto=compress&cs=tinysrgb&w=600&q=70 600w" sizes="(max-width:760px) 48vw, (max-width:1080px) 32vw, 24vw" loading="lazy" decoding="async" alt="Curries served on white plates"><div class="cap"><span>Curry Line-up</span></div></div>
+      <div class="g-item"><img src="https://images.unsplash.com/photo-1596797038530-2c107229654b?w=420&q=65&auto=format&fit=crop" srcset="https://images.unsplash.com/photo-1596797038530-2c107229654b?w=260&q=60&auto=format&fit=crop 260w, https://images.unsplash.com/photo-1596797038530-2c107229654b?w=420&q=65&auto=format&fit=crop 420w, https://images.unsplash.com/photo-1596797038530-2c107229654b?w=600&q=70&auto=format&fit=crop 600w" sizes="(max-width:760px) 48vw, (max-width:1080px) 32vw, 24vw" loading="lazy" decoding="async" alt="North Indian paneer curry"><div class="cap"><span>Paneer Butter Masala</span></div></div>
+      <div class="g-item"><img src="https://images.pexels.com/photos/15777497/pexels-photo-15777497.jpeg?auto=compress&cs=tinysrgb&w=420&q=65" srcset="https://images.pexels.com/photos/15777497/pexels-photo-15777497.jpeg?auto=compress&cs=tinysrgb&w=260&q=60 260w, https://images.pexels.com/photos/15777497/pexels-photo-15777497.jpeg?auto=compress&cs=tinysrgb&w=420&q=65 420w, https://images.pexels.com/photos/15777497/pexels-photo-15777497.jpeg?auto=compress&cs=tinysrgb&w=600&q=70 600w" sizes="(max-width:760px) 48vw, (max-width:1080px) 32vw, 24vw" loading="lazy" decoding="async" alt="Bins of colourful whole spices"><div class="cap"><span>Fresh Spices</span></div></div>
+      <div class="g-item"><img src="https://images.pexels.com/photos/28909537/pexels-photo-28909537.jpeg?auto=compress&cs=tinysrgb&w=420&q=65" srcset="https://images.pexels.com/photos/28909537/pexels-photo-28909537.jpeg?auto=compress&cs=tinysrgb&w=260&q=60 260w, https://images.pexels.com/photos/28909537/pexels-photo-28909537.jpeg?auto=compress&cs=tinysrgb&w=420&q=65 420w, https://images.pexels.com/photos/28909537/pexels-photo-28909537.jpeg?auto=compress&cs=tinysrgb&w=600&q=70 600w" sizes="(max-width:760px) 48vw, (max-width:1080px) 32vw, 24vw" loading="lazy" decoding="async" alt="Biryani plated on a traditional metal thali"><div class="cap"><span>Signature Biryani</span></div></div>
+      <div class="g-item"><img src="https://images.pexels.com/photos/20422129/pexels-photo-20422129.jpeg?auto=compress&cs=tinysrgb&w=420&q=65" srcset="https://images.pexels.com/photos/20422129/pexels-photo-20422129.jpeg?auto=compress&cs=tinysrgb&w=260&q=60 260w, https://images.pexels.com/photos/20422129/pexels-photo-20422129.jpeg?auto=compress&cs=tinysrgb&w=420&q=65 420w, https://images.pexels.com/photos/20422129/pexels-photo-20422129.jpeg?auto=compress&cs=tinysrgb&w=600&q=70 600w" sizes="(max-width:760px) 48vw, (max-width:1080px) 32vw, 24vw" loading="lazy" decoding="async" alt="Crispy dosa with coconut chutney"><div class="cap"><span>South Indian Corner</span></div></div>
+      <div class="g-item"><img src="https://images.pexels.com/photos/5086624/pexels-photo-5086624.jpeg?auto=compress&cs=tinysrgb&w=420&q=65" srcset="https://images.pexels.com/photos/5086624/pexels-photo-5086624.jpeg?auto=compress&cs=tinysrgb&w=260&q=60 260w, https://images.pexels.com/photos/5086624/pexels-photo-5086624.jpeg?auto=compress&cs=tinysrgb&w=420&q=65 420w, https://images.pexels.com/photos/5086624/pexels-photo-5086624.jpeg?auto=compress&cs=tinysrgb&w=600&q=70 600w" sizes="(max-width:760px) 48vw, (max-width:1080px) 32vw, 24vw" loading="lazy" decoding="async" alt="A beautifully plated table setting"><div class="cap"><span>Table for Two</span></div></div>
     </div>
   </div>
 </section>
 
-<section class="testimonials">
+<section class="reviews">
   <div class="wrap">
-    <div class="section-head reveal">
-      <div class="eyebrow">Guest Log</div>
-      <h2>Notes from the voyage</h2>
+    <div class="section-head center">
+      <div class="eyebrow"><span class="sprig"><svg width="14" height="14" viewBox="0 0 20 20"><path d="M10 0C13 3 17 6 17 10C17 14 13 17 10 17C7 17 3 14 3 10C3 6 7 3 10 0Z" fill="#4A7C3A"/></svg></span>Reviews</div>
+      <h2>What our guests are saying</h2>
     </div>
-    <div class="t-grid">
-      <div class="t-card reveal">
-        <div class="t-stamp">Port: Kerala</div>
-        <p class="t-quote">The dosa alone is worth the trip — and then they bring out the Istanbul course and you forget you were full.</p>
-        <p class="t-name">— Priya M.</p>
+    <div class="review-track" id="reviewTrack">
+      <div class="review-card">
+        <div class="review-top"><div class="avatar">P</div><div><div class="review-name">Priya M.</div><div class="review-stars">★★★★★</div></div></div>
+        <p class="review-text">"The dosa alone is worth the trip — and the butter chicken is exactly like home."</p>
       </div>
-      <div class="t-card reveal">
-        <div class="t-stamp">Port: Marrakesh</div>
-        <p class="t-quote">Every dish tastes like it actually came from somewhere. Nothing on this menu feels invented.</p>
-        <p class="t-name">— Daniel R.</p>
+      <div class="review-card">
+        <div class="review-top"><div class="avatar">R</div><div><div class="review-name">Rahul S.</div><div class="review-stars">★★★★★</div></div></div>
+        <p class="review-text">"Took the whole family for a Sunday lunch. Warm service, generous portions, everyone left happy."</p>
       </div>
-      <div class="t-card reveal">
-        <div class="t-stamp">Port: Zanzibar</div>
-        <p class="t-quote">Booked a table for two, ended up ordering across all four stops. Ask for the pilau, don't overthink it.</p>
-        <p class="t-name">— Aisha K.</p>
+      <div class="review-card">
+        <div class="review-top"><div class="avatar">A</div><div><div class="review-name">Aisha K.</div><div class="review-stars">★★★★★</div></div></div>
+        <p class="review-text">"Ordered across three cuisines in one meal and every single dish tasted freshly made."</p>
+      </div>
+      <div class="review-card">
+        <div class="review-top"><div class="avatar">D</div><div><div class="review-name">Daniel R.</div><div class="review-stars">★★★★★</div></div></div>
+        <p class="review-text">"My go-to spot for office lunches. Quick, consistent, and never disappoints."</p>
+      </div>
+    </div>
+    <div class="review-nav">
+      <button id="prevReview" aria-label="Previous review">←</button>
+      <button id="nextReview" aria-label="Next review">→</button>
+    </div>
+  </div>
+</section>
+
+<section id="location">
+  <div class="wrap loc-grid">
+    <div class="loc-card reveal">
+      <div class="eyebrow"><span class="sprig"><svg width="14" height="14" viewBox="0 0 20 20"><path d="M10 0C13 3 17 6 17 10C17 14 13 17 10 17C7 17 3 14 3 10C3 6 7 3 10 0Z" fill="#4A7C3A"/></svg></span>Visit Us</div>
+      <h2 style="font-size:1.9rem; font-style:italic;">Come sit at our table</h2>
+      <div class="loc-row">
+        <svg class="ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M21 10c0 6-9 12-9 12S3 16 3 10a9 9 0 0118 0z"/><circle cx="12" cy="10" r="3"/></svg>
+        <div><h4>Address</h4><p>P79, Lake Road, 1st Floor, Kolkata 700 029</p></div>
+      </div>
+      <div class="loc-row">
+        <svg class="ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3.5 2"/></svg>
+        <div><h4>Opening Hours</h4><p>Mon – Sun, 11:30 am – 11:00 pm</p></div>
+      </div>
+      <div class="loc-row">
+        <svg class="ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M22 16.9v3a2 2 0 01-2.2 2 19.8 19.8 0 01-8.6-3.1 19.5 19.5 0 01-6-6A19.8 19.8 0 012.1 4.2 2 2 0 014.1 2h3a2 2 0 012 1.7c.1.9.3 1.8.6 2.6a2 2 0 01-.4 2.1L8 9.7a16 16 0 006 6l1.3-1.3a2 2 0 012.1-.4c.8.3 1.7.5 2.6.6a2 2 0 011.7 2.1z"/></svg>
+        <div><h4>Phone</h4><p>+91 33 7961 3497</p></div>
+      </div>
+      <a href="https://maps.google.com" target="_blank" rel="noopener" class="btn btn-leaf" style="align-self:flex-start;">Get Directions</a>
+    </div>
+    <div class="map-wrap reveal">
+      <iframe loading="lazy" title="Kurry Patta location map" src="https://maps.google.com/maps?q=Lake%20Road%20Kolkata&t=&z=14&ie=UTF8&iwloc=&output=embed"></iframe>
+    </div>
+  </div>
+</section>
+
+<section id="faq">
+  <div class="wrap">
+    <div class="section-head center">
+      <div class="eyebrow"><span class="sprig"><svg width="14" height="14" viewBox="0 0 20 20"><path d="M10 0C13 3 17 6 17 10C17 14 13 17 10 17C7 17 3 14 3 10C3 6 7 3 10 0Z" fill="#4A7C3A"/></svg></span>FAQ</div>
+      <h2>Good to know</h2>
+    </div>
+    <div class="faq-list">
+      <div class="faq-item">
+        <button class="faq-q">Do you offer home delivery?<span class="plus">+</span></button>
+        <div class="faq-a"><p>Yes — we deliver across most parts of Kolkata. Call either location or order through your preferred delivery app.</p></div>
+      </div>
+      <div class="faq-item">
+        <button class="faq-q">Is there a vegetarian menu?<span class="plus">+</span></button>
+        <div class="faq-a"><p>Absolutely. Over half our menu across all four cuisines is fully vegetarian, clearly marked on request.</p></div>
+      </div>
+      <div class="faq-item">
+        <button class="faq-q">Do you take table reservations?<span class="plus">+</span></button>
+        <div class="faq-a"><p>Walk-ins are always welcome, and we're happy to hold a table for groups of 6 or more — just call ahead.</p></div>
+      </div>
+      <div class="faq-item">
+        <button class="faq-q">Do you cater for events?<span class="plus">+</span></button>
+        <div class="faq-a"><p>Yes, we cater birthdays, office lunches and family functions. Reach out to either location for a custom menu.</p></div>
+      </div>
+      <div class="faq-item">
+        <button class="faq-q">Is parking available?<span class="plus">+</span></button>
+        <div class="faq-a"><p>Both locations have street parking nearby, and valet is available on weekend evenings.</p></div>
+      </div>
+    </div>
+    <div class="cta-strip reveal" style="margin-top:64px; max-width:900px;">
+      <h2>Hungry yet?</h2>
+      <p>Come taste what home-style, multi-cuisine cooking is really about.</p>
+      <div class="btns">
+        <a href="#contact" class="btn btn-primary">Order Now</a>
+        <a href="#menu" class="btn btn-ghost">Explore Menu</a>
       </div>
     </div>
   </div>
 </section>
 
-<section class="visit" id="visit">
-  <img class="visit-img" src="https://images.pexels.com/photos/5086624/pexels-photo-5086624.jpeg?auto=compress&cs=tinysrgb&w=1800" alt="Candlelit table setting with wine">
-  <div class="wrap visit-inner reveal">
-    <div class="eyebrow">Visit</div>
-    <h2>Come <em>aboard</em></h2>
-    <p>Reservations are held for fifteen minutes past booking time. Walk-ins are always welcome at the bar end of the Bazaar counter.</p>
-    <div class="visit-ctas">
-      <a href="tel:+10000000000" class="btn solid">Call to Reserve</a>
-      <a href="mailto:hello@spiceroute.example" class="btn">Email Us</a>
+<footer id="contact">
+  <div class="wrap">
+    <div class="footer-grid">
+      <div>
+        <div class="footer-brand">
+          <span class="sprig"><svg width="20" height="20" viewBox="0 0 20 20"><path d="M10 0C13 3 17 6 17 10C17 14 13 17 10 17C7 17 3 14 3 10C3 6 7 3 10 0Z" fill="#F5B914"/></svg></span>
+          kurry patta
+        </div>
+        <p>Warm, homemade multi-cuisine food across two Kolkata kitchens. Dine-in, takeaway and home delivery available.</p>
+        <div class="socials">
+          <a href="#" aria-label="Instagram">IG</a>
+          <a href="#" aria-label="Facebook">FB</a>
+          <a href="#" aria-label="WhatsApp">WA</a>
+        </div>
+      </div>
+      <div>
+        <h4>Quick Links</h4>
+        <ul>
+          <li><a href="#top">Home</a></li>
+          <li><a href="#menu">Menu</a></li>
+          <li><a href="#about">About</a></li>
+          <li><a href="#gallery">Gallery</a></li>
+        </ul>
+      </div>
+      <div>
+        <h4>Opening Hours</h4>
+        <ul>
+          <li>Mon – Fri: 11:30am – 11pm</li>
+          <li>Sat – Sun: 11:00am – 11:30pm</li>
+        </ul>
+        <h4 style="margin-top:20px;">Contact</h4>
+        <ul>
+          <li>+91 33 7961 3497</li>
+          <li>hello@kurrypatta.example</li>
+        </ul>
+      </div>
+      <div>
+        <h4>Stay in the loop</h4>
+        <p>Get news on new dishes and offers.</p>
+        <form class="newsletter" onsubmit="event.preventDefault(); this.querySelector('input').value='';">
+          <input type="email" required placeholder="Your email" aria-label="Email address">
+          <button type="submit">Join</button>
+        </form>
+      </div>
     </div>
-    <div class="visit-details">
-      <div class="vd">
-        <div class="eyebrow" style="justify-content:flex-start;">Hours</div>
-        <p>Tue – Sun, 5:00 pm – 11:00 pm</p>
-        <p>Closed Mondays</p>
-      </div>
-      <div class="vd">
-        <div class="eyebrow" style="justify-content:flex-start;">Address</div>
-        <p>14 Harbourfront Lane</p>
-        <p>Portside District</p>
-      </div>
-      <div class="vd">
-        <div class="eyebrow" style="justify-content:flex-start;">Contact</div>
-        <p>(000) 000-0000</p>
-        <p>hello@spiceroute.example</p>
-      </div>
+    <div class="footer-bottom">
+      <span>© 2026 Kurry Patta. All rights reserved.</span>
+      <span>Government taxes extra as applicable.</span>
     </div>
   </div>
-</section>
-
-<footer>
-  <div class="wrap foot-grid">
-    <div class="foot-brand">Spice Route</div>
-    <div class="foot-links">
-      <a href="#story">Story</a>
-      <a href="#route">Route</a>
-      <a href="#menu">Menu</a>
-      <a href="#visit">Visit</a>
-    </div>
-  </div>
-  <p class="foot-copy">© 2026 Spice Route. Four ports, one table.</p>
 </footer>
 
+<button id="toTop" aria-label="Back to top">↑</button>
+
 <script>
-  const nav = document.getElementById('nav');
+  // Sticky header
+  const header = document.getElementById('siteHeader');
+  const progress = document.getElementById('progress');
+  const toTop = document.getElementById('toTop');
   window.addEventListener('scroll', () => {
-    nav.classList.toggle('scrolled', window.scrollY > 40);
+    const y = window.scrollY;
+    header.classList.toggle('scrolled', y > 40);
+    toTop.classList.toggle('show', y > 500);
+    const h = document.documentElement.scrollHeight - window.innerHeight;
+    progress.style.width = (h > 0 ? (y / h) * 100 : 0) + '%';
+  }, { passive: true });
+  toTop.addEventListener('click', () => window.scrollTo({ top: 0, behavior: 'smooth' }));
+
+  // Mobile menu
+  const toggle = document.getElementById('menuToggle');
+  const panel = document.getElementById('mobilePanel');
+  toggle.addEventListener('click', () => {
+    const open = panel.classList.toggle('open');
+    toggle.setAttribute('aria-expanded', open);
+    toggle.innerHTML = open ? '&times;' : '&#9776;';
+  });
+  panel.querySelectorAll('a').forEach(a => a.addEventListener('click', () => {
+    panel.classList.remove('open');
+    toggle.setAttribute('aria-expanded', false);
+    toggle.innerHTML = '&#9776;';
+  }));
+
+  // Scroll reveal
+  const io = new IntersectionObserver((entries) => {
+    entries.forEach(e => { if (e.isIntersecting) { e.target.classList.add('in'); io.unobserve(e.target); } });
+  }, { threshold: 0.15 });
+  document.querySelectorAll('.reveal, .reveal-scale').forEach(el => io.observe(el));
+
+  // Counter animation
+  const counters = document.querySelectorAll('.count');
+  const cio = new IntersectionObserver((entries) => {
+    entries.forEach(e => {
+      if (!e.isIntersecting) return;
+      const el = e.target;
+      const target = parseFloat(el.dataset.target);
+      const decimals = parseInt(el.dataset.decimal || '0', 10);
+      const duration = 1400;
+      const start = performance.now();
+      function tick(now) {
+        const p = Math.min((now - start) / duration, 1);
+        const eased = 1 - Math.pow(1 - p, 3);
+        el.textContent = (target * eased).toFixed(decimals).toLocaleString();
+        if (p < 1) requestAnimationFrame(tick);
+        else el.textContent = decimals ? target.toFixed(decimals) : target.toLocaleString();
+      }
+      requestAnimationFrame(tick);
+      cio.unobserve(el);
+    });
+  }, { threshold: 0.6 });
+  counters.forEach(el => cio.observe(el));
+
+  // FAQ accordion
+  document.querySelectorAll('.faq-item').forEach(item => {
+    const q = item.querySelector('.faq-q');
+    const a = item.querySelector('.faq-a');
+    q.addEventListener('click', () => {
+      const isOpen = item.classList.contains('open');
+      document.querySelectorAll('.faq-item.open').forEach(o => {
+        o.classList.remove('open');
+        o.querySelector('.faq-a').style.maxHeight = null;
+      });
+      if (!isOpen) {
+        item.classList.add('open');
+        a.style.maxHeight = a.scrollHeight + 'px';
+      }
+    });
   });
 
-  const io = new IntersectionObserver((entries) => {
-    entries.forEach(e => { if(e.isIntersecting){ e.target.classList.add('in'); io.unobserve(e.target); } });
-  }, { threshold: 0.15 });
-  document.querySelectorAll('.reveal').forEach(el => io.observe(el));
+  // Review slider
+  const track = document.getElementById('reviewTrack');
+  document.getElementById('nextReview').addEventListener('click', () => track.scrollBy({ left: 360, behavior: 'smooth' }));
+  document.getElementById('prevReview').addEventListener('click', () => track.scrollBy({ left: -360, behavior: 'smooth' }));
+
 </script>
 
 </body>
