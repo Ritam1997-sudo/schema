@@ -367,7 +367,8 @@
   /* ---------- FOOTER ---------- */
   footer{background:var(--brown); color:#D8C4AC; padding:70px 0 0;}
   .footer-grid{display:grid; grid-template-columns:1.4fr 1fr 1fr 1.1fr; gap:44px; padding-bottom:44px; border-bottom:1px solid rgba(255,250,240,0.12);}
-  .footer-brand{font-family:'Caveat',cursive; font-weight:700; font-size:2.2rem; color:var(--cream); display:flex; align-items:center; gap:8px; margin-bottom:14px;}
+  .footer-brand{width:160px; height:50px; margin-bottom:18px;}
+  .footer-brand img{width:100%; height:100%; object-fit:contain; object-position:left center;}
   .footer-grid p{font-size:0.9rem; line-height:1.7;}
   .footer-grid h4{color:var(--mustard); font-family:'Nunito',sans-serif; font-size:0.85rem; text-transform:uppercase; letter-spacing:0.1em; margin-bottom:16px;}
   .footer-grid li{margin-bottom:10px; font-size:0.9rem;}
@@ -459,10 +460,11 @@
   }
   .nav{min-height:64px;}
   .brand{
-    width:160px; height:40px; font-size:1.5rem; overflow:hidden;
+    width:160px; height:40px; overflow:hidden;
   }
+  .brand img{width:100%; height:100%; object-fit:contain; object-position:left center;}
   @media (max-width:480px){
-    .brand{width:130px; font-size:1.3rem;}
+    .brand{width:130px; height:34px;}
   }
 
   /* ---------- FLOATING CALL / ORDER CTAs ---------- */
@@ -493,10 +495,7 @@
 <header id="siteHeader">
   <div class="wrap nav">
     <a href="#top" class="brand">
-      <span class="sprig">
-        <svg width="20" height="20" viewBox="0 0 20 20"><path d="M10 0C13 3 17 6 17 10C17 14 13 17 10 17C7 17 3 14 3 10C3 6 7 3 10 0Z" fill="#4A7C3A"/></svg>
-      </span>
-      kurry patta
+      <img src="https://ritam1997-sudo.github.io/schema/logo%20(1).png" alt="Kurry Patta" width="160" height="50">
     </a>
     <nav class="nav-links">
       <a href="#top">Home</a>
@@ -897,8 +896,7 @@
     <div class="footer-grid">
       <div>
         <div class="footer-brand">
-          <span class="sprig"><svg width="20" height="20" viewBox="0 0 20 20"><path d="M10 0C13 3 17 6 17 10C17 14 13 17 10 17C7 17 3 14 3 10C3 6 7 3 10 0Z" fill="#F5B914"/></svg></span>
-          kurry patta
+          <img src="https://ritam1997-sudo.github.io/schema/logo%20(1).png" alt="Kurry Patta" width="160" height="50">
         </div>
         <p>Warm, homemade multi-cuisine food across three kitchens. Dine-in, takeaway and home delivery available.</p>
         <div class="socials">
@@ -928,7 +926,15 @@
           <li>hello@kurrypatta.example</li>
         </ul>
       </div>
-      
+      <div>
+        <h4>Stay in the loop</h4>
+        <p>Get news on new dishes and offers.</p>
+        <form class="newsletter" onsubmit="event.preventDefault(); this.querySelector('input').value='';">
+          <input type="email" required placeholder="Your email" aria-label="Email address">
+          <button type="submit">Join</button>
+        </form>
+      </div>
+    </div>
     <div class="footer-bottom">
       <span>© 2026 Kurry Patta. All rights reserved.</span>
       <span>Government taxes extra as applicable.</span>
