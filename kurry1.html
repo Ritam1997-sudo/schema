@@ -3,7 +3,59 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Kurry Pata — Multicuisine Restaurant, Kolkata</title>
+<title>Kurry Pata | Premium Multicuisine Restaurant in Kolkata</title>
+<meta name="description" content="Kurry Pata is a premium multicuisine restaurant in Kolkata serving Indian, Chinese and Continental cuisine from one open kitchen. Dine in at Park Street or Lake Town, Kolkata — rated 4.9★ by 1,200+ guests.">
+<link rel="canonical" href="https://kurrypata.in/">
+<meta property="og:type" content="restaurant.restaurant">
+<meta property="og:title" content="Kurry Pata | Premium Multicuisine Restaurant in Kolkata">
+<meta property="og:description" content="Indian, Chinese and Continental cuisine, cooked properly, at two Kolkata addresses — Park Street and Lake Town.">
+<meta property="og:locale" content="en_IN">
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "Restaurant",
+  "name": "Kurry Pata",
+  "servesCuisine": ["Indian", "Chinese", "Continental"],
+  "priceRange": "₹₹",
+  "aggregateRating": {
+    "@type": "AggregateRating",
+    "ratingValue": "4.9",
+    "reviewCount": "1200"
+  },
+  "areaServed": {
+    "@type": "City",
+    "name": "Kolkata"
+  },
+  "location": [
+    {
+      "@type": "Place",
+      "name": "Kurry Pata — Park Street",
+      "address": {
+        "@type": "PostalAddress",
+        "streetAddress": "42 Park Street, near Park Circus",
+        "addressLocality": "Kolkata",
+        "addressRegion": "West Bengal",
+        "postalCode": "700016",
+        "addressCountry": "IN"
+      },
+      "telephone": "+91-98300-12345"
+    },
+    {
+      "@type": "Place",
+      "name": "Kurry Pata — Lake Town",
+      "address": {
+        "@type": "PostalAddress",
+        "streetAddress": "18 VIP Road, Lake Town",
+        "addressLocality": "Kolkata",
+        "addressRegion": "West Bengal",
+        "postalCode": "700089",
+        "addressCountry": "IN"
+      },
+      "telephone": "+91-98300-67890"
+    }
+  ]
+}
+</script>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,300;0,9..144,450;0,9..144,600;1,9..144,500&family=Caveat:wght@500;600;700&family=DM+Sans:wght@400;500;600&display=swap" rel="stylesheet">
@@ -106,6 +158,10 @@
     font-family:'Fraunces', serif; font-weight:450; font-size: clamp(40px,7vw,76px);
     margin:0 0 14px; line-height:0.98; letter-spacing:-1px;
   }
+  .hero-tagline{
+    font-size: clamp(14px,1.6vw,17px); font-weight:600; letter-spacing:.3px;
+    color: var(--marigold-soft); margin:0 0 16px; text-transform:uppercase; font-family:'DM Sans', sans-serif;
+  }
   .hero p{
     max-width:500px; font-size:16px; line-height:1.6; color:rgba(255,255,255,0.85); margin:0 0 18px;
     font-weight:400;
@@ -197,6 +253,17 @@
     color:var(--leaf); background: rgba(76,122,60,0.1); padding:4px 10px; border-radius:999px;
     letter-spacing:.3px; text-transform:uppercase;
   }
+  .menu-cta-wrap{
+    display:flex; justify-content:center; margin-top:44px;
+  }
+  .btn-menu{
+    background: var(--ink); color:var(--ivory); border:none; padding:15px 32px;
+    border-radius:999px; font-weight:600; font-size:14.5px; cursor:pointer; font-family:inherit;
+    text-decoration:none; display:inline-flex; align-items:center; gap:8px;
+    box-shadow: 0 14px 30px -12px rgba(43,27,18,0.5);
+    transition: transform .2s ease, background .2s ease;
+  }
+  .btn-menu:hover{ background: var(--leaf); transform: translateY(-2px); }
 
   /* ---------- ABOUT ---------- */
   .about{ background: var(--ivory); }
@@ -392,17 +459,18 @@
 
   <!-- HERO -->
   <header class="hero">
-    <img src="https://images.unsplash.com/photo-1739792598744-3512897156e3?q=80&w=1600&auto=format&fit=crop&ixlib=rb-4.1.0" alt="Kurry Pata restaurant ambience">
+    <img src="https://images.unsplash.com/photo-1739792598744-3512897156e3?q=80&w=1600&auto=format&fit=crop&ixlib=rb-4.1.0" alt="Premium multicuisine restaurant in Kolkata — Kurry Pata dining room">
     <div class="hero-content">
       <div class="hero-eyebrow">🌿 est. Kolkata</div>
       <h1>kurry&nbsp;pata</h1>
+      <p class="hero-tagline">Premium Multicuisine Restaurant in Kolkata</p>
       <div class="rating-badge">
         <span class="stars">★★★★★</span>
         <span class="num">4.9</span>
         <span class="sep">·</span>
         <span class="count">1,200+ Google reviews</span>
       </div>
-      <p>Kolkata's multicuisine table for Indian, Chinese and Continental favourites — one open kitchen, three cuisines, no compromises.</p>
+      <p>Kurry Pata is a premium multicuisine restaurant in Kolkata, bringing Indian, Chinese and Continental cuisine together from a single open kitchen. Two dining rooms in Kolkata — Park Street and Lake Town — one standard of hospitality.</p>
       <div class="hero-btns">
         <button class="btn-primary">Reserve a Table</button>
         <button class="btn-ghost">View Menu</button>
@@ -432,9 +500,9 @@
   <!-- MENU / FOOD GRID -->
   <section id="menu">
     <div class="section-head">
-      <div class="eyebrow">🍛 the menu</div>
-      <h2>Three cuisines, one kitchen</h2>
-      <p>Indian classics, wok-fired Chinese and Continental favourites, all cooked to order and finished with fresh curry leaf.</p>
+      <div class="eyebrow">🍛 guest favourites</div>
+      <h2>Our highlighted menu</h2>
+      <p>A curated pick of the dishes Kolkata keeps ordering — from tandoor-fired Indian classics to wok-tossed Chinese and comforting Continental plates. This is just a highlight; our full multicuisine menu in Kolkata runs 60+ dishes deep.</p>
     </div>
     <div class="menu-grid">
 
@@ -493,6 +561,9 @@
       </div>
 
     </div>
+    <div class="menu-cta-wrap">
+      <a href="menu.html" class="btn-menu">View Full Menu →</a>
+    </div>
   </section>
 
   <!-- ABOUT -->
@@ -503,9 +574,9 @@
       </div>
       <div class="about-copy">
         <div class="eyebrow">🌱 our story</div>
-        <h2>One kitchen, every craving covered</h2>
-        <p>Kurry Pata was built for the Kolkata table that never agrees on one cuisine. Slow Indian curries, wok-fired Chinese, and a few Continental comforts, all coming out of the same kitchen, cooked properly, every single time.</p>
-        <p>Two dining rooms, one standard: fresh ingredients, honest portions, and the kind of hospitality that has kept our regulars coming back for over a decade.</p>
+        <h2>Kolkata's premium multicuisine restaurant, one kitchen at a time</h2>
+        <p>Kurry Pata was built for the Kolkata table that never agrees on one cuisine. As a premium multicuisine restaurant in Kolkata, we run slow-cooked Indian curries, wok-fired Chinese and a few Continental comforts out of the same open kitchen, cooked properly, every single time.</p>
+        <p>Two dining rooms across Kolkata — Park Street and Lake Town — one standard: fresh ingredients, honest portions, and the kind of hospitality that has kept our regulars coming back for over a decade.</p>
         <div class="about-stats">
           <div class="stat"><b>4.9★</b><span>Google rating</span></div>
           <div class="stat"><b>2</b><span>Kolkata branches</span></div>
