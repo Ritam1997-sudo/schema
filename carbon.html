@@ -1,0 +1,522 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Carbon Footprint Calculator — Measure Your Yearly CO2e</title>
+<meta name="description" content="A free, detailed carbon footprint calculator covering transport, home energy, diet, shopping, waste and water — with live results and personalized tips to cut your footprint.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@500;600;700&family=Inter:wght@400;500;600&family=JetBrains+Mono:wght@400;500;700&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --clear:#cfe6ee;
+    --clear-deep:#8fb9c9;
+    --hazy:#c9a876;
+    --hazy-deep:#a97e4d;
+    --ink:#16232b;
+    --deep:#1b3a4b;
+    --paper:#eef1ec;
+    --paper-line:#d8ddd3;
+    --brass:#a97632;
+    --brick:#a04437;
+    --good:#3f7a5c;
+    --muted:#5a6a70;
+  }
+  *{box-sizing:border-box;}
+  html{scroll-behavior:smooth;}
+  body{
+    margin:0;
+    background:var(--paper);
+    color:var(--ink);
+    font-family:'Inter',system-ui,sans-serif;
+    line-height:1.5;
+  }
+  h1,h2,h3,.display{font-family:'Space Grotesk',sans-serif;}
+  .mono{font-family:'JetBrains Mono',monospace;}
+  a{color:var(--brass);}
+  button{font-family:inherit;cursor:pointer;}
+  :focus-visible{outline:3px solid var(--brass);outline-offset:2px;}
+
+  /* ---------- Atmosphere strip (signature element) ---------- */
+  .atmosphere{
+    position:relative;
+    height:56px;
+    background:linear-gradient(90deg,var(--clear) 0%, var(--clear-deep) 35%, var(--hazy) 68%, var(--hazy-deep) 100%);
+    overflow:visible;
+  }
+  .atmosphere .tick{
+    position:absolute;top:0;bottom:0;width:1px;background:rgba(22,35,43,.35);
+  }
+  .atmosphere .tick-label{
+    position:absolute;top:100%;transform:translateX(-50%);
+    font-size:.68rem;color:var(--muted);white-space:nowrap;padding-top:4px;
+  }
+  .atmosphere .marker{
+    position:absolute;top:-8px;bottom:-8px;width:3px;background:var(--ink);
+    transition:left .35s ease;
+  }
+  .atmosphere .marker-label{
+    position:absolute;top:-34px;transform:translateX(-50%);
+    background:var(--ink);color:#fff;padding:3px 9px;border-radius:3px;
+    font-family:'JetBrains Mono',monospace;font-size:.78rem;font-weight:700;
+    white-space:nowrap;transition:left .35s ease;
+  }
+  .atmosphere .marker-label::after{
+    content:"";position:absolute;left:50%;bottom:-5px;transform:translateX(-50%);
+    border:5px solid transparent;border-top-color:var(--ink);
+  }
+  @media (prefers-reduced-motion:reduce){
+    .atmosphere .marker, .atmosphere .marker-label{transition:none;}
+  }
+
+  header.hero{
+    padding:52px 24px 78px;
+    background:var(--deep);
+    color:#fff;
+  }
+  .hero-inner{max-width:1040px;margin:0 auto;}
+  .eyebrow{
+    font-family:'JetBrains Mono',monospace;font-size:.72rem;letter-spacing:.12em;
+    text-transform:uppercase;color:var(--clear);opacity:.85;margin:0 0 12px;
+  }
+  h1{font-size:clamp(1.8rem,4vw,2.6rem);font-weight:600;margin:0 0 14px;max-width:22ch;}
+  .hero p{max-width:56ch;color:#d6e4ea;font-size:1rem;margin:0;}
+
+  .wrap{max-width:1040px;margin:-46px auto 0;padding:0 24px 80px;position:relative;}
+
+  /* ---------- Sticky ledger total bar ---------- */
+  .totalbar{
+    background:#fff;border:1px solid var(--paper-line);border-radius:8px;
+    box-shadow:0 12px 28px rgba(27,58,75,.14);
+    padding:18px 22px;display:flex;align-items:center;justify-content:space-between;
+    gap:16px;flex-wrap:wrap;position:sticky;top:12px;z-index:20;
+  }
+  .totalbar .label{font-size:.78rem;color:var(--muted);text-transform:uppercase;letter-spacing:.06em;}
+  .totalbar .num{font-family:'Space Grotesk',sans-serif;font-weight:700;font-size:2rem;line-height:1;}
+  .totalbar .unit{font-size:.95rem;color:var(--muted);font-weight:500;}
+  .totalbar .compare{font-family:'JetBrains Mono',monospace;font-size:.82rem;padding:6px 10px;border-radius:4px;background:var(--paper);}
+  .compare.good{color:var(--good);}
+  .compare.warn{color:var(--brick);}
+
+  .grid{display:grid;grid-template-columns:1.35fr 1fr;gap:28px;margin-top:32px;align-items:start;}
+  @media (max-width:860px){.grid{grid-template-columns:1fr;}}
+
+  /* ---------- Ledger form sections ---------- */
+  .section{
+    background:#fff;border:1px solid var(--paper-line);border-radius:8px;
+    margin-bottom:16px;overflow:hidden;
+  }
+  .section summary{
+    list-style:none;cursor:pointer;padding:16px 20px;display:flex;align-items:center;
+    justify-content:space-between;gap:12px;font-weight:600;
+  }
+  .section summary::-webkit-details-marker{display:none;}
+  .section summary .n{font-family:'JetBrains Mono',monospace;color:var(--brass);margin-right:10px;font-weight:700;}
+  .section summary .sub{
+    font-family:'JetBrains Mono',monospace;font-weight:500;color:var(--muted);font-size:.85rem;
+  }
+  .section summary .chev{transition:transform .2s;color:var(--muted);}
+  .section[open] summary .chev{transform:rotate(90deg);}
+  .section-body{padding:0 20px 20px;border-top:1px solid var(--paper-line);}
+  .field{margin-top:16px;}
+  .field label{display:block;font-size:.88rem;font-weight:500;margin-bottom:6px;}
+  .field .hint{font-size:.78rem;color:var(--muted);margin-top:4px;}
+  select, input[type=number]{
+    width:100%;padding:9px 10px;border:1px solid var(--paper-line);border-radius:6px;
+    font-family:inherit;font-size:.92rem;background:#fff;color:var(--ink);
+  }
+  .range-row{display:flex;align-items:center;gap:12px;}
+  input[type=range]{flex:1;accent-color:var(--brass);}
+  .range-row output{
+    font-family:'JetBrains Mono',monospace;font-size:.85rem;min-width:74px;text-align:right;color:var(--deep);font-weight:600;
+  }
+
+  /* ---------- Receipt-style ledger ---------- */
+  .ledger{
+    background:#fff;border:1px solid var(--paper-line);border-radius:8px;padding:22px 22px 18px;
+    position:sticky;top:100px;
+  }
+  @media (max-width:860px){.ledger{position:static;}}
+  .ledger h3{margin:0 0 4px;font-size:1.05rem;}
+  .ledger .sub{font-size:.8rem;color:var(--muted);margin-bottom:14px;}
+  .ledger-row{display:flex;align-items:baseline;gap:6px;padding:7px 0;font-size:.9rem;}
+  .ledger-row .fill{flex:1;border-bottom:1px dotted var(--paper-line);transform:translateY(-4px);}
+  .ledger-row .val{font-family:'JetBrains Mono',monospace;font-weight:600;white-space:nowrap;}
+  .ledger-total{
+    display:flex;align-items:baseline;justify-content:space-between;
+    border-top:2px solid var(--ink);margin-top:8px;padding-top:12px;font-weight:700;
+  }
+  .ledger-total .val{font-family:'Space Grotesk',sans-serif;font-size:1.3rem;}
+
+  .tip{
+    margin-top:18px;padding:14px 16px;background:var(--paper);border-left:3px solid var(--brass);
+    border-radius:4px;font-size:.86rem;
+  }
+  .tip b{display:block;font-family:'Space Grotesk',sans-serif;font-size:.9rem;margin-bottom:4px;}
+
+  .benchmarks{display:flex;gap:10px;margin-top:16px;flex-wrap:wrap;}
+  .benchmarks div{
+    flex:1;min-width:120px;background:var(--paper);border-radius:6px;padding:10px 12px;
+  }
+  .benchmarks .k{font-size:.72rem;color:var(--muted);text-transform:uppercase;letter-spacing:.05em;}
+  .benchmarks .v{font-family:'JetBrains Mono',monospace;font-weight:700;font-size:1rem;}
+
+  .cta{
+    margin-top:32px;background:var(--deep);color:#fff;border-radius:8px;padding:26px 28px;
+    display:flex;justify-content:space-between;align-items:center;gap:20px;flex-wrap:wrap;
+  }
+  .cta h3{margin:0 0 6px;font-size:1.1rem;}
+  .cta p{margin:0;color:#c9dbe2;font-size:.88rem;max-width:44ch;}
+  .cta form{display:flex;gap:8px;flex-wrap:wrap;}
+  .cta input[type=email]{
+    padding:10px 12px;border-radius:6px;border:1px solid transparent;min-width:220px;font-family:inherit;
+  }
+  .cta button{
+    background:var(--brass);color:#fff;border:none;padding:10px 18px;border-radius:6px;font-weight:600;
+  }
+  .cta button:hover{background:#8f611f;}
+
+  footer.disclaimer{max-width:1040px;margin:28px auto 0;padding:0 24px;font-size:.76rem;color:var(--muted);}
+</style>
+</head>
+<body>
+
+<header class="hero">
+  <div class="hero-inner">
+    <p class="eyebrow">Carbon footprint calculator</p>
+    <h1>See exactly what your year adds to the atmosphere.</h1>
+    <p>Six categories, not four — transport, home energy, diet, shopping, waste and water. Adjust any field and watch the sky above shift in real time.</p>
+  </div>
+</header>
+
+<div class="atmosphere" id="atmosphere">
+  <div class="tick" id="tickTarget"></div>
+  <div class="tick-label" id="tickTargetLabel">2050 target · 2.0 t</div>
+  <div class="tick" id="tickAvg"></div>
+  <div class="tick-label" id="tickAvgLabel">Global average · 4.0 t</div>
+  <div class="marker" id="marker"></div>
+  <div class="marker-label" id="markerLabel">0.0 t</div>
+</div>
+
+<div class="wrap">
+
+  <div class="totalbar">
+    <div>
+      <div class="label">Your estimated footprint</div>
+      <span class="num" id="totalNum">0.0</span> <span class="unit">t CO2e / year</span>
+    </div>
+    <div class="compare" id="compareTag">calculating…</div>
+  </div>
+
+  <div class="grid">
+    <div>
+
+      <details class="section" open>
+        <summary><span><span class="n">01</span>Transport</span><span class="sub" id="sub-transport">0.0 t</span><span class="chev">›</span></summary>
+        <div class="section-body">
+          <div class="field">
+            <label for="carType">Primary vehicle</label>
+            <select id="carType">
+              <option value="none">No personal car</option>
+              <option value="petrol" selected>Petrol</option>
+              <option value="diesel">Diesel</option>
+              <option value="hybrid">Hybrid</option>
+              <option value="electric">Electric</option>
+            </select>
+          </div>
+          <div class="field">
+            <label for="carKm">Distance driven per year</label>
+            <div class="range-row">
+              <input type="range" id="carKm" min="0" max="25000" step="500" value="8000">
+              <output for="carKm" id="carKmOut">8,000 km</output>
+            </div>
+          </div>
+          <div class="field">
+            <label for="flightsShort">Short-haul flights per year (under 3 hrs)</label>
+            <div class="range-row">
+              <input type="range" id="flightsShort" min="0" max="10" step="1" value="0">
+              <output for="flightsShort" id="flightsShortOut">0</output>
+            </div>
+          </div>
+          <div class="field">
+            <label for="flightsLong">Long-haul flights per year</label>
+            <div class="range-row">
+              <input type="range" id="flightsLong" min="0" max="6" step="1" value="0">
+              <output for="flightsLong" id="flightsLongOut">0</output>
+            </div>
+          </div>
+          <div class="field">
+            <label for="transitLevel">Public transport reliance</label>
+            <select id="transitLevel">
+              <option value="rarely">Rarely — mostly car or taxi</option>
+              <option value="sometimes" selected>Sometimes — mixed</option>
+              <option value="mostly">Mostly — bus, metro, rail</option>
+            </select>
+          </div>
+        </div>
+      </details>
+
+      <details class="section">
+        <summary><span><span class="n">02</span>Home energy</span><span class="sub" id="sub-energy">0.0 t</span><span class="chev">›</span></summary>
+        <div class="section-body">
+          <div class="field">
+            <label for="household">People in household</label>
+            <div class="range-row">
+              <input type="range" id="household" min="1" max="8" step="1" value="4">
+              <output for="household" id="householdOut">4</output>
+            </div>
+            <div class="hint">Energy use is split evenly across everyone at home.</div>
+          </div>
+          <div class="field">
+            <label for="elecUnits">Electricity used per month</label>
+            <div class="range-row">
+              <input type="range" id="elecUnits" min="50" max="1000" step="25" value="250">
+              <output for="elecUnits" id="elecUnitsOut">250 kWh</output>
+            </div>
+          </div>
+          <div class="field">
+            <label for="cookingFuel">Cooking fuel</label>
+            <select id="cookingFuel">
+              <option value="lpg" selected>LPG cylinder</option>
+              <option value="png">Piped natural gas</option>
+              <option value="electric">Electric / induction</option>
+            </select>
+          </div>
+          <div class="field">
+            <label for="renewable">Share from rooftop solar or green tariff</label>
+            <div class="range-row">
+              <input type="range" id="renewable" min="0" max="100" step="5" value="10">
+              <output for="renewable" id="renewableOut">10%</output>
+            </div>
+          </div>
+        </div>
+      </details>
+
+      <details class="section">
+        <summary><span><span class="n">03</span>Diet</span><span class="sub" id="sub-diet">0.0 t</span><span class="chev">›</span></summary>
+        <div class="section-body">
+          <div class="field">
+            <label for="dietType">Eating pattern</label>
+            <select id="dietType">
+              <option value="meatDaily">Meat or fish most days</option>
+              <option value="meatFew" selected>Meat a few times a week</option>
+              <option value="vegetarian">Vegetarian</option>
+              <option value="vegan">Vegan</option>
+            </select>
+          </div>
+          <div class="field">
+            <label for="foodWaste">Food that goes to waste at home</label>
+            <select id="foodWaste">
+              <option value="minimal">Minimal — plan meals carefully</option>
+              <option value="average" selected>Average</option>
+              <option value="high">High — often throw food out</option>
+            </select>
+          </div>
+        </div>
+      </details>
+
+      <details class="section">
+        <summary><span><span class="n">04</span>Shopping &amp; goods</span><span class="sub" id="sub-shopping">0.0 t</span><span class="chev">›</span></summary>
+        <div class="section-body">
+          <div class="field">
+            <label for="shoppingLevel">Spending on clothes, gadgets &amp; other goods</label>
+            <select id="shoppingLevel">
+              <option value="low">Low — buy only what's needed</option>
+              <option value="moderate" selected>Moderate</option>
+              <option value="high">High</option>
+              <option value="veryHigh">Very high</option>
+            </select>
+          </div>
+        </div>
+      </details>
+
+      <details class="section">
+        <summary><span><span class="n">05</span>Waste &amp; recycling</span><span class="sub" id="sub-waste">0.0 t</span><span class="chev">›</span></summary>
+        <div class="section-body">
+          <div class="field">
+            <label for="wasteLevel">Segregation &amp; composting habit</label>
+            <select id="wasteLevel">
+              <option value="none">None — everything in one bin</option>
+              <option value="partial" selected>Partial — separate some waste</option>
+              <option value="full">Full — segregate and compost</option>
+            </select>
+          </div>
+        </div>
+      </details>
+
+      <details class="section">
+        <summary><span><span class="n">06</span>Water</span><span class="sub" id="sub-water">0.0 t</span><span class="chev">›</span></summary>
+        <div class="section-body">
+          <div class="field">
+            <label for="waterLevel">Household water usage</label>
+            <select id="waterLevel">
+              <option value="low">Low</option>
+              <option value="average" selected>Average</option>
+              <option value="high">High</option>
+            </select>
+          </div>
+        </div>
+      </details>
+
+    </div>
+
+    <aside class="ledger">
+      <h3>Your ledger</h3>
+      <div class="sub">Updates as you adjust any field</div>
+
+      <div class="ledger-row"><span>Transport</span><span class="fill"></span><span class="val" id="ledger-transport">0.00 t</span></div>
+      <div class="ledger-row"><span>Home energy</span><span class="fill"></span><span class="val" id="ledger-energy">0.00 t</span></div>
+      <div class="ledger-row"><span>Diet</span><span class="fill"></span><span class="val" id="ledger-diet">0.00 t</span></div>
+      <div class="ledger-row"><span>Shopping &amp; goods</span><span class="fill"></span><span class="val" id="ledger-shopping">0.00 t</span></div>
+      <div class="ledger-row"><span>Waste &amp; recycling</span><span class="fill"></span><span class="val" id="ledger-waste">0.00 t</span></div>
+      <div class="ledger-row"><span>Water</span><span class="fill"></span><span class="val" id="ledger-water">0.00 t</span></div>
+
+      <div class="ledger-total"><span>Total / year</span><span class="val" id="ledger-total">0.00 t</span></div>
+
+      <div class="benchmarks">
+        <div><div class="k">Global average</div><div class="v">4.0 t</div></div>
+        <div><div class="k">2050 target</div><div class="v">&lt;2.0 t</div></div>
+      </div>
+
+      <div class="tip" id="tipBox">
+        <b>Biggest lever</b>
+        Fill in the form to see your top opportunity to cut emissions.
+      </div>
+    </aside>
+  </div>
+
+  <div class="cta">
+    <div>
+      <h3>Want the category-by-category action plan?</h3>
+      <p>Get a short, personalized breakdown of where to cut first — sent once, no spam.</p>
+    </div>
+    <form onsubmit="return false;">
+      <input type="email" placeholder="you@email.com" required aria-label="Email address">
+      <button type="submit">Send my plan</button>
+    </form>
+  </div>
+
+</div>
+
+<footer class="disclaimer">
+  Figures are indicative estimates built from commonly used regional emission factors (grid electricity, fuel combustion, dietary lifecycle averages). They're meant to show direction and scale, not to replace a certified carbon audit.
+</footer>
+
+<script>
+(function(){
+  const $ = id => document.getElementById(id);
+  const ids = ['carType','carKm','flightsShort','flightsLong','transitLevel','household','elecUnits','cookingFuel','renewable','dietType','foodWaste','shoppingLevel','wasteLevel','waterLevel'];
+
+  const carFactor = {none:0, petrol:0.192, diesel:0.171, hybrid:0.111, electric:0.053}; // kg CO2 per km
+  const transitVal = {rarely:0.05, sometimes:0.15, mostly:0.30}; // t/year
+  const cookingHousehold = {lpg:0.30, png:0.22, electric:0}; // t/year household (electric folded into elec bill)
+  const dietBase = {meatDaily:2.5, meatFew:1.8, vegetarian:1.1, vegan:0.8}; // t/year
+  const wasteMult = {minimal:1.0, average:1.1, high:1.25};
+  const shoppingVal = {low:0.4, moderate:1.0, high:1.8, veryHigh:2.8};
+  const wasteVal = {none:0.30, partial:0.15, full:0.05};
+  const waterVal = {low:0.03, average:0.08, high:0.15};
+  const GRID_KG_PER_KWH = 0.7;
+  const SCALE_MAX = 15; // tons, width of the atmosphere strip
+  const GLOBAL_AVG = 4.0;
+  const TARGET_2050 = 2.0;
+
+  function num(id){ return parseFloat($(id).value); }
+
+  function calc(){
+    const carKm = num('carKm');
+    const car = carFactor[$('carType').value] * carKm / 1000; // t
+    const flights = (num('flightsShort')*250 + num('flightsLong')*1100) / 1000; // t
+    const transit = transitVal[$('transitLevel').value];
+    const transportT = car + flights + transit;
+
+    const hh = num('household');
+    const elecT = (num('elecUnits')*12*GRID_KG_PER_KWH*(1-num('renewable')/100))/1000;
+    const cookT = cookingHousehold[$('cookingFuel').value];
+    const energyT = (elecT + cookT) / hh;
+
+    const dietT = dietBase[$('dietType').value] * wasteMult[$('foodWaste').value];
+
+    const shopT = shoppingVal[$('shoppingLevel').value];
+    const wasteT = wasteVal[$('wasteLevel').value];
+    const waterT = waterVal[$('waterLevel').value];
+
+    const total = transportT + energyT + dietT + shopT + wasteT + waterT;
+
+    $('sub-transport').textContent = transportT.toFixed(2)+' t';
+    $('sub-energy').textContent = energyT.toFixed(2)+' t';
+    $('sub-diet').textContent = dietT.toFixed(2)+' t';
+    $('sub-shopping').textContent = shopT.toFixed(2)+' t';
+    $('sub-waste').textContent = wasteT.toFixed(2)+' t';
+    $('sub-water').textContent = waterT.toFixed(2)+' t';
+
+    $('ledger-transport').textContent = transportT.toFixed(2)+' t';
+    $('ledger-energy').textContent = energyT.toFixed(2)+' t';
+    $('ledger-diet').textContent = dietT.toFixed(2)+' t';
+    $('ledger-shopping').textContent = shopT.toFixed(2)+' t';
+    $('ledger-waste').textContent = wasteT.toFixed(2)+' t';
+    $('ledger-water').textContent = waterT.toFixed(2)+' t';
+    $('ledger-total').textContent = total.toFixed(2)+' t';
+
+    $('totalNum').textContent = total.toFixed(1);
+
+    const pct = Math.max(0, Math.min(100, (total/SCALE_MAX)*100));
+    $('marker').style.left = pct+'%';
+    $('markerLabel').style.left = pct+'%';
+    $('markerLabel').textContent = total.toFixed(1)+' t';
+
+    const diff = total - GLOBAL_AVG;
+    const tag = $('compareTag');
+    if (diff <= 0){
+      tag.textContent = Math.abs(diff).toFixed(1)+' t below global average';
+      tag.className = 'compare good';
+    } else {
+      tag.textContent = diff.toFixed(1)+' t above global average';
+      tag.className = 'compare warn';
+    }
+
+    const cats = [
+      ['Transport', transportT, 'Swap short car trips for transit, or shift your next vehicle to hybrid/electric — this is usually the single biggest lever.'],
+      ['Home energy', energyT, 'Even a partial rooftop solar or green-tariff share cuts this category fast, especially split across a larger household.'],
+      ['Diet', dietT, 'Cutting meat a couple of days a week brings this down more than most people expect, without going fully vegetarian.'],
+      ['Shopping & goods', shopT, 'Buying less, and buying to last, trims this category — it scales directly with spend.'],
+      ['Waste & recycling', wasteT, 'Composting and segregating waste at home is a small habit change with a real yearly saving.'],
+      ['Water', waterT, 'Shorter showers and fixing leaks quietly reduce this over a year.']
+    ];
+    cats.sort((a,b)=>b[1]-a[1]);
+    const top = cats[0];
+    $('tipBox').innerHTML = '<b>Biggest lever: '+top[0]+' ('+top[1].toFixed(2)+' t)</b>'+top[2];
+  }
+
+  ids.forEach(id => $(id).addEventListener('input', calc));
+
+  // position the fixed benchmark ticks once, then run first calc
+  function positionTicks(){
+    const targetPct = (TARGET_2050/SCALE_MAX)*100;
+    const avgPct = (GLOBAL_AVG/SCALE_MAX)*100;
+    $('tickTarget').style.left = targetPct+'%';
+    $('tickTargetLabel').style.left = targetPct+'%';
+    $('tickAvg').style.left = avgPct+'%';
+    $('tickAvgLabel').style.left = avgPct+'%';
+  }
+
+  // sync range outputs with readable formatting
+  const outFormat = {
+    carKm: v => Number(v).toLocaleString()+' km',
+    flightsShort: v => v,
+    flightsLong: v => v,
+    household: v => v,
+    elecUnits: v => v+' kWh',
+    renewable: v => v+'%'
+  };
+  Object.keys(outFormat).forEach(id=>{
+    $(id).addEventListener('input', ()=>{ $(id+'Out').textContent = outFormat[id]($(id).value); });
+  });
+
+  positionTicks();
+  calc();
+})();
+</script>
+
+</body>
+</html>
