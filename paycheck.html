@@ -1130,6 +1130,38 @@
     </div>
   </div>
 </footer>
+  <a class="cookie-floating-link" id="cookieFloat" role="button" tabindex="0">🍪 Cookie Settings</a>
+<div class="cookie-banner" id="cookieBanner" role="dialog" aria-labelledby="cookieH" aria-describedby="cookieP">
+  <div class="cookie-grid">
+    <div class="cookie-text">
+      <div class="cookie-h" id="cookieH"><span class="crumb">Privacy Notice</span> Your privacy on this site</div>
+      <p id="cookieP">This website is <strong>not affiliated with any government agency</strong> and every calculation is an <strong>estimate</strong>, not an exact figure. We use cookies and similar technologies for site analytics and to remember your preferences. You can accept or reject non-essential cookies — your choice is saved for one year. Read the full <a href="privacy-policy.html">Privacy Policy</a>, the <a href="cookie-policy.html">Cookie Policy</a>, and the <a href="disclaimer.html">Disclaimer</a>.</p>
+    </div>
+    <div class="cookie-actions">
+      <button class="cookie-btn accept" id="cookieAccept" type="button">Accept All</button>
+      <button class="cookie-btn reject" id="cookieReject" type="button">Reject</button>
+    </div>
+  </div>
+</div>
+
+<script>
+(function(){
+  var KEY='pa_cookie_consent';
+  var banner=document.getElementById('cookieBanner');
+  var float=document.getElementById('cookieFloat');
+  function show(){banner.classList.remove('animate');banner.classList.add('show');void banner.offsetWidth;banner.classList.add('animate');float.classList.add('show');}
+  function hide(){banner.classList.remove('show');float.classList.add('show');}
+  function setConsent(val){try{localStorage.setItem(KEY,val);}catch(e){}hide();if(val==='rejected'&&window.paq){try{window.paq.push(['optUserOut']);}catch(e){}}if(val==='accepted'&&window.paq){try{window.paq.push(['trackPageView']);}catch(e){}}if(typeof gtag==='function'){gtag('consent','update',{'analytics_storage':val==='accepted'?'granted':'denied'});}}
+  var saved=null;try{saved=localStorage.getItem(KEY);}catch(e){}
+  if(!saved){setTimeout(show,400);}else{float.classList.add('show');}
+  document.getElementById('cookieAccept').addEventListener('click',function(){setConsent('accepted');});
+  document.getElementById('cookieReject').addEventListener('click',function(){setConsent('rejected');});
+  float.addEventListener('click',function(){try{localStorage.removeItem(KEY);}catch(e){show();}});
+  float.addEventListener('keydown',function(e){if(e.key==='Enter'||e.key===' '){e.preventDefault();try{localStorage.removeItem(KEY);}catch(e){show();}}});
+})();
+</script>
+<script type="module" src="https://static.cloudflareinsights.com/beacon.min.js/v4513226cdae34746b4dedf0b4dfa099e1781791509496" integrity="sha512-ZE9pZaUXND66v380QUtch/5sE9tPFh2zg45pR2PB0CVkCtOREv2AJKkSidISWkysEuQ0EH8faUU5du78bx87UQ==" data-cf-beacon='{"version":"2024.11.0","token":"4edd5f8ec12a48cfa682ab8261b80a79"}' crossorigin="anonymous"></script>
+
 
 <!-- ======================== JAVASCRIPT (logic unchanged) ======================== -->
 <script>
