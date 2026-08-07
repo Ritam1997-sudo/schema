@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
 <title>Pennsylvania Paycheck Calculator 2026 | Free PA Take-Home Pay Tool</title>
 <meta name="description" content="Free Pennsylvania paycheck calculator for 2026. Federal, PA 3.07% flat tax, PA UC withholding, local EIT & LST, and FICA — hourly or salary, ADP-style breakdown.">
 <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -16,7 +16,8 @@
     --serif:'Poppins', 'Inter', sans-serif; --sans:'Inter', -apple-system, Segoe UI, sans-serif; --mono:'IBM Plex Mono', ui-monospace, monospace;
   }
   *{box-sizing:border-box;}
-  body{margin:0; background:var(--paper); color:var(--ink); font-family:var(--sans); line-height:1.5; -webkit-font-smoothing:antialiased;}
+  html{-webkit-text-size-adjust:100%;}
+  body{margin:0; background:var(--paper); color:var(--ink); font-family:var(--sans); line-height:1.5; -webkit-font-smoothing:antialiased; overflow-x:hidden;}
   a{color:var(--ledger);}
   .wrap{max-width:1180px; margin:0 auto; padding:0 24px;}
   .keystone{
@@ -36,6 +37,20 @@
   .brand-text small{display:flex; align-items:center; gap:7px; font-family:var(--sans); font-weight:600; font-size:.62rem; letter-spacing:2.5px; text-transform:uppercase; color:rgba(255,255,255,.85); margin-top:2px;}
   .brand-text small::before, .brand-text small::after{content:""; height:2px; width:14px; background:var(--ledger); border-radius:1px;}
 
+  /* ---- header meta: version badge + live PA clock ---- */
+  .header-meta{display:flex; align-items:center; gap:10px; flex-wrap:wrap;}
+  .version-badge{
+    background:var(--keystone); color:#1a1200; font-family:var(--mono); font-weight:700; font-size:.66rem;
+    padding:4px 9px; border-radius:20px; letter-spacing:.5px; cursor:help; border:1px solid rgba(0,0,0,.15); white-space:nowrap;
+  }
+  .live-clock{
+    display:flex; align-items:center; gap:7px; font-family:var(--mono); font-size:.72rem; color:rgba(255,255,255,.9);
+    background:rgba(255,255,255,.08); padding:6px 11px; border-radius:7px; border:1px solid rgba(255,255,255,.14); white-space:nowrap;
+  }
+  .live-clock .dot-live{width:6px; height:6px; border-radius:50%; background:#3fbd76; flex-shrink:0; animation:pulse 2s infinite;}
+  .live-clock .updated-lbl{text-transform:uppercase; letter-spacing:1px; font-family:var(--sans); font-weight:700; font-size:.6rem; color:var(--ledger-bright,#3fbd76);}
+  @keyframes pulse{0%,100%{opacity:1;}50%{opacity:.3;}}
+
   .hero{padding:44px 0 26px;}
   .eyebrow{display:flex; align-items:center; gap:8px; text-transform:uppercase; letter-spacing:2px; font-size:.72rem; font-weight:600; color:var(--ledger); margin-bottom:14px;}
   h1{font-family:var(--serif); font-weight:700; font-size:clamp(1.8rem,4vw,2.7rem); margin:0 0 10px; line-height:1.08; max-width:16ch;}
@@ -45,23 +60,37 @@
   .calc-grid{display:grid; grid-template-columns: 1.05fr .95fr; gap:26px; align-items:start;}
   @media (max-width:960px){ .calc-grid{grid-template-columns:1fr;} }
 
-  .panel{background:var(--panel); border:1px solid var(--line); border-radius:var(--radius);}
-  .panel-head{display:flex; align-items:center; gap:10px; padding:16px 22px; border-bottom:1px solid var(--line); border-top:3px solid var(--ledger);}
+  .panel{background:var(--panel); border:1px solid var(--line); border-radius:var(--radius); min-width:0;}
+  .panel-head{display:flex; align-items:center; gap:10px; padding:16px 22px; border-bottom:1px solid var(--line); border-top:3px solid var(--ledger); flex-wrap:wrap;}
   .panel-head h2{font-family:var(--serif); font-size:1.02rem; margin:0; font-weight:600;}
   .panel-body{padding:18px 22px 22px;}
 
   /* tabs, ADP-style */
-  .tabbar{display:flex; gap:2px; border-bottom:1px solid var(--line); padding:0 14px; background:#fbfcfb;}
+  .tabbar{display:flex; gap:2px; border-bottom:1px solid var(--line); padding:0 14px; background:#fbfcfb; overflow-x:auto; -webkit-overflow-scrolling:touch; scrollbar-width:thin;}
   .tabbar button{
     padding:13px 14px; border:none; background:transparent; cursor:pointer; font-family:var(--sans);
-    font-weight:600; font-size:.82rem; color:var(--muted); border-bottom:2px solid transparent; margin-bottom:-1px;
+    font-weight:600; font-size:.82rem; color:var(--muted); border-bottom:2px solid transparent; margin-bottom:-1px; white-space:nowrap; flex-shrink:0;
   }
   .tabbar button[aria-selected="true"]{color:var(--ink); border-bottom-color:var(--ledger);}
   .tabpanel{display:none;}
   .tabpanel.active{display:block;}
 
-  fieldset{border:none; margin:0 0 18px; padding:0;}
-  fieldset legend{font-size:.7rem; text-transform:uppercase; letter-spacing:1.2px; font-weight:700; color:var(--muted); padding:0 0 9px; width:100%; border-bottom:1px dashed var(--line); margin-bottom:13px;}
+  fieldset{border:none; margin:0 0 18px; padding:0; min-width:0;}
+  fieldset legend{
+    font-size:.7rem; text-transform:uppercase; letter-spacing:1.2px; font-weight:700; color:var(--muted); padding:0 0 9px; width:100%;
+    border-bottom:1px dashed var(--line); margin-bottom:13px; display:flex; align-items:center; justify-content:space-between; gap:8px;
+  }
+  .legend-txt{overflow-wrap:anywhere;}
+  .info-btn{
+    width:18px; height:18px; min-width:18px; border-radius:50%; border:1px solid var(--line); background:#fff; color:var(--muted);
+    font-family:var(--serif); font-size:.64rem; font-weight:700; line-height:1; cursor:pointer; flex-shrink:0; text-transform:none; letter-spacing:0;
+    display:inline-flex; align-items:center; justify-content:center; padding:0;
+  }
+  .info-btn:hover, .info-btn[aria-expanded="true"]{background:var(--ledger); border-color:var(--ledger); color:#fff;}
+  .legend-desc{
+    font-size:.74rem; font-weight:400; text-transform:none; letter-spacing:0; color:var(--ink-soft);
+    background:var(--ledger-soft); border:1px solid #cfe6d8; border-radius:6px; padding:9px 11px; margin:-6px 0 14px; line-height:1.45;
+  }
   .row{display:grid; grid-template-columns:1fr 1fr; gap:14px; margin-bottom:12px;}
   .row.single{grid-template-columns:1fr;}
   .row.three{grid-template-columns:1fr 1fr 1fr;}
@@ -83,7 +112,7 @@
   .toggle-group button[aria-pressed="true"]{background:var(--ink); color:#fff;}
   .toggle-group.small button{padding:7px 8px; font-size:.76rem;}
 
-  .yn{display:flex; align-items:center; justify-content:space-between; gap:10px; padding:9px 0; border-bottom:1px solid var(--line);}
+  .yn{display:flex; align-items:center; justify-content:space-between; gap:10px; padding:9px 0; border-bottom:1px solid var(--line); flex-wrap:wrap;}
   .yn:last-child{border-bottom:none;}
   .yn .q{font-size:.85rem; font-weight:600;}
   .yn .q .hint{display:block; font-weight:400; color:var(--muted); font-size:.72rem; margin-top:2px;}
@@ -131,14 +160,43 @@
   .content > .wrap > p{max-width:70ch; color:var(--ink-soft);}
   .divider{display:flex; align-items:center; gap:10px; margin:40px 0 24px;}
   .divider .line{flex:1; height:1px; background:var(--line);}
-  table.facts{width:100%; border-collapse:collapse; margin-top:14px; max-width:680px;}
+  table.facts{width:100%; border-collapse:collapse; margin-top:14px; max-width:680px; display:block; overflow-x:auto;}
   table.facts th, table.facts td{text-align:left; padding:10px 14px; border-bottom:1px solid var(--line); font-size:.88rem;}
   table.facts th{font-size:.7rem; text-transform:uppercase; letter-spacing:1px; color:var(--muted); border-bottom:2px solid var(--ink);}
   table.facts td:last-child{font-family:var(--mono); font-weight:600;}
   table.facts tr td:first-child::before{content:""; display:inline-block; width:9px; height:9px; margin-right:9px; border-radius:3px; background:var(--ledger); vertical-align:middle;}
 
+  /* ---- footer + creator card ---- */
   footer.site{background:var(--ink); color:#c8d0c8; padding:30px 0 20px; margin-top:10px;}
+  .footer-inner{display:flex; flex-direction:column; gap:20px;}
+  .creator-card{display:flex; align-items:center; gap:14px; padding:16px; background:rgba(255,255,255,.05); border:1px solid rgba(255,255,255,.12); border-radius:10px; flex-wrap:wrap;}
+  .creator-photo{width:56px; height:56px; border-radius:50%; object-fit:cover; border:2px solid var(--ledger); flex-shrink:0; background:#1a3a5c;}
+  .creator-info{display:flex; flex-direction:column; gap:4px; min-width:0; flex:1;}
+  .creator-name{font-family:var(--serif); font-weight:700; color:#fff; font-size:.96rem;}
+  .creator-role{font-size:.76rem; color:#9fb0a4;}
+  .creator-links{display:flex; gap:14px; flex-wrap:wrap; margin-top:4px;}
+  .creator-links a{font-size:.74rem; font-weight:600; color:#3fbd76; text-decoration:none;}
+  .creator-links a:hover{text-decoration:underline;}
   footer.site .foot-bottom{display:flex; justify-content:space-between; flex-wrap:wrap; gap:8px; font-size:.75rem; color:#8b968f;}
+  @media (max-width:560px){
+    .creator-card{flex-direction:column; text-align:center; padding:18px 14px;}
+    .creator-links{justify-content:center;}
+    .foot-bottom{flex-direction:column; text-align:center;}
+  }
+
+  /* ---- broader mobile polish ---- */
+  @media (max-width:640px){
+    .wrap{padding:0 16px;}
+    header.site .bar{flex-direction:column; align-items:flex-start; gap:10px; padding:12px 0;}
+    .header-meta{width:100%; justify-content:space-between;}
+    .live-clock{font-size:.65rem; padding:5px 9px;}
+    .hero{padding:28px 0 18px;}
+    .panel-body{padding:16px;}
+    .panel-head{padding:14px 16px;}
+    .donut{width:150px; height:150px;}
+    .results{position:static;}
+    table.ledger{font-size:.8rem;}
+  }
   @media print{ header.site, footer.site, .content, .panel-body form, .btn-row{display:none !important;} body{background:#fff;} .results{position:static;} }
 </style>
 </head>
@@ -150,6 +208,14 @@
       <span class="keystone"></span>
       <span class="brand-text"><span class="pa">Pa</span><span class="rest">paycheck</span><small>Calculator</small></span>
     </a>
+    <div class="header-meta">
+      <span class="version-badge" title="First release of this calculator — feedback welcome">v1.0</span>
+      <div class="live-clock">
+        <span class="dot-live"></span>
+        <span class="updated-lbl">Updated</span>
+        <span id="liveClock">—</span>
+      </div>
+    </div>
   </div>
 </header>
 
@@ -177,7 +243,8 @@
           <!-- ================= EARNINGS ================= -->
           <div class="tabpanel active" data-panel="earnings">
             <fieldset>
-              <legend>How often are you paid?</legend>
+              <legend><span class="legend-txt">How often are you paid?</span><button type="button" class="info-btn" aria-expanded="false" aria-label="What is this for?">i</button></legend>
+              <p class="legend-desc" hidden>How often your employer issues a paycheck. This determines how your annual salary is split up, and how many paychecks you'll get this year.</p>
               <div class="row single">
                 <div>
                   <label for="payFrequency">Pay frequency</label>
@@ -196,7 +263,8 @@
             </fieldset>
 
             <fieldset>
-              <legend>How are you paid?</legend>
+              <legend><span class="legend-txt">How are you paid?</span><button type="button" class="info-btn" aria-expanded="false" aria-label="What is this for?">i</button></legend>
+              <p class="legend-desc" hidden>Choose Salary if you enter a fixed yearly or per-period amount, or Hourly if your pay is your wage rate multiplied by hours worked.</p>
               <div class="row three">
                 <div>
                   <label>Type</label>
@@ -239,7 +307,8 @@
             </fieldset>
 
             <fieldset>
-              <legend>Any overtime?</legend>
+              <legend><span class="legend-txt">Any overtime?</span><button type="button" class="info-btn" aria-expanded="false" aria-label="What is this for?">i</button></legend>
+              <p class="legend-desc" hidden>Add extra hours worked beyond your normal schedule, usually paid at 1.5× your regular hourly rate under federal overtime rules.</p>
               <label class="yn"><span class="q">Add overtime pay</span>
                 <div class="toggle-group small" role="group" aria-label="Overtime toggle">
                   <button type="button" data-ot="yes" aria-pressed="false">Yes</button>
@@ -266,7 +335,8 @@
           <!-- ================= FEDERAL TAXES ================= -->
           <div class="tabpanel" data-panel="federal">
             <fieldset>
-              <legend>Form W-4</legend>
+              <legend><span class="legend-txt">Form W-4</span><button type="button" class="info-btn" aria-expanded="false" aria-label="What is this for?">i</button></legend>
+              <p class="legend-desc" hidden>Your W-4 tells your employer how much federal tax to withhold. Forms from 2019 or earlier use withholding allowances instead of dollar-based steps.</p>
               <label class="yn"><span class="q">Use 2019 or earlier version of Form W-4?<span class="hint">Older forms use withholding allowances instead of dollar amounts</span></span>
                 <div class="toggle-group small" role="group" aria-label="W4 version">
                   <button type="button" data-w4="old" aria-pressed="false">Yes</button>
@@ -282,7 +352,8 @@
             </fieldset>
 
             <fieldset>
-              <legend>Filing status</legend>
+              <legend><span class="legend-txt">Filing status</span><button type="button" class="info-btn" aria-expanded="false" aria-label="What is this for?">i</button></legend>
+              <p class="legend-desc" hidden>Your filing status sets which federal tax brackets and standard deduction apply, and affects how the "multiple jobs" withholding adjustment is calculated.</p>
               <div class="row single">
                 <div>
                   <select id="filingStatus">
@@ -304,7 +375,8 @@
             </fieldset>
 
             <fieldset>
-              <legend>Adjustments (annual $)</legend>
+              <legend><span class="legend-txt">Adjustments (annual $)</span><button type="button" class="info-btn" aria-expanded="false" aria-label="What is this for?">i</button></legend>
+              <p class="legend-desc" hidden>Dollar amounts from W-4 Steps 3 and 4 — dependents, other income, and extra deductions — that raise or lower how much federal tax is withheld.</p>
               <div class="row">
                 <div><label for="dependentAmt">Dependent amount</label><input type="number" id="dependentAmt" value="0" min="0" step="100"></div>
                 <div><label for="otherIncomeAmt">Other income amount</label><input type="number" id="otherIncomeAmt" value="0" min="0" step="100"></div>
@@ -316,7 +388,8 @@
             </fieldset>
 
             <fieldset>
-              <legend>Exemptions</legend>
+              <legend><span class="legend-txt">Exemptions</span><button type="button" class="info-btn" aria-expanded="false" aria-label="What is this for?">i</button></legend>
+              <p class="legend-desc" hidden>Certain workers — some students, religious groups, or nonresidents — qualify to be exempt from specific federal taxes. Most employees leave these set to "No".</p>
               <label class="yn"><span class="q">Exempt from Federal Income Tax Withholding?</span>
                 <div class="toggle-group small" role="group"><button type="button" data-ex="exFed-yes" aria-pressed="false">Yes</button><button type="button" data-ex="exFed-no" aria-pressed="true">No</button></div>
               </label>
@@ -332,7 +405,8 @@
           <!-- ================= STATE & LOCAL ================= -->
           <div class="tabpanel" data-panel="state">
             <fieldset>
-              <legend>Pennsylvania state income tax</legend>
+              <legend><span class="legend-txt">Pennsylvania state income tax</span><button type="button" class="info-btn" aria-expanded="false" aria-label="What is this for?">i</button></legend>
+              <p class="legend-desc" hidden>Pennsylvania charges a flat 3.07% state income tax on wages, no matter your income level or filing status — unlike the federal bracket system.</p>
               <div class="row">
                 <div><label>Rate</label><input type="text" value="3.07% (flat)" disabled></div>
                 <div><label for="addlState">Additional withholding ($/paycheck)</label><input type="number" id="addlState" value="0" min="0" step="5"></div>
@@ -343,7 +417,8 @@
             </fieldset>
 
             <fieldset>
-              <legend>State Unemployment Insurance (SUI)</legend>
+              <legend><span class="legend-txt">State Unemployment Insurance (SUI)</span><button type="button" class="info-btn" aria-expanded="false" aria-label="What is this for?">i</button></legend>
+              <p class="legend-desc" hidden>Pennsylvania is one of the few states that requires employees, not just employers, to contribute to unemployment insurance — currently 0.07%, with no wage cap.</p>
               <div class="row single"><div><label>PA employee UC contribution <span class="hint">0.07% of gross wages, no wage cap (2026 rate)</span></label><input type="text" value="0.07%" disabled></div></div>
               <label class="yn"><span class="q">Exempt from State Unemployment Insurance (SUI)?</span>
                 <div class="toggle-group small" role="group"><button type="button" data-ex="exSUI-yes" aria-pressed="false">Yes</button><button type="button" data-ex="exSUI-no" aria-pressed="true">No</button></div>
@@ -351,7 +426,8 @@
             </fieldset>
 
             <fieldset>
-              <legend>Earned Income Tax (local)</legend>
+              <legend><span class="legend-txt">Earned Income Tax (local)</span><button type="button" class="info-btn" aria-expanded="false" aria-label="What is this for?">i</button></legend>
+              <p class="legend-desc" hidden>Nearly all PA municipalities and school districts levy a local Earned Income Tax. Act 32 applies the higher of your home or work location's rate.</p>
               <div class="row">
                 <div>
                   <label for="localCity">Municipality preset</label>
@@ -377,7 +453,8 @@
             </fieldset>
 
             <fieldset>
-              <legend>Local Services Tax (LST)</legend>
+              <legend><span class="legend-txt">Local Services Tax (LST)</span><button type="button" class="info-btn" aria-expanded="false" aria-label="What is this for?">i</button></legend>
+              <p class="legend-desc" hidden>A flat local tax capped at $52/year in most PA municipalities, prorated evenly across your paychecks to help fund police, fire, and other local services.</p>
               <div class="row single"><div><label for="lstAnnual">Annual LST ($) <span class="hint">Flat local tax, capped at $52/yr in most PA municipalities; prorated each pay period</span></label><input type="number" id="lstAnnual" value="52" min="0" step="1"></div></div>
               <label class="yn"><span class="q">Exempt from Local Service Tax?<span class="hint">Many municipalities exempt earners under $12,000/yr</span></span>
                 <div class="toggle-group small" role="group"><button type="button" data-ex="exLST-yes" aria-pressed="false">Yes</button><button type="button" data-ex="exLST-no" aria-pressed="true">No</button></div>
@@ -388,8 +465,8 @@
           <!-- ================= BENEFITS ================= -->
           <div class="tabpanel" data-panel="benefits">
             <fieldset>
-              <legend>What are you paying for benefits?</legend>
-              <p class="hint" style="margin:-4px 0 12px;">Pre-tax benefits (excluding Roth) are excluded from federal &amp; FICA taxable wages. Pennsylvania also excludes medical/dental/vision/FSA/HSA from state &amp; local taxable wages — but, unlike the federal government, PA taxes traditional 401(k) contributions when they're made.</p>
+              <legend><span class="legend-txt">What are you paying for benefits?</span><button type="button" class="info-btn" aria-expanded="false" aria-label="What is this for?">i</button></legend>
+              <p class="legend-desc" hidden>Pre-tax benefits (excluding Roth) are excluded from federal and FICA taxable wages. PA also excludes medical, dental, vision, FSA, and HSA from state and local taxable wages.</p>
               <div class="row three">
                 <div><label for="benMedical">Medical ($/period)</label><input type="number" id="benMedical" value="0" min="0" step="5"></div>
                 <div><label for="benDental">Dental ($/period)</label><input type="number" id="benDental" value="0" min="0" step="5"></div>
@@ -403,7 +480,8 @@
             </fieldset>
 
             <fieldset>
-              <legend>Retirement</legend>
+              <legend><span class="legend-txt">Retirement</span><button type="button" class="info-btn" aria-expanded="false" aria-label="What is this for?">i</button></legend>
+              <p class="legend-desc" hidden>401(k) contributions lower your federal taxable wages when traditional (not Roth). Unusually, PA still taxes traditional and Roth 401(k) contributions at the time they're made.</p>
               <div class="row three">
                 <div>
                   <label>Type</label>
@@ -424,7 +502,8 @@
             </fieldset>
 
             <fieldset>
-              <legend>Post-tax deductions</legend>
+              <legend><span class="legend-txt">Post-tax deductions</span><button type="button" class="info-btn" aria-expanded="false" aria-label="What is this for?">i</button></legend>
+              <p class="legend-desc" hidden>Amounts taken from your paycheck after all taxes are calculated — things like wage garnishments, union dues, or loan repayments.</p>
               <div class="row single"><div><label for="postTax">Post-tax deductions ($/period) <span class="hint">Garnishments, Roth contributions already counted separately, etc.</span></label><input type="number" id="postTax" value="0" min="0" step="5"></div></div>
             </fieldset>
           </div>
@@ -517,14 +596,63 @@
 </section>
 
 <footer class="site">
-  <div class="wrap foot-bottom">
-    <span id="footYear">© 2026 PA Paycheck Calculator — Estimates only, not tax advice.</span>
+  <div class="wrap footer-inner">
+    <div class="creator-card">
+      <img class="creator-photo" src="https://res.cloudinary.com/dkwdrzobk/image/upload/v1742183309/Ritam_slac9k.avif" alt="Ritam Debnath, Freelance SEO Specialist" loading="lazy">
+      <div class="creator-info">
+        <div class="creator-name">Ritam Debnath</div>
+        <div class="creator-role">Freelance SEO Specialist · Kolkata, India</div>
+        <div class="creator-links">
+          <a href="https://byritam.in/" target="_blank" rel="noopener">byritam.in</a>
+          <a href="https://wa.me/919038303107" target="_blank" rel="noopener">WhatsApp</a>
+          <a href="https://in.linkedin.com/in/ritam-debnath-179330203" target="_blank" rel="noopener">LinkedIn</a>
+          <a href="tel:9038303107">Call</a>
+        </div>
+      </div>
+    </div>
+    <div class="foot-bottom">
+      <span id="footYear">© 2026 PA Paycheck Calculator — Estimates only, not tax advice.</span>
+      <span class="foot-credit">Built by <a href="https://byritam.in/" target="_blank" rel="noopener" style="color:#3fbd76;">Ritam Debnath</a> · v1.0</span>
+    </div>
   </div>
 </footer>
 
 <script>
 (function(){
   "use strict";
+
+  /* ---------- live PA (Eastern time) clock, "Updated" prefix ---------- */
+  function updateClock(){
+    const el = document.getElementById('liveClock');
+    if(!el) return;
+    try{
+      const now = new Date();
+      const formatted = new Intl.DateTimeFormat('en-US', {
+        timeZone:'America/New_York', month:'short', day:'numeric', year:'numeric',
+        hour:'numeric', minute:'2-digit', second:'2-digit', hour12:true
+      }).format(now);
+      el.textContent = formatted + ' ET';
+    }catch(e){
+      el.textContent = new Date().toLocaleString();
+    }
+  }
+  updateClock();
+  setInterval(updateClock, 1000);
+
+  /* ---------- legend info toggles ---------- */
+  document.querySelectorAll('.info-btn').forEach(btn=>{
+    btn.addEventListener('click', function(){
+      const desc = this.closest('legend').nextElementSibling;
+      if(!desc || !desc.classList.contains('legend-desc')) return;
+      const nowHidden = !desc.hasAttribute('hidden');
+      document.querySelectorAll('.legend-desc').forEach(d=>d.setAttribute('hidden',''));
+      document.querySelectorAll('.info-btn').forEach(b=>b.setAttribute('aria-expanded','false'));
+      if(!nowHidden){
+        desc.removeAttribute('hidden');
+        this.setAttribute('aria-expanded','true');
+      }
+    });
+  });
 
   /* ---------- tabs ---------- */
   const tabBtns = document.querySelectorAll('.tabbar button');
@@ -534,6 +662,7 @@
       btn.setAttribute('aria-selected','true');
       document.querySelectorAll('.tabpanel').forEach(p=>p.classList.remove('active'));
       document.querySelector('.tabpanel[data-panel="'+btn.dataset.tab+'"]').classList.add('active');
+      btn.scrollIntoView({behavior:'smooth', inline:'center', block:'nearest'});
     });
   });
 
