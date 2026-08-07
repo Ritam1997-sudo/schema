@@ -166,7 +166,23 @@
     font-size:.75rem;font-weight:600;color:var(--ink-soft);
   }
   .trust-chip .dot{width:7px;height:7px;}
-
+/* cookie banner */
+  .cookie-banner{position:fixed;left:18px;right:18px;bottom:18px;z-index:9999;background:#0f2a4d;color:#eef1ee;border:1px solid rgba(255,255,255,.14);border-radius:10px;box-shadow:0 10px 40px rgba(15,42,77,.35);padding:18px 22px;max-width:980px;margin:0 auto;display:none;font-size:.85rem;line-height:1.55;border-top:3px solid var(--ledger);}
+  .cookie-banner.show{display:block;}.cookie-banner.show.animate{animation:slideUp .35s ease-out;}
+  @keyframes slideUp{from{transform:translateY(20px);opacity:0;}to{transform:translateY(0);opacity:1;}}
+  .cookie-grid{display:flex;flex-wrap:wrap;align-items:center;gap:18px;}
+  .cookie-text{flex:1;min-width:260px;}
+  .cookie-text .cookie-h{display:flex;align-items:center;gap:8px;font-family:var(--serif);font-weight:700;color:#fff;font-size:.95rem;margin-bottom:4px;flex-wrap:wrap;}
+  .cookie-text .cookie-h .crumb{display:inline-block;background:var(--ledger);color:#fff;font-size:.58rem;font-weight:700;text-transform:uppercase;letter-spacing:1px;padding:2px 7px;border-radius:10px;}
+  .cookie-text p{margin:0;color:#c8d0c8;font-size:.82rem;}.cookie-text p a{color:#3fbd76;}
+  .cookie-actions{display:flex;gap:8px;flex-wrap:wrap;}
+  .cookie-btn{font-family:var(--sans);font-weight:700;font-size:.78rem;padding:10px 16px;border-radius:7px;cursor:pointer;border:none;white-space:nowrap;}
+  .cookie-btn.accept{background:var(--ledger);color:#fff;}.cookie-btn.accept:hover{background:#177040;}
+  .cookie-btn.reject{background:transparent;color:#c8d0c8;border:1px solid rgba(255,255,255,.25);}.cookie-btn.reject:hover{border-color:#fff;color:#fff;}
+  @media (max-width:560px){.cookie-banner{left:8px;right:8px;bottom:8px;padding:14px 16px;}.cookie-actions{width:100%;}.cookie-btn{flex:1;text-align:center;}}
+  .cookie-floating-link{position:fixed;left:14px;bottom:14px;z-index:9998;background:rgba(15,42,77,.85);color:#c8d0c8;font-size:.7rem;font-weight:600;padding:6px 10px;border-radius:6px;border:1px solid rgba(255,255,255,.15);text-decoration:none;cursor:pointer;display:none;}
+  .cookie-floating-link.show{display:inline-block;}
+  @media (max-width:640px){.wrap{padding:0 16px;}.header-top{flex-direction:column;align-items:flex-start;gap:8px;padding:11px 0;}}
   /* ======================== CALCULATOR ======================== */
   .calc-shell{padding:18px 0 56px;}
   .calc-grid{display:grid;grid-template-columns:1.05fr .95fr;gap:26px;align-items:start;}
