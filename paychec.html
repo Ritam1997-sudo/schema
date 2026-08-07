@@ -1,0 +1,837 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Pennsylvania Paycheck Calculator 2026 | Free PA Take-Home Pay Tool</title>
+<meta name="description" content="Free Pennsylvania paycheck calculator for 2026. Estimate your take-home pay after federal tax, PA's flat 3.07% state tax, local EIT, and FICA — hourly or salary.">
+<link rel="canonical" href="https://papaycheckcalculator.com/">
+<meta property="og:title" content="Pennsylvania Paycheck Calculator 2026">
+<meta property="og:description" content="Estimate your PA take-home pay instantly — federal, state, local EIT and FICA taxes included.">
+<meta property="og:type" content="website">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Source+Serif+4:ital,opsz,wght@0,8..60,500;0,8..60,600;0,8..60,700;1,8..60,500&family=Inter:wght@400;500;600;700&family=IBM+Plex+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "FAQPage",
+  "mainEntity": [
+    {"@type":"Question","name":"What is the Pennsylvania state income tax rate in 2026?",
+     "acceptedAnswer":{"@type":"Answer","text":"Pennsylvania levies a flat state income tax rate of 3.07% on earned income, regardless of how much you make or your filing status."}},
+    {"@type":"Question","name":"Do I have to pay local income tax in Pennsylvania?",
+     "acceptedAnswer":{"@type":"Answer","text":"Most PA municipalities and school districts levy a local Earned Income Tax (EIT), typically between 1% and 3.75% depending on where you live and work."}},
+    {"@type":"Question","name":"Does Pennsylvania tax 401(k) contributions?",
+     "acceptedAnswer":{"@type":"Answer","text":"Yes. Unlike the federal government, Pennsylvania taxes traditional retirement plan contributions when they're made, but withdrawals in retirement are not taxed."}},
+    {"@type":"Question","name":"How much is FICA tax on a Pennsylvania paycheck?",
+     "acceptedAnswer":{"@type":"Answer","text":"FICA is 7.65% total: 6.2% for Social Security (up to the annual wage base) and 1.45% for Medicare, matched by your employer."}},
+    {"@type":"Question","name":"Is this Pennsylvania paycheck calculator exact?",
+     "acceptedAnswer":{"@type":"Answer","text":"It's a close estimate built from published 2025-2026 federal and PA tax figures. Your exact withholding depends on your employer's payroll system, your W-4, and your local tax forms."}}
+  ]
+}
+</script>
+<style>
+  :root{
+    --ink:#16232e;
+    --ink-soft:#3a4750;
+    --paper:#f3f5f2;
+    --panel:#ffffff;
+    --line:#dbe0d9;
+    --keystone:#c89b3c;
+    --keystone-deep:#9c7526;
+    --ledger:#2f6f62;
+    --ledger-soft:#e4efec;
+    --muted:#5b665f;
+    --danger:#a4472f;
+    --radius:2px;
+    --serif:'Source Serif 4', Georgia, serif;
+    --sans:'Inter', -apple-system, Segoe UI, sans-serif;
+    --mono:'IBM Plex Mono', ui-monospace, monospace;
+  }
+  *{box-sizing:border-box;}
+  html{scroll-behavior:smooth;}
+  body{
+    margin:0; background:var(--paper); color:var(--ink);
+    font-family:var(--sans); line-height:1.5; -webkit-font-smoothing:antialiased;
+  }
+  a{color:var(--ledger);}
+  .wrap{max-width:1180px; margin:0 auto; padding:0 24px;}
+
+  /* Keystone signature shape, used as accent throughout */
+  .keystone{
+    width:14px; height:18px;
+    background:var(--keystone);
+    clip-path: polygon(22% 0%, 78% 0%, 100% 100%, 0% 100%);
+    display:inline-block;
+    flex-shrink:0;
+  }
+
+  /* ---------- HEADER ---------- */
+  header.site{
+    position:sticky; top:0; z-index:50;
+    background:var(--ink); color:#eef1ee;
+    border-bottom:3px solid var(--keystone);
+  }
+  header.site .bar{
+    display:flex; align-items:center; justify-content:space-between;
+    padding:14px 0; gap:16px; flex-wrap:wrap;
+  }
+  .brand{display:flex; align-items:center; gap:10px; text-decoration:none; color:#fff;}
+  .brand .keystone{width:16px; height:21px;}
+  .brand-text{font-family:var(--serif); font-weight:600; font-size:1.15rem; letter-spacing:.2px;}
+  .brand-text small{display:block; font-family:var(--sans); font-weight:500; font-size:.62rem; letter-spacing:1.5px; text-transform:uppercase; color:var(--keystone); margin-top:1px;}
+  nav.site-nav{display:flex; gap:22px; font-size:.88rem;}
+  nav.site-nav a{color:#dfe4de; text-decoration:none; font-weight:500;}
+  nav.site-nav a:hover{color:var(--keystone);}
+  .et-clock{
+    font-family:var(--mono); font-size:.78rem; color:#c8d0c8;
+    text-align:right; line-height:1.35;
+  }
+  .et-clock .time{color:#fff; font-weight:600; font-size:.86rem;}
+  .et-clock .tz{color:var(--keystone); font-weight:600;}
+
+  /* ---------- HERO ---------- */
+  .hero{padding:52px 0 30px;}
+  .eyebrow{
+    display:flex; align-items:center; gap:8px;
+    text-transform:uppercase; letter-spacing:2px; font-size:.72rem;
+    font-weight:600; color:var(--keystone-deep); margin-bottom:14px;
+  }
+  h1{
+    font-family:var(--serif); font-weight:700; font-size:clamp(2rem,4.4vw,3rem);
+    margin:0 0 12px; line-height:1.08; max-width:14ch;
+  }
+  .hero p{max-width:62ch; color:var(--ink-soft); font-size:1.05rem; margin:0;}
+
+  /* ---------- CALCULATOR ---------- */
+  .calc-shell{padding:22px 0 56px;}
+  .calc-grid{
+    display:grid; grid-template-columns: 1.15fr .85fr; gap:26px; align-items:start;
+  }
+  @media (max-width:940px){ .calc-grid{grid-template-columns:1fr;} }
+
+  .panel{
+    background:var(--panel); border:1px solid var(--line); border-radius:var(--radius);
+  }
+  .panel-head{
+    display:flex; align-items:center; gap:10px;
+    padding:16px 22px; border-bottom:1px solid var(--line);
+  }
+  .panel-head h2{font-family:var(--serif); font-size:1.05rem; margin:0; font-weight:600;}
+  .panel-body{padding:20px 22px 24px;}
+
+  fieldset{border:none; margin:0 0 22px; padding:0;}
+  fieldset legend{
+    font-size:.72rem; text-transform:uppercase; letter-spacing:1.2px; font-weight:700;
+    color:var(--muted); padding:0 0 10px; width:100%; border-bottom:1px dashed var(--line); margin-bottom:14px;
+  }
+  .row{display:grid; grid-template-columns:1fr 1fr; gap:14px; margin-bottom:14px;}
+  .row.single{grid-template-columns:1fr;}
+  .row.three{grid-template-columns:1fr 1fr 1fr;}
+  @media (max-width:520px){ .row, .row.three{grid-template-columns:1fr;} }
+
+  label{display:block; font-size:.8rem; font-weight:600; margin-bottom:6px; color:var(--ink);}
+  label .hint{display:block; font-weight:400; color:var(--muted); font-size:.74rem; margin-top:2px;}
+
+  input[type="number"], input[type="text"], select{
+    width:100%; padding:9px 10px; border:1px solid var(--line); border-radius:var(--radius);
+    font-family:var(--mono); font-size:.92rem; background:#fbfcfb; color:var(--ink);
+  }
+  select{font-family:var(--sans);}
+  input:focus, select:focus{outline:2px solid var(--keystone); outline-offset:1px; border-color:var(--keystone);}
+
+  .toggle-group{display:flex; border:1px solid var(--line); border-radius:var(--radius); overflow:hidden;}
+  .toggle-group button{
+    flex:1; padding:9px 10px; border:none; background:#fbfcfb; cursor:pointer;
+    font-family:var(--sans); font-weight:600; font-size:.84rem; color:var(--muted);
+    border-right:1px solid var(--line);
+  }
+  .toggle-group button:last-child{border-right:none;}
+  .toggle-group button[aria-pressed="true"]{background:var(--ink); color:#fff;}
+
+  .check-row{display:flex; align-items:center; gap:8px; margin-bottom:9px; font-size:.85rem;}
+  .check-row input{width:auto;}
+
+  .btn-row{display:flex; gap:12px; margin-top:6px; flex-wrap:wrap;}
+  .btn{
+    font-family:var(--sans); font-weight:700; font-size:.88rem; cursor:pointer;
+    padding:13px 22px; border:none; border-radius:var(--radius);
+    clip-path: polygon(6% 0%, 94% 0%, 100% 100%, 0% 100%);
+  }
+  .btn-primary{background:var(--keystone); color:var(--ink);}
+  .btn-primary:hover{background:var(--keystone-deep); color:#fff;}
+  .btn-ghost{background:transparent; border:1px solid var(--line); color:var(--ink-soft); clip-path:none;}
+  .btn-ghost:hover{border-color:var(--ink-soft);}
+
+  /* ---------- RESULTS ---------- */
+  .results{position:sticky; top:86px;}
+  .results .panel-head{justify-content:space-between;}
+  .view-toggle{display:flex; border:1px solid var(--line); border-radius:var(--radius); overflow:hidden;}
+  .view-toggle button{
+    padding:5px 10px; font-size:.72rem; font-weight:700; border:none; background:#fbfcfb; cursor:pointer;
+  }
+  .view-toggle button[aria-pressed="true"]{background:var(--ink); color:#fff;}
+
+  .net-figure{text-align:center; padding:6px 0 18px;}
+  .net-figure .label{font-size:.72rem; text-transform:uppercase; letter-spacing:1.5px; color:var(--muted); font-weight:700;}
+  .net-figure .amount{
+    font-family:var(--mono); font-weight:600; font-size:clamp(2.1rem,4vw,2.7rem);
+    color:var(--ledger); margin-top:4px;
+  }
+  .net-figure .sub{font-size:.8rem; color:var(--muted); margin-top:2px;}
+
+  .stackbar{display:flex; height:14px; border-radius:2px; overflow:hidden; border:1px solid var(--line); margin-bottom:18px;}
+  .stackbar span{height:100%; display:block;}
+  .seg-net{background:var(--ledger);}
+  .seg-fed{background:var(--ink);}
+  .seg-state{background:var(--keystone);}
+  .seg-local{background:#8b6a24;}
+  .seg-fica{background:#7c8a83;}
+  .seg-ded{background:#c7cec8;}
+
+  table.ledger{width:100%; border-collapse:collapse; font-size:.86rem;}
+  table.ledger td{padding:7px 0; border-bottom:1px solid var(--line);}
+  table.ledger td:first-child{color:var(--ink-soft);}
+  table.ledger td:last-child{
+    font-family:var(--mono); text-align:right; font-weight:600; white-space:nowrap;
+  }
+  table.ledger tr.total td{border-top:2px solid var(--ink); border-bottom:none; padding-top:11px; font-weight:700;}
+  table.ledger tr.total td:last-child{color:var(--ledger); font-size:1.02rem;}
+  .swatch{display:inline-block; width:9px; height:9px; border-radius:2px; margin-right:7px; vertical-align:1px;}
+
+  .effrate{
+    margin-top:14px; padding-top:12px; border-top:1px dashed var(--line);
+    display:flex; justify-content:space-between; font-size:.8rem; color:var(--muted);
+  }
+  .effrate b{color:var(--ink); font-family:var(--mono);}
+
+  .disclaimer{font-size:.72rem; color:var(--muted); margin-top:16px; line-height:1.5;}
+
+  /* ---------- SEO CONTENT ---------- */
+  .content{padding:8px 0 50px;}
+  .content h2{font-family:var(--serif); font-size:1.5rem; margin-bottom:10px;}
+  .content > .wrap > p{max-width:70ch; color:var(--ink-soft);}
+  .divider{display:flex; align-items:center; gap:10px; margin:44px 0 28px;}
+  .divider .line{flex:1; height:1px; background:var(--line);}
+
+  table.facts{width:100%; border-collapse:collapse; margin-top:14px; max-width:640px;}
+  table.facts th, table.facts td{text-align:left; padding:10px 14px; border-bottom:1px solid var(--line); font-size:.9rem;}
+  table.facts th{font-size:.72rem; text-transform:uppercase; letter-spacing:1px; color:var(--muted); border-bottom:2px solid var(--ink);}
+  table.facts td:last-child{font-family:var(--mono); font-weight:600;}
+  table.facts tr td:first-child::before{content:""; display:inline-block; width:8px; height:10px; margin-right:9px; background:var(--keystone); clip-path: polygon(22% 0%, 78% 0%, 100% 100%, 0% 100%); vertical-align:middle;}
+
+  .faq{max-width:760px; margin-top:14px;}
+  .faq details{border-bottom:1px solid var(--line); padding:14px 0;}
+  .faq summary{cursor:pointer; font-weight:600; font-size:.95rem; list-style:none; display:flex; justify-content:space-between; gap:10px;}
+  .faq summary::-webkit-details-marker{display:none;}
+  .faq summary::after{content:"+"; color:var(--keystone-deep); font-weight:700; font-size:1.1rem;}
+  .faq details[open] summary::after{content:"–";}
+  .faq p{margin:10px 0 0; color:var(--ink-soft); font-size:.9rem;}
+
+  .related{display:flex; flex-wrap:wrap; gap:10px; margin-top:16px;}
+  .related a{
+    font-size:.82rem; padding:7px 13px; border:1px solid var(--line); border-radius:20px;
+    text-decoration:none; color:var(--ink-soft); background:var(--panel);
+  }
+  .related a:hover{border-color:var(--keystone); color:var(--ink);}
+
+  /* ---------- FOOTER ---------- */
+  footer.site{background:var(--ink); color:#c8d0c8; padding:34px 0 22px; margin-top:20px;}
+  footer.site .foot-grid{display:flex; justify-content:space-between; flex-wrap:wrap; gap:24px; padding-bottom:20px; border-bottom:1px solid #2a3944;}
+  footer.site .brand-text{color:#fff;}
+  footer.site .fcol h3{font-size:.72rem; text-transform:uppercase; letter-spacing:1.5px; color:var(--keystone); margin:0 0 10px;}
+  footer.site .fcol a{display:block; color:#c8d0c8; text-decoration:none; font-size:.85rem; margin-bottom:7px;}
+  footer.site .fcol a:hover{color:#fff;}
+  .foot-bottom{display:flex; justify-content:space-between; flex-wrap:wrap; gap:8px; padding-top:16px; font-size:.75rem; color:#8b968f;}
+
+  @media print{
+    header.site, footer.site, .content, .panel-body form, .btn-row{display:none !important;}
+    body{background:#fff;}
+    .results{position:static;}
+  }
+  @media (prefers-reduced-motion: no-preference){
+    .hero, .calc-shell{animation: rise .5s ease both;}
+    @keyframes rise{from{opacity:0; transform:translateY(8px);} to{opacity:1; transform:translateY(0);}}
+  }
+</style>
+</head>
+<body>
+
+<header class="site">
+  <div class="wrap bar">
+    <a class="brand" href="/">
+      <span class="keystone"></span>
+      <span class="brand-text">PA Paycheck Calculator<small>Keystone State Payroll Tools</small></span>
+    </a>
+    <nav class="site-nav">
+      <a href="#calculator">Calculator</a>
+      <a href="#facts">PA Tax Facts</a>
+      <a href="#faq">FAQ</a>
+    </nav>
+    <div class="et-clock" id="etClock" aria-live="off">
+      <div class="time" id="etTime">--:--:-- <span class="tz">ET</span></div>
+      <div id="etDate">--</div>
+    </div>
+  </div>
+</header>
+
+<section class="hero">
+  <div class="wrap">
+    <div class="eyebrow"><span class="keystone" style="width:10px;height:13px;"></span> Updated for 2026 payroll figures</div>
+    <h1>Pennsylvania Paycheck Calculator</h1>
+    <p>See what you actually take home in Pennsylvania after federal income tax, the state's flat 3.07% rate, local Earned Income Tax, and FICA — for hourly or salaried pay, any pay frequency.</p>
+  </div>
+</section>
+
+<section class="calc-shell" id="calculator">
+  <div class="wrap calc-grid">
+
+    <div class="panel">
+      <div class="panel-head">
+        <span class="keystone" style="width:10px;height:13px;"></span>
+        <h2>Enter your pay details</h2>
+      </div>
+      <div class="panel-body">
+        <form id="calcForm">
+
+          <fieldset>
+            <legend>Pay</legend>
+            <div class="row single">
+              <div>
+                <label>Pay type</label>
+                <div class="toggle-group" role="group" aria-label="Pay type">
+                  <button type="button" data-paytype="salary" aria-pressed="true">Salary</button>
+                  <button type="button" data-paytype="hourly" aria-pressed="false">Hourly</button>
+                </div>
+              </div>
+            </div>
+
+            <div id="salaryFields" class="row single">
+              <div>
+                <label for="annualSalary">Annual salary ($)</label>
+                <input type="number" id="annualSalary" value="55000" min="0" step="100">
+              </div>
+            </div>
+
+            <div id="hourlyFields" style="display:none;">
+              <div class="row three">
+                <div>
+                  <label for="hourlyWage">Hourly wage ($)</label>
+                  <input type="number" id="hourlyWage" value="22" min="0" step="0.25">
+                </div>
+                <div>
+                  <label for="hoursPerPeriod">Hours / period</label>
+                  <input type="number" id="hoursPerPeriod" value="80" min="0" step="1">
+                </div>
+                <div>
+                  <label for="otHours">OT hours / period</label>
+                  <input type="number" id="otHours" value="0" min="0" step="1">
+                </div>
+              </div>
+              <div class="row single">
+                <div>
+                  <label for="otWage">Overtime rate ($/hr) <span class="hint">Usually 1.5× your regular wage</span></label>
+                  <input type="number" id="otWage" value="33" min="0" step="0.25">
+                </div>
+              </div>
+            </div>
+
+            <div class="row single">
+              <div>
+                <label for="payFrequency">Pay frequency</label>
+                <select id="payFrequency">
+                  <option value="52">Weekly</option>
+                  <option value="26" selected>Bi-Weekly</option>
+                  <option value="24">Semi-Monthly</option>
+                  <option value="12">Monthly</option>
+                  <option value="260">Daily</option>
+                  <option value="4">Quarterly</option>
+                  <option value="2">Semi-Annually</option>
+                  <option value="1">Annually</option>
+                </select>
+              </div>
+            </div>
+          </fieldset>
+
+          <fieldset>
+            <legend>Filing &amp; local tax</legend>
+            <div class="row">
+              <div>
+                <label for="filingStatus">Federal filing status</label>
+                <select id="filingStatus">
+                  <option value="single">Single</option>
+                  <option value="married">Married filing jointly</option>
+                </select>
+              </div>
+              <div>
+                <label for="dependentCredit">Dependent tax credit ($/yr) <span class="hint">From W-4 Step 3</span></label>
+                <input type="number" id="dependentCredit" value="0" min="0" step="50">
+              </div>
+            </div>
+            <div class="row">
+              <div>
+                <label for="localCity">PA municipality (local EIT preset)</label>
+                <select id="localCity">
+                  <option value="1.00">Custom / Other — 1.00%</option>
+                  <option value="3.75">Philadelphia — 3.75%</option>
+                  <option value="3.00">Pittsburgh — 3.00%</option>
+                  <option value="3.40">Scranton — 3.40%</option>
+                  <option value="3.60">Reading — 3.60%</option>
+                  <option value="1.975">Allentown — 1.975%</option>
+                  <option value="2.00">Harrisburg — 2.00%</option>
+                  <option value="1.65">Erie — 1.65%</option>
+                  <option value="1.10">Lancaster — 1.10%</option>
+                  <option value="1.00">Bethlehem — 1.00%</option>
+                  <option value="1.35">York — 1.35%</option>
+                </select>
+              </div>
+              <div>
+                <label for="localRate">Local EIT rate (%) <span class="hint">Edit if yours differs</span></label>
+                <input type="number" id="localRate" value="1.00" min="0" step="0.01">
+              </div>
+            </div>
+          </fieldset>
+
+          <fieldset>
+            <legend>Deductions (per pay period)</legend>
+            <div class="row three">
+              <div>
+                <label for="pretax401k">401(k) (% of gross)</label>
+                <input type="number" id="pretax401k" value="0" min="0" max="100" step="0.5">
+              </div>
+              <div>
+                <label for="pretaxHealth">Health insurance ($)</label>
+                <input type="number" id="pretaxHealth" value="0" min="0" step="5">
+              </div>
+              <div>
+                <label for="pretaxHSA">HSA / FSA ($)</label>
+                <input type="number" id="pretaxHSA" value="0" min="0" step="5">
+              </div>
+            </div>
+            <div class="row three">
+              <div>
+                <label for="postTax">Post-tax deductions ($)</label>
+                <input type="number" id="postTax" value="0" min="0" step="5">
+              </div>
+              <div>
+                <label for="addlFed">Extra federal withholding ($)</label>
+                <input type="number" id="addlFed" value="0" min="0" step="5">
+              </div>
+              <div>
+                <label for="addlState">Extra state/local withholding ($)</label>
+                <input type="number" id="addlState" value="0" min="0" step="5">
+              </div>
+            </div>
+          </fieldset>
+
+          <fieldset>
+            <legend>Exemptions</legend>
+            <label class="check-row"><input type="checkbox" id="exFed"> Exempt from federal income tax</label>
+            <label class="check-row"><input type="checkbox" id="exState"> Exempt from PA state income tax</label>
+            <label class="check-row"><input type="checkbox" id="exLocal"> Exempt from local EIT</label>
+            <label class="check-row"><input type="checkbox" id="exSS"> Exempt from Social Security</label>
+            <label class="check-row"><input type="checkbox" id="exMed"> Exempt from Medicare</label>
+          </fieldset>
+
+          <div class="btn-row">
+            <button type="submit" class="btn btn-primary">Calculate take-home pay</button>
+            <button type="button" class="btn btn-ghost" id="resetBtn">Reset</button>
+          </div>
+        </form>
+      </div>
+    </div>
+
+    <div class="panel results">
+      <div class="panel-head">
+        <h2 style="display:flex;align-items:center;gap:10px;"><span class="keystone" style="width:10px;height:13px;"></span>Your estimate</h2>
+        <div class="view-toggle" role="group" aria-label="View period">
+          <button type="button" data-view="period" aria-pressed="true">Per Paycheck</button>
+          <button type="button" data-view="annual" aria-pressed="false">Annual</button>
+        </div>
+      </div>
+      <div class="panel-body">
+        <div class="net-figure">
+          <div class="label">Estimated take-home pay</div>
+          <div class="amount" id="netAmount">$0</div>
+          <div class="sub" id="netSub">bi-weekly</div>
+        </div>
+
+        <div class="stackbar" id="stackbar" aria-hidden="true">
+          <span class="seg-net" style="width:0%"></span>
+          <span class="seg-fed" style="width:0%"></span>
+          <span class="seg-state" style="width:0%"></span>
+          <span class="seg-local" style="width:0%"></span>
+          <span class="seg-fica" style="width:0%"></span>
+          <span class="seg-ded" style="width:0%"></span>
+        </div>
+
+        <table class="ledger">
+          <tr><td>Gross pay</td><td id="rowGross">$0</td></tr>
+          <tr><td><span class="swatch seg-ded" style="background:#c7cec8"></span>Pre-tax deductions</td><td id="rowPretax">$0</td></tr>
+          <tr><td><span class="swatch seg-fed"></span>Federal income tax</td><td id="rowFed">$0</td></tr>
+          <tr><td><span class="swatch seg-fica"></span>Social Security</td><td id="rowSS">$0</td></tr>
+          <tr><td><span class="swatch seg-fica"></span>Medicare</td><td id="rowMed">$0</td></tr>
+          <tr><td><span class="swatch seg-state"></span>PA state tax (3.07%)</td><td id="rowState">$0</td></tr>
+          <tr><td><span class="swatch seg-local"></span>Local EIT</td><td id="rowLocal">$0</td></tr>
+          <tr><td>Extra withholding</td><td id="rowAddl">$0</td></tr>
+          <tr><td>Post-tax deductions</td><td id="rowPosttax">$0</td></tr>
+          <tr class="total"><td><span class="swatch seg-net"></span>Take-home pay</td><td id="rowNet">$0</td></tr>
+        </table>
+
+        <div class="effrate">
+          <span>Effective tax rate</span>
+          <b id="effRate">0.0%</b>
+        </div>
+
+        <div class="btn-row">
+          <button type="button" class="btn btn-ghost" id="copyBtn">Copy summary</button>
+          <button type="button" class="btn btn-ghost" id="printBtn">Print</button>
+        </div>
+
+        <p class="disclaimer">Estimates only, based on published 2025–2026 federal brackets, PA's flat 3.07% rate, and typical local EIT rates. Not tax advice — actual withholding depends on your employer's payroll system, your W-4, and your local tax return. Verify your municipality's exact EIT rate with your employer or tax collector.</p>
+      </div>
+    </div>
+
+  </div>
+</section>
+
+<section class="content" id="facts">
+  <div class="wrap">
+    <div class="divider"><span class="keystone"></span><div class="line"></div></div>
+    <h2>Pennsylvania payroll quick facts</h2>
+    <p>Pennsylvania is one of just a handful of states with a flat income tax, and at 3.07% it's the lowest flat rate in the country. Where PA gets more complex is locally: nearly 3,000 municipalities and school districts layer their own Earned Income Tax on top, so two people earning the same salary a few miles apart can take home noticeably different amounts.</p>
+
+    <table class="facts">
+      <tr><th>Item</th><th>2026 figure</th></tr>
+      <tr><td>PA state income tax</td><td>3.07% flat</td></tr>
+      <tr><td>Local Earned Income Tax (EIT)</td><td>0% – 3.75%</td></tr>
+      <tr><td>Social Security</td><td>6.2% up to $176,100 wage base</td></tr>
+      <tr><td>Medicare</td><td>1.45% (+0.9% above $200,000)</td></tr>
+      <tr><td>PA local taxing jurisdictions</td><td>~2,978</td></tr>
+      <tr><td>401(k) taxed by PA at contribution</td><td>Yes</td></tr>
+    </table>
+
+    <div class="related">
+      <a href="#calculator">Recalculate your paycheck</a>
+      <a href="#faq">Read the FAQ</a>
+      <a href="/pennsylvania-income-tax-calculator/">PA income tax calculator</a>
+      <a href="/pennsylvania-hourly-paycheck-calculator/">Hourly paycheck calculator</a>
+      <a href="/federal-paycheck-calculator/">Federal-only paycheck calculator</a>
+    </div>
+  </div>
+</section>
+
+<section class="content" id="faq">
+  <div class="wrap">
+    <div class="divider"><span class="keystone"></span><div class="line"></div></div>
+    <h2>Frequently asked questions</h2>
+    <div class="faq">
+      <details open>
+        <summary>What is the Pennsylvania state income tax rate in 2026?</summary>
+        <p>Pennsylvania levies a flat state income tax rate of 3.07% on earned income, regardless of how much you make or your filing status.</p>
+      </details>
+      <details>
+        <summary>Do I have to pay local income tax in Pennsylvania?</summary>
+        <p>Most PA municipalities and school districts levy a local Earned Income Tax (EIT), typically between 1% and 3.75% depending on where you live and work.</p>
+      </details>
+      <details>
+        <summary>Does Pennsylvania tax 401(k) contributions?</summary>
+        <p>Yes. Unlike the federal government, Pennsylvania taxes traditional retirement plan contributions when they're made, but withdrawals in retirement are not taxed.</p>
+      </details>
+      <details>
+        <summary>How much is FICA tax on a Pennsylvania paycheck?</summary>
+        <p>FICA is 7.65% total: 6.2% for Social Security (up to the annual wage base) and 1.45% for Medicare, matched by your employer.</p>
+      </details>
+      <details>
+        <summary>Is this Pennsylvania paycheck calculator exact?</summary>
+        <p>It's a close estimate built from published federal and PA tax figures. Your exact withholding depends on your employer's payroll system, your W-4, and your local tax forms.</p>
+      </details>
+    </div>
+  </div>
+</section>
+
+<footer class="site">
+  <div class="wrap">
+    <div class="foot-grid">
+      <div class="fcol">
+        <a class="brand" href="/" style="margin-bottom:8px;">
+          <span class="keystone"></span>
+          <span class="brand-text">PA Paycheck Calculator</span>
+        </a>
+        <p style="font-size:.82rem; max-width:32ch; color:#98a49c;">A free, independent payroll estimator for Pennsylvania employees and employers.</p>
+      </div>
+      <div class="fcol">
+        <h3>Tools</h3>
+        <a href="#calculator">Paycheck calculator</a>
+        <a href="/pennsylvania-income-tax-calculator/">Income tax calculator</a>
+        <a href="/pennsylvania-hourly-paycheck-calculator/">Hourly calculator</a>
+      </div>
+      <div class="fcol">
+        <h3>Resources</h3>
+        <a href="#facts">PA tax facts</a>
+        <a href="#faq">FAQ</a>
+        <a href="/about/">About</a>
+      </div>
+      <div class="fcol">
+        <h3>Legal</h3>
+        <a href="/privacy/">Privacy policy</a>
+        <a href="/terms/">Terms of use</a>
+      </div>
+    </div>
+    <div class="foot-bottom">
+      <span id="footYear">© 2026 papaycheckcalculator.com — Estimates only, not tax advice.</span>
+      <span id="footClock">Eastern Time —</span>
+    </div>
+  </div>
+</footer>
+
+<script>
+(function(){
+  "use strict";
+
+  /* ---------------- Live US Eastern clock ---------------- */
+  function tick(){
+    const now = new Date();
+    const timeFmt = new Intl.DateTimeFormat('en-US',{hour:'2-digit',minute:'2-digit',second:'2-digit',hour12:true,timeZone:'America/New_York'});
+    const dateFmt = new Intl.DateTimeFormat('en-US',{weekday:'short',month:'short',day:'numeric',year:'numeric',timeZone:'America/New_York'});
+    document.getElementById('etTime').innerHTML = timeFmt.format(now) + ' <span class="tz">ET</span>';
+    document.getElementById('etDate').textContent = dateFmt.format(now);
+    const fc = document.getElementById('footClock');
+    if(fc) fc.textContent = 'Eastern Time — ' + dateFmt.format(now) + ', ' + timeFmt.format(now);
+    document.getElementById('footYear').textContent = '© ' + now.getFullYear() + ' papaycheckcalculator.com — Estimates only, not tax advice.';
+  }
+  tick();
+  setInterval(tick, 1000);
+
+  /* ---------------- Pay type toggle ---------------- */
+  const payTypeBtns = document.querySelectorAll('[data-paytype]');
+  let payType = 'salary';
+  payTypeBtns.forEach(btn=>{
+    btn.addEventListener('click', ()=>{
+      payTypeBtns.forEach(b=>b.setAttribute('aria-pressed','false'));
+      btn.setAttribute('aria-pressed','true');
+      payType = btn.dataset.paytype;
+      document.getElementById('salaryFields').style.display = payType==='salary' ? 'grid' : 'none';
+      document.getElementById('hourlyFields').style.display = payType==='hourly' ? 'block' : 'none';
+    });
+  });
+
+  /* ---------------- Local city preset ---------------- */
+  document.getElementById('localCity').addEventListener('change', function(){
+    document.getElementById('localRate').value = this.value;
+  });
+
+  /* ---------------- View toggle (per period / annual) ---------------- */
+  let viewMode = 'period';
+  const viewBtns = document.querySelectorAll('[data-view]');
+  viewBtns.forEach(btn=>{
+    btn.addEventListener('click', ()=>{
+      viewBtns.forEach(b=>b.setAttribute('aria-pressed','false'));
+      btn.setAttribute('aria-pressed','true');
+      viewMode = btn.dataset.view;
+      renderResults();
+    });
+  });
+
+  /* ---------------- Federal bracket tables (2025 published figures) ---------------- */
+  const BRACKETS = {
+    single: [
+      {upTo:11925, rate:0.10},{upTo:48475, rate:0.12},{upTo:103350, rate:0.22},
+      {upTo:197300, rate:0.24},{upTo:250525, rate:0.32},{upTo:626350, rate:0.35},
+      {upTo:Infinity, rate:0.37}
+    ],
+    married: [
+      {upTo:23850, rate:0.10},{upTo:96950, rate:0.12},{upTo:206700, rate:0.22},
+      {upTo:394600, rate:0.24},{upTo:501050, rate:0.32},{upTo:751600, rate:0.35},
+      {upTo:Infinity, rate:0.37}
+    ]
+  };
+  const STD_DEDUCTION = {single:15000, married:30000};
+  const SS_WAGE_BASE = 176100;
+  const MEDICARE_SURTAX_THRESHOLD = 200000;
+
+  function federalTax(taxable, status){
+    if(taxable<=0) return 0;
+    const brackets = BRACKETS[status];
+    let tax=0, prev=0;
+    for(const b of brackets){
+      if(taxable > b.upTo){
+        tax += (b.upTo - prev)*b.rate;
+        prev = b.upTo;
+      } else {
+        tax += (taxable - prev)*b.rate;
+        prev = taxable;
+        break;
+      }
+    }
+    return tax;
+  }
+
+  let lastResult = null;
+
+  function num(id){ const v = parseFloat(document.getElementById(id).value); return isNaN(v)?0:v; }
+  function bool(id){ return document.getElementById(id).checked; }
+  function money(v){ return '$' + v.toLocaleString('en-US',{minimumFractionDigits:0,maximumFractionDigits:0}); }
+
+  function compute(){
+    const periods = parseInt(document.getElementById('payFrequency').value,10);
+    const filingStatus = document.getElementById('filingStatus').value;
+
+    let grossPerPeriod;
+    if(payType === 'salary'){
+      grossPerPeriod = num('annualSalary') / periods;
+    } else {
+      const reg = num('hourlyWage') * num('hoursPerPeriod');
+      const ot  = num('otWage') * num('otHours');
+      grossPerPeriod = reg + ot;
+    }
+    const annualGross = grossPerPeriod * periods;
+
+    const pretax401kPerPeriod = grossPerPeriod * (num('pretax401k')/100);
+    const pretaxHealthPerPeriod = num('pretaxHealth');
+    const pretaxHSAPerPeriod = num('pretaxHSA');
+    const pretaxTotalPerPeriod = pretax401kPerPeriod + pretaxHealthPerPeriod + pretaxHSAPerPeriod;
+    const annualPretax401k = pretax401kPerPeriod * periods;
+    const annualPretaxHealthHSA = (pretaxHealthPerPeriod + pretaxHSAPerPeriod) * periods;
+
+    // Federal taxable income excludes all pre-tax deductions + standard deduction
+    const fedTaxableAnnual = Math.max(0, annualGross - annualPretax401k - annualPretaxHealthHSA - STD_DEDUCTION[filingStatus]);
+    let annualFedTax = bool('exFed') ? 0 : Math.max(0, federalTax(fedTaxableAnnual, filingStatus) - num('dependentCredit'));
+
+    // FICA on gross minus 401k/health/HSA is NOT how FICA works (FICA wages exclude only true pre-tax cafeteria/401k for SS? Simplify: FICA base = gross - 401k(if traditional, FICA still applies) )
+    // Correct real-world rule: 401k IS subject to FICA. Only cafeteria (health/HSA/FSA) reduces FICA wages.
+    const ficaBaseAnnual = Math.max(0, annualGross - annualPretaxHealthHSA);
+    const annualSS = bool('exSS') ? 0 : Math.min(ficaBaseAnnual, SS_WAGE_BASE) * 0.062;
+    const annualMedicare = bool('exMed') ? 0 : (ficaBaseAnnual*0.0145 + Math.max(0, ficaBaseAnnual-MEDICARE_SURTAX_THRESHOLD)*0.009);
+
+    // PA state tax base: gross minus cafeteria (health/HSA) but 401k stays taxable for PA
+    const paBaseAnnual = Math.max(0, annualGross - annualPretaxHealthHSA);
+    const annualStateTax = bool('exState') ? 0 : paBaseAnnual * 0.0307;
+    const localRate = num('localRate')/100;
+    const annualLocalTax = bool('exLocal') ? 0 : paBaseAnnual * localRate;
+
+    const addlFedPerPeriod = num('addlFed');
+    const addlStatePerPeriod = num('addlState');
+    const postTaxPerPeriod = num('postTax');
+
+    const fedTaxPerPeriod = annualFedTax/periods;
+    const ssPerPeriod = annualSS/periods;
+    const medPerPeriod = annualMedicare/periods;
+    const stateTaxPerPeriod = annualStateTax/periods;
+    const localTaxPerPeriod = annualLocalTax/periods;
+
+    const netPerPeriod = grossPerPeriod - pretaxTotalPerPeriod - fedTaxPerPeriod - ssPerPeriod - medPerPeriod
+                        - stateTaxPerPeriod - localTaxPerPeriod - addlFedPerPeriod - addlStatePerPeriod - postTaxPerPeriod;
+
+    lastResult = {
+      periods, grossPerPeriod, pretaxTotalPerPeriod, fedTaxPerPeriod, ssPerPeriod, medPerPeriod,
+      stateTaxPerPeriod, localTaxPerPeriod, addlPerPeriod: addlFedPerPeriod+addlStatePerPeriod,
+      postTaxPerPeriod, netPerPeriod, annualGross
+    };
+    renderResults();
+  }
+
+  function freqLabel(periods){
+    switch(periods){
+      case 52: return 'weekly';
+      case 26: return 'bi-weekly';
+      case 24: return 'semi-monthly';
+      case 12: return 'monthly';
+      case 260: return 'daily';
+      case 4: return 'quarterly';
+      case 2: return 'semi-annual';
+      case 1: return 'annual';
+      default: return 'per period';
+    }
+  }
+
+  function renderResults(){
+    if(!lastResult){
+      lastResult = {periods:26, grossPerPeriod:0, pretaxTotalPerPeriod:0, fedTaxPerPeriod:0, ssPerPeriod:0,
+        medPerPeriod:0, stateTaxPerPeriod:0, localTaxPerPeriod:0, addlPerPeriod:0, postTaxPerPeriod:0, netPerPeriod:0, annualGross:0};
+    }
+    const r = lastResult;
+    const mult = viewMode==='annual' ? r.periods : 1;
+
+    const gross = r.grossPerPeriod*mult;
+    const pretax = r.pretaxTotalPerPeriod*mult;
+    const fed = r.fedTaxPerPeriod*mult;
+    const ss = r.ssPerPeriod*mult;
+    const med = r.medPerPeriod*mult;
+    const state = r.stateTaxPerPeriod*mult;
+    const local = r.localTaxPerPeriod*mult;
+    const addl = r.addlPerPeriod*mult;
+    const post = r.postTaxPerPeriod*mult;
+    const net = r.netPerPeriod*mult;
+
+    document.getElementById('netAmount').textContent = money(net);
+    document.getElementById('netSub').textContent = viewMode==='annual' ? 'per year' : freqLabel(r.periods);
+    document.getElementById('rowGross').textContent = money(gross);
+    document.getElementById('rowPretax').textContent = money(pretax);
+    document.getElementById('rowFed').textContent = money(fed);
+    document.getElementById('rowSS').textContent = money(ss);
+    document.getElementById('rowMed').textContent = money(med);
+    document.getElementById('rowState').textContent = money(state);
+    document.getElementById('rowLocal').textContent = money(local);
+    document.getElementById('rowAddl').textContent = money(addl);
+    document.getElementById('rowPosttax').textContent = money(post);
+    document.getElementById('rowNet').textContent = money(net);
+
+    const eff = gross>0 ? ((gross-net)/gross*100) : 0;
+    document.getElementById('effRate').textContent = eff.toFixed(1) + '%';
+
+    // stacked bar (based on gross)
+    const g = gross>0?gross:1;
+    const seg = document.querySelectorAll('#stackbar span');
+    const vals = [net, fed, state, local, ss+med, pretax+post+addl];
+    let widths = vals.map(v=> Math.max(0, v)/g*100);
+    // normalize rounding
+    seg.forEach((el,i)=>{ el.style.width = widths[i] + '%'; });
+  }
+
+  document.getElementById('calcForm').addEventListener('submit', function(e){
+    e.preventDefault();
+    compute();
+  });
+
+  document.getElementById('resetBtn').addEventListener('click', function(){
+    document.getElementById('calcForm').reset();
+    lastResult = null;
+    document.getElementById('localRate').value = 1.00;
+    renderResults();
+  });
+
+  document.getElementById('printBtn').addEventListener('click', function(){ window.print(); });
+
+  document.getElementById('copyBtn').addEventListener('click', function(){
+    if(!lastResult){ compute(); }
+    const r = lastResult;
+    const mult = viewMode==='annual' ? r.periods : 1;
+    const lines = [
+      'Pennsylvania Paycheck Estimate (' + (viewMode==='annual'?'annual':freqLabel(r.periods)) + ')',
+      'Gross pay: ' + money(r.grossPerPeriod*mult),
+      'Pre-tax deductions: ' + money(r.pretaxTotalPerPeriod*mult),
+      'Federal income tax: ' + money(r.fedTaxPerPeriod*mult),
+      'Social Security: ' + money(r.ssPerPeriod*mult),
+      'Medicare: ' + money(r.medPerPeriod*mult),
+      'PA state tax (3.07%): ' + money(r.stateTaxPerPeriod*mult),
+      'Local EIT: ' + money(r.localTaxPerPeriod*mult),
+      'Take-home pay: ' + money(r.netPerPeriod*mult),
+      'Generated at papaycheckcalculator.com — estimates only, not tax advice.'
+    ];
+    const text = lines.join('\n');
+    if(navigator.clipboard){
+      navigator.clipboard.writeText(text).then(()=>{
+        const btn = document.getElementById('copyBtn');
+        const old = btn.textContent; btn.textContent = 'Copied!';
+        setTimeout(()=>btn.textContent = old, 1500);
+      });
+    }
+  });
+
+  // initial calc with default values
+  compute();
+})();
+</script>
+</body>
+</html>
