@@ -117,7 +117,9 @@
   .keystone{width:28px;height:28px;background:#ffffff;border:2px solid var(--ink);border-radius:8px;display:flex;align-items:center;justify-content:center;color:var(--ink);font-family:var(--serif);font-weight:800;font-size:.62rem;letter-spacing:.5px;flex-shrink:0;}
   .keystone::before{content:"PA";}
   .dot{width:9px;height:9px;border-radius:3px;background:var(--ledger);display:inline-block;flex-shrink:0;}
-
+.footer-grid-5{grid-template-columns:1.3fr 1fr 1fr 1fr 1fr;}
+@media (max-width:900px){.footer-grid-5{grid-template-columns:1fr 1fr;}}
+@media (max-width:540px){.footer-grid-5{grid-template-columns:1fr;}}
   /* ======================== HEADER ======================== */
   header.site{position:sticky;top:0;z-index:50;background:var(--ink);color:#eef1ee;border-bottom:3px solid var(--ledger);}
   .header-top{display:flex;align-items:center;justify-content:space-between;padding:12px 0;gap:16px;flex-wrap:wrap;}
@@ -328,7 +330,18 @@
     font-size:.6rem;font-weight:700;text-transform:uppercase;letter-spacing:.5px;
     padding:2px 5px;border-radius:4px;background:var(--ink);color:#fff;flex-shrink:0;
   }
-
+nav.site-nav ul li.has-dropdown{position:relative;}
+nav.site-nav ul li.has-dropdown > a::after{content:"";}
+.dropdown{
+  list-style:none;margin:0;padding:6px;position:absolute;top:100%;left:0;
+  background:#0f2a4d;border:1px solid rgba(255,255,255,.12);border-top:2px solid var(--ledger);
+  border-radius:8px;min-width:220px;box-shadow:0 12px 30px rgba(0,0,0,.35);
+  display:none;flex-direction:column;z-index:60;
+}
+.has-dropdown:hover .dropdown,
+.has-dropdown:focus-within .dropdown{display:flex;}
+.dropdown li a{padding:9px 12px;font-size:.8rem;border-radius:5px;border-bottom:none !important;color:rgba(255,255,255,.85)!important;}
+.dropdown li a:hover{background:rgba(255,255,255,.06);color:#3fbd76!important;}
   /* ======================== AUTHOR / E-E-A-T SECTION ======================== */
   .author-section{background:var(--ink);color:#c8d8c8;padding:52px 0;}
   .author-inner{display:grid;grid-template-columns:auto 1fr auto;gap:32px;align-items:start;}
@@ -449,17 +462,51 @@
     </div>
   </div>
   <nav class="site-nav" aria-label="Site navigation">
-    <div class="wrap">
-      <ul>
-        <li class="active"><a href="index.html">Calculator</a></li>
-        <li><a href="about-us.html">About Us</a></li>
-        <li><a href="contact-us.html">Contact</a></li>
-        <li><a href="privacy-policy.html">Privacy Policy</a></li>
-        <li><a href="disclaimer.html">Disclaimer</a></li>
-        <li><a href="terms-and-conditions.html">Terms &amp; Conditions</a></li>
-      </ul>
-    </div>
-  </nav>
+  <div class="wrap">
+    <ul>
+      <li><a href="https://papaycheckcalculator.com/">Calculator</a></li>
+
+      <li class="has-dropdown">
+        <a href="https://papaycheckcalculator.com/pa-cities/">PA Cities ▾</a>
+        <ul class="dropdown">
+          <li><a href="https://papaycheckcalculator.com/pa-cities/philadelphia-paycheck-calculator/">Philadelphia</a></li>
+          <li><a href="https://papaycheckcalculator.com/pa-cities/pittsburgh-paycheck-calculator/">Pittsburgh</a></li>
+          <li><a href="https://papaycheckcalculator.com/pa-cities/allentown-paycheck-calculator/">Allentown</a></li>
+          <li><a href="https://papaycheckcalculator.com/pa-cities/">All Cities →</a></li>
+        </ul>
+      </li>
+
+      <li class="has-dropdown">
+        <a href="https://papaycheckcalculator.com/salaries/">Salaries ▾</a>
+        <ul class="dropdown">
+          <li><a href="https://papaycheckcalculator.com/salaries/70000-salary-philadelphia/">$70k in Philadelphia</a></li>
+          <li><a href="https://papaycheckcalculator.com/salaries/nurse-salary-pittsburgh/">Nurse Salary — Pittsburgh</a></li>
+          <li><a href="https://papaycheckcalculator.com/salaries/">All Salaries →</a></li>
+        </ul>
+      </li>
+
+      <li class="has-dropdown">
+        <a href="https://papaycheckcalculator.com/guides/">Guides ▾</a>
+        <ul class="dropdown">
+          <li><a href="https://papaycheckcalculator.com/guides/philadelphia-wage-tax-explained/">Philadelphia Wage Tax</a></li>
+          <li><a href="https://papaycheckcalculator.com/guides/pa-vs-nj-paycheck/">PA vs NJ Paycheck</a></li>
+          <li><a href="https://papaycheckcalculator.com/guides/">All Guides →</a></li>
+        </ul>
+      </li>
+
+      <li class="has-dropdown">
+        <a href="https://papaycheckcalculator.com/tools/">Tools ▾</a>
+        <ul class="dropdown">
+          <li><a href="https://papaycheckcalculator.com/tools/bonus-calculator/">Bonus Calculator</a></li>
+          <li><a href="https://papaycheckcalculator.com/tools/salary-needed-calculator/">Salary Needed</a></li>
+          <li><a href="https://papaycheckcalculator.com/tools/">All Tools →</a></li>
+        </ul>
+      </li>
+
+      <li><a href="about-us.html">About Us</a></li>
+    </ul>
+  </div>
+</nav>
 </header>
 
 <!-- ======================== HERO ======================== -->
@@ -1098,51 +1145,36 @@
 <!-- ======================== FOOTER ======================== -->
 <footer class="site">
   <div class="wrap">
-    <div class="footer-grid">
-
+    <div class="footer-grid footer-grid-5">
       <div class="foot-col foot-col-brand">
-        <div class="foot-logo">
-          <!-- Logo placeholder: replace the div below with <img src="your-logo.png" alt="PA Paycheck Calculator" height="34"> -->
-          <div class="foot-brand-logo-placeholder" aria-hidden="true">PA</div>
-          <span class="foot-brand-text"><span class="pa">PA</span><span class="rest">PaycheckCalc</span></span>
-        </div>
-        <p class="tagline">Free, accurate Pennsylvania paycheck calculator for employees, job seekers, and employers.</p>
-        <p class="gov-note">Tax figures sourced from the IRS, PA Department of Revenue, and PA Department of Labor &amp; Industry. For reference only — not tax advice.</p>
+        <!-- keep your existing logo + tagline + gov-note block exactly as is -->
       </div>
-
-      <div class="foot-col">
-        <h3>Tools</h3>
-        <ul>
-          <li><a href="index.html#calculator">PA Paycheck Calculator</a></li>
-          <li><a href="index.html#pa-cities">PA City EIT Rates</a></li>
-          <li><a href="index.html#pa-tax-facts">2026 Tax Quick Facts</a></li>
-          <li><a href="index.html#faq">FAQs</a></li>
-        </ul>
-      </div>
-
-      <div class="foot-col">
-        <h3>Company</h3>
-        <ul>
-          <li><a href="about-us.html">About Us</a></li>
-          <li><a href="contact-us.html">Contact Us</a></li>
-          <li><a href="disclaimer.html">Disclaimer</a></li>
-        </ul>
-      </div>
-
-      <div class="foot-col">
-        <h3>Legal</h3>
-        <ul>
-          <li><a href="privacy-policy.html">Privacy Policy</a></li>
-          <li><a href="terms-and-conditions.html">Terms &amp; Conditions</a></li>
-          <li><a href="disclaimer.html">Disclaimer</a></li>
-        </ul>
-      </div>
-
+      <div class="foot-col"><h3>PA Cities</h3><ul>
+        <li><a href="https://papaycheckcalculator.com/pa-cities/philadelphia-paycheck-calculator/">Philadelphia</a></li>
+        <li><a href="https://papaycheckcalculator.com/pa-cities/pittsburgh-paycheck-calculator/">Pittsburgh</a></li>
+        <li><a href="https://papaycheckcalculator.com/pa-cities/allentown-paycheck-calculator/">Allentown</a></li>
+        <li><a href="https://papaycheckcalculator.com/pa-cities/">All Cities →</a></li>
+      </ul></div>
+      <div class="foot-col"><h3>Salaries & Tools</h3><ul>
+        <li><a href="https://papaycheckcalculator.com/salaries/">Salaries by City</a></li>
+        <li><a href="https://papaycheckcalculator.com/tools/bonus-calculator/">Bonus Calculator</a></li>
+        <li><a href="https://papaycheckcalculator.com/tools/salary-needed-calculator/">Salary Needed Calculator</a></li>
+      </ul></div>
+      <div class="foot-col"><h3>Guides</h3><ul>
+        <li><a href="https://papaycheckcalculator.com/guides/philadelphia-wage-tax-explained/">Philadelphia Wage Tax</a></li>
+        <li><a href="https://papaycheckcalculator.com/guides/pa-vs-nj-paycheck/">PA vs NJ Paycheck</a></li>
+        <li><a href="https://papaycheckcalculator.com/guides/">All Guides →</a></li>
+      </ul></div>
+      <div class="foot-col"><h3>Company & Legal</h3><ul>
+        <li><a href="about-us.html">About Us</a></li>
+        <li><a href="contact-us.html">Contact Us</a></li>
+        <li><a href="privacy-policy.html">Privacy Policy</a></li>
+        <li><a href="disclaimer.html">Disclaimer</a></li>
+      </ul></div>
     </div>
-
     <div class="foot-bottom">
-      <span id="footYear">© 2026 PA Paycheck Calculator · Estimates only, not tax advice.</span>
-      <span>Built by <a href="https://byritam.in/" target="_blank" rel="noopener noreferrer">Ritam Debnath</a> · <a href="privacy-policy.html">Privacy</a> · <a href="disclaimer.html">Disclaimer</a></span>
+      <span>© 2026 PA Paycheck Calculator · Estimates only, not tax advice.</span>
+      <span>Built by <a href="https://byritam.in/">Ritam Debnath</a></span>
     </div>
   </div>
 </footer>
