@@ -243,6 +243,30 @@
   .stat b{ display:block; font-family:'Fraunces', serif; font-size:30px; color:var(--ink); }
   .stat span{ font-size:12.5px; color:var(--ink-soft); text-transform:uppercase; letter-spacing:.5px; }
 
+  /* ---------- GALLERY ---------- */
+  .gallery{ background: var(--ivory); }
+  .gallery-grid{
+    display:grid;
+    grid-template-columns: repeat(4, 1fr);
+    grid-auto-rows: 130px;
+    gap: 12px;
+  }
+  .gallery-grid img{
+    width:100%; height:100%; object-fit:cover; border-radius: 14px;
+    display:block; transition: transform .5s ease, filter .5s ease;
+    filter: saturate(1.02);
+  }
+  .gallery-grid a{ display:block; overflow:hidden; border-radius:14px; }
+  .gallery-grid a:hover img{ transform: scale(1.06); }
+  .g1{ grid-column: span 2; grid-row: span 2; }
+  .g2{ grid-column: span 2; grid-row: span 1; }
+  .g3{ grid-column: span 1; grid-row: span 1; }
+  .g4{ grid-column: span 1; grid-row: span 2; }
+  .g5{ grid-column: span 2; grid-row: span 1; }
+  .g6{ grid-column: span 1; grid-row: span 1; }
+  .g7{ grid-column: span 1; grid-row: span 1; }
+  .g8{ grid-column: span 2; grid-row: span 1; }
+
   /* ---------- WHY KURRY PATTA (ICONS) ---------- */
   .icon-grid{
     display:grid; grid-template-columns: repeat(3, 1fr); gap:24px;
@@ -295,29 +319,39 @@
   .btn-menu:hover{ background: var(--leaf); transform: translateY(-2px); }
 
   /* ---------- CELEBRATE ---------- */
-  .celebrate{ background: var(--ivory); }
+  .celebrate{
+    background: radial-gradient(120% 140% at 15% 15%, #3E6A31 0%, #2B4B22 55%, #1E3618 100%);
+    position:relative; overflow:hidden;
+  }
+  .celebrate::before{
+    content:""; position:absolute; inset:0; opacity:.5; pointer-events:none;
+    background-image: radial-gradient(rgba(245,184,0,0.14) 1.5px, transparent 1.5px);
+    background-size: 26px 26px;
+  }
   .celebrate-wrap{
     display:grid; grid-template-columns: 1.1fr 0.9fr; gap:56px; align-items:center;
+    position:relative; z-index:1;
   }
   .celebrate-art{
-    position:relative; border-radius: 24px; overflow:hidden; box-shadow: var(--shadow-sm);
-    aspect-ratio: 4/5; order:2;
+    position:relative; border-radius: 24px; overflow:hidden; box-shadow: 0 30px 70px -25px rgba(0,0,0,0.6);
+    aspect-ratio: 4/5; order:2; border:1px solid rgba(255,255,255,0.12);
   }
   .celebrate-art img{ width:100%; height:100%; object-fit:cover; }
-  .celebrate-copy .eyebrow{ justify-content:flex-start; }
+  .celebrate-copy .eyebrow{ justify-content:flex-start; color:var(--marigold-soft); }
   .celebrate-copy h2{
     font-family:'Fraunces', serif; font-weight:450; font-size: clamp(28px,3.6vw,40px); margin:0 0 18px; letter-spacing:-.5px;
+    color:#FBF6E8;
   }
-  .celebrate-copy p{ color:var(--ink-soft); font-size:15.5px; line-height:1.8; margin:0 0 16px; }
+  .celebrate-copy p{ color:rgba(251,246,232,0.8); font-size:15.5px; line-height:1.8; margin:0 0 16px; }
   .celebrate-copy .hero-btns{ margin-top:12px; }
-  .celebrate-copy .btn-primary{ box-shadow: 0 12px 26px -10px rgba(244,180,0,0.5); }
+  .celebrate-copy .btn-primary{ box-shadow: 0 12px 26px -10px rgba(0,0,0,0.5); }
   .celebrate-copy .btn-outline{
-    background: transparent; color:var(--ink); border:1.5px solid var(--ink);
+    background: transparent; color:#FBF6E8; border:1.5px solid rgba(251,246,232,0.55);
     padding:14px 26px; border-radius:999px; font-weight:600; font-size:14.5px; cursor:pointer;
     font-family:inherit; text-decoration:none; display:inline-flex; align-items:center;
     transition: background .2s ease, color .2s ease;
   }
-  .celebrate-copy .btn-outline:hover{ background: var(--ink); color:var(--ivory); }
+  .celebrate-copy .btn-outline:hover{ background: #FBF6E8; color:var(--ink); border-color:#FBF6E8; }
 
   /* ---------- GUEST EXPERIENCES / REVIEWS ---------- */
   .reviews-grid{
@@ -413,6 +447,8 @@
     .reviews-grid{ grid-template-columns: repeat(2,1fr); }
     .branches-grid{ grid-template-columns:1fr; }
     .footer-grid{ grid-template-columns: 1fr 1fr; }
+    .gallery-grid{ grid-template-columns: repeat(2,1fr); grid-auto-rows:150px; }
+    .g1,.g2,.g3,.g4,.g5,.g6,.g7,.g8{ grid-column:span 1; grid-row:span 1; }
   }
   @media (max-width: 560px){
     .menu-grid{ grid-template-columns: 1fr; }
@@ -489,6 +525,7 @@
       <img src="https://ritam1997-sudo.github.io/schema/kurry-logo-bg-new.png" alt="Kurry Patta">
     </div>
     <ul class="nav-links">
+      <li><a href="#gallery">Gallery</a></li>
       <li><a href="#menu">Menu</a></li>
       <li><a href="#why-us">Why Us</a></li>
       <li><a href="#celebrate">Celebrate</a></li>
@@ -534,6 +571,25 @@
           <div class="stat"><b>100%</b><span>Vegetarian</span></div>
         </div>
       </div>
+    </div>
+  </section>
+
+  <!-- GALLERY -->
+  <section class="gallery" id="gallery">
+    <div class="section-head">
+      <div class="eyebrow">🍃 the room</div>
+      <h2>A feel for the place</h2>
+      <p>Warm wood, low light, and an open kitchen working three cuisines at once.</p>
+    </div>
+    <div class="gallery-grid">
+      <a class="g1" href="#"><img src="https://media.istockphoto.com/id/2180482774/photo/interior-lounge-architecture.webp?a=1&b=1&s=612x612&w=0&k=20&c=-ZO0oNFZH_AC5WH6uhFD3E7gGBvuOVQ24GbudA-b4ck=" alt="Lounge interior"></a>
+      <a class="g2" href="#"><img src="https://media.istockphoto.com/id/1146473426/photo/interior-of-cafe-on-night.webp?a=1&b=1&s=612x612&w=0&k=20&c=El7521L5RCb-aHyxuzmx0HSvfDu5ZIFVtPlJ06dY57k=" alt="Cafe at night"></a>
+      <a class="g3" href="#"><img src="https://media.istockphoto.com/id/2219639911/photo/empty-tables-awaiting-customers-in-modern-restaurant.webp?a=1&b=1&s=612x612&w=0&k=20&c=q6XKt0b0Rk7XQ-CZgGIDCWU0G49lO5d-bfNhsH-vx64=" alt="Dining tables"></a>
+      <a class="g4" href="#"><img src="https://images.unsplash.com/photo-1765021096871-80e396247f46?w=800&auto=format&fit=crop&q=60&ixlib=rb-4.1.0" alt="Restaurant detail"></a>
+      <a class="g5" href="#"><img src="https://images.unsplash.com/photo-1768982463473-9d94547f8814?w=800&auto=format&fit=crop&q=60&ixlib=rb-4.1.0" alt="Restaurant detail"></a>
+      <a class="g6" href="#"><img src="https://images.unsplash.com/photo-1729394405518-eaf2a0203aa7?w=800&auto=format&fit=crop&q=60&ixlib=rb-4.1.0" alt="Restaurant detail"></a>
+      <a class="g7" href="#"><img src="https://plus.unsplash.com/premium_photo-1661880943744-5da1da373cf4?w=800&auto=format&fit=crop&q=60&ixlib=rb-4.1.0" alt="Restaurant detail"></a>
+      <a class="g8" href="#"><img src="https://images.unsplash.com/photo-1674333102344-1470aa5550b5?w=800&auto=format&fit=crop&q=60&ixlib=rb-4.1.0" alt="Restaurant detail"></a>
     </div>
   </section>
 
@@ -812,6 +868,7 @@
         <h4>Quick Links</h4>
         <ul>
           <li><a href="#welcome">Welcome</a></li>
+          <li><a href="#gallery">Gallery</a></li>
           <li><a href="#why-us">Why Us</a></li>
           <li><a href="#menu">Menu</a></li>
           <li><a href="#celebrate">Celebrate</a></li>
