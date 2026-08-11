@@ -660,50 +660,7 @@ nav.site-nav ul.dropdown-menu li a:hover{
 </head>
 <body>
 
-<!-- ======================== HEADER ======================== -->
-<header class="site">
-  <div class="wrap">
-    <div class="header-top">
-      <a class="brand" href="https://papaycheckcalculator.com/" aria-label="PA Paycheck Calculator Home">
-        <img
-          class="brand-logo-img"
-          src="https://papaycheckcalculator.com/logo.avif"
-          alt="PA Paycheck Calculator"
-          width="220"
-          height="60"
-        >
-      </a>
-      <div class="header-right">
-        <span class="version-badge" title="2026 tax year — updated August 2026">2026 Tax Year</span>
-        <div class="live-clock">
-          <span class="dot-live"></span>
-          <span class="updated-lbl">Live</span>
-          <span id="liveClock">—</span>
-        </div>
-      </div>
-    </div>
-  </div>
- <div id="nav-placeholder"></div>
-  <!-- ===== WEATHER STRIP ===== -->
-<div class="weather-strip" id="weatherStrip">
-  <div class="wrap weather-inner">
-    <div class="weather-loc">
-      <span class="dot"></span>
-      <span id="wxCityName">Pennsylvania</span>
-      <span class="wx-live">LIVE</span>
-    </div>
-    <div class="weather-current" id="wxCurrent">
-      <span class="wx-icon" id="wxIcon">—</span>
-      <span class="wx-temp" id="wxTemp">--°</span>
-      <span class="wx-desc" id="wxDesc">Loading…</span>
-    </div>
-    <div class="weather-forecast" id="wxForecast">
-      <!-- 3-day cards injected by JS -->
-    </div>
-  </div>
-</div>
-</header>
-
+<div id="header-placeholder"></div>
 <!-- ======================== HERO ======================== -->
 <section class="hero">
   <div class="wrap">
@@ -1338,58 +1295,7 @@ nav.site-nav ul.dropdown-menu li a:hover{
 </section>
 
 <!-- ======================== FOOTER ======================== -->
-<footer class="site">
-  <div class="wrap">
-    <div class="footer-grid">
-     <div class="foot-col foot-col-brand">
-  <div class="foot-logo">
-    <a href="https://papaycheckcalculator.com/" aria-label="PA Paycheck Calculator Home">
-      <img
-        class="foot-logo-img"
-        src="https://papaycheckcalculator.com/logo.avif"
-        alt="PA Paycheck Calculator"
-        width="136"
-        height="34"
-        onerror="this.style.display='none';this.parentNode.insertAdjacentHTML('beforeend','<span class=&quot;foot-brand-text&quot;><span class=&quot;pa&quot;>PA</span><span class=&quot;rest&quot;>PaycheckCalc</span></span>')">
-    </a>
-  </div>
-        <p class="tagline">Free Pennsylvania paycheck calculator for employees, job seekers, and employers.</p>
-        <p class="gov-note">Tax figures sourced from the IRS, PA Department of Revenue, and PA Department of Labor & Industry. For reference only — not tax advice.</p>
-      </div>
-      <div class="foot-col">
-  <h3>Quick Links</h3>
-  <ul>
-    <li><a href="/pa-cities/">PA Cities</a></li>
-    <li><a href="/salaries/">Salaries</a></li>
-    <li><a href="/guides/">Guides</a></li>
-    <li><a href="/tools/">Tools</a></li>
-    <li><a href="/faq/">FAQs</a></li>
-  </ul>
-</div>
-    <div class="foot-col">
-  <h3>Company</h3>
-  <ul>
-    <li><a href="/about-us">About Us</a></li>
-    <li><a href="/contact-us">Contact Us</a></li>
-    <li><a href="/disclaimer">Disclaimer</a></li>
-  </ul>
-</div>
-
-<div class="foot-col">
-  <h3>Legal</h3>
-  <ul>
-    <li><a href="/privacy-policy">Privacy Policy</a></li>
-    <li><a href="/cookie-policy">Cookie Policy</a></li>
-    <li><a href="/terms-and-conditions">Terms &amp; Conditions</a></li>
-  </ul>
-</div>
-    </div>
-    <div class="foot-bottom">
-      <span>© 2026 PA Paycheck Calculator · Estimates only, not tax advice.</span>
-      <span>Built by <a href="https://byritam.in/" target="_blank" rel="noopener noreferrer">Ritam Debnath</a></span>
-    </div>
-  </div>
-</footer>
+<div id="footer-placeholder"></div>
   <a class="cookie-floating-link" id="cookieFloat" role="button" tabindex="0">🍪 Cookie Settings</a>
 <div class="cookie-banner" id="cookieBanner" role="dialog" aria-labelledby="cookieH" aria-describedby="cookieP">
   <div class="cookie-grid">
@@ -1405,364 +1311,46 @@ nav.site-nav ul.dropdown-menu li a:hover{
 </div>
 
 <script>
-(function(){
-  var KEY='pa_cookie_consent';
-  var banner=document.getElementById('cookieBanner');
-  var float=document.getElementById('cookieFloat');
-  function show(){banner.classList.remove('animate');banner.classList.add('show');void banner.offsetWidth;banner.classList.add('animate');float.classList.add('show');}
-  function hide(){banner.classList.remove('show');float.classList.add('show');}
-  function setConsent(val){try{localStorage.setItem(KEY,val);}catch(e){}hide();if(val==='rejected'&&window.paq){try{window.paq.push(['optUserOut']);}catch(e){}}if(val==='accepted'&&window.paq){try{window.paq.push(['trackPageView']);}catch(e){}}if(typeof gtag==='function'){gtag('consent','update',{'analytics_storage':val==='accepted'?'granted':'denied'});}}
-  var saved=null;try{saved=localStorage.getItem(KEY);}catch(e){}
-  if(!saved){setTimeout(show,400);}else{float.classList.add('show');}
-  document.getElementById('cookieAccept').addEventListener('click',function(){setConsent('accepted');});
-  document.getElementById('cookieReject').addEventListener('click',function(){setConsent('rejected');});
-  float.addEventListener('click',function(){try{localStorage.removeItem(KEY);}catch(e){show();}});
-  float.addEventListener('keydown',function(e){if(e.key==='Enter'||e.key===' '){e.preventDefault();try{localStorage.removeItem(KEY);}catch(e){show();}}});
-})();
-</script>
-<!-- Cloudflare Web Analytics -->
-<script type="module" src="https://static.cloudflareinsights.com/beacon.min.js" data-cf-beacon='{"token": "409ab22ef68144f28d0d045258157647"}'></script>
-<!-- End Cloudflare Web Analytics -->
+async function loadHeader(){
+  const res = await fetch('partials/header.html');
+  document.getElementById('header-placeholder').innerHTML = await res.text();
 
-
-<!-- ======================== JAVASCRIPT (logic unchanged) ======================== -->
-<script>
-(function(){
-  "use strict";
-
-  /* ---------- live PA Eastern time clock ---------- */
-  function updateClock(){
-    const el = document.getElementById('liveClock');
-    if(!el) return;
-    try{
-      const now = new Date();
-      const formatted = new Intl.DateTimeFormat('en-US', {
-        timeZone:'America/New_York', month:'short', day:'numeric', year:'numeric',
-        hour:'numeric', minute:'2-digit', second:'2-digit', hour12:true
-      }).format(now);
-      el.textContent = formatted + ' ET';
-    }catch(e){
-      el.textContent = new Date().toLocaleString();
-    }
-  }
+  // header load hote hi ye sab chalao — inke elements ab DOM me aa chuke hain
+  await loadNav();
   updateClock();
   setInterval(updateClock, 1000);
+  loadWeather();
+  setInterval(loadWeather, 15 * 60 * 1000);
+}
 
-  /* ---------- legend info toggles ---------- */
-  document.querySelectorAll('.info-btn').forEach(btn=>{
-    btn.addEventListener('click', function(){
-      const desc = this.closest('legend').nextElementSibling;
-      if(!desc || !desc.classList.contains('legend-desc')) return;
-      const nowHidden = !desc.hasAttribute('hidden');
-      document.querySelectorAll('.legend-desc').forEach(d=>d.setAttribute('hidden',''));
-      document.querySelectorAll('.info-btn').forEach(b=>b.setAttribute('aria-expanded','false'));
-      if(!nowHidden){
-        desc.removeAttribute('hidden');
-        this.setAttribute('aria-expanded','true');
-      }
-    });
-  });
+async function loadFooter(){
+  const res = await fetch('partials/footer.html');
+  document.getElementById('footer-placeholder').innerHTML = await res.text();
+}
 
-  /* ---------- tabs ---------- */
-  const tabBtns = document.querySelectorAll('.tabbar button');
-  tabBtns.forEach(btn=>{
-    btn.addEventListener('click', ()=>{
-      tabBtns.forEach(b=>b.setAttribute('aria-selected','false'));
-      btn.setAttribute('aria-selected','true');
-      document.querySelectorAll('.tabpanel').forEach(p=>p.classList.remove('active'));
-      document.querySelector('.tabpanel[data-panel="'+btn.dataset.tab+'"]').classList.add('active');
-      btn.scrollIntoView({behavior:'smooth', inline:'center', block:'nearest'});
-    });
-  });
+async function loadNav(){
+  const res = await fetch('partials/nav.html');
+  document.getElementById('nav-placeholder').innerHTML = await res.text();
+  initDropdowns();
+}
 
-  /* ---------- generic toggle groups ---------- */
-  function wireToggle(selectorAttr, onChange){
-    document.querySelectorAll('[' + selectorAttr + ']').forEach(btn=>{
-      btn.addEventListener('click', function(){
-        const group = this.closest('.toggle-group');
-        group.querySelectorAll('button').forEach(b=>b.setAttribute('aria-pressed','false'));
-        this.setAttribute('aria-pressed','true');
-        if(onChange) onChange(this);
-      });
-    });
+function updateClock(){
+  const el = document.getElementById('liveClock');
+  if(!el) return;
+  try{
+    const now = new Date();
+    const formatted = new Intl.DateTimeFormat('en-US', {
+      timeZone:'America/New_York', month:'short', day:'numeric', year:'numeric',
+      hour:'numeric', minute:'2-digit', second:'2-digit', hour12:true
+    }).format(now);
+    el.textContent = formatted + ' ET';
+  }catch(e){
+    el.textContent = new Date().toLocaleString();
   }
-  const state = { payType:'salary', overtime:false, w4Old:false, nra:false, multiJob:false, k401Type:'trad', k401Amt:'percent' };
-  const ex = { exFed:false, exSS:false, exMed:false, exState:false, exSUI:false, exEIT:false, exLST:false };
+}
 
-  wireToggle('data-paytype', (btn)=>{
-    state.payType = btn.dataset.paytype;
-    document.getElementById('grossMethodWrap').style.display = state.payType==='salary' ? 'block' : 'none';
-    document.getElementById('hourlyFields').style.display = state.payType==='hourly' ? 'block' : 'none';
-    document.getElementById('salaryDateRow').style.display = state.payType==='salary' ? 'grid' : 'none';
-    document.getElementById('amountLabel').textContent = state.payType==='salary' ? 'Amount ($)' : 'Hourly wage ($)';
-    document.getElementById('payAmount').value = state.payType==='salary' ? 55000 : 22;
-  });
-
-  wireToggle('data-ot', (btn)=>{
-    state.overtime = btn.dataset.ot === 'yes';
-    document.getElementById('otFields').style.display = state.overtime ? 'grid' : 'none';
-  });
-
-  wireToggle('data-w4', (btn)=>{
-    state.w4Old = btn.dataset.w4 === 'old';
-    document.getElementById('oldAllowanceRow').style.display = state.w4Old ? 'flex' : 'none';
-  });
-  wireToggle('data-nra', (btn)=>{ state.nra = btn.dataset.nra === 'yes'; });
-  wireToggle('data-mj', (btn)=>{ state.multiJob = btn.dataset.mj === 'yes'; });
-  wireToggle('data-k', (btn)=>{ state.k401Type = btn.dataset.k; });
-  wireToggle('data-kamt', (btn)=>{
-    state.k401Amt = btn.dataset.kamt;
-    document.getElementById('k401Label').textContent = state.k401Amt==='percent' ? 'Amount (%)' : 'Amount ($/period)';
-  });
-  wireToggle('data-ex', (btn)=>{
-    const [key, val] = btn.dataset.ex.split('-');
-    ex[key] = val === 'yes';
-  });
-
-  document.getElementById('localCity').addEventListener('change', function(){
-    document.getElementById('localRate').value = this.value;
-  });
-
-  function num(id){ const el=document.getElementById(id); if(!el) return 0; const v=parseFloat(el.value); return isNaN(v)?0:v; }
-
-  /* live overtime amount preview */
-  ['otHours','otRate'].forEach(id=>{
-    document.getElementById(id).addEventListener('input', ()=>{
-      document.getElementById('otAmountDisplay').value = '$' + (num('otHours')*num('otRate')).toFixed(2);
-    });
-  });
-
-  /* ---------- 2026 federal brackets & standard deduction ---------- */
-  const BRACKETS = {
-    single: [ {upTo:12400,rate:.10},{upTo:50400,rate:.12},{upTo:105700,rate:.22},{upTo:201775,rate:.24},{upTo:256225,rate:.32},{upTo:640600,rate:.35},{upTo:Infinity,rate:.37} ],
-    married:[ {upTo:24800,rate:.10},{upTo:100800,rate:.12},{upTo:211400,rate:.22},{upTo:403550,rate:.24},{upTo:512450,rate:.32},{upTo:768700,rate:.35},{upTo:Infinity,rate:.37} ],
-    hoh:    [ {upTo:17700,rate:.10},{upTo:67450,rate:.12},{upTo:105700,rate:.22},{upTo:201750,rate:.24},{upTo:256200,rate:.32},{upTo:640600,rate:.35},{upTo:Infinity,rate:.37} ]
-  };
-  const STD_DEDUCTION = { single:16100, married:32200, hoh:24150 };
-  const SS_WAGE_BASE = 184500;
-  const MED_SURTAX_THRESHOLD = { single:200000, married:250000, hoh:200000 };
-  const PA_STATE_RATE = 0.0307;
-  const PA_SUI_RATE = 0.0007;
-
-  function federalTax(taxable, status){
-    if(taxable<=0) return 0;
-    const brackets = BRACKETS[status];
-    let tax=0, prev=0;
-    for(const b of brackets){
-      if(taxable > b.upTo){ tax += (b.upTo-prev)*b.rate; prev=b.upTo; }
-      else { tax += (taxable-prev)*b.rate; prev=taxable; break; }
-    }
-    return tax;
-  }
-
-  let lastResult = null;
-  function money(v){ return '$' + v.toLocaleString('en-US',{minimumFractionDigits:0,maximumFractionDigits:0}); }
-
-  function compute(){
-    const periods = parseInt(document.getElementById('payFrequency').value,10);
-    const filingStatus = document.getElementById('filingStatus').value;
-
-    let salaryPerPeriod;
-    if(state.payType === 'salary'){
-      const method = document.getElementById('grossMethod').value;
-      salaryPerPeriod = method === 'year' ? num('payAmount')/periods : num('payAmount');
-    } else {
-      salaryPerPeriod = num('payAmount') * num('hoursPerPeriod');
-    }
-    const otPerPeriod = state.overtime ? num('otHours')*num('otRate') : 0;
-    const grossPerPeriod = salaryPerPeriod + otPerPeriod;
-    const annualGross = grossPerPeriod * periods;
-
-    const cafeteriaPerPeriod = num('benMedical')+num('benDental')+num('benVision')+num('benHFSA')+num('benDFSA')+num('benHSA');
-    const k401PerPeriod = state.k401Type==='roth' ? 0 : (state.k401Amt==='percent' ? grossPerPeriod*(num('k401')/100) : num('k401'));
-    const k401DisplayPerPeriod = state.k401Amt==='percent' ? grossPerPeriod*(num('k401')/100) : num('k401');
-    const postTaxPerPeriod = num('postTax');
-
-    const annualCafeteria = cafeteriaPerPeriod * periods;
-    const annualK401Trad = k401PerPeriod * periods;
-
-    const stdDeduction = state.nra ? 0 : STD_DEDUCTION[filingStatus];
-    const annualOtherIncome = num('otherIncomeAmt');
-    const annualExtraDeduction = num('deductionAmt');
-    const annualDependentCredit = num('dependentAmt');
-
-    const fedTaxableAnnual = Math.max(0, annualGross - annualCafeteria - annualK401Trad + annualOtherIncome - annualExtraDeduction - stdDeduction);
-    const bracketStatus = (state.multiJob && filingStatus!=='single') ? 'single' : filingStatus;
-    let annualFedTax = ex.exFed ? 0 : Math.max(0, federalTax(fedTaxableAnnual, bracketStatus) - annualDependentCredit);
-    if(state.w4Old){
-      annualFedTax = ex.exFed ? 0 : Math.max(0, federalTax(Math.max(0, fedTaxableAnnual - num('oldAllowances')*4300), bracketStatus));
-    }
-
-    const ficaBaseAnnual = Math.max(0, annualGross - annualCafeteria);
-    const annualSS = ex.exSS ? 0 : Math.min(ficaBaseAnnual, SS_WAGE_BASE) * 0.062;
-    const medThresh = MED_SURTAX_THRESHOLD[filingStatus];
-    const annualMedicare = ex.exMed ? 0 : (ficaBaseAnnual*0.0145 + Math.max(0, ficaBaseAnnual-medThresh)*0.009);
-
-    const paBaseAnnual = Math.max(0, annualGross - annualCafeteria);
-    const annualStateTax = ex.exState ? 0 : paBaseAnnual * PA_STATE_RATE;
-    const annualSUI = ex.exSUI ? 0 : annualGross * PA_SUI_RATE;
-    const localRate = num('localRate')/100;
-    const annualLocalTax = ex.exEIT ? 0 : paBaseAnnual * localRate;
-    const annualLST = ex.exLST ? 0 : num('lstAnnual');
-
-    const addlFedPerPeriod = num('addlFed');
-    const addlStatePerPeriod = num('addlState');
-
-    const r = {
-      periods, grossPerPeriod, salaryPerPeriod, otPerPeriod,
-      cafeteriaPerPeriod, k401DisplayPerPeriod, postTaxPerPeriod,
-      fedTaxPerPeriod: annualFedTax/periods,
-      ssPerPeriod: annualSS/periods,
-      medPerPeriod: annualMedicare/periods,
-      stateTaxPerPeriod: annualStateTax/periods,
-      suiPerPeriod: annualSUI/periods,
-      localTaxPerPeriod: annualLocalTax/periods,
-      lstPerPeriod: annualLST/periods,
-      addlFedPerPeriod, addlStatePerPeriod
-    };
-    r.taxesPerPeriod = r.fedTaxPerPeriod + r.ssPerPeriod + r.medPerPeriod + r.stateTaxPerPeriod + r.suiPerPeriod + r.localTaxPerPeriod + r.lstPerPeriod + r.addlFedPerPeriod + r.addlStatePerPeriod;
-    r.benefitsPerPeriod = r.cafeteriaPerPeriod + r.k401DisplayPerPeriod + r.postTaxPerPeriod;
-    r.netPerPeriod = r.grossPerPeriod - r.taxesPerPeriod - r.benefitsPerPeriod;
-
-    lastResult = r;
-    renderResults();
-  }
-
-  let viewMode = 'period';
-  document.querySelectorAll('[data-view]').forEach(btn=>{
-    btn.addEventListener('click', ()=>{
-      document.querySelectorAll('[data-view]').forEach(b=>b.setAttribute('aria-pressed','false'));
-      btn.setAttribute('aria-pressed','true');
-      viewMode = btn.dataset.view;
-      renderResults();
-    });
-  });
-
-  function renderResults(){
-    if(!lastResult){
-      lastResult = {periods:26, grossPerPeriod:0, salaryPerPeriod:0, otPerPeriod:0, cafeteriaPerPeriod:0, k401DisplayPerPeriod:0,
-        postTaxPerPeriod:0, fedTaxPerPeriod:0, ssPerPeriod:0, medPerPeriod:0, stateTaxPerPeriod:0, suiPerPeriod:0,
-        localTaxPerPeriod:0, lstPerPeriod:0, addlFedPerPeriod:0, addlStatePerPeriod:0, taxesPerPeriod:0, benefitsPerPeriod:0, netPerPeriod:0};
-    }
-    const r = lastResult;
-    const mult = viewMode==='annual' ? r.periods : 1;
-    const m = (v)=>v*mult;
-
-    document.getElementById('netAmount').textContent = money(m(r.netPerPeriod));
-    document.getElementById('rowGross').textContent = money(m(r.grossPerPeriod));
-    document.getElementById('rowSalary').textContent = money(m(r.salaryPerPeriod));
-    document.getElementById('rowOT').textContent = money(m(r.otPerPeriod));
-    document.getElementById('otRow').style.display = r.otPerPeriod>0 ? 'table-row' : 'none';
-
-    document.getElementById('rowTaxesTotal').textContent = money(m(r.taxesPerPeriod));
-    document.getElementById('rowFed').textContent = money(m(r.fedTaxPerPeriod));
-    document.getElementById('rowSS').textContent = money(m(r.ssPerPeriod));
-    document.getElementById('rowMed').textContent = money(m(r.medPerPeriod));
-    document.getElementById('rowState').textContent = money(m(r.stateTaxPerPeriod));
-    document.getElementById('rowSUI').textContent = money(m(r.suiPerPeriod));
-    document.getElementById('rowLocal').textContent = money(m(r.localTaxPerPeriod));
-    document.getElementById('rowLST').textContent = money(m(r.lstPerPeriod));
-    document.getElementById('rowAddl').textContent = money(m(r.addlFedPerPeriod+r.addlStatePerPeriod));
-
-    document.getElementById('rowBenTotal').textContent = money(m(r.benefitsPerPeriod));
-    document.getElementById('rowPretaxHealth').textContent = money(m(r.cafeteriaPerPeriod));
-    document.getElementById('rowK401').textContent = money(m(r.k401DisplayPerPeriod));
-    document.getElementById('rowPosttax').textContent = money(m(r.postTaxPerPeriod));
-
-    document.getElementById('rowNet').textContent = money(m(r.netPerPeriod));
-
-    const gross = m(r.grossPerPeriod) || 1;
-    const eff = ((m(r.grossPerPeriod)-m(r.netPerPeriod))/gross*100);
-    document.getElementById('effRate').textContent = (isFinite(eff)?eff:0).toFixed(1) + '%';
-
-    const net = Math.max(0, m(r.netPerPeriod));
-    const taxes = Math.max(0, m(r.taxesPerPeriod));
-    const benefits = Math.max(0, m(r.benefitsPerPeriod));
-    const total = net+taxes+benefits || 1;
-    const netPct = net/total, taxPct = taxes/total, benPct = benefits/total;
-
-    const RADIUS = 48;
-    const CIRC = 2*Math.PI*RADIUS;
-    function setSeg(id, pct, offsetPct){
-      const el = document.getElementById(id);
-      const len = CIRC*pct;
-      el.style.strokeDasharray = len.toFixed(2) + ' ' + CIRC.toFixed(2);
-      el.style.strokeDashoffset = (-CIRC*offsetPct).toFixed(2);
-    }
-    setSeg('segNet', netPct, 0);
-    setSeg('segTax', taxPct, netPct);
-    setSeg('segBen', benPct, netPct+taxPct);
-
-    const c1 = '#1f9254', c2 = '#0f2a4d', c3 = '#f5a623';
-    const legend = document.getElementById('donutLegend');
-    legend.innerHTML =
-      '<div class="item"><span class="sw" style="background:'+c1+'"></span>Take home <b>'+money(net)+'</b></div>' +
-      '<div class="item"><span class="sw" style="background:'+c2+'"></span>Taxes <b>'+money(taxes)+'</b></div>' +
-      '<div class="item"><span class="sw" style="background:'+c3+'"></span>Benefits <b>'+money(benefits)+'</b></div>';
-  }
-
-  /* ---------- FAQ accordion ---------- */
-  document.querySelectorAll('.faq-q').forEach(btn=>{
-    btn.addEventListener('click', function(){
-      const item = this.closest('.faq-item');
-      const isOpen = item.classList.contains('open');
-      document.querySelectorAll('.faq-item').forEach(i=>i.classList.remove('open'));
-      if(!isOpen) item.classList.add('open');
-    });
-  });
-
-  document.getElementById('calcForm').addEventListener('submit', function(e){ e.preventDefault(); compute(); });
-
-  document.getElementById('resetBtn').addEventListener('click', function(){
-    document.getElementById('calcForm').reset();
-    lastResult = null;
-    document.getElementById('localRate').value = 1.00;
-    document.getElementById('otAmountDisplay').value = '$0.00';
-    renderResults();
-  });
-
-  document.getElementById('printBtn').addEventListener('click', function(){ window.print(); });
-
-  document.getElementById('copyBtn').addEventListener('click', function(){
-    if(!lastResult) compute();
-    const r = lastResult;
-    const mult = viewMode==='annual' ? r.periods : 1;
-    const m=(v)=>v*mult;
-    const lines = [
-      'Pennsylvania Paycheck Estimate (' + (viewMode==='annual'?'annual':'per paycheck') + ')',
-      'Gross pay: ' + money(m(r.grossPerPeriod)),
-      'Federal income tax: ' + money(m(r.fedTaxPerPeriod)),
-      'Social Security: ' + money(m(r.ssPerPeriod)),
-      'Medicare: ' + money(m(r.medPerPeriod)),
-      'PA state tax (3.07%): ' + money(m(r.stateTaxPerPeriod)),
-      'PA unemployment (SUI, 0.07%): ' + money(m(r.suiPerPeriod)),
-      'Local EIT: ' + money(m(r.localTaxPerPeriod)),
-      'Local Services Tax: ' + money(m(r.lstPerPeriod)),
-      'Benefits (pre/post-tax): ' + money(m(r.benefitsPerPeriod)),
-      'Take-home pay: ' + money(m(r.netPerPeriod))
-    ];
-    if(navigator.clipboard){
-      navigator.clipboard.writeText(lines.join('\n')).then(()=>{
-        const btn = document.getElementById('copyBtn');
-        const old = btn.textContent; btn.textContent = 'Copied!';
-        setTimeout(()=>btn.textContent = old, 1500);
-      });
-    }
-  });
-
-  /* ---------- footer year ---------- */
-  const fy = document.getElementById('footYear');
-  if(fy) fy.textContent = '© ' + new Date().getFullYear() + ' PA Paycheck Calculator · Estimates only, not tax advice.';
-
-  compute();
-})();
-</script>
-  <script>
-(function(){
-  "use strict";
-  // Pennsylvania state geographic center
+async function loadWeather(){
   const LAT = 40.9699, LON = -77.7278;
-
   const WX_CODES = {
     0:['☀️','Clear'],1:['🌤️','Mostly Clear'],2:['⛅','Partly Cloudy'],3:['☁️','Cloudy'],
     45:['🌫️','Fog'],48:['🌫️','Fog'],51:['🌦️','Light Drizzle'],53:['🌦️','Drizzle'],
@@ -1771,79 +1359,52 @@ nav.site-nav ul.dropdown-menu li a:hover{
     81:['🌧️','Showers'],82:['⛈️','Violent Showers'],95:['⛈️','Thunderstorm'],96:['⛈️','Storm+Hail'],99:['⛈️','Severe Storm']
   };
   function wxLabel(code){ return WX_CODES[code] || ['🌡️','—']; }
-
-  async function loadWeather(){
-    try{
-      const url = `https://api.open-meteo.com/v1/forecast?latitude=${LAT}&longitude=${LON}` +
-        `&current=temperature_2m,weather_code&daily=weather_code,temperature_2m_max,temperature_2m_min` +
-        `&temperature_unit=celsius&timezone=America/New_York&forecast_days=4`;
-      const res = await fetch(url);
-      const data = await res.json();
-
-      const [icon, desc] = wxLabel(data.current.weather_code);
-      document.getElementById('wxIcon').textContent = icon;
-      document.getElementById('wxTemp').textContent = Math.round(data.current.temperature_2m) + '°';
-      document.getElementById('wxDesc').textContent = desc;
-
-      const days = data.daily.time.slice(1,4);
-      const hi = data.daily.temperature_2m_max.slice(1,4);
-      const lo = data.daily.temperature_2m_min.slice(1,4);
-      const codes = data.daily.weather_code.slice(1,4);
-
-      const forecastEl = document.getElementById('wxForecast');
-      forecastEl.innerHTML = days.map((d, i)=>{
-        const dayName = new Date(d + 'T00:00:00').toLocaleDateString('en-US',{weekday:'short'});
-        const [ic] = wxLabel(codes[i]);
-        return `<div class="wx-day">
-          <span class="wx-dname">${dayName}</span>
-          <span class="wx-icon-small">${ic}</span>
-          <span class="wx-hi">${Math.round(hi[i])}°</span>
-          <span class="wx-lo">${Math.round(lo[i])}°</span>
-        </div>`;
-      }).join('');
-    }catch(e){
-      document.getElementById('wxDesc').textContent = 'Weather unavailable';
-    }
+  try{
+    const url = `https://api.open-meteo.com/v1/forecast?latitude=${LAT}&longitude=${LON}` +
+      `&current=temperature_2m,weather_code&daily=weather_code,temperature_2m_max,temperature_2m_min` +
+      `&temperature_unit=celsius&timezone=America/New_York&forecast_days=4`;
+    const res = await fetch(url);
+    const data = await res.json();
+    const [icon, desc] = wxLabel(data.current.weather_code);
+    document.getElementById('wxIcon').textContent = icon;
+    document.getElementById('wxTemp').textContent = Math.round(data.current.temperature_2m) + '°';
+    document.getElementById('wxDesc').textContent = desc;
+    const days = data.daily.time.slice(1,4);
+    const hi = data.daily.temperature_2m_max.slice(1,4);
+    const lo = data.daily.temperature_2m_min.slice(1,4);
+    const codes = data.daily.weather_code.slice(1,4);
+    document.getElementById('wxForecast').innerHTML = days.map((d, i)=>{
+      const dayName = new Date(d + 'T00:00:00').toLocaleDateString('en-US',{weekday:'short'});
+      const [ic] = wxLabel(codes[i]);
+      return `<div class="wx-day"><span class="wx-dname">${dayName}</span><span class="wx-icon-small">${ic}</span><span class="wx-hi">${Math.round(hi[i])}°</span><span class="wx-lo">${Math.round(lo[i])}°</span></div>`;
+    }).join('');
+  }catch(e){
+    const d = document.getElementById('wxDesc');
+    if(d) d.textContent = 'Weather unavailable';
   }
-
-  loadWeather();
-  setInterval(loadWeather, 15 * 60 * 1000);
-})();
-</script>
-<script>
-async function loadNav(){
-  const res = await fetch('partials/nav.html');
-  document.getElementById('nav-placeholder').innerHTML = await res.text();
-  initDropdowns(); // nav load hote hi dropdown ka JS chalao
 }
 
 function initDropdowns(){
   const dropdownToggles = document.querySelectorAll(".has-dropdown > .dropdown-toggle");
   const siteNav = document.querySelector("nav.site-nav");
-
   dropdownToggles.forEach(function (toggle) {
     toggle.addEventListener("click", function (e) {
       if (window.innerWidth > 768) return;
       e.preventDefault();
       e.stopPropagation();
-
       const parent = this.closest(".has-dropdown");
       const menu = parent.querySelector(".dropdown-menu");
-
       document.querySelectorAll(".has-dropdown").forEach(function (item) {
         if (item !== parent) item.classList.remove("open");
       });
-
       const willOpen = !parent.classList.contains("open");
       parent.classList.toggle("open");
-
       if (willOpen && menu) {
         const navRect = siteNav.getBoundingClientRect();
         menu.style.top = navRect.bottom + "px";
       }
     });
   });
-
   document.addEventListener("click", function (e) {
     if (window.innerWidth > 768) return;
     if (!e.target.closest(".site-nav")) {
@@ -1852,7 +1413,6 @@ function initDropdowns(){
       });
     }
   });
-
   window.addEventListener("scroll", function () {
     const openItem = document.querySelector(".has-dropdown.open");
     if (openItem && window.innerWidth <= 768) {
@@ -1863,7 +1423,10 @@ function initDropdowns(){
   });
 }
 
-document.addEventListener("DOMContentLoaded", loadNav);
+document.addEventListener("DOMContentLoaded", function(){
+  loadHeader();
+  loadFooter();
+});
 </script>
 
 </body>
