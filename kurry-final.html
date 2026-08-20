@@ -4,12 +4,18 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Kurry Patta | Purely Vegetarian Multicuisine Restaurant in Kolkata</title>
-<meta name="description" content="Kurry Patta is a purely vegetarian multicuisine restaurant in Kolkata serving South Indian, North Indian, chaats and Indo-Chinese from one warm, welcoming space. Dine in at Ballygunge or Elgin, Kolkata — rated 4.9★ by 1,200+ guests.">
+<meta name="description" content="Kurry Patta is a purely vegetarian multicuisine restaurant in Kolkata serving South Indian, North Indian, chaats and Indo-Chinese from one warm, welcoming space. Dine in at Hungerford Street (Elgin) or Lake Road (Ballygunge), Kolkata.">
 <link rel="canonical" href="https://kurrypata.in/">
 <meta property="og:type" content="restaurant.restaurant">
 <meta property="og:title" content="Kurry Patta | Purely Vegetarian Multicuisine Restaurant in Kolkata">
-<meta property="og:description" content="Great food. Warm hospitality. Purely vegetarian. South Indian, North Indian, chaats and Indo-Chinese at two Kolkata addresses — Ballygunge and Elgin.">
+<meta property="og:description" content="Great food. Warm hospitality. Purely vegetarian. South Indian, North Indian, chaats and Indo-Chinese at two Kolkata addresses.">
 <meta property="og:locale" content="en_IN">
+<!--
+  NOTE TO CLIENT: aggregateRating removed from structured data below per your
+  instruction not to publish rating/review counts until verified against the
+  live Google Business Profile. Re-add once confirmed, using the format:
+  "aggregateRating": { "@type": "AggregateRating", "ratingValue": "X.X", "reviewCount": "N" }
+-->
 <script type="application/ld+json">
 {
   "@context": "https://schema.org",
@@ -17,11 +23,6 @@
   "name": "Kurry Patta",
   "servesCuisine": ["Indian", "South Indian", "North Indian", "Indo-Chinese", "Chaat"],
   "priceRange": "₹₹",
-  "aggregateRating": {
-    "@type": "AggregateRating",
-    "ratingValue": "4.9",
-    "reviewCount": "1200"
-  },
   "areaServed": {
     "@type": "City",
     "name": "Kolkata"
@@ -29,27 +30,7 @@
   "location": [
     {
       "@type": "Place",
-      "name": "Kurry Patta — Ballygunge",
-      "address": {
-        "@type": "PostalAddress",
-        "streetAddress": "P79, Lake Rd, 1st Floor, Lake Terrace, Ballygunge",
-        "addressLocality": "Kolkata",
-        "addressRegion": "West Bengal",
-        "postalCode": "700029",
-        "addressCountry": "IN"
-      },
-      "telephone": "+91-3379613497",
-      "hasMap": "https://maps.app.goo.gl/Byg2UaB6NYLw2Aj17",
-      "openingHoursSpecification": {
-        "@type": "OpeningHoursSpecification",
-        "dayOfWeek": ["Sunday","Monday","Tuesday","Wednesday","Thursday","Friday","Saturday"],
-        "opens": "07:00",
-        "closes": "22:00"
-      }
-    },
-    {
-      "@type": "Place",
-      "name": "Kurry Patta — Elgin",
+      "name": "Kurry Patta — Hungerford Street",
       "address": {
         "@type": "PostalAddress",
         "streetAddress": "6, Hungerford St, Elgin",
@@ -64,6 +45,26 @@
         "@type": "OpeningHoursSpecification",
         "dayOfWeek": ["Sunday","Monday","Tuesday","Wednesday","Thursday","Friday","Saturday"],
         "opens": "08:00",
+        "closes": "22:00"
+      }
+    },
+    {
+      "@type": "Place",
+      "name": "Kurry Patta — Lake Road",
+      "address": {
+        "@type": "PostalAddress",
+        "streetAddress": "P79, Lake Rd, 1st Floor, Lake Terrace, Ballygunge",
+        "addressLocality": "Kolkata",
+        "addressRegion": "West Bengal",
+        "postalCode": "700029",
+        "addressCountry": "IN"
+      },
+      "telephone": "+91-3379613497",
+      "hasMap": "https://maps.app.goo.gl/Byg2UaB6NYLw2Aj17",
+      "openingHoursSpecification": {
+        "@type": "OpeningHoursSpecification",
+        "dayOfWeek": ["Sunday","Monday","Tuesday","Wednesday","Thursday","Friday","Saturday"],
+        "opens": "07:00",
         "closes": "22:00"
       }
     }
@@ -142,6 +143,7 @@
     background: var(--ink); color:var(--ivory); border:none; padding:11px 22px;
     border-radius: 999px; font-size:14px; font-weight:600; cursor:pointer; font-family:inherit;
     transition: transform .2s ease, background .2s ease;
+    text-decoration:none; display:inline-flex; align-items:center;
   }
   .nav-cta:hover{ background: var(--leaf); transform: translateY(-1px); }
 
@@ -167,36 +169,16 @@
   .hero-content{
     position:relative; z-index:2; padding: 60px 48px 56px; color:#fff; width:100%;
   }
-  .hero-eyebrow{
-    font-family:'Caveat', cursive; font-size: 26px; color: var(--marigold);
-    display:flex; align-items:center; gap:8px; margin-bottom:6px;
-    text-shadow: 0 2px 12px rgba(0,0,0,0.45);
-  }
   .hero h1{
     font-family:'Fraunces', serif; font-weight:450; font-size: clamp(34px,5.4vw,60px);
     margin:0 0 14px; line-height:1.05; letter-spacing:-1px; max-width:760px;
     text-shadow: 0 2px 12px rgba(0,0,0,0.45);
   }
-  .hero-tagline{
-    font-size: clamp(14px,1.6vw,17px); font-weight:600; letter-spacing:.3px;
-    color: var(--marigold-soft); margin:0 0 16px; text-transform:uppercase; font-family:'DM Sans', sans-serif;
-    text-shadow: 0 2px 12px rgba(0,0,0,0.45);
-  }
   .hero p{
-    max-width:560px; font-size:16px; line-height:1.6; color:rgba(255,255,255,0.85); margin:0 0 18px;
+    max-width:560px; font-size:16px; line-height:1.6; color:rgba(255,255,255,0.85); margin:0 0 28px;
     font-weight:400;
     text-shadow: 0 2px 12px rgba(0,0,0,0.45);
   }
-  .rating-badge{
-    display:inline-flex; align-items:center; gap:7px; background: rgba(255,255,255,0.1);
-    border:1px solid rgba(255,255,255,0.28); backdrop-filter: blur(6px);
-    padding:7px 14px 7px 10px; border-radius:999px; margin-bottom:24px; font-size:13px;
-    color:#fff; font-weight:600;
-  }
-  .rating-badge .stars{ color:var(--marigold); font-size:13px; letter-spacing:1px; }
-  .rating-badge .num{ font-family:'Fraunces', serif; font-size:15px; }
-  .rating-badge .sep{ opacity:.4; }
-  .rating-badge .count{ font-weight:500; color:rgba(255,255,255,0.8); }
   .hero-btns{ display:flex; gap:14px; flex-wrap:wrap; }
   .btn-primary{
     background: var(--marigold); color: var(--ink); border:none; padding:14px 28px;
@@ -243,30 +225,6 @@
   .stat b{ display:block; font-family:'Fraunces', serif; font-size:30px; color:var(--ink); }
   .stat span{ font-size:12.5px; color:var(--ink-soft); text-transform:uppercase; letter-spacing:.5px; }
 
-  /* ---------- GALLERY ---------- */
-  .gallery{ background: var(--ivory); }
-  .gallery-grid{
-    display:grid;
-    grid-template-columns: repeat(4, 1fr);
-    grid-auto-rows: 130px;
-    gap: 12px;
-  }
-  .gallery-grid img{
-    width:100%; height:100%; object-fit:cover; border-radius: 14px;
-    display:block; transition: transform .5s ease, filter .5s ease;
-    filter: saturate(1.02);
-  }
-  .gallery-grid a{ display:block; overflow:hidden; border-radius:14px; }
-  .gallery-grid a:hover img{ transform: scale(1.06); }
-  .g1{ grid-column: span 2; grid-row: span 2; }
-  .g2{ grid-column: span 2; grid-row: span 1; }
-  .g3{ grid-column: span 1; grid-row: span 1; }
-  .g4{ grid-column: span 1; grid-row: span 2; }
-  .g5{ grid-column: span 2; grid-row: span 1; }
-  .g6{ grid-column: span 1; grid-row: span 1; }
-  .g7{ grid-column: span 1; grid-row: span 1; }
-  .g8{ grid-column: span 2; grid-row: span 1; }
-
   /* ---------- WHY KURRY PATTA (ICONS) ---------- */
   .icon-grid{
     display:grid; grid-template-columns: repeat(3, 1fr); gap:24px;
@@ -282,9 +240,17 @@
     display:flex; align-items:center; justify-content:center; font-size:28px;
     margin: 0 auto 18px;
   }
-  .icon-card h3{ font-family:'Fraunces', serif; font-weight:500; font-size:19px; margin:0; }
+  .icon-card h3{ font-family:'Fraunces', serif; font-weight:500; font-size:19px; margin:0 0 8px; }
+  .icon-card p{ font-size:13.8px; color:var(--ink-soft); line-height:1.6; margin:0; }
 
   /* ---------- MENU / FOOD GRID ---------- */
+  .cuisine-pills{
+    display:flex; flex-wrap:wrap; justify-content:center; gap:10px; margin:-20px auto 44px;
+  }
+  .cuisine-pills span{
+    background: var(--card); border:1px solid var(--hairline); color:var(--ink-soft);
+    font-size:13px; font-weight:600; padding:9px 18px; border-radius:999px; letter-spacing:.2px;
+  }
   .menu-grid{
     display:grid; grid-template-columns: repeat(3, 1fr); gap: 26px;
   }
@@ -293,8 +259,9 @@
     overflow:hidden; box-shadow: var(--shadow-sm); transition: transform .3s ease, box-shadow .3s ease;
   }
   .dish-card:hover{ transform: translateY(-6px); box-shadow: 0 24px 50px -20px rgba(43,27,18,0.3); }
-  .dish-img{ height:200px; overflow:hidden; }
+  .dish-img{ height:200px; overflow:hidden; background:#F0E9D8; display:flex; align-items:center; justify-content:center; }
   .dish-img img{ width:100%; height:100%; object-fit:cover; display:block; transition: transform .5s ease; }
+  .dish-img.placeholder{ font-family:'Caveat', cursive; font-size:16px; color:var(--ink-soft); text-align:center; padding:20px; }
   .dish-card:hover .dish-img img{ transform: scale(1.08); }
   .dish-body{ padding:20px 22px 24px; }
   .dish-top{ display:flex; align-items:flex-start; justify-content:space-between; gap:10px; margin-bottom:6px; }
@@ -345,13 +312,6 @@
   .celebrate-copy p{ color:rgba(251,246,232,0.8); font-size:15.5px; line-height:1.8; margin:0 0 16px; }
   .celebrate-copy .hero-btns{ margin-top:12px; }
   .celebrate-copy .btn-primary{ box-shadow: 0 12px 26px -10px rgba(0,0,0,0.5); }
-  .celebrate-copy .btn-outline{
-    background: transparent; color:#FBF6E8; border:1.5px solid rgba(251,246,232,0.55);
-    padding:14px 26px; border-radius:999px; font-weight:600; font-size:14.5px; cursor:pointer;
-    font-family:inherit; text-decoration:none; display:inline-flex; align-items:center;
-    transition: background .2s ease, color .2s ease;
-  }
-  .celebrate-copy .btn-outline:hover{ background: #FBF6E8; color:var(--ink); border-color:#FBF6E8; }
 
   /* ---------- GUEST EXPERIENCES / REVIEWS ---------- */
   .reviews-grid{
@@ -366,6 +326,8 @@
   .review-who{ display:flex; align-items:center; gap:12px; }
   .review-avatar{
     width:40px; height:40px; border-radius:50%; overflow:hidden; flex:none;
+    background: rgba(76,122,60,0.15); display:flex; align-items:center; justify-content:center;
+    color:var(--leaf); font-family:'Fraunces', serif; font-weight:500;
   }
   .review-avatar img{ width:100%; height:100%; object-fit:cover; }
   .review-name{ font-weight:600; font-size:13.5px; color:var(--ink); }
@@ -447,8 +409,6 @@
     .reviews-grid{ grid-template-columns: repeat(2,1fr); }
     .branches-grid{ grid-template-columns:1fr; }
     .footer-grid{ grid-template-columns: 1fr 1fr; }
-    .gallery-grid{ grid-template-columns: repeat(2,1fr); grid-auto-rows:150px; }
-    .g1,.g2,.g3,.g4,.g5,.g6,.g7,.g8{ grid-column:span 1; grid-row:span 1; }
   }
   @media (max-width: 560px){
     .menu-grid{ grid-template-columns: 1fr; }
@@ -459,8 +419,6 @@
     .hero-content{ padding: 26px 20px 26px; }
     .hero h1{ font-size: 38px; }
     .hero p{ font-size:14.5px; }
-    .hero-eyebrow{ font-size:20px; }
-    .rating-badge{ font-size:12px; padding:6px 12px 6px 9px; margin-bottom:18px; }
     body{ padding: 14px 10px 40px; }
     .card{ border-radius: 22px; }
     section{ padding: 48px 18px; }
@@ -469,6 +427,7 @@
     .nav-cta{ padding:9px 16px; font-size:12.5px; }
     .section-head{ margin-bottom:38px; }
     .welcome-stats{ gap:22px; flex-wrap:wrap; }
+    .cuisine-pills{ margin-top:0; }
     .footer-grid{ gap:30px; }
     .footer-bottom{ flex-direction:column; align-items:flex-start; }
   }
@@ -522,31 +481,26 @@
   <!-- NAV -->
   <nav class="nav">
     <div class="nav-logo">
-      <img src="https://ritam1997-sudo.github.io/schema/kurry-logo-bg-new.png" alt="Kurry Patta">
+      <a href="#top"><img src="https://ritam1997-sudo.github.io/schema/kurry-logo-bg-new.png" alt="Kurry Patta"></a>
     </div>
     <ul class="nav-links">
-      <li><a href="#gallery">Gallery</a></li>
-      <li><a href="#menu">Menu</a></li>
-      <li><a href="#why-us">Why Us</a></li>
-      <li><a href="#celebrate">Celebrate</a></li>
-      <li><a href="#reviews">Reviews</a></li>
-      <li><a href="#visit">Visit Us</a></li>
+      <li><a href="#top">Home</a></li>
+      <li><a href="story.html">Story</a></li>
+      <li><a href="menu.html">Menu</a></li>
+      <li><a href="catering.html">Catering</a></li>
+      <li><a href="gallery.html">Gallery</a></li>
+      <li><a href="#visit">Locations</a></li>
+      <li><a href="contact.html">Contact</a></li>
     </ul>
-    <button class="nav-cta">Reserve a Table</button>
+    <a href="menu.html" class="nav-cta">Explore Our Menu</a>
   </nav>
 
   <!-- 1. HERO -->
-  <header class="hero">
+  <header class="hero" id="top">
     <img src="https://images.unsplash.com/photo-1739792598744-3512897156e3?q=80&w=1600&auto=format&fit=crop&ixlib=rb-4.1.0" alt="Purely vegetarian multicuisine restaurant interiors — Kurry Patta">
+    <!-- Interior photograph is a placeholder — replace with an actual Kurry Patta interior photo before publishing -->
     <div class="hero-content">
-      <div class="hero-eyebrow">🌿 est. Kolkata</div>
       <h1>Great Food. Warm Hospitality. Purely Vegetarian.</h1>
-      <div class="rating-badge">
-        <span class="stars">★★★★★</span>
-        <span class="num">4.9</span>
-        <span class="sep">·</span>
-        <span class="count">1,200+ Google reviews</span>
-      </div>
       <p>From crisp South Indian favourites and hearty North Indian classics to vibrant chaats and flavourful Indo-Chinese, Kurry Patta brings together the flavours you love in a warm, welcoming space.</p>
       <div class="hero-btns">
         <a href="#menu" class="btn-primary">Explore Our Menu</a>
@@ -559,6 +513,7 @@
     <div class="welcome-wrap">
       <div class="welcome-art">
         <img src="https://media.istockphoto.com/id/1146473426/photo/interior-of-cafe-on-night.webp?a=1&b=1&s=612x612&w=0&k=20&c=El7521L5RCb-aHyxuzmx0HSvfDu5ZIFVtPlJ06dY57k=" alt="Inside Kurry Patta">
+        <!-- Placeholder image — replace with an actual Kurry Patta photograph -->
       </div>
       <div class="welcome-copy">
         <div class="eyebrow">🌱 welcome</div>
@@ -566,30 +521,13 @@
         <p>At Kurry Patta, we believe great food has a way of bringing people together. Whether you're joining us for a leisurely breakfast, a family lunch, an evening snack or a special celebration, you'll find a menu that's made to satisfy every craving.</p>
         <p>From authentic South Indian favourites and hearty North Indian classics to vibrant chaats and flavourful Indo-Chinese, every dish is prepared with fresh ingredients, served with genuine hospitality and enjoyed in a warm, welcoming setting.</p>
         <div class="welcome-stats">
-          <div class="stat"><b>4.9★</b><span>Google rating</span></div>
-          <div class="stat"><b>2</b><span>Kolkata branches</span></div>
           <div class="stat"><b>100%</b><span>Vegetarian</span></div>
+          <div class="stat"><b>2</b><span>Kolkata Locations</span></div>
+          <!-- Third stat intentionally left off: add the verified current Google
+               rating here once confirmed against the live Business Profile, e.g.
+               <div class="stat"><b>4.x★</b><span>Google Rating</span></div> -->
         </div>
       </div>
-    </div>
-  </section>
-
-  <!-- GALLERY -->
-  <section class="gallery" id="gallery">
-    <div class="section-head">
-      <div class="eyebrow">🍃 the room</div>
-      <h2>A feel for the place</h2>
-      <p>Warm wood, low light, and an open kitchen working three cuisines at once.</p>
-    </div>
-    <div class="gallery-grid">
-      <a class="g1" href="#"><img src="https://media.istockphoto.com/id/2180482774/photo/interior-lounge-architecture.webp?a=1&b=1&s=612x612&w=0&k=20&c=-ZO0oNFZH_AC5WH6uhFD3E7gGBvuOVQ24GbudA-b4ck=" alt="Lounge interior"></a>
-      <a class="g2" href="#"><img src="https://media.istockphoto.com/id/1146473426/photo/interior-of-cafe-on-night.webp?a=1&b=1&s=612x612&w=0&k=20&c=El7521L5RCb-aHyxuzmx0HSvfDu5ZIFVtPlJ06dY57k=" alt="Cafe at night"></a>
-      <a class="g3" href="#"><img src="https://media.istockphoto.com/id/2219639911/photo/empty-tables-awaiting-customers-in-modern-restaurant.webp?a=1&b=1&s=612x612&w=0&k=20&c=q6XKt0b0Rk7XQ-CZgGIDCWU0G49lO5d-bfNhsH-vx64=" alt="Dining tables"></a>
-      <a class="g4" href="#"><img src="https://images.unsplash.com/photo-1765021096871-80e396247f46?w=800&auto=format&fit=crop&q=60&ixlib=rb-4.1.0" alt="Restaurant detail"></a>
-      <a class="g5" href="#"><img src="https://images.unsplash.com/photo-1768982463473-9d94547f8814?w=800&auto=format&fit=crop&q=60&ixlib=rb-4.1.0" alt="Restaurant detail"></a>
-      <a class="g6" href="#"><img src="https://images.unsplash.com/photo-1729394405518-eaf2a0203aa7?w=800&auto=format&fit=crop&q=60&ixlib=rb-4.1.0" alt="Restaurant detail"></a>
-      <a class="g7" href="#"><img src="https://plus.unsplash.com/premium_photo-1661880943744-5da1da373cf4?w=800&auto=format&fit=crop&q=60&ixlib=rb-4.1.0" alt="Restaurant detail"></a>
-      <a class="g8" href="#"><img src="https://images.unsplash.com/photo-1674333102344-1470aa5550b5?w=800&auto=format&fit=crop&q=60&ixlib=rb-4.1.0" alt="Restaurant detail"></a>
     </div>
   </section>
 
@@ -598,32 +536,38 @@
     <div class="section-head">
       <div class="eyebrow">💛 why kurry patta</div>
       <h2>Why Kurry Patta</h2>
-      <p>A few things our regulars come back for.</p>
+      <p>All the things that make dining at Kurry Patta special.</p>
     </div>
     <div class="icon-grid">
       <div class="icon-card">
         <div class="icon-glyph">🌱</div>
         <h3>100% Vegetarian</h3>
+        <p>A completely vegetarian dining experience.</p>
       </div>
       <div class="icon-card">
         <div class="icon-glyph">🍽️</div>
-        <h3>Four Favourite Cuisines</h3>
+        <h3>Something for Every Craving</h3>
+        <p>South Indian, North Indian, Chaat and Indo-Chinese favourites under one roof.</p>
       </div>
       <div class="icon-card">
         <div class="icon-glyph">🥬</div>
         <h3>Fresh Ingredients</h3>
+        <p>Fresh ingredients and careful preparation in every dish.</p>
       </div>
       <div class="icon-card">
         <div class="icon-glyph">❤️</div>
         <h3>Warm Hospitality</h3>
+        <p>A welcoming experience for families, friends and guests of all ages.</p>
       </div>
       <div class="icon-card">
-        <div class="icon-glyph">👨‍👩‍👧‍👦</div>
-        <h3>Family Friendly</h3>
+        <div class="icon-glyph">🍴</div>
+        <h3>Made for Sharing</h3>
+        <p>A menu and setting designed for meals enjoyed together.</p>
       </div>
       <div class="icon-card">
         <div class="icon-glyph">🎉</div>
-        <h3>Catering &amp; Celebrations</h3>
+        <h3>Celebrations &amp; Catering</h3>
+        <p>From family gatherings to larger celebrations, we bring great food to every occasion.</p>
       </div>
     </div>
   </section>
@@ -633,97 +577,80 @@
     <div class="section-head">
       <div class="eyebrow">🍛 explore our menu</div>
       <h2>Explore Our Menu</h2>
-      <p>A curated pick of the dishes Kolkata keeps ordering — from soft idlis and crisp dosas to wok-fired Indo-Chinese and vibrant chaats. This is just a highlight; our full purely vegetarian menu runs 60+ dishes deep.</p>
+      <p>From comforting classics to dishes that tempt you to try something new, there's something for every craving at Kurry Patta.</p>
     </div>
+
+    <div class="cuisine-pills">
+      <span>South Indian</span>
+      <span>North Indian</span>
+      <span>Chaat</span>
+      <span>Indo-Chinese</span>
+      <span>Beverages</span>
+      <span>Desserts</span>
+    </div>
+
+    <!--
+      IMPORTANT — PLACEHOLDER CONTENT BELOW
+      The nine dish cards below are structural placeholders only. Per your
+      feedback, none of the previous dish names, descriptions or prices were
+      verified, so they have been replaced with clearly-marked placeholders.
+      Please send through 6–9 actual signature/best-selling dishes (name,
+      one-line description, current price, and a real photograph of the dish)
+      and we will drop them straight into this grid.
+    -->
     <div class="menu-grid">
 
       <div class="dish-card">
-        <div class="dish-img"><img src="https://res.cloudinary.com/dkwdrzobk/image/upload/v1785603021/food-3_ygfzl0.avif" alt="Banana leaf meal with rice and fritters Kolkata"></div>
+        <div class="dish-img placeholder">Add photo of<br>signature dish</div>
         <div class="dish-body">
-          <div class="dish-top"><h3>Banana Leaf Combo Meal</h3><span class="dish-price">₹220</span></div>
-          <p>Steamed rice, crisp fritter and fresh coconut chutney, served the traditional way on banana leaf.</p>
-          <span class="dish-tag">South Indian · Vegetarian</span>
+          <div class="dish-top"><h3>[Dish name]</h3><span class="dish-price">[₹ Price]</span></div>
+          <p>[Short description of the dish, in plain language.]</p>
+          <span class="dish-tag">[Cuisine]</span>
         </div>
       </div>
 
       <div class="dish-card">
-        <div class="dish-img"><img src="https://res.cloudinary.com/dkwdrzobk/image/upload/v1785603018/food-6_h2m07j.avif" alt="Idiyappam rice sevai breakfast Kolkata"></div>
+        <div class="dish-img placeholder">Add photo of<br>signature dish</div>
         <div class="dish-body">
-          <div class="dish-top"><h3>Idiyappam with Sambar</h3><span class="dish-price">₹180</span></div>
-          <p>Soft steamed rice noodles, coconut chutney and a trio of accompaniments on the side.</p>
-          <span class="dish-tag">South Indian · Vegetarian</span>
+          <div class="dish-top"><h3>[Dish name]</h3><span class="dish-price">[₹ Price]</span></div>
+          <p>[Short description of the dish, in plain language.]</p>
+          <span class="dish-tag">[Cuisine]</span>
         </div>
       </div>
 
       <div class="dish-card">
-        <div class="dish-img"><img src="https://res.cloudinary.com/dkwdrzobk/image/upload/v1785603016/food-7_nphump.avif" alt="Schezwan noodles wok-fired Kolkata"></div>
+        <div class="dish-img placeholder">Add photo of<br>signature dish</div>
         <div class="dish-body">
-          <div class="dish-top"><h3>Schezwan Noodles</h3><span class="dish-price">₹280</span></div>
-          <p>Wok-tossed noodles, crunchy vegetables and a fiery schezwan kick.</p>
-          <span class="dish-tag">Indo-Chinese · Vegetarian</span>
+          <div class="dish-top"><h3>[Dish name]</h3><span class="dish-price">[₹ Price]</span></div>
+          <p>[Short description of the dish, in plain language.]</p>
+          <span class="dish-tag">[Cuisine]</span>
         </div>
       </div>
 
       <div class="dish-card">
-        <div class="dish-img"><img src="https://res.cloudinary.com/dkwdrzobk/image/upload/v1785603016/food-2_x7py44.avif" alt="South Indian thali dosa idli sambar Kolkata"></div>
+        <div class="dish-img placeholder">Add photo of<br>signature dish</div>
         <div class="dish-body">
-          <div class="dish-top"><h3>South Indian Thali</h3><span class="dish-price">₹340</span></div>
-          <p>Dosa, idli, sambar and a spread of chutneys — a full South Indian meal on one plate.</p>
-          <span class="dish-tag">Best seller · South Indian</span>
+          <div class="dish-top"><h3>[Dish name]</h3><span class="dish-price">[₹ Price]</span></div>
+          <p>[Short description of the dish, in plain language.]</p>
+          <span class="dish-tag">[Cuisine]</span>
         </div>
       </div>
 
       <div class="dish-card">
-        <div class="dish-img"><img src="https://res.cloudinary.com/dkwdrzobk/image/upload/v1785603014/food-8_awlmoz.avif" alt="Masala dosa Kolkata restaurant"></div>
+        <div class="dish-img placeholder">Add photo of<br>signature dish</div>
         <div class="dish-body">
-          <div class="dish-top"><h3>Masala Dosa</h3><span class="dish-price">₹190</span></div>
-          <p>Crisp rice-and-lentil crepe, spiced potato filling, served with sambar and chutney.</p>
-          <span class="dish-tag">Vegetarian · South Indian</span>
+          <div class="dish-top"><h3>[Dish name]</h3><span class="dish-price">[₹ Price]</span></div>
+          <p>[Short description of the dish, in plain language.]</p>
+          <span class="dish-tag">[Cuisine]</span>
         </div>
       </div>
 
       <div class="dish-card">
-        <div class="dish-img"><img src="https://res.cloudinary.com/dkwdrzobk/image/upload/v1785603010/food-5_dt9iy6.avif" alt="Chilli garlic noodles Indo-Chinese Kolkata"></div>
+        <div class="dish-img placeholder">Add photo of<br>signature dish</div>
         <div class="dish-body">
-          <div class="dish-top"><h3>Chilli Garlic Noodles</h3><span class="dish-price">₹300</span></div>
-          <p>Wok-fried noodles tossed in chilli-garlic sauce, served with tangy side dips.</p>
-          <span class="dish-tag">Indo-Chinese · Vegetarian</span>
-        </div>
-      </div>
-
-      <div class="dish-card">
-        <div class="dish-img"><img src="https://res.cloudinary.com/dkwdrzobk/image/upload/v1785603010/food-11_iubxlh.avif" alt="Soft idli steamed rice cakes Kolkata"></div>
-        <div class="dish-body">
-          <div class="dish-top"><h3>Idli</h3><span class="dish-price">₹150</span></div>
-          <p>Soft steamed rice cakes, served warm with coconut chutney.</p>
-          <span class="dish-tag">Vegetarian · South Indian</span>
-        </div>
-      </div>
-
-      <div class="dish-card">
-        <div class="dish-img"><img src="https://res.cloudinary.com/dkwdrzobk/image/upload/v1785603009/food-4_iku6yy.avif" alt="Paper dosa crispy Kolkata"></div>
-        <div class="dish-body">
-          <div class="dish-top"><h3>Paper Dosa</h3><span class="dish-price">₹210</span></div>
-          <p>Extra-crisp, extra-long rice crepe, served with sambar and coconut chutney.</p>
-          <span class="dish-tag">Vegetarian · South Indian</span>
-        </div>
-      </div>
-
-      <div class="dish-card">
-        <div class="dish-img"><img src="https://res.cloudinary.com/dkwdrzobk/image/upload/v1785603008/food-14_ib7bgi.avif" alt="Vegetable uttapam Kolkata restaurant"></div>
-        <div class="dish-body">
-          <div class="dish-top"><h3>Vegetable Uttapam</h3><span class="dish-price">₹220</span></div>
-          <p>Thick rice-batter pancake loaded with vegetables, served with chutney and sambar.</p>
-          <span class="dish-tag">Vegetarian · South Indian</span>
-        </div>
-      </div>
-
-      <div class="dish-card">
-        <div class="dish-img"><img src="https://res.cloudinary.com/dkwdrzobk/image/upload/v1785603009/food-12_pmyh0e.avif" alt="Rava idli semolina steamed cake Kolkata"></div>
-        <div class="dish-body">
-          <div class="dish-top"><h3>Rava Idli</h3><span class="dish-price">₹160</span></div>
-          <p>Golden semolina idli, lightly spiced, served with chutney.</p>
-          <span class="dish-tag">Vegetarian · South Indian</span>
+          <div class="dish-top"><h3>[Dish name]</h3><span class="dish-price">[₹ Price]</span></div>
+          <p>[Short description of the dish, in plain language.]</p>
+          <span class="dish-tag">[Cuisine]</span>
         </div>
       </div>
 
@@ -737,16 +664,17 @@
   <section class="celebrate" id="celebrate">
     <div class="celebrate-wrap">
       <div class="celebrate-copy">
-        <div class="eyebrow">🎉 celebrate with kurry patta</div>
+        <div class="eyebrow">🎉 every occasion deserves great food</div>
         <h2>Every Occasion Deserves Great Food</h2>
-        <p>Whether it's a birthday, a family get-together, an office lunch or simply a meal with friends, Kurry Patta is a place where people come together over food they love. Hosting an event? Our catering team can bring the same flavours to your celebration.</p>
+        <p>Whether it's a birthday, a family get-together, an office lunch or simply a meal with friends, Kurry Patta is a place where people come together over food they love.</p>
+        <p>Hosting an event? Our catering team can bring the flavours of Kurry Patta to your celebration.</p>
         <div class="hero-btns">
-          <button class="btn-primary">Reserve a Table</button>
-          <a href="#visit" class="btn-outline">Enquire About Catering</a>
+          <a href="catering.html" class="btn-primary">Enquire About Catering</a>
         </div>
       </div>
       <div class="celebrate-art">
         <img src="https://media.istockphoto.com/id/2180482774/photo/interior-lounge-architecture.webp?a=1&b=1&s=612x612&w=0&k=20&c=-ZO0oNFZH_AC5WH6uhFD3E7gGBvuOVQ24GbudA-b4ck=" alt="Celebrations and gatherings at Kurry Patta">
+        <!-- Placeholder image — replace with an actual Kurry Patta celebration/catering photo -->
       </div>
     </div>
   </section>
@@ -756,39 +684,49 @@
     <div class="section-head">
       <div class="eyebrow">💬 guest experiences</div>
       <h2>What Our Guests Say</h2>
-      <p>1,200+ Google reviews and counting — a few recent favourites.</p>
+      <p>Reviews from our guests on Google.</p>
     </div>
+
+    <!--
+      IMPORTANT — PLACEHOLDER CONTENT BELOW
+      The three cards below are structural placeholders. The invented names,
+      quotes and stock "guest photos" from the previous draft have been
+      removed as instructed. Please send 3 genuine Google reviews (with
+      permission to reproduce) and we will replace the bracketed text below.
+      Initials are shown instead of a photo unless a real, permitted guest
+      photo is supplied.
+    -->
     <div class="reviews-grid">
       <div class="review-card">
         <div class="review-stars">★★★★★</div>
-        <p>Purely vegetarian and it doesn't feel like a compromise at all — the South Indian thali and the chaat counter are both excellent. Great spot for a family lunch.</p>
+        <p>[Insert an actual guest review from our Google Business Profile.]</p>
         <div class="review-who">
-          <div class="review-avatar"><img src="https://images.unsplash.com/photo-1544005313-94ddf0286df2?w=100&auto=format&fit=crop&q=60" alt="Guest photo"></div>
+          <div class="review-avatar">?</div>
           <div>
-            <div class="review-name">Ananya Sen</div>
-            <div class="review-meta">Google review · Ballygunge</div>
+            <div class="review-name">[Guest name]</div>
+            <div class="review-meta">Google review · [Location]</div>
           </div>
         </div>
       </div>
       <div class="review-card">
         <div class="review-stars">★★★★★</div>
-        <p>The Indo-Chinese menu is a pleasant surprise — wok-fired flavour without any compromise on freshness. Staff are warm and the place is great for kids too.</p>
+        <p>[Insert an actual guest review from our Google Business Profile.]</p>
         <div class="review-who">
-          <div class="review-avatar"><img src="https://images.unsplash.com/photo-1633332755192-727a05c4013d?w=100&auto=format&fit=crop&q=60" alt="Guest photo"></div>
+          <div class="review-avatar">?</div>
           <div>
-            <div class="review-name">Rohit Banerjee</div>
-            <div class="review-meta">Google review · Elgin</div>
+            <div class="review-name">[Guest name]</div>
+            <div class="review-meta">Google review · [Location]</div>
           </div>
         </div>
       </div>
       <div class="review-card">
         <div class="review-stars">★★★★★</div>
-        <p>Booked Kurry Patta for a birthday get-together and the catering team made it effortless. The North Indian spread was a hit with everyone at the table.</p>
+        <p>[Insert an actual guest review from our Google Business Profile.]</p>
         <div class="review-who">
-          <div class="review-avatar"><img src="https://images.unsplash.com/photo-1607346256330-dee7af15f7c5?w=100&auto=format&fit=crop&q=60" alt="Guest photo"></div>
+          <div class="review-avatar">?</div>
           <div>
-            <div class="review-name">Priya Chatterjee</div>
-            <div class="review-meta">Google review · Ballygunge</div>
+            <div class="review-name">[Guest name]</div>
+            <div class="review-meta">Google review · [Location]</div>
           </div>
         </div>
       </div>
@@ -798,46 +736,25 @@
     </div>
   </section>
 
-  <!-- 7. VISIT US -->
+  <!-- 7. WE'D LOVE TO WELCOME YOU -->
   <section id="visit">
     <div class="section-head">
-      <div class="eyebrow">📍 visit us</div>
-      <h2>Visit Us</h2>
-      <p>Walk in at Ballygunge or Elgin — same kitchen standard, same warm welcome.</p>
+      <div class="eyebrow">📍 we'd love to welcome you</div>
+      <h2>We'd Love to Welcome You</h2>
+      <p>Walk in at Hungerford Street or Lake Road — same kitchen standard, same warm welcome.</p>
     </div>
 
+    <!-- Address, hours and phone numbers below are carried over from the
+         existing listing. Please confirm they are still correct before publishing. -->
     <div class="branches-grid">
-
-      <div class="branch-card">
-        <div class="branch-map">
-          <iframe src="https://www.google.com/maps?q=P79,+Lake+Rd,+Lake+Terrace,+Ballygunge,+Kolkata,+West+Bengal+700029&output=embed" loading="lazy" allowfullscreen referrerpolicy="no-referrer-when-downgrade"></iframe>
-        </div>
-        <div class="branch-body">
-          <div class="branch-tag">branch 01</div>
-          <h3>Ballygunge</h3>
-          <div class="branch-row">
-            <svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="#4C7A3C" stroke-width="1.8"><path d="M12 22s7-7.58 7-12.5A7 7 0 0 0 5 9.5C5 14.42 12 22 12 22z"/><circle cx="12" cy="9.5" r="2.5"/></svg>
-            <span>P79, Lake Rd, 1st Floor, Lake Terrace, Ballygunge, Kolkata, West Bengal 700029</span>
-          </div>
-          <div class="branch-row">
-            <svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="#4C7A3C" stroke-width="1.8"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3.5 2"/></svg>
-            <span>Open daily · 7 AM – 10 PM</span>
-          </div>
-          <div class="branch-row">
-            <svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="#4C7A3C" stroke-width="1.8"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72c.13.99.36 1.96.68 2.9a2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.18-1.18a2 2 0 0 1 2.11-.45c.94.32 1.91.55 2.9.68A2 2 0 0 1 22 16.92z"/></svg>
-            <a href="tel:+913379613497">033-79613497</a>
-          </div>
-          <a href="https://maps.app.goo.gl/Byg2UaB6NYLw2Aj17" target="_blank" rel="noopener" class="branch-cta">Get Directions — Ballygunge →</a>
-        </div>
-      </div>
 
       <div class="branch-card">
         <div class="branch-map">
           <iframe src="https://www.google.com/maps?q=6,+Hungerford+St,+Elgin,+Kolkata,+West+Bengal+700017&output=embed" loading="lazy" allowfullscreen referrerpolicy="no-referrer-when-downgrade"></iframe>
         </div>
         <div class="branch-body">
-          <div class="branch-tag">branch 02</div>
-          <h3>Elgin</h3>
+          <div class="branch-tag">outlet 01</div>
+          <h3>Hungerford Street</h3>
           <div class="branch-row">
             <svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="#4C7A3C" stroke-width="1.8"><path d="M12 22s7-7.58 7-12.5A7 7 0 0 0 5 9.5C5 14.42 12 22 12 22z"/><circle cx="12" cy="9.5" r="2.5"/></svg>
             <span>6, Hungerford St, Elgin, Kolkata, West Bengal 700017</span>
@@ -850,7 +767,30 @@
             <svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="#4C7A3C" stroke-width="1.8"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72c.13.99.36 1.96.68 2.9a2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.18-1.18a2 2 0 0 1 2.11-.45c.94.32 1.91.55 2.9.68A2 2 0 0 1 22 16.92z"/></svg>
             <a href="tel:+919330920780">+91 93309 20780</a>
           </div>
-          <a href="https://maps.app.goo.gl/x1NgQo8PLkjQdsk79" target="_blank" rel="noopener" class="branch-cta">Get Directions — Elgin →</a>
+          <a href="https://maps.app.goo.gl/x1NgQo8PLkjQdsk79" target="_blank" rel="noopener" class="branch-cta">Get Directions →</a>
+        </div>
+      </div>
+
+      <div class="branch-card">
+        <div class="branch-map">
+          <iframe src="https://www.google.com/maps?q=P79,+Lake+Rd,+Lake+Terrace,+Ballygunge,+Kolkata,+West+Bengal+700029&output=embed" loading="lazy" allowfullscreen referrerpolicy="no-referrer-when-downgrade"></iframe>
+        </div>
+        <div class="branch-body">
+          <div class="branch-tag">outlet 02</div>
+          <h3>Lake Road</h3>
+          <div class="branch-row">
+            <svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="#4C7A3C" stroke-width="1.8"><path d="M12 22s7-7.58 7-12.5A7 7 0 0 0 5 9.5C5 14.42 12 22 12 22z"/><circle cx="12" cy="9.5" r="2.5"/></svg>
+            <span>P79, Lake Rd, 1st Floor, Lake Terrace, Ballygunge, Kolkata, West Bengal 700029</span>
+          </div>
+          <div class="branch-row">
+            <svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="#4C7A3C" stroke-width="1.8"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3.5 2"/></svg>
+            <span>Open daily · 7 AM – 10 PM</span>
+          </div>
+          <div class="branch-row">
+            <svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="#4C7A3C" stroke-width="1.8"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72c.13.99.36 1.96.68 2.9a2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.18-1.18a2 2 0 0 1 2.11-.45c.94.32 1.91.55 2.9.68A2 2 0 0 1 22 16.92z"/></svg>
+            <a href="tel:+913379613497">033-79613497</a>
+          </div>
+          <a href="https://maps.app.goo.gl/Byg2UaB6NYLw2Aj17" target="_blank" rel="noopener" class="branch-cta">Get Directions →</a>
         </div>
       </div>
 
@@ -862,40 +802,37 @@
     <div class="footer-grid">
       <div class="footer-brand">
         <img src="https://ritam1997-sudo.github.io/schema/footer_logo-removebg-preview.png" alt="Kurry Patta" onerror="this.style.display='none'">
-        <p>Kolkata's purely vegetarian table — South Indian, North Indian, chaats and Indo-Chinese, cooked properly, served warm, at two branches across the city.</p>
+        <p>Kolkata's purely vegetarian table — South Indian, North Indian, Chaat and Indo-Chinese, served warm, at two locations across the city.</p>
       </div>
       <div class="footer-col">
         <h4>Quick Links</h4>
         <ul>
-          <li><a href="#welcome">Welcome</a></li>
-          <li><a href="#gallery">Gallery</a></li>
-          <li><a href="#why-us">Why Us</a></li>
-          <li><a href="#menu">Menu</a></li>
-          <li><a href="#celebrate">Celebrate</a></li>
-          <li><a href="#reviews">Reviews</a></li>
-          <li><a href="#visit">Visit Us</a></li>
+          <li><a href="#top">Home</a></li>
+          <li><a href="story.html">Story</a></li>
+          <li><a href="menu.html">Menu</a></li>
+          <li><a href="catering.html">Catering</a></li>
+          <li><a href="gallery.html">Gallery</a></li>
+          <li><a href="#visit">Locations</a></li>
+          <li><a href="contact.html">Contact</a></li>
         </ul>
       </div>
       <div class="footer-col">
         <h4>Get In Touch</h4>
         <ul>
-          <li><a href="tel:+913379613497">033-79613497 (Ballygunge)</a></li>
-          <li><a href="tel:+919330920780">+91 93309 20780 (Elgin)</a></li>
+          <li><a href="tel:+919330920780">+91 93309 20780 (Hungerford St)</a></li>
+          <li><a href="tel:+913379613497">033-79613497 (Lake Road)</a></li>
           <li><a href="mailto:hello@kurrypata.in">hello@kurrypata.in</a></li>
         </ul>
       </div>
       <div class="footer-col">
         <h4>Opening Hours</h4>
         <ul>
-          <li><span>Ballygunge: 7 AM – 10 PM daily</span></li>
-          <li><span>Elgin: 8 AM – 10 PM daily</span></li>
+          <li><span>Hungerford St: 8 AM – 10 PM daily</span></li>
+          <li><span>Lake Road: 7 AM – 10 PM daily</span></li>
         </ul>
         <div class="footer-social" style="margin-top:14px;">
           <a href="#" aria-label="Instagram">
             <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><rect x="3" y="3" width="18" height="18" rx="5"/><circle cx="12" cy="12" r="3.5"/><circle cx="17.2" cy="6.8" r="1"/></svg>
-          </a>
-          <a href="#" aria-label="Facebook">
-            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M14 9h3V6h-3c-1.66 0-3 1.34-3 3v2H8v3h3v6h3v-6h3l1-3h-4v-2c0-.55.45-1 1-1z"/></svg>
           </a>
         </div>
       </div>
