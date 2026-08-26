@@ -1,0 +1,758 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>LED Hoarding & Digital Billboard Company in India | Riot Color India</title>
+<meta name="description" content="Riot Color India engineers LED hoardings, digital billboards and outdoor LED display solutions for brands, agencies and large-format advertising environments across India." />
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Manrope:wght@500;700;800&family=Inter:wght@400;500;600&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --bg:#F7F8FA;
+    --bg-2:#FFFFFF;
+    --surface:#FFFFFF;
+    --surface-2:#F1F3F6;
+    --line: rgba(15,20,30,0.10);
+    --text:#12151C;
+    --muted:#5C6675;
+    --accent:#0891B2;
+    --accent-2:#0E7490;
+    --accent-soft: rgba(8,145,178,0.08);
+    --glow:#7C3AED;
+    --radius: 14px;
+    --maxw: 1360px;
+    --dark:#0B0D12;
+    --dark-2:#12151C;
+  }
+  *{box-sizing:border-box;}
+  html{scroll-behavior:smooth;}
+  body{
+    margin:0;
+    background:var(--bg);
+    color:var(--text);
+    font-family:'Inter',sans-serif;
+    -webkit-font-smoothing:antialiased;
+    overflow-x:hidden;
+  }
+  h1,h2,h3,.display{font-family:'Manrope',sans-serif; letter-spacing:-0.02em;}
+  .mono{font-family:'IBM Plex Mono',monospace;}
+  .wrap{max-width:var(--maxw); margin:0 auto; padding:0 32px;}
+  @media(max-width:760px){.wrap{padding:0 20px;}}
+  a{color:inherit; text-decoration:none;}
+  img{max-width:100%; display:block;}
+  .eyebrow{
+    font-family:'IBM Plex Mono',monospace;
+    text-transform:uppercase;
+    font-size:11.5px;
+    letter-spacing:0.16em;
+    color:var(--accent-2);
+    display:flex; align-items:center; gap:10px;
+    margin-bottom:18px;
+  }
+  .eyebrow::before{content:''; width:16px; height:1px; background:var(--accent); display:inline-block;}
+  .eyebrow.on-dark{color:#7FE3F5;}
+  .eyebrow.on-dark::before{background:#7FE3F5;}
+  .muted{color:var(--muted);}
+  .btn{
+    display:inline-flex; align-items:center; gap:8px;
+    padding:14px 26px; border-radius:999px;
+    font-weight:600; font-size:14.5px; cursor:pointer; border:1px solid transparent;
+    transition:transform .25s ease, background .25s ease, border-color .25s ease, color .25s ease;
+    white-space:nowrap;
+  }
+  .btn-primary{background:var(--text); color:#fff;}
+  .btn-primary:hover{transform:translateY(-2px); background:var(--accent);}
+  .btn-ghost{border-color:var(--line); color:var(--text);}
+  .btn-ghost:hover{border-color:var(--accent); color:var(--accent); transform:translateY(-2px);}
+  .btn-on-dark{background:#fff; color:#0B0D12;}
+  .btn-on-dark:hover{background:var(--accent); color:#fff;}
+  .btn-ghost-dark{border-color:rgba(255,255,255,0.25); color:#fff;}
+  .btn-ghost-dark:hover{border-color:#7FE3F5; color:#7FE3F5;}
+  .btn svg{width:14px; height:14px; transition:transform .25s ease;}
+  .btn:hover svg{transform:translateX(3px);}
+
+  /* NAV */
+  header{
+    position:fixed; top:0; left:0; right:0; z-index:100;
+    padding:20px 0;
+    transition:background .35s ease, border-color .35s ease, padding .35s ease, box-shadow .35s ease;
+    border-bottom:1px solid transparent;
+  }
+  header.solid{ background:rgba(255,255,255,0.88); backdrop-filter:blur(14px); border-color:var(--line); padding:14px 0; box-shadow:0 1px 0 rgba(0,0,0,0.02);}
+  nav{display:flex; align-items:center; justify-content:space-between;}
+  .logo{font-family:'Manrope',sans-serif; font-weight:800; font-size:17px; letter-spacing:-0.01em;}
+  .logo span{color:var(--accent);}
+  .navlinks{display:flex; gap:34px; align-items:center;}
+  .navlinks a{font-size:14px; color:var(--muted); transition:color .2s ease;}
+  .navlinks a:hover{color:var(--text);}
+  .navcta{display:flex; align-items:center; gap:18px;}
+  .hamburger{display:none; flex-direction:column; gap:5px; cursor:pointer; background:none; border:none; padding:6px;}
+  .hamburger span{width:22px; height:2px; background:var(--text);}
+  @media(max-width:900px){
+    .navlinks{display:none;}
+    .hamburger{display:flex;}
+    .navcta .btn-ghost{display:none;}
+  }
+  .mobilemenu{
+    position:fixed; inset:0; background:#fff; z-index:200; padding:28px 24px;
+    display:flex; flex-direction:column; transform:translateY(-100%); transition:transform .4s ease;
+  }
+  .mobilemenu.open{transform:translateY(0);}
+  .mobilemenu a{font-size:22px; padding:14px 0; border-bottom:1px solid var(--line); font-family:'Manrope',sans-serif; font-weight:600;}
+  .mobileclose{align-self:flex-end; background:none; border:none; color:var(--text); font-size:28px; cursor:pointer;}
+
+  /* HERO (kept dark/night — it's a real night photograph) */
+  .hero{
+    position:relative; min-height:94svh; display:flex; align-items:center;
+    padding:150px 0 90px; overflow:hidden;
+    background:var(--dark);
+    color:#fff;
+  }
+  .hero-bg{position:absolute; inset:0; z-index:0;}
+  .hero-bg img{width:100%; height:100%; object-fit:cover; object-position:center 30%; opacity:0.62;}
+  .hero-bg::after{
+    content:''; position:absolute; inset:0;
+    background:linear-gradient(180deg, rgba(11,13,18,0.55) 0%, rgba(11,13,18,0.78) 55%, rgba(11,13,18,0.96) 100%),
+               linear-gradient(90deg, rgba(11,13,18,0.9) 0%, rgba(11,13,18,0.35) 55%, rgba(11,13,18,0.75) 100%);
+  }
+  .hero-inner{position:relative; z-index:2; max-width:640px;}
+  .hero h1{
+    font-size:clamp(38px, 5.2vw, 74px);
+    line-height:1.04; font-weight:800; margin:0 0 24px; color:#fff;
+  }
+  .hero p.lead{font-size:18px; color:rgba(255,255,255,0.72); max-width:520px; line-height:1.6; margin:0 0 32px;}
+  .hero-ctas{display:flex; gap:14px; flex-wrap:wrap; margin-bottom:28px;}
+  .flow-line{display:flex; align-items:center; gap:10px; flex-wrap:wrap; font-family:'IBM Plex Mono',monospace; font-size:12px; color:rgba(255,255,255,0.55);}
+  .flow-line b{color:#fff; font-weight:500;}
+  .flow-line .sep{color:#7FE3F5;}
+
+  /* TRUST STRIP */
+  .trust{border-bottom:1px solid var(--line); background:var(--bg-2);}
+  .trust-grid{display:grid; grid-template-columns:repeat(4,1fr); gap:0; padding:34px 0;}
+  .trust-item{padding:0 28px; border-left:1px solid var(--line);}
+  .trust-item:first-child{border-left:none;}
+  .trust-item .tag{font-family:'IBM Plex Mono',monospace; font-size:11px; color:var(--muted); text-transform:uppercase; letter-spacing:.1em; margin-bottom:6px;}
+  .trust-item .val{font-family:'Manrope',sans-serif; font-weight:700; font-size:16px;}
+  @media(max-width:900px){.trust-grid{grid-template-columns:repeat(2,1fr); row-gap:24px;} .trust-item:nth-child(3){border-left:none;}}
+  @media(max-width:560px){.trust-grid{grid-template-columns:1fr;} .trust-item{border-left:none !important; border-top:1px solid var(--line); padding:20px 0 0;}}
+
+  section{padding:120px 0;}
+  @media(max-width:900px){section{padding:80px 0;}}
+  @media(max-width:560px){section{padding:56px 0;}}
+
+  /* INTRO SPLIT */
+  .split{display:grid; grid-template-columns:1fr 1fr; gap:70px; align-items:center;}
+  @media(max-width:900px){.split{grid-template-columns:1fr; gap:36px;}}
+  .split h2{font-size:clamp(30px,3.6vw,46px); font-weight:800; line-height:1.12; margin:0;}
+  .split-right p{color:var(--muted); font-size:17px; line-height:1.7; margin:0 0 28px;}
+  .intro-media{border-radius:20px; overflow:hidden; aspect-ratio:4/3; box-shadow:0 20px 50px -20px rgba(10,20,40,0.25);}
+  .intro-media img{width:100%; height:100%; object-fit:cover;}
+
+  .reveal{opacity:0; transform:translateY(28px); transition:opacity .7s ease, transform .7s ease;}
+  .reveal.in{opacity:1; transform:translateY(0);}
+
+  /* SOLUTIONS */
+  .section-head{display:flex; justify-content:space-between; align-items:flex-end; gap:24px; margin-bottom:56px; flex-wrap:wrap;}
+  .section-head h2{font-size:clamp(30px,3.6vw,48px); font-weight:800; max-width:640px; line-height:1.1; margin:0;}
+  .card-grid{display:grid; grid-template-columns:repeat(3,1fr); gap:22px;}
+  @media(max-width:980px){.card-grid{grid-template-columns:repeat(2,1fr);}}
+  @media(max-width:640px){.card-grid{grid-template-columns:1fr;}}
+  .prod-card{
+    background:var(--surface); border:1px solid var(--line); border-radius:var(--radius);
+    overflow:hidden; position:relative; transition:border-color .3s ease, transform .3s ease, box-shadow .3s ease;
+  }
+  .prod-card:hover{border-color:rgba(8,145,178,0.35); transform:translateY(-4px); box-shadow:0 20px 40px -24px rgba(10,20,40,0.25);}
+  .prod-media{aspect-ratio:16/11; position:relative; overflow:hidden; background:var(--surface-2);}
+  .prod-media img{width:100%; height:100%; object-fit:cover; transition:transform .6s ease;}
+  .prod-card:hover .prod-media img{transform:scale(1.045);}
+  .prod-body{padding:24px;}
+  .prod-body h3{font-size:19px; margin:0 0 10px; font-weight:700;}
+  .prod-body p{font-size:14.5px; color:var(--muted); line-height:1.6; margin:0 0 16px;}
+  .tags{display:flex; gap:8px; flex-wrap:wrap; margin-bottom:16px;}
+  .tags span{font-family:'IBM Plex Mono',monospace; font-size:10.5px; text-transform:uppercase; letter-spacing:.06em; color:var(--muted); border:1px solid var(--line); padding:4px 9px; border-radius:999px;}
+  .card-arrow{display:inline-flex; align-items:center; gap:6px; font-size:13.5px; font-weight:600; color:var(--accent-2);}
+  .card-arrow svg{width:13px; height:13px; transition:transform .25s ease;}
+  .prod-card:hover .card-arrow svg{transform:translateX(4px);}
+
+  /* PIXEL PITCH INTERACTIVE — signature element (stays dark: it simulates a real LED panel) */
+  .pitch-panel{
+    background:var(--dark-2); color:#fff; border-radius:20px;
+    padding:48px; display:grid; grid-template-columns:1fr 1fr; gap:50px; align-items:center;
+  }
+  @media(max-width:900px){.pitch-panel{grid-template-columns:1fr; padding:28px;}}
+  .pitch-viz{aspect-ratio:1/1; background:#000; border-radius:14px; border:1px solid rgba(255,255,255,0.08); position:relative; overflow:hidden;}
+  #pitchCanvas{width:100%; height:100%;}
+  .pitch-controls label{font-family:'IBM Plex Mono',monospace; font-size:11px; text-transform:uppercase; letter-spacing:.1em; color:rgba(255,255,255,0.55); display:block; margin-bottom:10px;}
+  input[type=range]{
+    width:100%; height:3px; border-radius:2px; background:rgba(255,255,255,0.15); appearance:none; margin-bottom:10px;
+  }
+  input[type=range]::-webkit-slider-thumb{
+    appearance:none; width:16px; height:16px; border-radius:50%; background:#7FE3F5; cursor:pointer;
+    box-shadow:0 0 0 5px rgba(127,227,245,0.18);
+  }
+  .pitch-readout{display:grid; grid-template-columns:1fr 1fr; gap:18px; margin-top:22px;}
+  .pitch-readout .stat .k{font-family:'IBM Plex Mono',monospace; font-size:22px; color:#7FE3F5; font-weight:500;}
+  .pitch-readout .stat .l{font-size:12px; color:rgba(255,255,255,0.55); margin-top:4px;}
+  .note{font-size:12px; color:rgba(255,255,255,0.45); margin-top:22px; line-height:1.5;}
+
+  /* INDUSTRIES */
+  .ind-row{display:flex; overflow-x:auto; gap:20px; padding-bottom:8px; scrollbar-width:none; scroll-snap-type:x mandatory;}
+  .ind-row::-webkit-scrollbar{display:none;}
+  .ind-card{
+    min-width:300px; flex:1; background:var(--surface); border:1px solid var(--line); border-radius:var(--radius);
+    overflow:hidden; scroll-snap-align:start;
+  }
+  .ind-media{aspect-ratio:16/10; overflow:hidden; background:var(--surface-2);}
+  .ind-media img{width:100%; height:100%; object-fit:cover;}
+  .ind-body{padding:26px;}
+  .ind-card .n{font-family:'IBM Plex Mono',monospace; font-size:12px; color:var(--accent-2); margin-bottom:14px;}
+  .ind-card h3{font-size:20px; margin:0 0 12px;}
+  .ind-card p{font-size:14.5px; color:var(--muted); line-height:1.6; margin:0 0 18px;}
+
+  /* PROCESS */
+  .process-row{display:grid; grid-template-columns:repeat(6,1fr); gap:16px;}
+  @media(max-width:980px){.process-row{grid-template-columns:repeat(3,1fr);}}
+  @media(max-width:560px){.process-row{grid-template-columns:1fr;}}
+  .proc-step{border-top:2px solid var(--line); padding-top:20px;}
+  .proc-step .num{font-family:'IBM Plex Mono',monospace; color:var(--accent-2); font-size:13px; margin-bottom:14px;}
+  .proc-step h4{font-size:15.5px; margin:0 0 8px;}
+  .proc-step p{font-size:13px; color:var(--muted); line-height:1.55; margin:0;}
+
+  /* TRUST WALL */
+  .trustwall-grid{display:grid; grid-template-columns:repeat(4,1fr); gap:1px; background:var(--line); border:1px solid var(--line); border-radius:var(--radius); overflow:hidden;}
+  @media(max-width:760px){.trustwall-grid{grid-template-columns:repeat(2,1fr);}}
+  .trustwall-grid .c{background:var(--surface); padding:26px 20px; display:flex; align-items:center; justify-content:center; font-family:'Manrope',sans-serif; font-weight:700; font-size:15px; color:var(--muted); text-align:center;}
+
+  /* FAQ */
+  .faq-item{border-bottom:1px solid var(--line);}
+  .faq-q{display:flex; justify-content:space-between; align-items:center; padding:24px 0; cursor:pointer; gap:20px;}
+  .faq-q h4{font-size:16.5px; font-weight:600; margin:0;}
+  .faq-q .plus{width:20px; height:20px; position:relative; flex:none;}
+  .faq-q .plus::before,.faq-q .plus::after{content:''; position:absolute; background:var(--text); top:50%; left:50%; transform:translate(-50%,-50%);}
+  .faq-q .plus::before{width:14px; height:1.5px;}
+  .faq-q .plus::after{width:1.5px; height:14px; transition:transform .3s ease;}
+  .faq-item.open .plus::after{transform:translate(-50%,-50%) rotate(90deg) scale(0);}
+  .faq-a{max-height:0; overflow:hidden; transition:max-height .35s ease;}
+  .faq-a p{color:var(--muted); font-size:14.5px; line-height:1.7; padding:0 0 26px; margin:0; max-width:760px;}
+
+  /* FINAL CTA */
+  .final-cta{
+    position:relative; border-radius:24px; overflow:hidden; padding:90px 60px;
+    color:#fff;
+  }
+  .final-cta .fc-bg{position:absolute; inset:0; z-index:0;}
+  .final-cta .fc-bg img{width:100%; height:100%; object-fit:cover;}
+  .final-cta .fc-bg::after{content:''; position:absolute; inset:0; background:linear-gradient(120deg, rgba(11,13,18,0.92) 20%, rgba(11,13,18,0.55) 100%);}
+  .final-cta > *{position:relative; z-index:1;}
+  @media(max-width:760px){.final-cta{padding:56px 26px;}}
+  .final-cta h2{font-size:clamp(30px,4.4vw,52px); font-weight:800; max-width:680px; margin:0 0 20px; color:#fff;}
+  .final-cta p{color:rgba(255,255,255,0.75); font-size:17px; max-width:520px; margin:0 0 34px;}
+  .contact-row{display:flex; gap:28px; flex-wrap:wrap; margin-top:36px; font-family:'IBM Plex Mono',monospace; font-size:13.5px;}
+  .contact-row a{color:#fff; border-bottom:1px solid rgba(255,255,255,0.3); padding-bottom:2px;}
+  .contact-row a:hover{color:#7FE3F5; border-color:#7FE3F5;}
+
+  /* FOOTER */
+  footer{padding:80px 0 30px; border-top:1px solid var(--line); background:var(--bg-2);}
+  .foot-grid{display:grid; grid-template-columns:1.4fr repeat(4,1fr); gap:40px; margin-bottom:60px;}
+  @media(max-width:900px){.foot-grid{grid-template-columns:repeat(2,1fr);}}
+  .foot-grid h5{font-size:12px; text-transform:uppercase; letter-spacing:.1em; color:var(--muted); margin:0 0 18px; font-family:'IBM Plex Mono',monospace;}
+  .foot-grid a{display:block; font-size:14px; color:var(--muted); margin-bottom:12px; transition:color .2s ease;}
+  .foot-grid a:hover{color:var(--text);}
+  .foot-bottom{display:flex; justify-content:space-between; align-items:center; padding-top:28px; border-top:1px solid var(--line); flex-wrap:wrap; gap:16px;}
+  .foot-bottom p{font-size:12.5px; color:var(--muted); margin:0;}
+  .foot-social{display:flex; gap:16px;}
+  .foot-social a{color:var(--muted);}
+  .foot-social a:hover{color:var(--accent);}
+
+  /* Sticky mobile CTA */
+  .stickycta{
+    position:fixed; bottom:0; left:0; right:0; z-index:90; display:none;
+    background:rgba(255,255,255,0.94); backdrop-filter:blur(12px); border-top:1px solid var(--line);
+    padding:12px 16px; gap:10px;
+  }
+  @media(max-width:760px){.stickycta{display:flex;}}
+  .stickycta a{flex:1; text-align:center; padding:13px; border-radius:10px; font-weight:600; font-size:14px;}
+  .stickycta .call{background:var(--text); color:#fff;}
+  .stickycta .wa{border:1px solid var(--line); color:var(--text);}
+
+  @media (prefers-reduced-motion: reduce){
+    *{animation-duration:0.01ms !important; transition-duration:0.01ms !important;}
+  }
+</style>
+</head>
+<body>
+
+<header id="siteHeader">
+  <div class="wrap">
+    <nav>
+      <a href="#" class="logo">RIOT COLOR <span>INDIA</span></a>
+      <div class="navlinks">
+        <a href="#solutions">Solutions</a>
+        <a href="#technical">Technical</a>
+        <a href="#industries">Industries</a>
+        <a href="#process">Process</a>
+        <a href="#faq">FAQ</a>
+        <a href="https://www.riotcolor.in/about-us/">About</a>
+      </div>
+      <div class="navcta">
+        <a class="btn btn-ghost" href="tel:9830809000">9830 80 9000</a>
+        <a class="btn btn-primary" href="#quote">Get a Quote</a>
+        <button class="hamburger" id="hamburgerBtn" aria-label="Open menu"><span></span><span></span><span></span></button>
+      </div>
+    </nav>
+  </div>
+</header>
+
+<div class="mobilemenu" id="mobileMenu">
+  <button class="mobileclose" id="mobileClose" aria-label="Close menu">×</button>
+  <a href="#solutions">Solutions</a>
+  <a href="#technical">Technical</a>
+  <a href="#industries">Industries</a>
+  <a href="#process">Process</a>
+  <a href="#faq">FAQ</a>
+  <a href="tel:9830809000">Call 9830 80 9000</a>
+  <a href="#quote">Get a Quote</a>
+</div>
+
+<!-- HERO -->
+<section class="hero">
+  <div class="hero-bg">
+    <img src="https://images.unsplash.com/photo-1774876237646-31f1bd165dcb?auto=format&fit=crop&w=2000&q=80" alt="Illuminated LED billboards on a city street at night" loading="eager">
+  </div>
+  <div class="wrap hero-inner">
+    <div class="eyebrow on-dark">LED HOARDINGS · DIGITAL BILLBOARDS · DOOH</div>
+    <h1>Make Your Brand<br>Impossible to Miss.</h1>
+    <p class="lead">High-impact LED hoardings and digital billboard solutions, engineered by Riot Color India for brands, agencies and large-scale outdoor environments across the country.</p>
+    <div class="hero-ctas">
+      <a class="btn btn-on-dark" href="#quote">Get a Project Quote <svg viewBox="0 0 24 24" fill="none"><path d="M5 12h14M13 6l6 6-6 6" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg></a>
+      <a class="btn btn-ghost-dark" href="#solutions">Explore Our Solutions</a>
+    </div>
+    <div class="flow-line">
+      <b>Design</b><span class="sep">→</span><b>Production</b><span class="sep">→</span><b>Installation</b><span class="sep">→</span><b>Support</b>
+    </div>
+  </div>
+</section>
+
+<!-- TRUST STRIP -->
+<div class="trust">
+  <div class="wrap trust-grid">
+    <div class="trust-item">
+      <div class="tag">Parent Group</div>
+      <div class="val">ARC Document Solutions</div>
+    </div>
+    <div class="trust-item">
+      <div class="tag">Compliance</div>
+      <div class="val">ISO/IEC 27001:2022 · SOC 2</div>
+    </div>
+    <div class="trust-item">
+      <div class="tag">Coverage</div>
+      <div class="val">Kolkata · Bangalore · Chennai · Pan-India</div>
+    </div>
+    <div class="trust-item">
+      <div class="tag">Delivery Model</div>
+      <div class="val">Design → Install → AMC</div>
+    </div>
+  </div>
+</div>
+
+<!-- INTRO -->
+<section>
+  <div class="wrap split reveal">
+    <div>
+      <div class="eyebrow">Built for Visibility</div>
+      <h2>Digital displays designed for the places that matter.</h2>
+      <p class="muted" style="font-size:17px; line-height:1.7; margin-top:20px; max-width:480px;">From highways and commercial districts to retail environments and large-scale events, Riot Color India delivers LED display solutions engineered to command attention and support high-impact brand communication.</p>
+      <a class="btn btn-ghost" href="#solutions" style="margin-top:8px;">See how it works</a>
+    </div>
+    <div class="intro-media">
+      <img src="https://images.unsplash.com/photo-1758448721149-aa0ce8e1b2c9?auto=format&fit=crop&w=1400&q=80" alt="Modern building lobby with digital displays">
+    </div>
+  </div>
+</section>
+
+<!-- SOLUTIONS -->
+<section id="solutions">
+  <div class="wrap">
+    <div class="section-head reveal">
+      <h2>LED solutions for every high-impact environment.</h2>
+      <p class="muted" style="max-width:360px; font-size:14.5px;">Six display formats, one execution team — from creative and fabrication through installation and long-term upkeep.</p>
+    </div>
+    <div class="card-grid">
+
+      <div class="prod-card reveal">
+        <div class="prod-media"><img src="https://images.unsplash.com/photo-1761897526071-5e29319b4751?auto=format&fit=crop&w=900&q=75" alt="Highway at night with illuminated signage and light trails"></div>
+        <div class="prod-body">
+          <h3>LED Hoardings</h3>
+          <p>High-brightness outdoor displays engineered for maximum visibility across roads, commercial zones and high-traffic locations.</p>
+          <div class="tags"><span>Outdoor</span><span>High Brightness</span><span>Programmable</span></div>
+          <a class="card-arrow" href="#quote">Enquire <svg viewBox="0 0 24 24" fill="none"><path d="M5 12h14M13 6l6 6-6 6" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg></a>
+        </div>
+      </div>
+
+      <div class="prod-card reveal">
+        <div class="prod-media"><img src="https://images.unsplash.com/photo-1774876237646-31f1bd165dcb?auto=format&fit=crop&w=900&q=75" alt="Digital billboards illuminating a city street at night"></div>
+        <div class="prod-body">
+          <h3>Digital Billboards</h3>
+          <p>Full-motion, content-managed billboards built for dynamic, multi-campaign outdoor advertising at scale.</p>
+          <div class="tags"><span>Full Motion</span><span>Remote CMS</span><span>Weatherproof</span></div>
+          <a class="card-arrow" href="#quote">Enquire <svg viewBox="0 0 24 24" fill="none"><path d="M5 12h14M13 6l6 6-6 6" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg></a>
+        </div>
+      </div>
+
+      <div class="prod-card reveal">
+        <div class="prod-media"><img src="https://images.unsplash.com/photo-1758448721149-aa0ce8e1b2c9?auto=format&fit=crop&w=900&q=75" alt="Modern lobby with digital display panels"></div>
+        <div class="prod-body">
+          <h3>Digital Hoardings</h3>
+          <p>Modular digital hoarding formats for facades, entrances and street-level frontage requiring precise, targeted messaging.</p>
+          <div class="tags"><span>Modular</span><span>Facade-Ready</span><span>Scheduled Content</span></div>
+          <a class="card-arrow" href="https://www.riotcolor.in/products/led-sign-board/">Enquire <svg viewBox="0 0 24 24" fill="none"><path d="M5 12h14M13 6l6 6-6 6" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg></a>
+        </div>
+      </div>
+
+      <div class="prod-card reveal">
+        <div class="prod-media"><img src="https://images.unsplash.com/photo-1757476622917-831efd8f3418?auto=format&fit=crop&w=900&q=75" alt="Multi-level shopping mall atrium with escalators"></div>
+        <div class="prod-body">
+          <h3>LED Video Walls</h3>
+          <p>Seamless fine-pitch video wall installations for lobbies, control rooms, stages and premium indoor environments.</p>
+          <div class="tags"><span>Fine Pitch</span><span>Seamless Tiling</span><span>Indoor / Semi-Outdoor</span></div>
+          <a class="card-arrow" href="#quote">Enquire <svg viewBox="0 0 24 24" fill="none"><path d="M5 12h14M13 6l6 6-6 6" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg></a>
+        </div>
+      </div>
+
+      <div class="prod-card reveal">
+        <div class="prod-media"><img src="https://images.unsplash.com/photo-1757476622917-831efd8f3418?auto=format&fit=crop&w=900&q=75&sat=-20" alt="Retail interior with digital display screens"></div>
+        <div class="prod-body">
+          <h3>Indoor LED Screens</h3>
+          <p>Retail, lobby and event-ready indoor LED screens balancing pixel density, brightness and close-viewing clarity.</p>
+          <div class="tags"><span>Retail</span><span>Close Viewing</span><span>Custom Sizing</span></div>
+          <a class="card-arrow" href="#quote">Enquire <svg viewBox="0 0 24 24" fill="none"><path d="M5 12h14M13 6l6 6-6 6" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg></a>
+        </div>
+      </div>
+
+      <div class="prod-card reveal">
+        <div class="prod-media"><img src="https://images.unsplash.com/photo-1761897526071-5e29319b4751?auto=format&fit=crop&w=900&q=75&sat=-10" alt="Illuminated signage along a night street"></div>
+        <div class="prod-body">
+          <h3>Glow & Backlit Signage</h3>
+          <p>Acrylic and LED backlit signage for storefronts and entrances — engineered for 24-hour brand visibility.</p>
+          <div class="tags"><span>24/7 Illumination</span><span>Custom Shapes</span><span>Energy Efficient</span></div>
+          <a class="card-arrow" href="https://www.riotcolor.in/products/glow-sign-board/">Enquire <svg viewBox="0 0 24 24" fill="none"><path d="M5 12h14M13 6l6 6-6 6" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg></a>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<!-- TECHNICAL / PIXEL PITCH -->
+<section id="technical">
+  <div class="wrap">
+    <div class="section-head reveal">
+      <h2>Performance behind every pixel.</h2>
+      <p class="muted" style="max-width:360px; font-size:14.5px;">Pixel pitch is the core decision in any LED display — it determines clarity, brightness and ideal viewing distance.</p>
+    </div>
+    <div class="pitch-panel reveal">
+      <div class="pitch-viz"><canvas id="pitchCanvas"></canvas></div>
+      <div class="pitch-controls">
+        <label>Pixel pitch — <span id="pitchVal">P6</span> mm</label>
+        <input type="range" id="pitchSlider" min="2" max="10" step="1" value="6">
+        <div class="pitch-readout">
+          <div class="stat"><div class="k" id="viewDist">6–12 m</div><div class="l">Recommended viewing distance</div></div>
+          <div class="stat"><div class="k" id="useCase">Roadside</div><div class="l">Typical use case</div></div>
+          <div class="stat"><div class="k">4,500–7,000 nits</div><div class="l">Outdoor brightness range</div></div>
+          <div class="stat"><div class="k">IP65</div><div class="l">Outdoor weather protection</div></div>
+        </div>
+        <p class="note">Sample specification ranges shown for illustration — final pixel pitch, brightness and protection rating are confirmed per project during site survey and engineering.</p>
+      </div>
+    </div>
+
+    <div class="process-row" style="margin-top:60px;">
+      <div class="proc-step reveal"><div class="num">01</div><h4>Pixel Pitch</h4><p>Right pixel density for viewing distance and content detail.</p></div>
+      <div class="proc-step reveal"><div class="num">02</div><h4>Brightness</h4><p>Calibrated for visibility in demanding outdoor lighting conditions.</p></div>
+      <div class="proc-step reveal"><div class="num">03</div><h4>Weather Protection</h4><p>Outdoor-rated construction built for India's environmental range.</p></div>
+      <div class="proc-step reveal"><div class="num">04</div><h4>Remote CMS</h4><p>Manage and schedule content remotely from a central dashboard.</p></div>
+      <div class="proc-step reveal"><div class="num">05</div><h4>Maintenance & AMC</h4><p>Ongoing support plans designed to protect display performance.</p></div>
+      <div class="proc-step reveal"><div class="num">06</div><h4>Installation</h4><p>Structural, electrical and safety-compliant on-site execution.</p></div>
+    </div>
+  </div>
+</section>
+
+<!-- INDUSTRIES -->
+<section id="industries">
+  <div class="wrap">
+    <div class="section-head reveal">
+      <h2>Where digital visibility creates impact.</h2>
+    </div>
+  </div>
+  <div class="wrap">
+    <div class="ind-row reveal">
+      <div class="ind-card">
+        <div class="ind-media"><img src="https://images.unsplash.com/photo-1757476622917-831efd8f3418?auto=format&fit=crop&w=700&q=75" alt="Modern shopping mall atrium"></div>
+        <div class="ind-body"><div class="n">01 / Retail</div><h3>Retail & Malls</h3><p>Turn entrances, atriums and high-traffic zones into high-impact digital brand experiences.</p><a class="card-arrow" href="https://www.riotcolor.in/industries/hospitality-tourism/">Explore →</a></div>
+      </div>
+      <div class="ind-card">
+        <div class="ind-media"><img src="https://images.unsplash.com/photo-1758448721149-aa0ce8e1b2c9?auto=format&fit=crop&w=700&q=75" alt="Corporate building lobby"></div>
+        <div class="ind-body"><div class="n">02 / Corporate</div><h3>Corporate & Offices</h3><p>Lobby video walls and campus displays that reinforce brand identity for employees and visitors.</p><a class="card-arrow" href="https://www.riotcolor.in/industries/corporate-office-solutions/">Explore →</a></div>
+      </div>
+      <div class="ind-card">
+        <div class="ind-media"><img src="https://images.unsplash.com/photo-1774876237646-31f1bd165dcb?auto=format&fit=crop&w=700&q=75" alt="City street with illuminated displays at night"></div>
+        <div class="ind-body"><div class="n">03 / Events</div><h3>Events & Exhibitions</h3><p>Rental-ready LED walls and hoardings built for stages, booths and short-run activations.</p><a class="card-arrow" href="https://www.riotcolor.in/industries/events-exhibitions-tradeshows/">Explore →</a></div>
+      </div>
+      <div class="ind-card">
+        <div class="ind-media"><img src="https://images.unsplash.com/photo-1761897526071-5e29319b4751?auto=format&fit=crop&w=700&q=75" alt="Night road with light trails"></div>
+        <div class="ind-body"><div class="n">04 / Healthcare</div><h3>Healthcare</h3><p>Wayfinding and information displays engineered for clarity in high-footfall clinical environments.</p><a class="card-arrow" href="https://www.riotcolor.in/industries/healthcare-pharmaceuticals/">Explore →</a></div>
+      </div>
+      <div class="ind-card">
+        <div class="ind-media"><img src="https://images.unsplash.com/photo-1757476622917-831efd8f3418?auto=format&fit=crop&w=700&q=75&sat=-15" alt="Institutional building interior"></div>
+        <div class="ind-body"><div class="n">05 / Education</div><h3>Education</h3><p>Campus signage and digital notice systems for institutions communicating at scale.</p><a class="card-arrow" href="https://www.riotcolor.in/industries/education-institutions/">Explore →</a></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- PROCESS -->
+<section id="process">
+  <div class="wrap">
+    <div class="section-head reveal">
+      <h2>From concept to live display.</h2>
+    </div>
+    <div class="process-row">
+      <div class="proc-step reveal"><div class="num">01</div><h4>Consultation</h4><p>Understand your location, audience and campaign goals.</p></div>
+      <div class="proc-step reveal"><div class="num">02</div><h4>Site Survey</h4><p>On-ground assessment of structure, power and visibility.</p></div>
+      <div class="proc-step reveal"><div class="num">03</div><h4>Design & Engineering</h4><p>Display sizing, pixel pitch and structural planning.</p></div>
+      <div class="proc-step reveal"><div class="num">04</div><h4>Production</h4><p>In-house fabrication and quality-checked assembly.</p></div>
+      <div class="proc-step reveal"><div class="num">05</div><h4>Installation</h4><p>Safety-compliant on-site installation and commissioning.</p></div>
+      <div class="proc-step reveal"><div class="num">06</div><h4>Support & AMC</h4><p>Ongoing maintenance to protect long-term performance.</p></div>
+    </div>
+  </div>
+</section>
+
+<!-- TRUST WALL -->
+<section>
+  <div class="wrap">
+    <div class="section-head reveal">
+      <h2>Built for brands that think at scale.</h2>
+      <p class="muted" style="max-width:360px; font-size:14.5px;">A selection of organizations Riot Color India has partnered with across large-format branding and signage projects.</p>
+    </div>
+    <div class="trustwall-grid reveal">
+      <div class="c">TCS</div><div class="c">IBM</div><div class="c">Cisco</div><div class="c">Bosch</div>
+      <div class="c">Flipkart</div><div class="c">Honeywell</div><div class="c">CBRE</div><div class="c">Walmart</div>
+      <div class="c">Union Bank</div><div class="c">Cognizant</div><div class="c">Hyundai Glovis</div><div class="c">Manipal University</div>
+    </div>
+  </div>
+</section>
+
+<!-- FAQ -->
+<section id="faq">
+  <div class="wrap" style="max-width:900px;">
+    <div class="section-head reveal" style="margin-bottom:20px;">
+      <h2>Frequently asked questions.</h2>
+    </div>
+    <div class="reveal">
+      <div class="faq-item open">
+        <div class="faq-q"><h4>What is an LED hoarding?</h4><div class="plus"></div></div>
+        <div class="faq-a"><p>An LED hoarding is an outdoor advertising structure that uses LED modules instead of printed vinyl or flex to display content. It allows dynamic, updatable creative rather than a single static design.</p></div>
+      </div>
+      <div class="faq-item">
+        <div class="faq-q"><h4>What's the difference between an LED hoarding and a digital billboard?</h4><div class="plus"></div></div>
+        <div class="faq-a"><p>The terms are often used interchangeably. In practice, "digital billboard" more often refers to full-motion, content-managed displays running multiple rotating campaigns, while "LED hoarding" can refer to any LED-based outdoor structure, static or dynamic.</p></div>
+      </div>
+      <div class="faq-item">
+        <div class="faq-q"><h4>How much does an LED hoarding cost in India?</h4><div class="plus"></div></div>
+        <div class="faq-a"><p>Cost depends on display size, pixel pitch, structure type, location and ongoing content/AMC requirements. We recommend a site survey and consultation to provide an accurate project estimate rather than a generic figure.</p></div>
+      </div>
+      <div class="faq-item">
+        <div class="faq-q"><h4>What pixel pitch should I choose?</h4><div class="plus"></div></div>
+        <div class="faq-a"><p>Pixel pitch should match expected viewing distance — wider pitch for highway and long-distance viewing, finer pitch for close-range indoor or retail displays. Our team helps select the right pitch during design.</p></div>
+      </div>
+      <div class="faq-item">
+        <div class="faq-q"><h4>Can LED billboards be controlled remotely?</h4><div class="plus"></div></div>
+        <div class="faq-a"><p>Yes. Most digital billboards use a centralized content management system, allowing creative to be scheduled, updated or swapped remotely without physical reprinting.</p></div>
+      </div>
+      <div class="faq-item">
+        <div class="faq-q"><h4>Are outdoor LED displays weather resistant?</h4><div class="plus"></div></div>
+        <div class="faq-a"><p>Outdoor LED hoardings are built with weatherproof enclosures rated for rain, heat and dust exposure. Protection ratings and build specifications are confirmed per project and location.</p></div>
+      </div>
+      <div class="faq-item">
+        <div class="faq-q"><h4>Do you provide installation and AMC?</h4><div class="plus"></div></div>
+        <div class="faq-a"><p>Yes — Riot Color India offers end-to-end service from design and production through installation, with ongoing Annual Maintenance Contract (AMC) options for long-term display upkeep.</p></div>
+      </div>
+      <div class="faq-item">
+        <div class="faq-q"><h4>Can LED displays be rented for events?</h4><div class="plus"></div></div>
+        <div class="faq-a"><p>Yes. Modular LED wall rentals are available for exhibitions, trade shows and short-duration activations, in addition to permanent hoarding and billboard installations.</p></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- FINAL CTA -->
+<section id="quote">
+  <div class="wrap">
+    <div class="final-cta reveal">
+      <div class="fc-bg"><img src="https://images.unsplash.com/photo-1774876237646-31f1bd165dcb?auto=format&fit=crop&w=1800&q=80" alt="City street with illuminated LED billboards at night"></div>
+      <div class="eyebrow on-dark">Let's Plan Your Project</div>
+      <h2>Ready to put your brand on the big screen?</h2>
+      <p>Tell us about your location, display requirements and campaign goals — our team will help you plan the right LED hoarding or digital billboard solution.</p>
+      <div class="hero-ctas">
+        <a class="btn btn-on-dark" href="tel:9830809000">Get a Project Quote</a>
+        <a class="btn btn-ghost-dark" href="mailto:support@riotcolor.in">Request a Site Survey</a>
+      </div>
+      <div class="contact-row">
+        <a href="https://wa.me/9830809000?text=Hello%2C%20I%27m%20interested%20in%20LED%20hoarding%2Fdigital%20billboard%20solutions.">WhatsApp: +91 98308 09000</a>
+        <a href="tel:9830809000">Call: 9830 80 9000</a>
+        <a href="mailto:support@riotcolor.in">support@riotcolor.in</a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <div class="wrap">
+    <div class="foot-grid">
+      <div>
+        <a href="#" class="logo">RIOT COLOR <span>INDIA</span></a>
+        <p class="muted" style="font-size:13.5px; line-height:1.6; margin-top:16px; max-width:260px;">Large-format printing, signage and LED display solutions for brands across India.</p>
+      </div>
+      <div>
+        <h5>Products</h5>
+        <a href="#solutions">LED Hoardings</a>
+        <a href="#solutions">Digital Billboards</a>
+        <a href="https://www.riotcolor.in/products/led-sign-board/">LED Sign Boards</a>
+        <a href="#solutions">LED Video Walls</a>
+        <a href="https://www.riotcolor.in/products/glow-sign-board/">Glow Signage</a>
+      </div>
+      <div>
+        <h5>Industries</h5>
+        <a href="https://www.riotcolor.in/industries/corporate-office-solutions/">Corporate</a>
+        <a href="https://www.riotcolor.in/industries/hospitality-tourism/">Hospitality</a>
+        <a href="https://www.riotcolor.in/industries/healthcare-pharmaceuticals/">Healthcare</a>
+        <a href="https://www.riotcolor.in/industries/education-institutions/">Education</a>
+        <a href="https://www.riotcolor.in/industries/events-exhibitions-tradeshows/">Events & Trade Shows</a>
+      </div>
+      <div>
+        <h5>Services</h5>
+        <a href="#process">Installation</a>
+        <a href="#process">AMC & Maintenance</a>
+        <a href="#technical">Content Management</a>
+        <a href="https://www.riotcolor.in/signage-repair-services/">Signage Repair</a>
+      </div>
+      <div>
+        <h5>Company</h5>
+        <a href="https://www.riotcolor.in/about-us/">About</a>
+        <a href="https://www.riotcolor.in/case-studies/">Case Studies</a>
+        <a href="https://www.riotcolor.in/gallery/">Gallery</a>
+        <a href="https://www.riotcolor.in/blogs/">Blog</a>
+        <a href="https://www.riotcolor.in/contact-us/">Contact</a>
+      </div>
+    </div>
+    <div class="foot-bottom">
+      <p>Riot is a business unit of ARC Document Solutions. © 2026 ARC Document Solutions, LLC. All rights reserved. ISO/IEC 27001:2022 Certified & SOC 2 Compliant. · <a href="https://www.riotcolor.in/privacy-policy/" style="text-decoration:underline;">Privacy Policy</a> · <a href="https://www.riotcolor.in/terms-and-conditions/" style="text-decoration:underline;">Terms</a></p>
+      <div class="foot-social">
+        <a href="https://www.facebook.com/RiotColorIndia/" aria-label="Facebook">FB</a>
+        <a href="https://www.instagram.com/riotcolorindia/" aria-label="Instagram">IG</a>
+        <a href="https://www.linkedin.com/company/riot-color-india/" aria-label="LinkedIn">LI</a>
+        <a href="https://x.com/Riotcolorindia" aria-label="X">X</a>
+      </div>
+    </div>
+  </div>
+</footer>
+
+<div class="stickycta">
+  <a class="call" href="tel:9830809000">Get Quote</a>
+  <a class="wa" href="https://wa.me/9830809000">WhatsApp</a>
+</div>
+
+<script>
+// header solid on scroll
+const header = document.getElementById('siteHeader');
+window.addEventListener('scroll', ()=>{ header.classList.toggle('solid', window.scrollY > 40); });
+
+// mobile menu
+const hamburgerBtn = document.getElementById('hamburgerBtn');
+const mobileMenu = document.getElementById('mobileMenu');
+const mobileClose = document.getElementById('mobileClose');
+hamburgerBtn.addEventListener('click', ()=> mobileMenu.classList.add('open'));
+mobileClose.addEventListener('click', ()=> mobileMenu.classList.remove('open'));
+mobileMenu.querySelectorAll('a').forEach(a=> a.addEventListener('click', ()=> mobileMenu.classList.remove('open')));
+
+// scroll reveal
+const revealEls = document.querySelectorAll('.reveal');
+const io = new IntersectionObserver((entries)=>{
+  entries.forEach(e=>{ if(e.isIntersecting){ e.target.classList.add('in'); io.unobserve(e.target); } });
+},{threshold:0.12});
+revealEls.forEach(el=> io.observe(el));
+
+// FAQ accordion
+document.querySelectorAll('.faq-item').forEach(item=>{
+  const q = item.querySelector('.faq-q');
+  const a = item.querySelector('.faq-a');
+  if(item.classList.contains('open')){ a.style.maxHeight = a.scrollHeight + 'px'; }
+  q.addEventListener('click', ()=>{
+    const isOpen = item.classList.contains('open');
+    document.querySelectorAll('.faq-item').forEach(i=>{ i.classList.remove('open'); i.querySelector('.faq-a').style.maxHeight = 0; });
+    if(!isOpen){ item.classList.add('open'); a.style.maxHeight = a.scrollHeight + 'px'; }
+  });
+});
+
+// pixel pitch interactive tool
+const pitchSlider = document.getElementById('pitchSlider');
+const pitchVal = document.getElementById('pitchVal');
+const viewDist = document.getElementById('viewDist');
+const useCase = document.getElementById('useCase');
+const pitchCanvas = document.getElementById('pitchCanvas');
+const pctx = pitchCanvas ? pitchCanvas.getContext('2d') : null;
+
+const pitchData = {
+  2: {dist:'2–4 m', use:'Indoor / Retail'},
+  3: {dist:'3–6 m', use:'Lobby / Indoor Wall'},
+  4: {dist:'4–8 m', use:'Storefront'},
+  5: {dist:'5–10 m', use:'Facade Display'},
+  6: {dist:'6–12 m', use:'Roadside'},
+  7: {dist:'8–15 m', use:'Commercial Zone'},
+  8: {dist:'10–18 m', use:'Highway Adjacent'},
+  9: {dist:'12–22 m', use:'Highway'},
+  10:{dist:'15–25 m', use:'Long-Distance Highway'}
+};
+
+function resizePitchCanvas(){
+  if(!pitchCanvas) return;
+  pitchCanvas.width = pitchCanvas.offsetWidth;
+  pitchCanvas.height = pitchCanvas.offsetHeight;
+  drawPitch(parseInt(pitchSlider.value));
+}
+
+function drawPitch(pitch){
+  if(!pctx) return;
+  const w = pitchCanvas.width, h = pitchCanvas.height;
+  pctx.clearRect(0,0,w,h);
+  pctx.fillStyle = '#000';
+  pctx.fillRect(0,0,w,h);
+  const cell = Math.max(6, pitch*3.6);
+  const cols = Math.ceil(w/cell), rows = Math.ceil(h/cell);
+  for(let r=0;r<rows;r++){
+    for(let c=0;c<cols;c++){
+      const seed = Math.sin(c*12.9898 + r*78.233 + pitch) * 43758.5453;
+      const rnd = seed - Math.floor(seed);
+      const on = rnd > 0.55;
+      pctx.fillStyle = on ? (rnd>0.8 ? 'rgba(127,227,245,0.9)' : 'rgba(124,58,237,0.6)') : 'rgba(255,255,255,0.05)';
+      pctx.fillRect(c*cell + cell*0.12, r*cell + cell*0.12, cell*0.76, cell*0.76);
+    }
+  }
+}
+
+if(pitchSlider){
+  pitchSlider.addEventListener('input', (e)=>{
+    const v = parseInt(e.target.value);
+    pitchVal.textContent = 'P' + v;
+    viewDist.textContent = pitchData[v].dist;
+    useCase.textContent = pitchData[v].use;
+    drawPitch(v);
+  });
+  window.addEventListener('resize', resizePitchCanvas);
+  setTimeout(resizePitchCanvas, 100);
+}
+</script>
+</body>
+</html>
