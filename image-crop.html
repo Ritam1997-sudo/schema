@@ -233,22 +233,6 @@
   }
   .grid-head .count{ color: var(--paper-dim); font-weight:400; }
 
-  .bulk-rename{
-    display:flex; gap:8px; align-items:center; margin-bottom: 18px;
-  }
-  .bulk-rename input{ flex:1; }
-  .bulk-rename button{
-    background: var(--panel-2);
-    border: 1px solid var(--line);
-    color: var(--paper-dim);
-    padding: 9px 12px;
-    border-radius: var(--radius);
-    font-size: 13px;
-    cursor:pointer;
-    white-space:nowrap;
-  }
-  .bulk-rename button:hover{ color:var(--paper); border-color:var(--amber-dim); }
-
   .grid{
     display:grid;
     grid-template-columns: repeat(auto-fill, minmax(210px, 1fr));
@@ -290,6 +274,12 @@
     color: var(--paper-dim);
     margin-bottom: 7px;
     display:flex; justify-content:space-between;
+  }
+  .rename-label{
+    font-size: 10px;
+    text-transform: none;
+    color: var(--paper-dim);
+    margin-bottom: 5px;
   }
   .rename-row{
     display:flex; align-items:center;
@@ -438,10 +428,7 @@
       <h2>Files <span class="count" id="gridCount"></span></h2>
     </div>
 
-    <div class="bulk-rename" id="bulkRenameRow" style="display:none;">
-      <input type="text" id="bulkPattern" placeholder="Rename all — e.g. holiday-photo-{n}  (use {n} for the number)">
-      <button id="bulkApply">Apply to all</button>
-    </div>
+    <p class="hint" id="renameHint" style="display:none; margin: -6px 0 18px;">Type a new name in each box below to rename that file — every image keeps its own name, nothing is applied to the others.</p>
 
     <div class="grid" id="grid"></div>
     <p class="empty-state" id="emptyState">No images yet — drop some above to get started.</p>
@@ -467,7 +454,7 @@
   const grid = el('grid');
   const emptyState = el('emptyState');
   const gridCount = el('gridCount');
-  const bulkRenameRow = el('bulkRenameRow');
+  const renameHint = el('renameHint');
   const statsField = el('statsField');
   const statCount = el('statCount');
   const downloadBtn = el('downloadBtn');
@@ -598,14 +585,14 @@
     grid.innerHTML = '';
     if(items.length===0){
       emptyState.style.display = 'block';
-      bulkRenameRow.style.display = 'none';
+      renameHint.style.display = 'none';
       statsField.style.display = 'none';
       downloadBtn.disabled = true;
       gridCount.textContent = '';
       return;
     }
     emptyState.style.display = 'none';
-    bulkRenameRow.style.display = 'flex';
+    renameHint.style.display = 'block';
     statsField.style.display = 'block';
     downloadBtn.disabled = false;
     gridCount.textContent = '(' + items.length + ')';
@@ -638,6 +625,10 @@
       dims.className = 'dims';
       dims.innerHTML = `<span>${item.width}×${item.height}</span><span>${(item.file.size/1024).toFixed(0)} KB</span>`;
 
+      const renameLabel = document.createElement('div');
+      renameLabel.className = 'rename-label';
+      renameLabel.textContent = 'File name';
+
       const renameRow = document.createElement('div');
       renameRow.className = 'rename-row';
       const input = document.createElement('input');
@@ -653,6 +644,7 @@
       renameRow.appendChild(extSpan);
 
       body.appendChild(dims);
+      body.appendChild(renameLabel);
       body.appendChild(renameRow);
 
       card.appendChild(thumbWrap);
@@ -670,17 +662,6 @@
       if(item._extSpan) item._extSpan.textContent = '.' + currentExt(item);
     });
   }
-
-  // ---------- bulk rename ----------
-  el('bulkApply').addEventListener('click', ()=>{
-    const pattern = el('bulkPattern').value.trim();
-    if(!pattern){ toast('Enter a rename pattern first'); return; }
-    items.forEach((item, idx)=>{
-      const n = String(idx+1).padStart(String(items.length).length, '0');
-      item.name = pattern.includes('{n}') ? pattern.replace(/{n}/g, n) : (pattern + '-' + n);
-    });
-    renderGrid();
-  });
 
   // ---------- dims preview helper ----------
   function refreshDims(){
