@@ -1,0 +1,796 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Batch — resize &amp; rename images</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=Manrope:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --bg: #14110F;
+    --panel: #1C1815;
+    --panel-2: #221D19;
+    --line: #38312B;
+    --paper: #F2ECE2;
+    --paper-dim: #B9AE9C;
+    --amber: #E8912D;
+    --amber-dim: #8A5D22;
+    --ok: #7FA876;
+    --err: #C06555;
+    --radius: 3px;
+  }
+  *{box-sizing:border-box;}
+  html,body{margin:0;padding:0;}
+  body{
+    background: var(--bg);
+    color: var(--paper);
+    font-family: 'Manrope', sans-serif;
+    min-height:100vh;
+    background-image:
+      radial-gradient(circle at 1px 1px, rgba(232,145,45,0.05) 1px, transparent 0);
+    background-size: 22px 22px;
+  }
+  ::selection{ background: var(--amber-dim); color: var(--paper); }
+
+  header{
+    padding: 40px 32px 24px;
+    border-bottom: 1px solid var(--line);
+  }
+  header .mark{
+    display:flex; align-items:baseline; gap:14px;
+  }
+  header h1{
+    font-family: 'Space Grotesk', sans-serif;
+    font-weight: 700;
+    font-size: 30px;
+    margin: 0;
+    letter-spacing: -0.01em;
+  }
+  header h1 span{ color: var(--amber); }
+  header p{
+    margin: 10px 0 0;
+    color: var(--paper-dim);
+    font-size: 15px;
+    max-width: 560px;
+    line-height: 1.5;
+  }
+
+  .layout{
+    display:grid;
+    grid-template-columns: 340px 1fr;
+    gap: 0;
+    min-height: calc(100vh - 130px);
+  }
+  @media (max-width: 860px){
+    .layout{ grid-template-columns: 1fr; }
+  }
+
+  .controls{
+    border-right: 1px solid var(--line);
+    padding: 28px 24px 60px;
+  }
+  .field{ margin-bottom: 26px; }
+  .field label.title{
+    display:block;
+    font-size: 13px;
+    color: var(--paper);
+    font-weight: 600;
+    margin-bottom: 10px;
+  }
+  .field .hint{
+    font-size: 12px;
+    color: var(--paper-dim);
+    margin-top: 6px;
+    line-height:1.4;
+  }
+
+  .row{ display:flex; gap:10px; }
+  .row > *{ flex:1; }
+
+  input[type=number], input[type=text], select{
+    width:100%;
+    background: var(--panel-2);
+    border: 1px solid var(--line);
+    color: var(--paper);
+    padding: 9px 10px;
+    border-radius: var(--radius);
+    font-family: 'Manrope', sans-serif;
+    font-size: 14px;
+    outline: none;
+  }
+  input[type=number]:focus, input[type=text]:focus, select:focus{
+    border-color: var(--amber);
+  }
+  input::placeholder{ color: #6b6157; }
+
+  .toggle-group{
+    display:flex;
+    border: 1px solid var(--line);
+    border-radius: var(--radius);
+    overflow:hidden;
+  }
+  .toggle-group button{
+    flex:1;
+    background: var(--panel-2);
+    color: var(--paper-dim);
+    border: none;
+    padding: 9px 6px;
+    font-size: 13px;
+    font-family: 'Manrope', sans-serif;
+    cursor:pointer;
+    border-right: 1px solid var(--line);
+  }
+  .toggle-group button:last-child{ border-right:none; }
+  .toggle-group button.active{
+    background: var(--amber-dim);
+    color: var(--paper);
+  }
+
+  .checkline{
+    display:flex; align-items:center; gap:9px;
+    font-size: 14px;
+    color: var(--paper);
+    cursor:pointer;
+    user-select:none;
+  }
+  .checkline input{ accent-color: var(--amber); width:15px; height:15px; }
+
+  input[type=range]{
+    width:100%;
+    accent-color: var(--amber);
+  }
+  .range-val{
+    font-size: 12px;
+    color: var(--paper-dim);
+    display:flex;
+    justify-content:space-between;
+    margin-top:4px;
+  }
+
+  .divider{
+    border:none; border-top:1px solid var(--line);
+    margin: 26px 0;
+  }
+
+  .stat-line{
+    font-size: 12px;
+    color: var(--paper-dim);
+    display:flex; justify-content:space-between;
+    padding: 3px 0;
+  }
+  .stat-line b{ color: var(--paper); font-weight:600; }
+
+  button.primary{
+    width:100%;
+    background: var(--amber);
+    color: #1B1400;
+    border: none;
+    padding: 13px 14px;
+    font-weight: 700;
+    font-size: 14px;
+    border-radius: var(--radius);
+    cursor:pointer;
+    font-family: 'Space Grotesk', sans-serif;
+    letter-spacing: 0.01em;
+  }
+  button.primary:disabled{
+    background: #4a4137;
+    color: #8a8072;
+    cursor:not-allowed;
+  }
+  button.ghost{
+    width:100%;
+    background:transparent;
+    color: var(--paper-dim);
+    border: 1px solid var(--line);
+    padding: 10px 14px;
+    font-size: 13px;
+    border-radius: var(--radius);
+    cursor:pointer;
+    font-family: 'Manrope', sans-serif;
+    margin-top: 10px;
+  }
+  button.ghost:hover{ color: var(--paper); border-color: var(--paper-dim); }
+
+  main{
+    padding: 28px 32px 60px;
+  }
+
+  .dropzone{
+    border: 1.5px dashed var(--line);
+    border-radius: var(--radius);
+    padding: 46px 20px;
+    text-align:center;
+    cursor:pointer;
+    transition: border-color .15s ease, background .15s ease;
+  }
+  .dropzone.drag{
+    border-color: var(--amber);
+    background: rgba(232,145,45,0.06);
+  }
+  .dropzone .big{
+    font-family: 'Space Grotesk', sans-serif;
+    font-size: 17px;
+    color: var(--paper);
+    margin-bottom: 6px;
+  }
+  .dropzone .small{
+    font-size: 13px;
+    color: var(--paper-dim);
+  }
+  .dropzone input{ display:none; }
+
+  .grid-head{
+    display:flex; align-items:center; justify-content:space-between;
+    margin: 30px 0 14px;
+  }
+  .grid-head h2{
+    font-family:'Space Grotesk', sans-serif;
+    font-size: 16px;
+    margin:0;
+    color: var(--paper);
+  }
+  .grid-head .count{ color: var(--paper-dim); font-weight:400; }
+
+  .bulk-rename{
+    display:flex; gap:8px; align-items:center; margin-bottom: 18px;
+  }
+  .bulk-rename input{ flex:1; }
+  .bulk-rename button{
+    background: var(--panel-2);
+    border: 1px solid var(--line);
+    color: var(--paper-dim);
+    padding: 9px 12px;
+    border-radius: var(--radius);
+    font-size: 13px;
+    cursor:pointer;
+    white-space:nowrap;
+  }
+  .bulk-rename button:hover{ color:var(--paper); border-color:var(--amber-dim); }
+
+  .grid{
+    display:grid;
+    grid-template-columns: repeat(auto-fill, minmax(210px, 1fr));
+    gap: 16px;
+  }
+  .card{
+    background: var(--panel);
+    border: 1px solid var(--line);
+    border-radius: var(--radius);
+    overflow:hidden;
+  }
+  .thumb-wrap{
+    aspect-ratio: 4/3;
+    background:
+      repeating-conic-gradient(#221D19 0% 25%, #1C1815 0% 50%) 50% / 16px 16px;
+    display:flex; align-items:center; justify-content:center;
+    overflow:hidden;
+    position:relative;
+  }
+  .thumb-wrap img{
+    max-width:100%; max-height:100%; object-fit:contain;
+  }
+  .thumb-wrap .remove{
+    position:absolute; top:6px; right:6px;
+    width:22px; height:22px;
+    background: rgba(20,17,15,0.75);
+    border:1px solid var(--line);
+    color: var(--paper-dim);
+    border-radius: 50%;
+    display:flex; align-items:center; justify-content:center;
+    cursor:pointer;
+    font-size:13px;
+    line-height:1;
+  }
+  .thumb-wrap .remove:hover{ color: var(--err); border-color: var(--err); }
+  .card-body{ padding: 10px 10px 12px; }
+  .card-body .dims{
+    font-size: 11px;
+    color: var(--paper-dim);
+    margin-bottom: 7px;
+    display:flex; justify-content:space-between;
+  }
+  .rename-row{
+    display:flex; align-items:center;
+    border: 1px solid var(--line);
+    border-radius: var(--radius);
+    background: var(--panel-2);
+    overflow:hidden;
+  }
+  .rename-row input{
+    border:none; background:transparent; padding: 7px 7px;
+    font-size: 13px;
+    flex:1; min-width:0;
+  }
+  .rename-row input:focus{ outline:none; }
+  .rename-row .ext{
+    padding: 0 8px;
+    font-size: 12px;
+    color: var(--paper-dim);
+    border-left: 1px solid var(--line);
+    height: 100%;
+    display:flex; align-items:center;
+  }
+
+  .empty-state{
+    text-align:center;
+    color: var(--paper-dim);
+    font-size: 13px;
+    padding: 30px 0 0;
+  }
+
+  footer{
+    text-align:center;
+    color: #55493d;
+    font-size: 12px;
+    padding: 30px 0 40px;
+  }
+  footer a{ color: var(--paper-dim); }
+
+  .toast{
+    position: fixed;
+    bottom: 22px; left: 50%;
+    transform: translateX(-50%) translateY(20px);
+    background: var(--panel);
+    border: 1px solid var(--amber-dim);
+    color: var(--paper);
+    padding: 12px 18px;
+    border-radius: var(--radius);
+    font-size: 13px;
+    opacity:0;
+    transition: opacity .2s ease, transform .2s ease;
+    pointer-events:none;
+    z-index: 50;
+  }
+  .toast.show{
+    opacity:1;
+    transform: translateX(-50%) translateY(0);
+  }
+</style>
+</head>
+<body>
+
+<header>
+  <div class="mark">
+    <h1>Batch<span>.</span></h1>
+  </div>
+  <p>Upload a pile of images, resize them all the same way, rename each one, and pull down a single zip. Nothing leaves your browser — all the work happens on your machine.</p>
+</header>
+
+<div class="layout">
+  <aside class="controls">
+
+    <div class="field">
+      <label class="title">Resize mode</label>
+      <div class="toggle-group" id="modeToggle">
+        <button data-mode="exact" class="active">Exact size</button>
+        <button data-mode="percent">Scale %</button>
+        <button data-mode="longest">Longest edge</button>
+      </div>
+    </div>
+
+    <div id="exactFields" class="field">
+      <label class="title">Dimensions (px)</label>
+      <div class="row">
+        <input type="number" id="widthInput" placeholder="Width" min="1">
+        <input type="number" id="heightInput" placeholder="Height" min="1">
+      </div>
+      <label class="checkline" style="margin-top:10px;">
+        <input type="checkbox" id="lockAspect" checked>
+        Lock aspect ratio
+      </label>
+    </div>
+
+    <div id="percentFields" class="field" style="display:none;">
+      <label class="title">Scale to <span id="percentVal">50%</span> of original</label>
+      <input type="range" id="percentInput" min="1" max="200" value="50">
+    </div>
+
+    <div id="longestFields" class="field" style="display:none;">
+      <label class="title">Longest edge (px)</label>
+      <input type="number" id="longestInput" placeholder="e.g. 1600" min="1" value="1600">
+      <p class="hint">The longer side is set to this value; the shorter side scales to match.</p>
+    </div>
+
+    <label class="checkline" style="margin-bottom:22px;">
+      <input type="checkbox" id="upscaleAllow">
+      Allow upscaling past original size
+    </label>
+
+    <hr class="divider">
+
+    <div class="field">
+      <label class="title">Output format</label>
+      <div class="toggle-group" id="formatToggle">
+        <button data-fmt="original" class="active">Keep original</button>
+        <button data-fmt="image/jpeg">JPG</button>
+        <button data-fmt="image/png">PNG</button>
+        <button data-fmt="image/webp">WEBP</button>
+      </div>
+    </div>
+
+    <div class="field" id="qualityField">
+      <label class="title">Quality — <span id="qualityVal">85%</span></label>
+      <input type="range" id="qualityInput" min="10" max="100" value="85">
+      <p class="hint">Only applies to JPG and WEBP output.</p>
+    </div>
+
+    <hr class="divider">
+
+    <div class="field" id="statsField" style="display:none;">
+      <div class="stat-line"><span>Images loaded</span><b id="statCount">0</b></div>
+      <div class="stat-line"><span>Output size (est.)</span><b id="statSize">—</b></div>
+    </div>
+
+    <button class="primary" id="downloadBtn" disabled>Download zip</button>
+    <button class="ghost" id="clearBtn">Clear all images</button>
+  </aside>
+
+  <main>
+    <div class="dropzone" id="dropzone">
+      <div class="big">Drop images here, or click to browse</div>
+      <div class="small">JPG, PNG, WEBP, GIF — as many as you like</div>
+      <input type="file" id="fileInput" multiple accept="image/*">
+    </div>
+
+    <div class="grid-head">
+      <h2>Files <span class="count" id="gridCount"></span></h2>
+    </div>
+
+    <div class="bulk-rename" id="bulkRenameRow" style="display:none;">
+      <input type="text" id="bulkPattern" placeholder="Rename all — e.g. holiday-photo-{n}  (use {n} for the number)">
+      <button id="bulkApply">Apply to all</button>
+    </div>
+
+    <div class="grid" id="grid"></div>
+    <p class="empty-state" id="emptyState">No images yet — drop some above to get started.</p>
+  </main>
+</div>
+
+<footer>
+  Runs entirely client-side. Resizing uses your browser's canvas; zipping uses JSZip.
+</footer>
+
+<div class="toast" id="toast"></div>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jszip/3.10.1/jszip.min.js"></script>
+<script>
+(function(){
+  "use strict";
+
+  // ---------- state ----------
+  let items = []; // { id, file, img, bitmap, width, height, name, ext }
+  let idCounter = 0;
+
+  const el = (id) => document.getElementById(id);
+  const grid = el('grid');
+  const emptyState = el('emptyState');
+  const gridCount = el('gridCount');
+  const bulkRenameRow = el('bulkRenameRow');
+  const statsField = el('statsField');
+  const statCount = el('statCount');
+  const downloadBtn = el('downloadBtn');
+  const clearBtn = el('clearBtn');
+
+  let mode = 'exact';
+  let format = 'original';
+
+  // ---------- toast ----------
+  let toastTimer;
+  function toast(msg){
+    const t = el('toast');
+    t.textContent = msg;
+    t.classList.add('show');
+    clearTimeout(toastTimer);
+    toastTimer = setTimeout(()=> t.classList.remove('show'), 2600);
+  }
+
+  // ---------- mode toggle ----------
+  el('modeToggle').addEventListener('click', (e)=>{
+    const btn = e.target.closest('button');
+    if(!btn) return;
+    mode = btn.dataset.mode;
+    [...el('modeToggle').children].forEach(b=>b.classList.toggle('active', b===btn));
+    el('exactFields').style.display = mode==='exact' ? 'block':'none';
+    el('percentFields').style.display = mode==='percent' ? 'block':'none';
+    el('longestFields').style.display = mode==='longest' ? 'block':'none';
+    refreshDims();
+  });
+
+  el('formatToggle').addEventListener('click', (e)=>{
+    const btn = e.target.closest('button');
+    if(!btn) return;
+    format = btn.dataset.fmt;
+    [...el('formatToggle').children].forEach(b=>b.classList.toggle('active', b===btn));
+    el('qualityField').style.display = (format==='image/jpeg' || format==='image/webp') ? 'block' : (format==='original' ? 'block' : 'none');
+    updateExtensions();
+  });
+
+  el('percentInput').addEventListener('input', ()=>{
+    el('percentVal').textContent = el('percentInput').value + '%';
+    refreshDims();
+  });
+  el('qualityInput').addEventListener('input', ()=>{
+    el('qualityVal').textContent = el('qualityInput').value + '%';
+  });
+  el('widthInput').addEventListener('input', ()=> onDimInput('w'));
+  el('heightInput').addEventListener('input', ()=> onDimInput('h'));
+  el('longestInput').addEventListener('input', refreshDims);
+  el('upscaleAllow').addEventListener('change', refreshDims);
+
+  function onDimInput(which){
+    if(!el('lockAspect').checked || items.length===0) { refreshDims(); return; }
+    const first = items[0];
+    const ratio = first.width / first.height;
+    if(which==='w'){
+      const w = parseFloat(el('widthInput').value);
+      if(w) el('heightInput').value = Math.round(w/ratio);
+    } else {
+      const h = parseFloat(el('heightInput').value);
+      if(h) el('widthInput').value = Math.round(h*ratio);
+    }
+    refreshDims();
+  }
+
+  // ---------- file intake ----------
+  const dropzone = el('dropzone');
+  const fileInput = el('fileInput');
+
+  dropzone.addEventListener('click', ()=> fileInput.click());
+  fileInput.addEventListener('change', (e)=> handleFiles(e.target.files));
+
+  ['dragenter','dragover'].forEach(evt=>{
+    dropzone.addEventListener(evt, (e)=>{ e.preventDefault(); dropzone.classList.add('drag'); });
+  });
+  ['dragleave','drop'].forEach(evt=>{
+    dropzone.addEventListener(evt, (e)=>{ e.preventDefault(); dropzone.classList.remove('drag'); });
+  });
+  dropzone.addEventListener('drop', (e)=>{
+    if(e.dataTransfer.files && e.dataTransfer.files.length){
+      handleFiles(e.dataTransfer.files);
+    }
+  });
+
+  function extFromMime(mime){
+    if(mime==='image/jpeg') return 'jpg';
+    if(mime==='image/png') return 'png';
+    if(mime==='image/webp') return 'webp';
+    if(mime==='image/gif') return 'gif';
+    return 'jpg';
+  }
+  function baseName(filename){
+    const i = filename.lastIndexOf('.');
+    return i>0 ? filename.slice(0,i) : filename;
+  }
+
+  function handleFiles(fileList){
+    const files = [...fileList].filter(f=> f.type.startsWith('image/'));
+    if(files.length===0) return;
+
+    files.forEach(file=>{
+      const id = ++idCounter;
+      const url = URL.createObjectURL(file);
+      const img = new Image();
+      img.onload = ()=>{
+        const item = {
+          id, file, img, url,
+          width: img.naturalWidth,
+          height: img.naturalHeight,
+          name: baseName(file.name),
+          origExt: extFromMime(file.type),
+          origMime: file.type
+        };
+        items.push(item);
+        if(items.length === files.length && items.length <= files.length){
+          // fine, just render progressively
+        }
+        renderGrid();
+        if(items.length === 1) refreshDims();
+      };
+      img.onerror = ()=>{ toast('Could not read ' + file.name); };
+      img.src = url;
+    });
+  }
+
+  // ---------- rendering ----------
+  function renderGrid(){
+    grid.innerHTML = '';
+    if(items.length===0){
+      emptyState.style.display = 'block';
+      bulkRenameRow.style.display = 'none';
+      statsField.style.display = 'none';
+      downloadBtn.disabled = true;
+      gridCount.textContent = '';
+      return;
+    }
+    emptyState.style.display = 'none';
+    bulkRenameRow.style.display = 'flex';
+    statsField.style.display = 'block';
+    downloadBtn.disabled = false;
+    gridCount.textContent = '(' + items.length + ')';
+    statCount.textContent = items.length;
+
+    items.forEach(item=>{
+      const card = document.createElement('div');
+      card.className = 'card';
+
+      const thumbWrap = document.createElement('div');
+      thumbWrap.className = 'thumb-wrap';
+      const im = document.createElement('img');
+      im.src = item.url;
+      thumbWrap.appendChild(im);
+
+      const remove = document.createElement('div');
+      remove.className = 'remove';
+      remove.textContent = '✕';
+      remove.title = 'Remove';
+      remove.addEventListener('click', ()=>{
+        items = items.filter(i=>i.id!==item.id);
+        renderGrid();
+      });
+      thumbWrap.appendChild(remove);
+
+      const body = document.createElement('div');
+      body.className = 'card-body';
+
+      const dims = document.createElement('div');
+      dims.className = 'dims';
+      dims.innerHTML = `<span>${item.width}×${item.height}</span><span>${(item.file.size/1024).toFixed(0)} KB</span>`;
+
+      const renameRow = document.createElement('div');
+      renameRow.className = 'rename-row';
+      const input = document.createElement('input');
+      input.type = 'text';
+      input.value = item.name;
+      input.addEventListener('input', ()=>{ item.name = input.value; });
+      const extSpan = document.createElement('div');
+      extSpan.className = 'ext';
+      extSpan.textContent = '.' + currentExt(item);
+      item._extSpan = extSpan;
+
+      renameRow.appendChild(input);
+      renameRow.appendChild(extSpan);
+
+      body.appendChild(dims);
+      body.appendChild(renameRow);
+
+      card.appendChild(thumbWrap);
+      card.appendChild(body);
+      grid.appendChild(card);
+    });
+  }
+
+  function currentExt(item){
+    if(format==='original') return item.origExt;
+    return extFromMime(format);
+  }
+  function updateExtensions(){
+    items.forEach(item=>{
+      if(item._extSpan) item._extSpan.textContent = '.' + currentExt(item);
+    });
+  }
+
+  // ---------- bulk rename ----------
+  el('bulkApply').addEventListener('click', ()=>{
+    const pattern = el('bulkPattern').value.trim();
+    if(!pattern){ toast('Enter a rename pattern first'); return; }
+    items.forEach((item, idx)=>{
+      const n = String(idx+1).padStart(String(items.length).length, '0');
+      item.name = pattern.includes('{n}') ? pattern.replace(/{n}/g, n) : (pattern + '-' + n);
+    });
+    renderGrid();
+  });
+
+  // ---------- dims preview helper ----------
+  function refreshDims(){
+    // no-op visual refresh point; kept simple since inputs are direct
+  }
+
+  // ---------- resize computation ----------
+  function computeTargetSize(item){
+    const allowUp = el('upscaleAllow').checked;
+    let tw, th;
+    if(mode==='exact'){
+      tw = parseFloat(el('widthInput').value);
+      th = parseFloat(el('heightInput').value);
+      if(!tw && !th){ tw = item.width; th = item.height; }
+      else if(tw && !th){ th = Math.round(tw * item.height / item.width); }
+      else if(th && !tw){ tw = Math.round(th * item.width / item.height); }
+    } else if(mode==='percent'){
+      const pct = parseFloat(el('percentInput').value) / 100;
+      tw = Math.round(item.width * pct);
+      th = Math.round(item.height * pct);
+    } else if(mode==='longest'){
+      const target = parseFloat(el('longestInput').value) || item.width;
+      if(item.width >= item.height){
+        tw = target;
+        th = Math.round(target * item.height / item.width);
+      } else {
+        th = target;
+        tw = Math.round(target * item.width / item.height);
+      }
+    }
+    tw = Math.max(1, Math.round(tw));
+    th = Math.max(1, Math.round(th));
+    if(!allowUp){
+      if(tw > item.width || th > item.height){
+        const scale = Math.min(item.width/tw, item.height/th);
+        tw = Math.max(1, Math.round(tw*scale));
+        th = Math.max(1, Math.round(th*scale));
+      }
+    }
+    return {width: tw, height: th};
+  }
+
+  function renderToBlob(item){
+    return new Promise((resolve)=>{
+      const {width, height} = computeTargetSize(item);
+      const canvas = document.createElement('canvas');
+      canvas.width = width;
+      canvas.height = height;
+      const ctx = canvas.getContext('2d');
+      const outFmt = format === 'original' ? item.origMime : format;
+      if(outFmt === 'image/jpeg'){
+        ctx.fillStyle = '#FFFFFF';
+        ctx.fillRect(0,0,width,height);
+      }
+      ctx.imageSmoothingEnabled = true;
+      ctx.imageSmoothingQuality = 'high';
+      ctx.drawImage(item.img, 0, 0, width, height);
+      const quality = parseInt(el('qualityInput').value,10)/100;
+      canvas.toBlob((blob)=>{
+        resolve(blob);
+      }, outFmt, (outFmt==='image/jpeg'||outFmt==='image/webp') ? quality : undefined);
+    });
+  }
+
+  // ---------- download zip ----------
+  downloadBtn.addEventListener('click', async ()=>{
+    if(items.length===0) return;
+    downloadBtn.disabled = true;
+    const originalLabel = downloadBtn.textContent;
+    const zip = new JSZip();
+    const usedNames = {};
+
+    for(let i=0;i<items.length;i++){
+      const item = items[i];
+      downloadBtn.textContent = `Processing ${i+1} / ${items.length}…`;
+      const blob = await renderToBlob(item);
+      const ext = currentExt(item);
+      let base = (item.name || item.file.name).trim() || ('image-' + (i+1));
+      base = base.replace(/[\\/:*?"<>|]/g, '-');
+      let filename = base + '.' + ext;
+      if(usedNames[filename] !== undefined){
+        usedNames[filename]++;
+        filename = base + '-' + usedNames[filename] + '.' + ext;
+      } else {
+        usedNames[filename] = 0;
+      }
+      zip.file(filename, blob);
+    }
+
+    downloadBtn.textContent = 'Zipping…';
+    const content = await zip.generateAsync({type:'blob'});
+    const a = document.createElement('a');
+    a.href = URL.createObjectURL(content);
+    a.download = 'resized-images.zip';
+    document.body.appendChild(a);
+    a.click();
+    document.body.removeChild(a);
+
+    downloadBtn.textContent = originalLabel;
+    downloadBtn.disabled = false;
+    toast('Zip downloaded — ' + items.length + ' image' + (items.length>1?'s':''));
+  });
+
+  clearBtn.addEventListener('click', ()=>{
+    items.forEach(i=> URL.revokeObjectURL(i.url));
+    items = [];
+    renderGrid();
+  });
+
+})();
+</script>
+</body>
+</html>
